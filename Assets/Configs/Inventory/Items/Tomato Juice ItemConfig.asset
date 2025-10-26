@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c032c8f0ba2545b1a39b17252b87f56b, type: 3}
+  m_Name: Tomato Juice ItemConfig
+  m_EditorClassIdentifier: 
+  <HandPrefab>k__BackingField: {fileID: 49315969530330646, guid: d401b171ff0eb89468ec4c0138bdd800, type: 3}
+  <ItemName>k__BackingField: Tomato Juice
+  <height>k__BackingField: 0.3
+  <Price>k__BackingField: 1

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf29600a98724efea7cca5403fff2012, type: 3}
+  m_Name: GetItemToCheckout
+  m_EditorClassIdentifier: 
+  <StateName>k__BackingField: State Name
+  Behaviours:
+  - {fileID: 11400000, guid: f4225e6a7889d3448ae33a403618d0c6, type: 2}
+  Transitions:
+  - {fileID: 11400000, guid: 376feb28479ed1a4aaa98bbf5b8b32e9, type: 2}

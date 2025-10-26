@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3abb8eee94c4e1693f9f7a81171387f, type: 3}
+  m_Name: Popups list
+  m_EditorClassIdentifier: 
+  <ShelfPopupHolder>k__BackingField: {fileID: 7650033231036976937, guid: 524765070e4ce0c439c01324496fd890, type: 3}
+  <CheckoutPopupHolder>k__BackingField: {fileID: 7690552092427843491, guid: 3daee4f57371280439efb05f540add98, type: 3}
+  <BuyerPopupHolder>k__BackingField: {fileID: 1374963041371755371, guid: 857d476a586b04f44a4f197d40c85c4d, type: 3}
+  <BuyerProductInfo>k__BackingField: {fileID: 4649771563261833984, guid: 8f6cb76676006ca41a2db70a43bfec51, type: 3}
+  <PurchaseObjectHolder>k__BackingField: {fileID: 4082003469732654840, guid: b06e302dac2143c48b19341a95bce71f, type: 3}
+  <LandingPlantIsItemHolder>k__BackingField: {fileID: 2776826685469944024, guid: 1b03e32ca251f8147820f228b57446fb, type: 3}
+  <LandingFruitPlantHolder>k__BackingField: {fileID: 5124477032651769193, guid: a8dee9f663511394396c403e29a05f58, type: 3}
+  <LandingFruitPlantInfoAboutFruits>k__BackingField: {fileID: 942752634895724971, guid: 4720ee3e6c8fe5e46a7fb840cf15a7c3, type: 3}
+  <ProductionZoneHolder>k__BackingField: {fileID: 9057745268707947563, guid: bc2d891963b33054383cfec3c4dabf7a, type: 3}
+  <MaterialProductText>k__BackingField: {fileID: 1160537559324519533, guid: 8540e87873013274081cdc1733dc15f9, type: 3}

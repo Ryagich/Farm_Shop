@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf29600a98724efea7cca5403fff2012, type: 3}
+  m_Name: TakeItemFromShelf
+  m_EditorClassIdentifier: 
+  <StateName>k__BackingField: State Name
+  Behaviours:
+  - {fileID: 11400000, guid: 34aad5d2563dd874a9a2d82d0a94556c, type: 2}
+  Transitions:
+  - {fileID: 11400000, guid: 44bf3b7063418784189faccdb006e2b4, type: 2}
+  - {fileID: 11400000, guid: fa3f01c5b78c4454393fd3d40071525a, type: 2}
+  - {fileID: 11400000, guid: 3263e0d3d02ce4743a1bc95a7c996468, type: 2}

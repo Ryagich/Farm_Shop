@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd95f18ae1214d768c6512846931fd50, type: 3}
+  m_Name: ToChoseShelfTransitionState
+  m_EditorClassIdentifier: 
+  <Transitions>k__BackingField:
+  - {fileID: 11400000, guid: 3a5f8d48cb7356f40ba90c8d577b12d8, type: 2}
+  - {fileID: 11400000, guid: 6ef9a04c6230e4f46a041328c1ea6007, type: 2}
+  - {fileID: 11400000, guid: b20766664966f2745bf212036f23e8ba, type: 2}
