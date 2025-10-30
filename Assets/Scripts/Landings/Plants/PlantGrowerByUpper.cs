@@ -15,7 +15,9 @@ namespace Landings
         private readonly Transform parent;
         private readonly PlantConfig plantConfig;
         private readonly IObjectResolver resolver;
-        private readonly IPublisher<PlantHasGrownMessage> plantHasGrownMessage;
+        private readonly IPublisher<PlantHasGrownMessage> plantHasGrownPublisher;
+
+        private readonly IPublisher<PlaySoundMessage> globalPlaySoundPublisher;
 
         private GameObject plant;
         public bool IsPlanting { get; private set; }
@@ -30,13 +32,15 @@ namespace Landings
                 PlantConfig plantConfig,
                 Transform parent,
                 IObjectResolver resolver,
-                IPublisher<PlantHasGrownMessage> plantHasGrownMessage
+                IPublisher<PlantHasGrownMessage> plantHasGrownPublisher
             )
         {
             this.plantConfig = plantConfig;
             this.parent = parent;
             this.resolver = resolver;
-            this.plantHasGrownMessage = plantHasGrownMessage;
+            this.plantHasGrownPublisher = plantHasGrownPublisher;
+            
+            globalPlaySoundPublisher = GlobalMessagePipe.GetPublisher<PlaySoundMessage>();
         }
 
         public void StartGrow()
@@ -70,7 +74,10 @@ namespace Landings
             if (plant.transform.localPosition.Equals(plantConfig.TargetPosition))
             {
                 IsPlanting = false;
-                plantHasGrownMessage.Publish(new PlantHasGrownMessage(this));
+                plantHasGrownPublisher.Publish(new PlantHasGrownMessage(this));
+                var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundsSettings;
+                newSettings.position = plantConfig.TargetPosition;
+                globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
                 return;
             }
             var localPos = plant.transform.localPosition;

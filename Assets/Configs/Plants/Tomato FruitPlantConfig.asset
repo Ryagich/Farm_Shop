@@ -20,6 +20,7 @@ MonoBehaviour:
   <TimeBetweenStages>k__BackingField: {x: 0.1, y: 0.2}
   <StartPosition>k__BackingField: {x: 0, y: -2, z: 0}
   <TargetPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <PlantSoundsSettings>k__BackingField: {fileID: 11400000, guid: 5d4dc65609c6e9947b97b5c48afd7dcf, type: 2}
   <FruitGrowTime>k__BackingField: {x: 1.5, y: 3}
   <FruitStages>k__BackingField:
   - {fileID: 1227546415270816, guid: e02c244240c623f43a7ae35d79fc0c18, type: 3}

@@ -21,7 +21,9 @@ namespace Landings.Plants
         public int currentStage { get; private set; }
         public float timer { get; private set; }
         public float stageTime { get; private set; }
-        
+
+            private readonly IPublisher<PlaySoundMessage> globalPlaySoundPublisher;
+
         public PlantGrowerByStages
             (
                 PlantConfig plantConfig,
@@ -35,8 +37,10 @@ namespace Landings.Plants
             this.parent = parent;
             this.resolver = resolver;
             this.plantHasFinishedGrowPublisher = plantHasFinishedGrowPublisher;
+
+            globalPlaySoundPublisher = GlobalMessagePipe.GetPublisher<PlaySoundMessage>();
         }
-        
+
         public void StartGrow()
         {
             NextStage(false);
@@ -97,6 +101,9 @@ namespace Landings.Plants
                 t.localScale = targetScale * .5f;
                 t.DOScale(targetScale, .5f).SetEase(Ease.OutElastic, .2f);
             }
+            var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundsSettings;
+            newSettings.position = plantConfig.TargetPosition;
+            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
         }
     }
 }

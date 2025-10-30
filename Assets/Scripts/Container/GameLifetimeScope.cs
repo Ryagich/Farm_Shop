@@ -44,7 +44,7 @@ namespace Container
         [field: SerializeField] public Canvas Canvas { get; private set; } = null!;
 
         private PlayerLifetimeScope playerScope;
-        
+
         protected override void Configure(IContainerBuilder builder)
         {
             // === Общие зависимости ===
@@ -63,13 +63,11 @@ namespace Container
             builder.RegisterInstance(PopupHolders).AsSelf();
             builder.RegisterInstance(NavMeshSurface).AsSelf();
             builder.RegisterInstance(Canvas).AsSelf();
-            builder.RegisterInstance(ShoppingEnter).As<Transform>().Keyed("ShoppingEnter"); 
-            
+            builder.RegisterInstance(ShoppingEnter).As<Transform>().Keyed("ShoppingEnter");
+
             builder.RegisterInstance(Camera).AsSelf();
 
-            var soundsManager = gameObject.AddComponent<SoundsManager>();
-            builder.RegisterComponent(soundsManager).AsSelf();
-            
+            // Core
             builder.Register<ObjectCreator>(Lifetime.Singleton).AsSelf();
             builder.Register<ObjectMoverInHisPlace>(Lifetime.Singleton).AsSelf();
             builder.Register<ShelvesController>(Lifetime.Singleton).AsSelf();
@@ -83,20 +81,26 @@ namespace Container
             builder.RegisterMessageBroker<CreatedNewObjectMessage>(options);
             builder.RegisterMessageBroker<NewShelfCreatedMessage>(options);
             builder.RegisterMessageBroker<PlaySoundMessage>(options);
-            
+            builder.RegisterMessageBroker<InteractableMessage>(options);
+            builder.RegisterMessageBroker<InteractableEndMessage>(options);
+
             // === InputHandler ===
             builder.Register<InputHandler>(Lifetime.Singleton).AsSelf().As<IStartable>();
 
-            builder.RegisterBuildCallback(c =>
-                                          {
-                                              GlobalMessagePipe.SetProvider(c.AsServiceProvider());
-                                              playerScope = CreateChildFromPrefab(playerPrefab, childBuilder =>
-                                              {
-                                                  childBuilder.RegisterMessageBroker<InteractableMessage>(options);
-                                                  childBuilder.RegisterMessageBroker<InteractableEndMessage>(options);
-                                              });
-                                              builder.RegisterInstance(playerScope);
-                                          });
+            //Sounds
+            var soundsManager = gameObject.AddComponent<SoundsManager>();
+            builder.RegisterComponent(soundsManager).AsSelf();
+
+            builder.RegisterBuildCallback(container =>
+            {
+                GlobalMessagePipe.SetProvider(container.AsServiceProvider());
+                playerScope = CreateChildFromPrefab(playerPrefab, childBuilder =>
+                {
+                    //childBuilder.RegisterMessageBroker<InteractableMessage>(options);
+                    //childBuilder.RegisterMessageBroker<InteractableEndMessage>(options);
+                });
+                soundsManager.SetPlayer(playerScope);
+            });
             builder.UseEntryPoints(ep =>
                                    {
                                        ep.Add<ObjectCreator>();
@@ -104,10 +108,6 @@ namespace Container
                                        ep.Add<HoverRaycaster>().AsSelf();
                                        ep.Add<ObjectInfoPopupsController>().AsSelf();
                                    });
-            builder.RegisterBuildCallback(container =>
-                                          {
-                                              container.Inject(soundsManager);
-                                          });
         }
     }
 }

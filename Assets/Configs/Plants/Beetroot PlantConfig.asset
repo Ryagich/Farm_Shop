@@ -19,3 +19,4 @@ MonoBehaviour:
   <TimeBetweenStages>k__BackingField: {x: 0.1, y: 0.2}
   <StartPosition>k__BackingField: {x: 0, y: -2, z: 0}
   <TargetPosition>k__BackingField: {x: 0, y: 0.1, z: 0}
+  <PlantSoundsSettings>k__BackingField: {fileID: 11400000, guid: 5d4dc65609c6e9947b97b5c48afd7dcf, type: 2}

@@ -22,7 +22,7 @@ namespace Container
             builder.RegisterInstance(transform);
             builder.RegisterInstance(particle);
             builder.RegisterInstance(animator);
-
+            
             var founder = gameObject.AddComponent<InteractableFounder>();
             builder.RegisterComponent(founder).AsSelf();
             

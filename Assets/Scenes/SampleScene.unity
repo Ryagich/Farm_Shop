@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2394,6 +2393,7 @@ MonoBehaviour:
   <playerPrefab>k__BackingField: {fileID: 3975499552241471268, guid: bf6c87a6c16e8fc4eb204e159ead47ac, type: 3}
   <BuyerSettings>k__BackingField: {fileID: 11400000, guid: c713a29fa9fd3b94f8251c725605b95e, type: 2}
   <HoverSettings>k__BackingField: {fileID: 11400000, guid: 3e7336d122f087b4ca73402b325d5b12, type: 2}
+  <SoundsConfig>k__BackingField: {fileID: 11400000, guid: 5bd0e325e025c1843a8b256b8347f861, type: 2}
   <PopupHolders>k__BackingField: {fileID: 11400000, guid: 92111fa584d33814fabb78f724c18f8f, type: 2}
   <Camera>k__BackingField: {fileID: 963194227}
   <ShoppingEnter>k__BackingField: {fileID: 1066450076}
@@ -4353,7 +4353,6 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4361,14 +4360,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -8444,6 +8435,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!114 &1994252348
 MonoBehaviour:
   m_ObjectHideFlags: 0

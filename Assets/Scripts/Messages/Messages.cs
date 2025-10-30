@@ -174,6 +174,7 @@ namespace Messages
 
         public PlaySoundMessage(SoundsSettings soundsSettings)
         {
+            Debug.Log("PlaySoundMessage");
             SoundsSettings = soundsSettings;
         }
     }

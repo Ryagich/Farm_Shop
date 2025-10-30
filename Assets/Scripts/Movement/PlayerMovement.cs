@@ -17,13 +17,13 @@ namespace Movement
         private readonly PlayerMovementConfig config;
 
         private readonly CompositeDisposable disposables = new();
-        
+
         [SuppressMessage("ReSharper", "ParameterHidesMember")]
         private PlayerMovement
             (
-                Camera cam, 
+                Camera cam,
                 ISubscriber<PlayerMoveMessage> subscriber,
-                Transform playerTransform, 
+                Transform playerTransform,
                 CharacterController controller,
                 PlayerMovementConfig config
             )
@@ -32,10 +32,10 @@ namespace Movement
             this.playerTransform = playerTransform;
             this.config = config;
             this.controller = controller;
-            
-            subscriber.Subscribe(OnMove).AddTo(disposables);  
+
+            subscriber.Subscribe(OnMove).AddTo(disposables);
         }
-    
+
         private void OnMove(PlayerMoveMessage msg)
         {
             velocity = msg.Direction;
@@ -52,14 +52,13 @@ namespace Movement
             // направление, куда игрок должен смотреть
             var targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             // плавно поворачиваем игрока
-            playerTransform.rotation = Quaternion.RotateTowards(
-                                                                playerTransform.rotation,
-                                                                targetRotation,
-                                                                config.RotationSpeed * Time.deltaTime // скорость поворота в градусах/сек
-                                                               );
-            
-            // var angle = Mathf.Rad2Deg * Mathf.Atan2(moveDirection.x, moveDirection.z);
-            // playerTransform.rotation = Quaternion.Euler(0, angle, 0);
+            //playerTransform.rotation = Quaternion.RotateTowards(
+            //                                                    playerTransform.rotation,
+            //                                                    targetRotation,
+            //                                                    config.RotationSpeed * Time.deltaTime // скорость поворота в градусах/сек
+            //                                                   );
+            var angle = Mathf.Rad2Deg * Mathf.Atan2(moveDirection.x, moveDirection.z);
+            playerTransform.rotation = Quaternion.Euler(0, angle, 0);
             controller.Move(playerTransform.forward * (config.Speed * Time.deltaTime));
         }
     }

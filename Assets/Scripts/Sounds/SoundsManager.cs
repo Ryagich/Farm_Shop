@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Container;
 using MessagePipe;
 using Messages;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Pool;
 using VContainer;
@@ -17,18 +18,18 @@ namespace Sounds
         private IObjectPool<AudioSource> sourcePool = null!;
         private float despawnTimer = 2.0f;
         private GameObject parent;
-        
+      
+        private readonly CompositeDisposable disposables = new();
+
         [Inject]
         [SuppressMessage("ReSharper", "ParameterHidesMember")]
         private void Construct
             (
                 SoundsConfig soundsConfig,
-                PlayerLifetimeScope playerLifetimeScope,
                 ISubscriber<PlaySoundMessage> PlaySoundSubscriber
             )
         {
             this.soundsConfig = soundsConfig;
-            this.playerLifetimeScope = playerLifetimeScope;
             
             sourcePool = new ObjectPool<AudioSource>(
                                                      Create, //Метод создания объектов
@@ -41,7 +42,15 @@ namespace Sounds
                                                     );
             parent = new GameObject("Sounds Parent");
 
-            PlaySoundSubscriber.Subscribe(PlaySound);
+            PlaySoundSubscriber.Subscribe(PlaySound).AddTo(disposables);
+        }
+
+        public void SetPlayer
+            (
+                PlayerLifetimeScope playerLifetimeScope
+            )
+        {
+            this.playerLifetimeScope = playerLifetimeScope;
         }
 
         private void PlaySound(PlaySoundMessage msg)
@@ -87,7 +96,7 @@ namespace Sounds
         }
         
         private AudioSource Create() => Instantiate(soundsConfig.AudioSourcePrefab);
-        private void OnRelease(AudioSource source) => source.transform.SetParent(null);
+        private void OnRelease(AudioSource source) => source.transform.SetParent(parent.transform);
         private void OnGet(AudioSource source) { }
         private void DestroySource(AudioSource source) { }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Landings.Plants.PlantConfigs
@@ -11,5 +12,6 @@ namespace Landings.Plants.PlantConfigs
         [field: SerializeField] public Vector2 TimeBetweenStages { get; private set; } = new(1.5f, 2.25f);
         [field: SerializeField] public Vector3 StartPosition { get; private set; }
         [field: SerializeField] public Vector3 TargetPosition { get; private set; }
+        [field: SerializeField] public PlantSoundsSettings PlantSoundsSettings { get; private set; }
     }
 }
