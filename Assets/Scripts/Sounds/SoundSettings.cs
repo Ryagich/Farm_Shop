@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Sounds
 {
     [Serializable]
-    public class SoundsSettings
+    public class SoundSettings
     {
         [field: SerializeField] public AudioClip Clip;
         [field: SerializeField] public Vector3 position;
@@ -19,13 +19,13 @@ namespace Sounds
         [field: SerializeField] public bool isUISound;
         [field: SerializeField] public float DistanceToPlay = 10.0f;
 
-        public SoundsSettings(Vector3 position, Transform parent = null)
+        public SoundSettings(Vector3 position, Transform parent = null)
         {
             this.position = position;
             this.parent = parent;
         }
 
-        public SoundsSettings(SoundsSettings oldSettings)
+        public SoundSettings(SoundSettings oldSettings)
         {
             Clip = oldSettings.Clip;
             position = oldSettings.position;

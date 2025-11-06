@@ -11,16 +11,6 @@ using VContainer.Unity;
 
 namespace Messages
 {
-    public readonly struct PlayerMoveMessage
-    {
-        public readonly Vector2 Direction;
-
-        public PlayerMoveMessage(Vector2 direction)
-        {
-            Direction = direction;
-        }
-    }
-
     public readonly struct InteractableMessage
     {
         public readonly Interactable.Interactable Interactable;
@@ -55,7 +45,6 @@ namespace Messages
         }
     }
 
-    //here
     public readonly struct CreatedNewObjectMessage
     {
         public readonly Transform Transform;
@@ -95,9 +84,7 @@ namespace Messages
         }
     }
 
-    public readonly struct ItemGivenFromInventory
-    {
-    }
+    public readonly struct ItemGivenFromInventory { }
 
     public readonly struct FruitHasGrown
     {
@@ -109,13 +96,9 @@ namespace Messages
         }
     }
 
-    public readonly struct ItemHasBeenAddedToInventory
-    {
-    }
+    public readonly struct ItemHasBeenAddedToInventory { }
 
-    public readonly struct MaterialsHasBeenMovedToProduction
-    {
-    }
+    public readonly struct MaterialsHasBeenMovedToProduction { }
 
     public readonly struct ProductCreated
     {
@@ -170,12 +153,11 @@ namespace Messages
     
     public readonly struct PlaySoundMessage
     {
-        public readonly SoundsSettings SoundsSettings;
+        public readonly SoundSettings SoundSettings;
 
-        public PlaySoundMessage(SoundsSettings soundsSettings)
+        public PlaySoundMessage(SoundSettings soundSettings)
         {
-            Debug.Log("PlaySoundMessage");
-            SoundsSettings = soundsSettings;
+            SoundSettings = soundSettings;
         }
     }
 }

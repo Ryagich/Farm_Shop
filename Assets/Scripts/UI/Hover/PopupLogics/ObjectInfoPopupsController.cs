@@ -1,4 +1,6 @@
-﻿using Input;
+﻿using GameModes;
+using Input;
+using Input.Cursor;
 using UnityEngine;
 using Utils;
 using VContainer.Unity;
@@ -11,7 +13,9 @@ namespace UI.Hover.PopupLogics
     {
         private readonly InputConfig inputConfig;
         private readonly HoverRaycaster hoverRaycaster;
+        private readonly CursorHandler cursorHandler;
         private readonly Canvas canvas;
+        private readonly GameModesController gameModesController;
 
         private HoverTrigger currentHover;
         private RectTransform currentPopup;
@@ -20,19 +24,23 @@ namespace UI.Hover.PopupLogics
             (
                 InputConfig inputConfig,
                 HoverRaycaster hoverRaycaster,
-                Canvas canvas
+                CursorHandler cursorHandler,
+                Canvas canvas,
+                GameModesController gameModesController
             )
         {
             this.inputConfig = inputConfig;
             this.hoverRaycaster = hoverRaycaster;
+            this.cursorHandler = cursorHandler;
             this.canvas = canvas;
+            this.gameModesController = gameModesController;
         }
 
         public void Tick()
         {
             var hover = hoverRaycaster.GetHoveredObject();
             
-            if (!currentHover && !hover)
+            if (!currentHover && !hover || gameModesController.GameMode is not GameModes.GameModes.Game)
             {
             }
             else if (!currentHover && hover)
@@ -61,6 +69,11 @@ namespace UI.Hover.PopupLogics
             if (currentPopup)
             {
                 Object.Destroy(currentPopup.gameObject);
+            }
+
+            if (!cursorHandler.IsVisible)
+            {
+                return;
             }
             var popupRect = currentHover.ObjectPopup.DrawPopup();
             var popupSize = popupRect.rect.size;

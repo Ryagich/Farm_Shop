@@ -55,18 +55,14 @@ namespace Sounds
 
         private void PlaySound(PlaySoundMessage msg)
         {
-            if (msg.SoundsSettings.isUISound)
+            if (msg.SoundSettings.isUISound || Vector3.Distance(playerLifetimeScope.transform.position, msg.SoundSettings.position) 
+                <= msg.SoundSettings.DistanceToPlay)
             {
-                Get(msg.SoundsSettings);
-            }
-            else if (Vector3.Distance(playerLifetimeScope.transform.position, msg.SoundsSettings.position) 
-                  <= msg.SoundsSettings.DistanceToPlay)
-            {
-                Get(msg.SoundsSettings);
+                Get(msg.SoundSettings);
             }
         }
         
-        private AudioSource Get(SoundsSettings settings, bool needToReturn = true)
+        private AudioSource Get(SoundSettings settings, bool needToReturn = true)
         {
             var source = sourcePool.Get();
             var sourceTrans = source.transform;
@@ -103,10 +99,7 @@ namespace Sounds
         private IEnumerator DespawnTimer(AudioSource source)
         {
             yield return new WaitForSeconds(despawnTimer);
-            if (source.gameObject)
-            {
-                Destroy(source.gameObject);
-            }
+            sourcePool.Release(source);
         }
     }
 }

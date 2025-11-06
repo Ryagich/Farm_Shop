@@ -15,42 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Left_Mouse",
-                    "type": "Button",
-                    "id": "9484b40b-ab83-444f-b4a6-d091f4b2e9e0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Right_Mouse",
-                    "type": "Button",
-                    "id": "89444079-3ee9-4b1b-a495-719137d4aec0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Ctrl",
-                    "type": "Button",
-                    "id": "f691b9fc-7abb-443d-80be-e04367c7ea74",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "R",
-                    "type": "Button",
-                    "id": "2c80f801-1a30-4b5f-bd6c-599aad96a4ce",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "PointerPosition",
                     "type": "Value",
                     "id": "3a6904a3-eb47-42b0-bd77-3b8e1a9a78c3",
@@ -58,6 +22,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ChangeCursorState",
+                    "type": "Button",
+                    "id": "df430204-f7fe-42a3-a607-a5d8f8ea2797",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenRedactorMode",
+                    "type": "Button",
+                    "id": "431ec337-2632-4bfc-b35a-3d132d941ce9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenShopMode",
+                    "type": "Button",
+                    "id": "3221e610-a3f1-42fa-bf54-675bace8307c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -118,50 +109,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f8ec9293-01d6-4533-b5f6-1462b5a74d69",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Left_Mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "31424905-2f6a-455d-adc4-9f6d714a33d6",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Right_Mouse",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "159b88dd-26b3-4853-aded-7f131e76f0be",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Ctrl",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9251aebb-b62a-4276-a0b5-90ace41eda8e",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "R",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b4fdc09c-d604-4dee-93d0-524645c7f730",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -170,36 +117,47 @@
                     "action": "PointerPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d695ddd-fcfb-4592-8910-738380fe21e5",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeCursorState",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3edf98f-3c65-4e45-9f59-87a0e4421a4c",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenRedactorMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8fa6a3d3-2196-40c3-a6d3-8062ceec1daa",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenShopMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
             "name": "UI",
             "id": "9aed1c5e-8172-4f9b-aedc-83b31b5b6feb",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "e3ea3b1c-fb76-46c0-b84a-2d4584d7d0ec",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "678439f9-6964-4282-9e4a-f8663625cd45",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

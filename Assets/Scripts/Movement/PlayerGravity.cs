@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Gravity;
+﻿using Gravity;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -13,7 +12,6 @@ namespace Movement
 
         private float verticalVelocity;
 
-        [SuppressMessage("ReSharper", "ParameterHidesMember")]
         public PlayerGravity
             (
                 CharacterController controller,

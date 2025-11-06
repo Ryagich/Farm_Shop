@@ -16,11 +16,12 @@ MonoBehaviour:
   - {fileID: 1994261357479266, guid: 30a37dec18fc3b14e9615797cd33da06, type: 3}
   - {fileID: 1147994195056072, guid: 458eec3309cb86842af7105085ef67fc, type: 3}
   - {fileID: 1800831289374606, guid: da0dc6704b2922d48b4dc09e3ffb837e, type: 3}
-  <GrowTime>k__BackingField: {x: 0.1, y: 0.2}
-  <TimeBetweenStages>k__BackingField: {x: 0.1, y: 0.2}
+  <GrowTime>k__BackingField: {x: 1, y: 2}
+  <TimeBetweenStages>k__BackingField: {x: 1, y: 2}
   <StartPosition>k__BackingField: {x: 0, y: -2, z: 0}
   <TargetPosition>k__BackingField: {x: 0, y: 0, z: 0}
-  <PlantSoundsSettings>k__BackingField: {fileID: 11400000, guid: 5d4dc65609c6e9947b97b5c48afd7dcf, type: 2}
+  <PlantSoundsSettings>k__BackingField: {fileID: 11400000, guid: d49b2be58fe5f1f488740067798cca8c, type: 2}
+  <ItemGivenSound>k__BackingField: {fileID: 11400000, guid: 6ed076bf5823d514bb68856afb7465ce, type: 2}
   <FruitGrowTime>k__BackingField: {x: 1.5, y: 3}
   <FruitStages>k__BackingField:
   - {fileID: 1227546415270816, guid: e02c244240c623f43a7ae35d79fc0c18, type: 3}
@@ -30,3 +31,4 @@ MonoBehaviour:
   - {fileID: 1522334769042308, guid: 45103891c7213d849b6ab33e48628e00, type: 3}
   <FruitGrowChance>k__BackingField: 0.9
   <HandFruit>k__BackingField: {fileID: 11400000, guid: 5ec665709712faa49a7d92bd609873ab, type: 2}
+  <FruitSoundConfig>k__BackingField: {fileID: 11400000, guid: 6ed076bf5823d514bb68856afb7465ce, type: 2}

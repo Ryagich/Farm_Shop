@@ -1,25 +1,22 @@
 ﻿using Inventory.Finance;
 using TMPro;
 using UniRx;
-using VContainer;
-using VContainer.Unity;
 
 namespace UI
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class FinanceDrawer : IStartable
+    public class FinanceDrawer
     {
-        private readonly TMP_Text finance;
-        
+        private readonly TMP_Text text;
         private CompositeDisposable disposables = new CompositeDisposable();
         
         public FinanceDrawer
             (
                 FinanceManager financeManager,
-                [Key("Finance")] TMP_Text finance
+                TMP_Text text
             )
         {
-            this.finance = finance;
+            this.text = text;
             financeManager.Value
                           .Subscribe(OnValueChanged)
                           .AddTo(disposables);
@@ -27,9 +24,7 @@ namespace UI
         
         private void OnValueChanged(int newValue)
         {
-            finance.text = $"{newValue}$";
+            text.text = $"{newValue}$";
         }
-
-        public void Start() { }
     }
 }

@@ -7,25 +7,27 @@ namespace CameraScripts
     // ReSharper disable once ClassNeverInstantiated.Global
     public class CameraMovement : ITickable
     {
-        private readonly Transform transform;
-        private readonly Transform target;
         private readonly CameraConfig config;
+        private readonly Transform transform;
+      
+        private Transform target;
 
-        [SuppressMessage("ReSharper", "ParameterHidesMember")]
         public CameraMovement
             (
                 Camera cam,
-                Transform playerTransform,
+                Transform target,
                 CameraConfig config
             )
         {
-            transform = cam.transform;
-            target = playerTransform;
             this.config = config;
+            this.target = target;
+            transform = cam.transform;
         }
 
         public void Tick()
         {
+            if (!target)
+                return;
             var targetCamPos = target.position + config.CameraPosition + config.CameraOffset;
             var targetRotation = Quaternion.Euler(config.CameraRotation);
             transform.position = Vector3.Lerp(
@@ -38,6 +40,12 @@ namespace CameraScripts
                                                  targetRotation,
                                                  config.Smoothing * Time.deltaTime
                                                 );
+        }
+
+        [SuppressMessage("ReSharper", "ParameterHidesMember")]
+        public void ChangeTarget(Transform target)
+        {
+            this.target = target;
         }
     }
 }

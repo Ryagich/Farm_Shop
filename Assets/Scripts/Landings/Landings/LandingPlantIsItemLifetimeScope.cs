@@ -5,6 +5,7 @@ using Landings.Plants.PlantConfigs;
 using MessagePipe;
 using Messages;
 using Objects;
+using Sounds;
 using UI.Hover;
 using UI.Hover.PopupLogics.Popups;
 using UnityEngine;
@@ -27,6 +28,7 @@ namespace Landings.Landings
             builder.RegisterInstance(transform);
             builder.RegisterInstance(gameObject);
             builder.RegisterInstance(PlantConfig);
+            builder.RegisterInstance(PlantConfig.ItemGivenSound).Keyed("ItemGivenSound");
 
             // === Local MessagePipe ===
             var options = builder.RegisterMessagePipe();
@@ -54,6 +56,7 @@ namespace Landings.Landings
                                           .Keyed(nameof(PlantGrowerByStages));
                                         ep.Add<ItemGiverFromInventory>().AsSelf();
                                         ep.Add<LandingPlantIsItemController>().AsSelf();
+                                        ep.Add<ItemGiverFromInventorySoundPlayer>().AsSelf();
                                    });
             
             builder.RegisterBuildCallback(container =>

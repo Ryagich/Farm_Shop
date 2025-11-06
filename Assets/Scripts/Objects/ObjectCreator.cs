@@ -25,8 +25,6 @@ namespace Objects
             
             playerMadePurchaseSubscriber.Subscribe(CreateObject).AddTo(disposables);
         }
-        
-        public void Start() { }
 
         private void CreateObject(PlayerMadePurchaseMessage msg)
         {
@@ -34,5 +32,7 @@ namespace Objects
             var objTransform = objScope.gameObject.transform;
             createdNewObjectPublisher.Publish(new CreatedNewObjectMessage(objTransform, msg.Position, msg.Rotation));
         }
+        
+        public void Start() { }
     }
 }

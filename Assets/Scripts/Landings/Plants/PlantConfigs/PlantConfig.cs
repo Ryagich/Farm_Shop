@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using Sounds;
 using UnityEngine;
 
 namespace Landings.Plants.PlantConfigs
@@ -13,5 +14,6 @@ namespace Landings.Plants.PlantConfigs
         [field: SerializeField] public Vector3 StartPosition { get; private set; }
         [field: SerializeField] public Vector3 TargetPosition { get; private set; }
         [field: SerializeField] public PlantSoundsSettings PlantSoundsSettings { get; private set; }
+        [field: SerializeField] public SoundConfig ItemGivenSound { get; private set; }
     }
 }

@@ -13,16 +13,15 @@ namespace Landings.Plants
     {
         private readonly PlantConfig plantConfig;
         private readonly IObjectResolver resolver;
-        private readonly IPublisher<PlantHasFinishedGrownMessage> plantHasFinishedGrowPublisher;
         private readonly Transform parent;
+        private readonly IPublisher<PlantHasFinishedGrownMessage> plantHasFinishedGrowPublisher;
+        private readonly IPublisher<PlaySoundMessage> globalPlaySoundPublisher;
 
         private GameObject plant;
         public bool IsPlanted { get; private set; } = true;
         public int currentStage { get; private set; }
         public float timer { get; private set; }
         public float stageTime { get; private set; }
-
-            private readonly IPublisher<PlaySoundMessage> globalPlaySoundPublisher;
 
         public PlantGrowerByStages
             (
@@ -101,8 +100,8 @@ namespace Landings.Plants
                 t.localScale = targetScale * .5f;
                 t.DOScale(targetScale, .5f).SetEase(Ease.OutElastic, .2f);
             }
-            var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundsSettings;
-            newSettings.position = plantConfig.TargetPosition;
+            var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundSettings;
+            newSettings.position = plant.transform.position;
             globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
         }
     }

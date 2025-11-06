@@ -1,8 +1,10 @@
 using Buyer;
 using CameraScripts;
 using Checkout;
+using GameModes;
 using Gravity;
 using Input;
+using Input.Cursor;
 using Interactable;
 using Inventory;
 using Inventory.Finance;
@@ -13,11 +15,13 @@ using Movement;
 using Objects;
 using Shelf;
 using Sounds;
+using UI;
 using UI.Hover;
 using UI.Hover.PopupLogics;
 using UI.Hover.PopupLogics.Holders;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -33,7 +37,8 @@ namespace Container
         [field: SerializeField] public InventoryConfig InventoryConfig { get; private set; } = null!;
         [field: SerializeField] public ItemsConfig ItemsConfig { get; private set; } = null!;
         [field: SerializeField] public FinanceConfig FinanceConfig { get; private set; } = null!;
-        [field: SerializeField] public PlayerLifetimeScope playerPrefab { get; private set; } = null!;
+        [field: SerializeField] public UIConfig UIConfig { get; private set; } = null!;
+        [field: SerializeField] public PlayerLifetimeScope PlayerPrefab { get; private set; } = null!;
         [field: SerializeField] public BuyerSettings BuyerSettings { get; private set; } = null!;
         [field: SerializeField] public HoverSettings HoverSettings { get; private set; } = null!;
         [field: SerializeField] public SoundsConfig SoundsConfig { get; private set; } = null!;
@@ -59,7 +64,8 @@ namespace Container
             builder.RegisterInstance(BuyerSettings).AsSelf();
             builder.RegisterInstance(HoverSettings).AsSelf();
             builder.RegisterInstance(SoundsConfig).AsSelf();
-
+            builder.RegisterInstance(UIConfig).AsSelf();
+            
             builder.RegisterInstance(PopupHolders).AsSelf();
             builder.RegisterInstance(NavMeshSurface).AsSelf();
             builder.RegisterInstance(Canvas).AsSelf();
@@ -68,12 +74,13 @@ namespace Container
             builder.RegisterInstance(Camera).AsSelf();
 
             // Core
-            builder.Register<ObjectCreator>(Lifetime.Singleton).AsSelf();
-            builder.Register<ObjectMoverInHisPlace>(Lifetime.Singleton).AsSelf();
             builder.Register<ShelvesController>(Lifetime.Singleton).AsSelf();
             builder.Register<CheckoutsController>(Lifetime.Singleton).AsSelf();
             builder.Register<FinanceManager>(Lifetime.Singleton);
-
+            builder.Register<CursorHandler>(Lifetime.Singleton);
+            builder.Register<CursorController>(Lifetime.Singleton);
+            builder.Register<HoverRaycaster>(Lifetime.Singleton);
+            
             // === MessagePipe ===
             var options = builder.RegisterMessagePipe();
             builder.RegisterMessageBroker<PlayerMoveMessage>(options);
@@ -94,20 +101,17 @@ namespace Container
             builder.RegisterBuildCallback(container =>
             {
                 GlobalMessagePipe.SetProvider(container.AsServiceProvider());
-                playerScope = CreateChildFromPrefab(playerPrefab, childBuilder =>
+                playerScope = CreateChildFromPrefab(PlayerPrefab, childBuilder =>
                 {
                     //childBuilder.RegisterMessageBroker<InteractableMessage>(options);
                     //childBuilder.RegisterMessageBroker<InteractableEndMessage>(options);
                 });
                 soundsManager.SetPlayer(playerScope);
             });
-            builder.UseEntryPoints(ep =>
-                                   {
-                                       ep.Add<ObjectCreator>();
-                                       ep.Add<ObjectMoverInHisPlace>();
-                                       ep.Add<HoverRaycaster>().AsSelf();
-                                       ep.Add<ObjectInfoPopupsController>().AsSelf();
-                                   });
+            builder.RegisterEntryPoint<ObjectCreator>().AsSelf();
+            builder.RegisterEntryPoint<ObjectMoverInHisPlace>().AsSelf();
+            builder.RegisterEntryPoint<ObjectInfoPopupsController>().AsSelf();
+            builder.RegisterEntryPoint<GameModesController>().AsSelf();
         }
     }
 }

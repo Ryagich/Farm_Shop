@@ -1,4 +1,4 @@
-﻿using TMPro;
+﻿using UI.Pages;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -7,13 +7,16 @@ namespace UI
 {
     public class CanvasLifetimeScope : LifetimeScope
     {
-        [field: SerializeField] public TMP_Text Finance { get; private set; } = null!;
-
+        [field: SerializeField] public Canvas Canvas { get; private set; }
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(Finance).Keyed("Finance"); 
-
-            builder.RegisterEntryPoint<FinanceDrawer>().AsSelf();
+            builder.RegisterInstance(Canvas).As<Canvas>();
+            
+            builder.Register<MainPage>(Lifetime.Scoped).As<MainPage>();
+            builder.Register<MainPageWithUI>(Lifetime.Scoped).As<MainPageWithUI>();
+            builder.Register<ShopPage>(Lifetime.Scoped).As<ShopPage>();
+            
+            builder.RegisterEntryPoint<PagesController>().AsSelf();
         }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Input
 {
@@ -8,5 +9,8 @@ namespace Input
     {
         [field: SerializeField] public InputActionReference MoveInput { get; private set; } = null!;
         [field: SerializeField] public InputActionReference PointerPosition { get; private set; }
+        [field: FormerlySerializedAs("<ChangeCursorState>k__BackingField")] [field: SerializeField] public InputActionReference OpenGameMode { get; private set; }
+        [field: SerializeField] public InputActionReference OpenRedactorMode { get; private set; }
+        [field: SerializeField] public InputActionReference OpenShopMode { get; private set; }
     }
 }

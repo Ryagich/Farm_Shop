@@ -10,31 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39cf83e5563331a48beb63604981eaa5, type: 3}
-  m_Name: PlantSoundsSettings
+  m_Name: Tomato SoundsSettings
   m_EditorClassIdentifier: 
-  <GrownUpSoundsSettings>k__BackingField:
-    Clip: {fileID: 8300000, guid: 087a2bd59f648e547849b2d44f1469a1, type: 3}
+  <GrownUpSoundSettings>k__BackingField:
+    Clip: {fileID: 8300000, guid: 65c19a739623e014c98b71268e3eea32, type: 3}
     position: {x: 0, y: 0, z: 0}
     parent: {fileID: 0}
     priority: 128
-    volume: 1
+    volume: 0.08
     pitch: 1
     spatialBlend: 0
     reverbZoneMix: 1
     MinDistance: 0
-    MaxDistance: 5
+    MaxDistance: 3
     isUISound: 0
-    DistanceToPlay: 3
-  <GrownStageSoundsSettings>k__BackingField:
-    Clip: {fileID: 8300000, guid: 087a2bd59f648e547849b2d44f1469a1, type: 3}
-    position: {x: 0, y: 0, z: 0}
+    DistanceToPlay: 5
+  <GrownStageSoundSettings>k__BackingField:
+    Clip: {fileID: 8300000, guid: bf44a98066a5e0a419f01a8b6edf5120, type: 3}
+    position: {x: -6.34, y: -1, z: -5}
     parent: {fileID: 0}
     priority: 128
-    volume: 1
+    volume: 0.07
     pitch: 1
     spatialBlend: 0
     reverbZoneMix: 1
     MinDistance: 0
-    MaxDistance: 5
+    MaxDistance: 3
     isUISound: 0
-    DistanceToPlay: 3
+    DistanceToPlay: 5

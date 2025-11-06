@@ -29,18 +29,19 @@ namespace Container
             builder.Register<InventoryPlayer>(Lifetime.Scoped)
                    .As<IInventory>() 
                    .AsSelf();        
+            //builder.Register<PlayerMovement>(Lifetime.Scoped);
+            builder.Register<PlayerParticleController>(Lifetime.Scoped);
+            builder.Register<PlayerAnimationController>(Lifetime.Scoped);
 
-            builder.UseEntryPoints(ep =>
-                                   {
-                                       ep.Add<PlayerMovement>().AsSelf();
-                                       ep.Add<PlayerGravity>().AsSelf();
-                                       ep.Add<CameraMovement>().AsSelf();
-                                       ep.Add<InventoryPlayer>().AsSelf();
-                                       ep.Add<InventoryPlayerItemMover>().AsSelf();
-                                       ep.Add<PlayerInteractableLogic>().AsSelf();
-                                       ep.Add<PlayerParticleController>().AsSelf();
-                                       ep.Add<PlayerAnimationController>().AsSelf();
-                                   });
+            builder.RegisterEntryPoint<CameraMovement>().AsSelf();
+            builder.RegisterEntryPoint<InventoryPlayer>().AsSelf();
+            builder.RegisterEntryPoint<InventoryPlayerItemMover>().AsSelf();
+            builder.RegisterEntryPoint<PlayerInteractableLogic>().AsSelf();
+        
+            builder.RegisterEntryPoint<PlayerGravity>().AsSelf();
+            builder.RegisterEntryPoint<PlayerMovementController>().AsSelf();
+            builder.RegisterEntryPoint<PlayerMovement>().AsSelf();
+            builder.RegisterEntryPoint<VirtualPlayerMovement>().AsSelf();
         }
     }
 }

@@ -2,12 +2,12 @@
 using Landings.Plants.PlantConfigs;
 using MessagePipe;
 using Messages;
-using VContainer.Unity;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 using Object = UnityEngine.Object;
 
-namespace Landings
+namespace Landings.Plants
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PlantGrowerByUpper : ITickable, IGrower
@@ -74,10 +74,10 @@ namespace Landings
             if (plant.transform.localPosition.Equals(plantConfig.TargetPosition))
             {
                 IsPlanting = false;
-                plantHasGrownPublisher.Publish(new PlantHasGrownMessage(this));
-                var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundsSettings;
-                newSettings.position = plantConfig.TargetPosition;
+                var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundSettings;
+                newSettings.position = plant.transform.position;
                 globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
+                plantHasGrownPublisher.Publish(new PlantHasGrownMessage(this));
                 return;
             }
             var localPos = plant.transform.localPosition;

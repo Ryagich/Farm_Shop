@@ -4,6 +4,7 @@ using Landings.Plants.PlantConfigs;
 using MessagePipe;
 using Messages;
 using Objects;
+using Sounds;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -28,6 +29,7 @@ namespace Landings.Landings
             builder.RegisterInstance(PlantConfig)
                    .AsSelf()
                    .As<PlantConfig>();
+            builder.RegisterInstance(PlantConfig.ItemGivenSound).Keyed("ItemGivenSound");
 
             // === Local MessagePipe ===
             var options = builder.RegisterMessagePipe();
@@ -54,6 +56,7 @@ namespace Landings.Landings
                                        ep.Add<FruitGrower>().AsSelf();
                                        ep.Add<FruitGiver>().AsSelf();
                                        ep.Add<LandingFruitPlantController>().AsSelf();
+                                       ep.Add<ItemGiverFromInventorySoundPlayer>().AsSelf();
                                    });
             
             builder.RegisterBuildCallback(container =>

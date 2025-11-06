@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf1293047494b4c9e478c07db3164ba, type: 3}
+  m_Name: UI Config
+  m_EditorClassIdentifier: 
+  <ContentPref>k__BackingField: {fileID: 7286681801410698574, guid: 09a63f8093118f041a7cbf5565b63722, type: 3}
+  <FinanceTextPrefab>k__BackingField: {fileID: 8126053086762973459, guid: f3208eb147048014f840f0287f7a5011, type: 3}
+  <GameMenuButtonsParent>k__BackingField: {fileID: 3283988012314361217, guid: 2e7636d083304214186f6cfb4702419f, type: 3}
+  <GameMenuButton>k__BackingField: {fileID: 4336179500377622564, guid: 88ab85907f43e6e4384b97e3f4722dd0, type: 3}
+  <OffsetForGameMenuButtons>k__BackingField: {x: -10, y: 0}
+  <ShopIcon>k__BackingField: {fileID: 21300000, guid: a27e84d920999f84597f02f692c5e12b, type: 3}
+  <RedactorIcon>k__BackingField: {fileID: 21300000, guid: 48645e4aa3330d846a4bfcc6b19f8fb9, type: 3}
+  <ShopView>k__BackingField: {fileID: 749817895665285501, guid: 85b914a321ec0534da280324c6cd3749, type: 3}

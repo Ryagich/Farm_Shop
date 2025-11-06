@@ -17,6 +17,7 @@ namespace Landings.Plants
         private readonly List<Fruit> fruits = new();
         private readonly IObjectResolver resolver;
         private readonly IPublisher<FruitHasGrown> fruitHasGrownPublisher;
+        private readonly IPublisher<PlaySoundMessage> globalPlaySoundPublisher;
 
         public FruitGrower
             (
@@ -30,6 +31,8 @@ namespace Landings.Plants
             this.parent = parent;
             this.resolver = resolver;
             this.fruitHasGrownPublisher = fruitHasGrownPublisher;
+            
+            globalPlaySoundPublisher = GlobalMessagePipe.GetPublisher<PlaySoundMessage>();
         }
 
         public void SetPoints(List<Transform> points)
@@ -92,10 +95,12 @@ namespace Landings.Plants
             fruit.FruitObj = resolver.Instantiate(plantConfig.FruitStages[fruit.CurrentStage], fruit.Parent);
             var t = fruit.FruitObj.transform;
             var targetScale = t.localScale;
-            // t.position = fruit.Parent.position;
             t.localScale = targetScale * .5f;
             t.DOScale(targetScale, .5f).SetEase(Ease.OutElastic, .2f);
             fruit.CurrentStage++;
+            var newSettings = plantConfig.FruitSoundConfig.SoundSettings;
+            newSettings.position = fruit.FruitObj.transform.position;
+            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
         }
     }
     

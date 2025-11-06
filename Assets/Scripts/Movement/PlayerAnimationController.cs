@@ -2,22 +2,22 @@
 using Messages;
 using UniRx;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Movement
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class PlayerAnimationController : IStartable
+    public class PlayerAnimationController
     {
         private readonly PlayerMovementConfig playerMovementConfig;
         private readonly Animator animator;
         private readonly CompositeDisposable disposables = new();
 
+        private bool canPlay = true;
         public PlayerAnimationController
             (
                 PlayerMovementConfig playerMovementConfig,
-                ISubscriber<PlayerMoveMessage> subscriber,
-                Animator animator
+                Animator animator,
+                ISubscriber<PlayerMoveMessage> subscriber
             )
         {
             this.playerMovementConfig = playerMovementConfig;
@@ -25,12 +25,21 @@ namespace Movement
 
             subscriber.Subscribe(OnVelocityChanged).AddTo(disposables);  
         }
+
+        public void ChangeState(bool newState, Vector2 direction)
+        {
+            canPlay = newState;
+            Update(direction);
+        }
         
         private void OnVelocityChanged(PlayerMoveMessage msg)
         {
-            animator.SetBool(playerMovementConfig.MovingName, msg.Direction is not {x: 0, y: 0});
+            Update(msg.Direction);
         }
 
-        public void Start() { }
+        private void Update(Vector2 direction)
+        {
+            animator.SetBool(playerMovementConfig.MovingName, canPlay && direction is not {x: 0, y: 0});
+        }
     }
 }

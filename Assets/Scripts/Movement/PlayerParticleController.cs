@@ -1,18 +1,16 @@
 ﻿using MessagePipe;
 using Messages;
-using UniRx;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Movement
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class PlayerParticleController : IStartable
+    public class PlayerParticleController
     {
         private ParticleSystem.EmissionModule emission;
 
-        private readonly CompositeDisposable disposables = new();
-
+        private bool canPlay = true;
+        
         private PlayerParticleController
             (
                 ParticleSystem particleSystem,
@@ -22,12 +20,22 @@ namespace Movement
             emission = particleSystem.emission;
             emission.enabled = false;
             
-            subscriber.Subscribe(EnableParticle).AddTo(disposables);  
+            subscriber.Subscribe(OnVelocityChanged);  
+        }
+        public void ChangeState(bool newState, Vector2 direction)
+        {
+            canPlay = newState;
+            Update(direction);
         }
         
-        private void EnableParticle(PlayerMoveMessage msg)
-            => emission.enabled = msg.Direction is not { x: 0, y: 0 };
+        private void OnVelocityChanged(PlayerMoveMessage msg)
+        {
+            Update(msg.Direction);
+        }
 
-        public void Start() { }
+        private void Update(Vector2 direction)
+        {
+            emission.enabled = canPlay && direction is not { x: 0, y: 0 };
+        }
     }
 }

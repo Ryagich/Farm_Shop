@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cf83e5563331a48beb63604981eaa5, type: 3}
+  m_Name: Carrot SoundsSettings
+  m_EditorClassIdentifier: 
+  <GrownUpSoundSettings>k__BackingField:
+    Clip: {fileID: 8300000, guid: cfbfa9752932ec44ab3c8f098c401684, type: 3}
+    position: {x: 0, y: 0, z: 0}
+    parent: {fileID: 0}
+    priority: 128
+    volume: 0.08
+    pitch: 1
+    spatialBlend: 0
+    reverbZoneMix: 1
+    MinDistance: 0
+    MaxDistance: 3
+    isUISound: 0
+    DistanceToPlay: 5
+  <GrownStageSoundSettings>k__BackingField:
+    Clip: {fileID: 8300000, guid: e1f51cb013bb02a4d9a43040d0f4b811, type: 3}
+    position: {x: 1.5, y: -1, z: -3}
+    parent: {fileID: 0}
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    reverbZoneMix: 1
+    MinDistance: 0
+    MaxDistance: 3
+    isUISound: 0
+    DistanceToPlay: 5

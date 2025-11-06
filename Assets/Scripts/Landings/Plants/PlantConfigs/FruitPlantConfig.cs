@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Inventory.Item;
+using Sounds;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Landings.Plants.PlantConfigs
 {
@@ -12,5 +14,6 @@ namespace Landings.Plants.PlantConfigs
         [field: SerializeField] public List<GameObject> FruitStages { get; private set; } = new();
         [field: SerializeField] public float FruitGrowChance { get; private set; } = .9f;
         [field: SerializeField] public ItemConfig HandFruit { get; private set; }
+        [field: SerializeField] public SoundConfig FruitSoundConfig { get; private set; }
     }
 }
