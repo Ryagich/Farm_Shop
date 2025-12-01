@@ -160,7 +160,7 @@ namespace BuildingsAndGrid.Extension
 
                 extension.transform.position = new Vector3(
                     pos.x * gridSettings.TileSize.x,
-                    -0.25f * gridSettings.TileSize.y,
+                    0.25f * gridSettings.TileSize.y,
                     pos.y * gridSettings.TileSize.z
                 );
 

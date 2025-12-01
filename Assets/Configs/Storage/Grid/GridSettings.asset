@@ -24,6 +24,8 @@ MonoBehaviour:
     <Type>k__BackingField: 2
   <TileSize>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
   <yOffset>k__BackingField: 0.01
+  <EnvironmentAddSizeSize>k__BackingField: {x: 7, y: 12}
+  <ShopPlankSize>k__BackingField: 5
   <ExpansionPref>k__BackingField: {fileID: -8389771217377643718, guid: 6b2ee9c1002d17648aa39690ecc12a8c, type: 3}
   <ExtensionLayer>k__BackingField:
     serializedVersion: 2
@@ -36,7 +38,7 @@ MonoBehaviour:
   <ProductionFloorMaterial>k__BackingField: {fileID: 2100000, guid: 87b4ab089c7be914eb1e498e8cb895e4, type: 2}
   <GardenFloorMaterial>k__BackingField: {fileID: 2100000, guid: f72a587b86d807345a1c9bcd057eb0c8, type: 2}
   <WallFloorMaterial>k__BackingField: {fileID: 2100000, guid: 6a29cc58c1ca59c4b8a02506ae936879, type: 2}
-  <ShopPlankSize>k__BackingField: 5
+  <GreenMaterial>k__BackingField: {fileID: 2100000, guid: 927599727d8376e4db93168e9108107d, type: 2}
   <WallLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 8192

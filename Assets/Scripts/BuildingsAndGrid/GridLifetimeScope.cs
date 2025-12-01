@@ -28,6 +28,7 @@ namespace BuildingsAndGrid
             builder.RegisterEntryPoint<BuildingMover>().AsSelf();
             builder.RegisterEntryPoint<ExtensionFounder>().AsSelf();
             builder.RegisterEntryPoint<GridWallsCreator>().AsSelf();
+            builder.RegisterEntryPoint<GridEnvironment>().AsSelf();
         }
     }
 }

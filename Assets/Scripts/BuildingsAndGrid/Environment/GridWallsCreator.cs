@@ -24,6 +24,7 @@ namespace BuildingsAndGrid.Environment
         private GameObject environmentParent;
         private GameObject wallView;
         private GameObject externalWall;
+        private bool lastModeIsRedactor;
 
         // private GameObject wallsObject;
 
@@ -52,14 +53,12 @@ namespace BuildingsAndGrid.Environment
         
         public void Start()
         {
-            environmentParent = new GameObject("Environment Parent");
+            environmentParent = new GameObject("Wall Environment Parent");
             CreateEnvironment();
             CreateCheckout();
             DrawWalls();
             gameModeChangedMessageSubscriber.Subscribe(OnGameModeChanged);
         }
-
-        private bool lastModeIsRedactor;
         
         private void OnGameModeChanged(GameModeChangedMessage msg)
         {
@@ -70,7 +69,7 @@ namespace BuildingsAndGrid.Environment
             }
             else if (lastModeIsRedactor)
             {
-                //Какой-то непонятный/неприятный баг. Долго не могу пофиксить.
+                //Какой-то непонятный/неприятный баг.Долго не могу пофиксить.
                 //Костыль. При смене режимов, переустанавливаю двери.
                 ClearBuildings();
                 CreateEnvironment();
@@ -125,7 +124,7 @@ namespace BuildingsAndGrid.Environment
             UnDraw(externalWall);
             externalWall = DrawExternalWalls();
             externalWall.AddComponent<MeshCollider>();
-            externalWall.layer = Mathf.RoundToInt(Mathf.Log( gridSettings.WallForPlayerLayer.value, 2));
+            externalWall.layer = Mathf.RoundToInt(Mathf.Log(gridSettings.WallForPlayerLayer.value, 2));
         }
         
         private void CreateEnvironment()

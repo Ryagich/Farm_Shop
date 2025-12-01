@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BuildingsAndGrid.Extension;
 using GameModes;
 using MessagePipe;
 using Messages;
@@ -7,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer.Unity;
 
-namespace BuildingsAndGrid
+namespace BuildingsAndGrid.Extension
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ExtensionFounder : ITickable
@@ -77,7 +76,7 @@ namespace BuildingsAndGrid
                             tiles[i].SetActive(true);
                             tiles[i].transform.position =
                                 new Vector3(pos.x * gridSettings.TileSize.x,
-                                            gridSettings.yOffset,
+                                            0.25f * gridSettings.TileSize.y,
                                             pos.y * gridSettings.TileSize.z);
                         }
                     }
