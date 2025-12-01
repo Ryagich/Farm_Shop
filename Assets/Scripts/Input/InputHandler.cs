@@ -12,50 +12,79 @@ namespace Input
     {
         private readonly InputConfig inputConfig;
         private readonly IPublisher<PlayerMoveMessage> playerMovePublisher;
-        private readonly IPublisher<OpenGameModeMessage> openGameModePublisher;
-        private readonly IPublisher<OpenRedactorModeMessage> openRedactorModePublisher;
-        private readonly IPublisher<OpenShopModeMessage> openShopModePublisher;
+        private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
+        private readonly IPublisher<ClickMessage> clickPublisher;
+        private readonly IPublisher<RightClickMessage> rightClickPublisher;
+        private readonly IPublisher<LeftRotateMessage> leftRotatePublisher;
+        private readonly IPublisher<RightRotateMessage> rightRotatePublisher;
 
         [SuppressMessage("ReSharper", "ParameterHidesMember")]
         private InputHandler
             (
                 InputConfig inputConfig, 
                 IPublisher<PlayerMoveMessage> playerMovePublisher,
-                IPublisher<OpenGameModeMessage> openGameModePublisher,
-                IPublisher<OpenRedactorModeMessage> openRedactorModePublisher,
-                IPublisher<OpenShopModeMessage> openShopModePublisher
+                IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher,
+                IPublisher<ClickMessage> clickPublisher,
+                IPublisher<RightClickMessage> rightClickPublisher,
+                IPublisher<LeftRotateMessage> leftRotatePublisher,
+                IPublisher<RightRotateMessage> rightRotatePublisher
             )
         {
             this.inputConfig = inputConfig;
             this.playerMovePublisher = playerMovePublisher;
-            this.openGameModePublisher = openGameModePublisher;
-            this.openRedactorModePublisher = openRedactorModePublisher;
-            this.openShopModePublisher = openShopModePublisher;
+            this.changeGameModeRequestPublisher = changeGameModeRequestPublisher;
+            this.clickPublisher = clickPublisher;
+            this.rightClickPublisher = rightClickPublisher;
+            this.leftRotatePublisher = leftRotatePublisher;
+            this.rightRotatePublisher = rightRotatePublisher;
         }
 
         public void Start()
         {
-            // inputConfig.MoveInput.action.Enable();
+            inputConfig.Click.action.started += Click;
+            inputConfig.RightClick.action.started += RightClick;
             inputConfig.MoveInput.action.performed += OnMove;
             inputConfig.MoveInput.action.canceled += OnMove;
             inputConfig.OpenGameMode.action.started += OpenGameMode;
-            inputConfig.OpenRedactorMode.action.started += OpenRedactorMode;
+            inputConfig.OpenRedactorMode.action.started += OpenInventory;
             inputConfig.OpenShopMode.action.started += OpenShopMode;
+            inputConfig.RightRotate.action.started += RightRotate;
+            inputConfig.LeftRotate.action.started += LeftRotate;
+        }
+        
+        private void RightRotate(InputAction.CallbackContext context)
+        {
+            rightRotatePublisher.Publish(new RightRotateMessage());
+        }
+        
+        private void LeftRotate(InputAction.CallbackContext context)
+        {
+            leftRotatePublisher.Publish(new LeftRotateMessage());
+        }
+        
+        private void Click(InputAction.CallbackContext context)
+        {
+            clickPublisher.Publish(new ClickMessage());
+        }
+        
+        private void RightClick(InputAction.CallbackContext context)
+        {
+            rightClickPublisher.Publish(new RightClickMessage());
         }
         
         private void OpenGameMode(InputAction.CallbackContext context)
         {
-            openGameModePublisher.Publish(new OpenGameModeMessage());
+            changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameModes.GameMode.Game));
         }
 
-        private void OpenRedactorMode(InputAction.CallbackContext context)
+        private void OpenInventory(InputAction.CallbackContext context)
         {
-            openRedactorModePublisher.Publish(new OpenRedactorModeMessage());
+            changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameModes.GameMode.Inventory));
         }
         
         private void OpenShopMode(InputAction.CallbackContext context)
         {
-            openShopModePublisher.Publish(new OpenShopModeMessage());
+            changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameModes.GameMode.Shop));
         }
         
         private void OnMove(InputAction.CallbackContext context)

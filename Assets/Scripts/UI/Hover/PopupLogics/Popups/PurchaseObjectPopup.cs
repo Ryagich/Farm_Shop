@@ -1,14 +1,18 @@
-﻿using Purchase;
+﻿using System;
+using Purchase;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PurchaseObjectPopup : IObjectPopup
     {
+        public event Action CloseButton;
+
         private readonly PopupHolders popupHolders;
         private readonly PurchaseObject purchaseObject;
         private readonly LifetimeScope purchase;

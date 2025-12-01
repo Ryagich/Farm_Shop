@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601e1c13c6c74183bfb08a09e4d70b09, type: 3}
+  m_Name: GridEnvironmentConfig
+  m_EditorClassIdentifier: 
+  <ShopDoorConfig>k__BackingField: {fileID: 11400000, guid: 37d4cdd7844fd9c4288ba57231cefb42, type: 2}
+  <BackDoor>k__BackingField: {fileID: 11400000, guid: 322be64f4ffe1744c8a0cda9ca1a24b7, type: 2}
+  <Checkout>k__BackingField: {fileID: 11400000, guid: 3045ff5de011d27419fcb1b3c368eb0b, type: 2}

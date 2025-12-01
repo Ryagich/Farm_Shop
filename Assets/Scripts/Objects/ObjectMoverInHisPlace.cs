@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Inventory.Item;
 using MessagePipe;
 using Messages;
@@ -18,18 +19,40 @@ namespace Objects
 
         public ObjectMoverInHisPlace
             (
+                ItemsConfig itemsConfig,
                 ISubscriber<CreatedNewObjectMessage> playerMadePurchaseSubscriber,
-                ItemsConfig itemsConfig 
+                ISubscriber<CreatedNewObjectOnGridMessage> createdNewObjectOnGridSubscriber,
+                ISubscriber<DeleteBuildingOnGridRequest> deleteBuildingOnGridRequestSubscriber
             )
         {
             playerMadePurchaseSubscriber.Subscribe(OnObjectCreated).AddTo(disposables);
+            createdNewObjectOnGridSubscriber.Subscribe(OnObjectCreatedOnGrid);
+            deleteBuildingOnGridRequestSubscriber.Subscribe(DeleteBuilding);
+            
             this.itemsConfig = itemsConfig;
         }
 
+        private void DeleteBuilding(DeleteBuildingOnGridRequest msg)
+        {
+            var el = scopeTransforms.FirstOrDefault(any => any.Item1 == msg.Building.transform);
+            if (el != default && el.Item1)
+            {
+                scopeTransforms.Remove(el);
+            }
+        }
+        
         private void OnObjectCreated(CreatedNewObjectMessage msg)
         {
             var position = msg.Position;
             msg.Transform.SetPositionAndRotation(position.WithY(position.y -10.0f), Quaternion.Euler(msg.Rotation));
+            scopeTransforms.Add((msg.Transform, position));
+        }
+
+        private void OnObjectCreatedOnGrid(CreatedNewObjectOnGridMessage msg)
+        {
+            var position = msg.Position;
+            msg.Transform.position = position.WithY(position.y -10.0f);
+            msg.Building.SetContentRotation(msg.Rotation);
             scopeTransforms.Add((msg.Transform, position));
         }
         

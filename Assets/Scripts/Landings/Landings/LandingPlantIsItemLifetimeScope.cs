@@ -1,4 +1,5 @@
-﻿using Inventory;
+﻿using BuildingsAndGrid.Buildings;
+using Inventory;
 using Inventory.ObjectInventory;
 using Landings.Plants;
 using Landings.Plants.PlantConfigs;
@@ -17,15 +18,20 @@ namespace Landings.Landings
     public class LandingPlantIsItemLifetimeScope : LifetimeScope
     {
         [field: SerializeField] public PlantConfig PlantConfig { get; private set; } = null!;
+        [field: SerializeField] public Transform Center { get; private set; } = null!;
 
         protected override void Configure(IContainerBuilder builder)
         {
             var interactable = gameObject.AddComponent<Interactable.Interactable>();
             var hoverTrigger = gameObject.AddComponent<HoverTrigger>();
-
+            var building = gameObject.AddComponent<Building>();
+            
             builder.RegisterInstance(interactable);
-            builder.RegisterInstance(hoverTrigger).AsSelf();
-            builder.RegisterInstance(transform);
+            builder.RegisterInstance(hoverTrigger);           
+            builder.RegisterInstance(building);
+            builder.RegisterInstance(Center);
+            building.SetContent(Center);
+            
             builder.RegisterInstance(gameObject);
             builder.RegisterInstance(PlantConfig);
             builder.RegisterInstance(PlantConfig.ItemGivenSound).Keyed("ItemGivenSound");
@@ -41,9 +47,8 @@ namespace Landings.Landings
             builder.Register<ItemGiverFromInventory>(Lifetime.Scoped)
                    .AsSelf();   
             builder.Register<LandingPlantIsItemPopup>(Lifetime.Scoped)
-                   .As<IObjectPopup>()
-                   .AsSelf();
-
+                   .As<IObjectPopup>();
+            
             builder.UseEntryPoints(ep =>
                                    {
                                         ep.Add<PlantGrowerByUpper>()
@@ -58,6 +63,7 @@ namespace Landings.Landings
                                         ep.Add<LandingPlantIsItemController>().AsSelf();
                                         ep.Add<ItemGiverFromInventorySoundPlayer>().AsSelf();
                                    });
+            builder.RegisterEntryPoint<InventoryDisposable>().AsSelf();
             
             builder.RegisterBuildCallback(container =>
                                           {

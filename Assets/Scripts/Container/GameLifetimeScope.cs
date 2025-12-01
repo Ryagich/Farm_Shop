@@ -1,3 +1,6 @@
+using BuildingsAndGrid;
+using BuildingsAndGrid.Buildings;
+using BuildingsAndGrid.Environment;
 using Buyer;
 using CameraScripts;
 using Checkout;
@@ -15,13 +18,12 @@ using Movement;
 using Objects;
 using Shelf;
 using Sounds;
-using UI;
+using UI.Configs;
 using UI.Hover;
 using UI.Hover.PopupLogics;
 using UI.Hover.PopupLogics.Holders;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -38,16 +40,22 @@ namespace Container
         [field: SerializeField] public ItemsConfig ItemsConfig { get; private set; } = null!;
         [field: SerializeField] public FinanceConfig FinanceConfig { get; private set; } = null!;
         [field: SerializeField] public UIConfig UIConfig { get; private set; } = null!;
+        [field: SerializeField] public GridSettings GridSettings { get; private set; } = null!;
+        [field: SerializeField] public HighlightConfig HighlightConfig { get; private set; } = null!;
         [field: SerializeField] public PlayerLifetimeScope PlayerPrefab { get; private set; } = null!;
         [field: SerializeField] public BuyerSettings BuyerSettings { get; private set; } = null!;
         [field: SerializeField] public HoverSettings HoverSettings { get; private set; } = null!;
         [field: SerializeField] public SoundsConfig SoundsConfig { get; private set; } = null!;
+        [field: SerializeField] public GridEnvironmentConfig GridEnvironmentConfig { get; private set; } = null!;
         [field: SerializeField] public PopupHolders PopupHolders { get; private set; } = null!;
         [field: SerializeField] public Camera Camera { get; private set; } = null!;
-        [field: SerializeField] public Transform ShoppingEnter { get; private set; } = null!;
         [field: SerializeField] public NavMeshSurface NavMeshSurface { get; private set; } = null!;
         [field: SerializeField] public Canvas Canvas { get; private set; } = null!;
 
+        
+        [field: SerializeField] public Transform ShoppingEnter { get; private set; } = null!;
+
+        
         private PlayerLifetimeScope playerScope;
 
         protected override void Configure(IContainerBuilder builder)
@@ -65,6 +73,9 @@ namespace Container
             builder.RegisterInstance(HoverSettings).AsSelf();
             builder.RegisterInstance(SoundsConfig).AsSelf();
             builder.RegisterInstance(UIConfig).AsSelf();
+            builder.RegisterInstance(GridSettings).AsSelf();
+            builder.RegisterInstance(HighlightConfig).AsSelf();
+            builder.RegisterInstance(GridEnvironmentConfig).AsSelf();
             
             builder.RegisterInstance(PopupHolders).AsSelf();
             builder.RegisterInstance(NavMeshSurface).AsSelf();
@@ -80,17 +91,27 @@ namespace Container
             builder.Register<CursorHandler>(Lifetime.Singleton);
             builder.Register<CursorController>(Lifetime.Singleton);
             builder.Register<HoverRaycaster>(Lifetime.Singleton);
+            builder.Register<Storage.Storage>(Lifetime.Singleton)
+                   .AsSelf()
+                   .As<IStartable>();
             
             // === MessagePipe ===
             var options = builder.RegisterMessagePipe();
             builder.RegisterMessageBroker<PlayerMoveMessage>(options);
-            builder.RegisterMessageBroker<PlayerMadePurchaseMessage>(options);
+            builder.RegisterMessageBroker<CreatedNewObjectRequest>(options);
+            builder.RegisterMessageBroker<CreatedNewBuildingOnGridRequest>(options);
+            builder.RegisterMessageBroker<DeleteBuildingOnGridRequest>(options);
             builder.RegisterMessageBroker<CreatedNewObjectMessage>(options);
+            builder.RegisterMessageBroker<CreatedNewObjectOnGridMessage>(options);
             builder.RegisterMessageBroker<NewShelfCreatedMessage>(options);
             builder.RegisterMessageBroker<PlaySoundMessage>(options);
             builder.RegisterMessageBroker<InteractableMessage>(options);
             builder.RegisterMessageBroker<InteractableEndMessage>(options);
-
+            builder.RegisterMessageBroker<ChoseBuildingMessage>(options);
+            builder.RegisterMessageBroker<AddBuildingToStorageRequest>(options);
+            builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
+            builder.RegisterMessageBroker<GridExtendMessage>(options);
+            
             // === InputHandler ===
             builder.Register<InputHandler>(Lifetime.Singleton).AsSelf().As<IStartable>();
 

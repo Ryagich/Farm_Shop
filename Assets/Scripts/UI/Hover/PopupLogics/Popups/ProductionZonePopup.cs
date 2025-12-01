@@ -1,15 +1,19 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Inventory.ObjectInventory;
 using Products;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using Utils;
+using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ProductionZonePopup : IObjectPopup
     {
+        public event Action CloseButton;
+
         private readonly ProductConfig productConfig;
         private readonly MaterialInventoriesController materialInventoriesController;
         private readonly ProductionZoneController productionZoneController;

@@ -1,4 +1,5 @@
-﻿using Inventory;
+﻿using BuildingsAndGrid.Buildings;
+using Inventory;
 using Inventory.Movers;
 using Inventory.ObjectInventory;
 using UI.Hover;
@@ -15,18 +16,23 @@ namespace Checkout
         [field: SerializeField] private Transform completeHand = null!;
         [field: SerializeField] private Transform queuePoint = null!;
         [field: SerializeField] private Transform placeForMoney = null!;
+        [field: SerializeField] public Transform Center { get; private set; } = null!;
 
         protected override void Configure(IContainerBuilder builder)
         {
             var interactable = gameObject.AddComponent<Interactable.Interactable>();
             var hoverTrigger = gameObject.AddComponent<HoverTrigger>();
+            var building = gameObject.AddComponent<Building>();
 
             builder.RegisterInstance(interactable);
-            builder.RegisterInstance(hoverTrigger).AsSelf();
+            builder.RegisterInstance(hoverTrigger);
+            builder.RegisterInstance(building);
             builder.RegisterInstance(rawHand).Keyed("RawHand"); 
             builder.RegisterInstance(completeHand).Keyed("CompleteHand");
             builder.RegisterInstance(queuePoint).Keyed("QueuePoint");
             builder.RegisterInstance(placeForMoney).Keyed("PlaceForMoney");
+
+            building.SetContent(Center);
 
             builder.Register<SimpleInventory>(Lifetime.Scoped).As<IInventory>().Keyed("RawInventory");
             builder.Register<SimpleInventory>(Lifetime.Scoped).As<IInventory>().Keyed("CompleteInventory");

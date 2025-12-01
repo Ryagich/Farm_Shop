@@ -1,10 +1,5 @@
-﻿using System.Linq;
-using Inventory.Finance;
-using MessagePipe;
-using Messages;
-using TMPro;
+﻿using UI.Configs;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
@@ -16,30 +11,23 @@ namespace UI.Pages
         public override PageType Type { get; } = PageType.GameWithUI;
         
         private readonly UIConfig uiConfig;
-        private readonly FinanceManager financeManager;
         private readonly RectTransform canvasRect;
         private readonly IObjectResolver resolver;
-        private readonly IPublisher<OpenShopModeMessage> openShopModePublisher;
-        private readonly IPublisher<OpenRedactorModeMessage> openRedactorModeMessage;
+        private readonly UIUtils uiUtils;
 
         private RectTransform contentRect = null!;
         
         public MainPageWithUI
             (
-                // ReSharper disable once InconsistentNaming
-                UIConfig UIConfig,
+                UIConfig uiConfig,
                 Canvas canvas,
-                FinanceManager financeManager,
                 IObjectResolver resolver,
-                IPublisher<OpenShopModeMessage> openShopModePublisher,
-                IPublisher<OpenRedactorModeMessage> openRedactorModeMessage
+                UIUtils uiUtils
             )
         {
-            this.financeManager = financeManager;
             this.resolver = resolver;
-            this.openShopModePublisher = openShopModePublisher;
-            this.openRedactorModeMessage = openRedactorModeMessage;
-            this.uiConfig = UIConfig;
+            this.uiUtils = uiUtils;
+            this.uiConfig = uiConfig;
             
             canvasRect = canvas.GetComponent<RectTransform>();
         }
@@ -48,32 +36,8 @@ namespace UI.Pages
         {
             contentRect = resolver.Instantiate(uiConfig.ContentPref, canvasRect);
             contentRect.name = $"{uiConfig.ContentPref.name} | {Type}";
-            var financeRect = resolver.Instantiate(uiConfig.FinanceTextPrefab, contentRect);
-            var financeText = financeRect.GetComponentInChildren<TMP_Text>();
-            var financeDrawer = new FinanceDrawer(financeManager, financeText);
-            
-            var buttonPosition = uiConfig.OffsetForGameMenuButtons;
-            var buttonsParent = resolver.Instantiate(uiConfig.GameMenuButtonsParent, contentRect);
-            var buttonsParentRect = buttonsParent.GetComponent<RectTransform>();
-            
-            var buttonToShop = resolver.Instantiate(uiConfig.GameMenuButton, buttonsParentRect);
-            var buttonToShopRect = buttonToShop.GetComponent<RectTransform>();
-            var buttonToShopIcon = buttonToShopRect.GetComponentsInChildren<Image>().First(i => i.name.Equals("Image"));
-            
-            var buttonToRedactor = resolver.Instantiate(uiConfig.GameMenuButton, buttonsParentRect);
-            var buttonToRedactorRect = buttonToRedactor.GetComponent<RectTransform>();
-            var buttonToRedactorIcon = buttonToRedactorRect.GetComponentsInChildren<Image>().First(i => i.name.Equals("Image"));
-                
-            buttonToShop.onClick.AddListener(OpenShop);
-            buttonToShop.name = $"Button To Shop";
-            buttonToShopRect.anchoredPosition = buttonPosition;
-            buttonToShopIcon.sprite = uiConfig.ShopIcon;
-            
-            buttonPosition += Vector2.down * (10 + buttonToShopRect.sizeDelta.y);
-            buttonToRedactor.onClick.AddListener(OpenRedactor);
-            buttonToRedactor.name = $"Button To Redactor";
-            buttonToRedactorRect.anchoredPosition = buttonPosition;
-            buttonToRedactorIcon.sprite = uiConfig.RedactorIcon;
+            uiUtils.DrawFinanceDrawer(contentRect);
+            uiUtils.DrawGameModesSwitchButtons(contentRect, uiConfig.OffsetForGameMenuButtons, Type);
         }
 
         public override void Hide()
@@ -81,8 +45,5 @@ namespace UI.Pages
             if (contentRect)
                 Object.Destroy(contentRect.gameObject);
         }
-
-        private void OpenShop() => openShopModePublisher.Publish(new OpenShopModeMessage());
-        private void OpenRedactor() => openRedactorModeMessage.Publish(new OpenRedactorModeMessage());
     }
 }

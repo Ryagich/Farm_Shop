@@ -1,7 +1,5 @@
 ﻿using MessagePipe;
 using Messages;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using VContainer.Unity;
 
 namespace GameModes
@@ -9,7 +7,7 @@ namespace GameModes
     // ReSharper disable once ClassNeverInstantiated.Global
     public class GameModesController : IStartable
     {
-        public GameModes GameMode { get; private set; } = GameModes.Game;
+        public GameMode GameMode { get; private set; } = GameMode.Game;
       
         private readonly IPublisher<GameModeChangedMessage> gameModeChangedPublisher;
         private readonly IPublisher<ChangeCursorStateMessage> changeCursorStatePublisher;
@@ -18,67 +16,77 @@ namespace GameModes
             (
                 IPublisher<GameModeChangedMessage> gameModeChangedPublisher,
                 IPublisher<ChangeCursorStateMessage> changeCursorStatePublisher,
-                ISubscriber<OpenGameModeMessage> openGameModeSubscriber,
-                ISubscriber<OpenRedactorModeMessage> openRedactorModeSubscriber,
-                ISubscriber<OpenShopModeMessage> openShopModeSubscriber
+                ISubscriber<OpenShopWithAreaRequest> OpenShopWithAreaRequestSubscriber,
+                ISubscriber<ChangeGameModeRequest> OpenPageRequestSubscriber
             )
         {
             this.gameModeChangedPublisher = gameModeChangedPublisher;
             this.changeCursorStatePublisher = changeCursorStatePublisher;
 
-            openGameModeSubscriber.Subscribe(OpenGameMode);
-            openRedactorModeSubscriber.Subscribe(OpenRedactorMode);
-            openShopModeSubscriber.Subscribe(OpenShopMode);
+            OpenShopWithAreaRequestSubscriber.Subscribe(OpenShopWithArea);
+            OpenPageRequestSubscriber.Subscribe(OpenPage);
         }
 
         public void Start()
         {
-            gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameModes.Game));
+            gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode.Game));
         }
 
         private void EnterMainGameMode()
         {
-            if (GameMode is GameModes.Game)
+            if (GameMode is GameMode.Game)
             {
                 changeCursorStatePublisher.Publish(new ChangeCursorStateMessage());
                 return;
             }
-            GameMode = GameModes.Game;
+            GameMode = GameMode.Game;
             gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode));
         }
 
-        private void OpenGameMode(OpenGameModeMessage msg)
+        private void OpenPage(ChangeGameModeRequest msg)
         {
-            EnterMainGameMode();    
+            if (GameMode == msg.Mode)
+            {
+                if (GameMode is GameMode.Game)
+                {
+                    EnterMainGameMode();
+                }
+                else
+                {
+                    EnterMainGameMode();
+                    return;
+                } 
+            }
+            GameMode = msg.Mode;
+            gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode));
         }
         
-        private void OpenRedactorMode(OpenRedactorModeMessage msg)
+        private void OpenShopWithArea(OpenShopWithAreaRequest msg)
         {
-            if (GameMode is GameModes.Redactor)
+            if (GameMode is GameMode.Shop)
             {
                 EnterMainGameMode();
                 return;
             }
-            GameMode = GameModes.Redactor;
-            gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode));
-        }
-
-        private void OpenShopMode(OpenShopModeMessage msg)
-        {
-            if (GameMode is GameModes.Shop)
-            {
-                EnterMainGameMode();
-                return;
-            }
-            GameMode = GameModes.Shop;
-            gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode));
+            GameMode = GameMode.Shop;
+            gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode, msg.Area));
         }
     }
 
-    public enum GameModes
+    public enum GameMode
     {
         Game,
         Shop,
+        Inventory,
         Redactor
+    }
+    
+    public enum Area
+    {
+        None,
+        Garden,
+        Shop,
+        Production,
+        Wall
     }
 }

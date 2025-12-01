@@ -1,4 +1,7 @@
-﻿using Buyer;
+﻿using System.Collections.Generic;
+using BuildingsAndGrid;
+using BuildingsAndGrid.Buildings;
+using Buyer;
 using Checkout;
 using Inventory;
 using Inventory.Item;
@@ -31,13 +34,58 @@ namespace Messages
         }
     }
 
-    public readonly struct PlayerMadePurchaseMessage
+    public readonly struct CreatedNewBuildingOnGridRequest
+    {
+        public readonly BuildingConfig BuildingConfig;
+        public readonly Vector3 Position;
+        public readonly Vector3 LocalPosition;
+        public readonly Quaternion Rotation;
+        public readonly List<Tile> Tiles;
+        
+        public CreatedNewBuildingOnGridRequest
+            (
+                BuildingConfig buildingConfig,
+                Vector3 position,
+                Vector3 localPosition,
+                Quaternion rotation,
+                List<Tile> tiles
+            )
+        {
+            BuildingConfig = buildingConfig;
+            Position = position;
+            LocalPosition = localPosition;
+            Rotation = rotation;
+            Tiles = tiles;
+        }
+    }
+
+    public readonly struct DeleteBuildingOnGridRequest
+    {
+        public readonly Building Building;
+        
+        public DeleteBuildingOnGridRequest(Building building)
+        {
+            Building = building;
+        }
+    }
+    
+    public readonly struct AddBuildingToStorageRequest
+    {
+        public readonly BuildingConfig BuildingConfig;
+        
+        public AddBuildingToStorageRequest(BuildingConfig buildingConfig)
+        {
+            BuildingConfig = buildingConfig;
+        }
+    }
+    
+    public readonly struct CreatedNewObjectRequest
     {
         public readonly LifetimeScope Scope;
         public readonly Vector3 Position;
         public readonly Vector3 Rotation;
 
-        public PlayerMadePurchaseMessage(LifetimeScope scope, Vector3 position, Vector3 rotation)
+        public CreatedNewObjectRequest(LifetimeScope scope, Vector3 position, Vector3 rotation)
         {
             Scope = scope;
             Position = position;
@@ -63,6 +111,28 @@ namespace Messages
             Rotation = rotation;
         }
     }
+    
+    public readonly struct CreatedNewObjectOnGridMessage
+    {
+        public readonly Building Building;
+        public readonly Transform Transform;
+        public readonly Vector3 Position;
+        public readonly Quaternion Rotation;
+
+        public CreatedNewObjectOnGridMessage
+            (
+                Building building,
+                Transform transform,
+                Vector3 position,
+                Quaternion rotation
+            )
+        {
+            Building = building;
+            Transform = transform;
+            Position = position;
+            Rotation = rotation;
+        }
+    }
 
     public readonly struct PlantHasGrownMessage
     {
@@ -73,7 +143,7 @@ namespace Messages
             Grower = grower;
         }
     }
-
+    
     public readonly struct PlantHasFinishedGrownMessage
     {
         public readonly IGrower Grower;

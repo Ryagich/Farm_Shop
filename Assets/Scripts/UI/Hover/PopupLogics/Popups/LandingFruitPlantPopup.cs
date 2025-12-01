@@ -1,4 +1,5 @@
-﻿using Inventory.ObjectInventory;
+﻿using System;
+using Inventory.ObjectInventory;
 using Landings;
 using Landings.Landings;
 using Landings.Plants;
@@ -7,12 +8,15 @@ using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using Utils;
 using VContainer;
+using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class LandingFruitPlantPopup : IObjectPopup
     {
+        public event Action CloseButton;
+
         private readonly PopupHolders popupHolders;
         private readonly FruitPlantConfig fruitPlantConfig;
         private readonly Canvas canvas;

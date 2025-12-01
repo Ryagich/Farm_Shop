@@ -1,4 +1,6 @@
-﻿namespace UI.Pages
+﻿using GameModes;
+
+namespace UI.Pages
 {
     public abstract class BasePage
     {
@@ -7,5 +9,11 @@
         public abstract void Draw();
 
         public abstract void Hide();
+    }
+
+    public interface AreaDrawer
+    {
+        public  Area CurrentArea { get; }
+        public void SetArea(Area area);
     }
 }

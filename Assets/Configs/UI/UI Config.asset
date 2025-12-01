@@ -17,6 +17,15 @@ MonoBehaviour:
   <GameMenuButtonsParent>k__BackingField: {fileID: 3283988012314361217, guid: 2e7636d083304214186f6cfb4702419f, type: 3}
   <GameMenuButton>k__BackingField: {fileID: 4336179500377622564, guid: 88ab85907f43e6e4384b97e3f4722dd0, type: 3}
   <OffsetForGameMenuButtons>k__BackingField: {x: -10, y: 0}
-  <ShopIcon>k__BackingField: {fileID: 21300000, guid: a27e84d920999f84597f02f692c5e12b, type: 3}
-  <RedactorIcon>k__BackingField: {fileID: 21300000, guid: 48645e4aa3330d846a4bfcc6b19f8fb9, type: 3}
   <ShopView>k__BackingField: {fileID: 749817895665285501, guid: 85b914a321ec0534da280324c6cd3749, type: 3}
+  <RedactorView>k__BackingField: {fileID: 6262494265267083601, guid: 69cd513ca18b62d45ba4143ed54f59e9, type: 3}
+  <PurchaseCardPrefab>k__BackingField: {fileID: 4779417916929354018, guid: 16f9684ef18da454da08cb0bb47a22ca, type: 3}
+  <ProductCardPrefab>k__BackingField: {fileID: 649545104201763441, guid: 74932c01d0e09e143942a4355ca5b744, type: 3}
+  <SpaceBetweenPurchaseCards>k__BackingField: {x: 265, y: 40}
+  <CardsRowCount>k__BackingField: 6
+  <SpritesConfig>k__BackingField: {fileID: 11400000, guid: 9fa373c319175174587c5febb6c92548, type: 2}
+  <SectionButtons>k__BackingField: {fileID: -5696365727468345204, guid: 34e67f545536437408cf3261f56f23af, type: 3}
+  <SectionButtonsPositionForShopPage>k__BackingField: {x: 5, y: 0, z: 0}
+  <SectionButtonsPositionForRedactorPage>k__BackingField: {x: 5, y: 0, z: 0}
+  <OffsetForProductionCards>k__BackingField: {x: 10, y: -10}
+  <SpaceBetweenProductionCards>k__BackingField: 25

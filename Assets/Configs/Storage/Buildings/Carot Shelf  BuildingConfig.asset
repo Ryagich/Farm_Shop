@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
+  m_Name: Carot Shelf  BuildingConfig
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 2
+  <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <Name>k__BackingField: Carrot Shelf Of Goods
+  <Building>k__BackingField: {fileID: 6371271840119661707, guid: f8f14e98c97f3c141b953428e5074704, type: 3}
+  <HighlightBuilding>k__BackingField: {fileID: 5924636531613310000, guid: e684fe2e176192541b8f8caebb1a1c3b, type: 3}
+  <Size>k__BackingField: {x: 8, y: 4}
+  <Price>k__BackingField: 0
+  <ShowInShop>k__BackingField: 1

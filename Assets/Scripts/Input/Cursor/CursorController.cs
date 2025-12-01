@@ -1,4 +1,5 @@
-﻿using MessagePipe;
+﻿using GameModes;
+using MessagePipe;
 using Messages;
 
 namespace Input.Cursor
@@ -17,20 +18,19 @@ namespace Input.Cursor
             )
         {
             this.cursorHandler = cursorHandler;
-            
+
             changeCursorSubscriber.Subscribe(OnChangeCursor);
             gameModeChangeSubscriber.Subscribe(OnChangeGameMode);
-            // cursorHandler.ShowCursor();
         }
 
         private void OnChangeGameMode(GameModeChangedMessage msg)
         {
             switch (msg.GameMode)
             {
-                case GameModes.GameModes.Game:
+                case GameMode.Game:
                     cursorHandler.SetCursorState(IsVisibleInPlayMode);
                     break;
-                case GameModes.GameModes.Redactor or GameModes.GameModes.Shop:
+                case GameMode.Inventory or GameMode.Shop or GameMode.Redactor:
                     cursorHandler.ShowCursor();
                     break;
             }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameModes;
+using UnityEngine;
 
 namespace Messages
 {
@@ -12,8 +13,29 @@ namespace Messages
         }
     }
     
-    public readonly struct OpenGameModeMessage { }
     public readonly struct ChangeCursorStateMessage { }
-    public readonly struct OpenRedactorModeMessage { }
-    public readonly struct OpenShopModeMessage { }
+    public readonly struct ClickMessage { }
+    public readonly struct RightClickMessage { }
+    public readonly struct LeftRotateMessage { }
+    public readonly struct RightRotateMessage { }
+
+    public readonly struct ChangeGameModeRequest
+    {
+        public readonly GameMode Mode;
+
+        public ChangeGameModeRequest(GameMode mode)
+        {
+            Mode = mode;
+        }
+    }
+    
+    public readonly struct OpenShopWithAreaRequest
+    {
+        public readonly Area Area;
+
+        public OpenShopWithAreaRequest(Area area)
+        {
+            Area = area;
+        }
+    }
 }

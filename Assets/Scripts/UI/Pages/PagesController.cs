@@ -15,6 +15,8 @@ namespace UI.Pages
         private readonly MainPage mainPage;
         private readonly MainPageWithUI mainPageWithUI;
         private readonly ShopPage shopPage;
+        private readonly InventoryPage inventoryPage;
+        private readonly RedactorPage redactorPage;
 
         private BasePage currentPage;
         
@@ -25,6 +27,8 @@ namespace UI.Pages
                 MainPage mainPage,
                 MainPageWithUI mainPageWithUI,
                 ShopPage shopPage,
+                InventoryPage inventoryPage, 
+                RedactorPage redactorPage,
                 ISubscriber<ChangeCursorStateMessage> changeCursorStateSubscriber,
                 ISubscriber<GameModeChangedMessage> gameModeChangeSubscriber
             )
@@ -34,6 +38,8 @@ namespace UI.Pages
             this.mainPage = mainPage;
             this.mainPageWithUI = mainPageWithUI;
             this.shopPage = shopPage;
+            this.inventoryPage = inventoryPage;
+            this.redactorPage = redactorPage;
 
             currentPage = mainPageWithUI;
             currentPage.Draw();
@@ -50,24 +56,32 @@ namespace UI.Pages
         private void OnGameModeChanged(GameModeChangedMessage msg)
         {
             Update(msg.GameMode);
+            if (msg.Area != Area.None && currentPage is AreaDrawer areaDrawer)
+            {
+                areaDrawer.SetArea(msg.Area);
+            }
         }
-
-        private void Update(GameModes.GameModes gameMode)
+        
+        private void Update(GameMode gameMode)
         {
             Debug.Log($"Update Page {gameMode}");
             HideCurrentPage();
             switch (gameMode)
             {
-                case GameModes.GameModes.Game:
+                case GameMode.Game:
                     if (cursorController.IsVisibleInPlayMode)
                         currentPage = mainPageWithUI;
                     else
                         currentPage = mainPage;
                     break;
-                case GameModes.GameModes.Redactor:
-                    break; 
-                case GameModes.GameModes.Shop:
+                case GameMode.Shop:
                     currentPage = shopPage;
+                    break;
+                case GameMode.Inventory:
+                    currentPage = inventoryPage;
+                    break; 
+                case GameMode.Redactor:
+                    currentPage = redactorPage;
                     break;
                 default:
                     if (cursorController.IsVisibleInPlayMode)
@@ -94,6 +108,7 @@ namespace UI.Pages
         MainGame,
         GameWithUI,
         Shop,
-        Inventory
+        Inventory,
+        Redactor
     }
 }

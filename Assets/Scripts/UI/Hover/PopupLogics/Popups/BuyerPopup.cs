@@ -1,14 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Buyer;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using Utils;
+using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class BuyerPopup : IObjectPopup
     {
+        public event Action CloseButton;
+
         private readonly PopupHolders popupHolders;
         private readonly BuyerController buyerController;
         private readonly Canvas canvas;

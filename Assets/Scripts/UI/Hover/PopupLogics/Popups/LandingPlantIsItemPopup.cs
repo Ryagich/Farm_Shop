@@ -1,27 +1,40 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using BuildingsAndGrid.Buildings;
+using GameModes;
 using Inventory.Item;
-using Landings;
 using Landings.Plants;
 using Landings.Plants.PlantConfigs;
+using MessagePipe;
+using Messages;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using VContainer;
+using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class LandingPlantIsItemPopup : IObjectPopup
     {
+        public event Action CloseButton;
+
         private readonly PopupHolders popupHolders;
         private readonly PlantConfig plantConfig;
+        private readonly Building building;
         private readonly Canvas canvas;
         private readonly PlantGrowerByUpper plantGrowerByUpper;
         private readonly PlantGrowerByStages plantGrowerByStages;
+        private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;
+        private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
+        private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
+        private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
         
         public LandingPlantIsItemPopup
             (
                 PopupHolders popupHolders,
                 PlantConfig plantConfig,
+                Building building,
                 Canvas canvas,
                 [Key(nameof(PlantGrowerByUpper))] PlantGrowerByUpper plantGrowerByUpper,
                 [Key(nameof(PlantGrowerByStages))] PlantGrowerByStages plantGrowerByStages
@@ -29,9 +42,15 @@ namespace UI.Hover.PopupLogics.Popups
         {
             this.popupHolders = popupHolders;
             this.plantConfig = plantConfig;
+            this.building = building;
             this.canvas = canvas;
             this.plantGrowerByUpper = plantGrowerByUpper;
             this.plantGrowerByStages = plantGrowerByStages;
+            
+            choseBuildingMessagePublisher = GlobalMessagePipe.GetPublisher<ChoseBuildingMessage>();
+            deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
+            addBuildingToStoragePublisher = GlobalMessagePipe.GetPublisher<AddBuildingToStorageRequest>();
+            changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
         public RectTransform DrawPopup()
@@ -54,7 +73,33 @@ namespace UI.Hover.PopupLogics.Popups
                 popup.GrowStage.text = $"Grow Stage: {plantGrowerByStages.currentStage + 1}";
                 popup.GrowFill.fillAmount = plantGrowerByStages.timer / plantGrowerByStages.stageTime;
             }
+            popup.ButtonMove.onClick.AddListener(OnMove);
+            popup.ButtonMoveToInventory.onClick.AddListener(OnInventory);
+                    
             return popup.GetComponent<RectTransform>();
+        }
+
+        private void OnInventory()
+        {
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
+            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
+            CloseButton?.Invoke();
+        }
+        
+        private void OnMove()
+        {
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
+            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
+            choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
+                                                                           building.BuildingConfig,
+                                                                           building.transform.position,
+                                                                           building.Content.localPosition,
+                                                                           building.Content.rotation,
+                                                                           building.Tiles,
+                                                                           true
+                                                                          ));
+            changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
+            CloseButton?.Invoke();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Purchase
         private readonly Transform place;
         private readonly List<GameObject> moneyObjects = new();
         private readonly GameObject instance;
-        private readonly IPublisher<PlayerMadePurchaseMessage> playerMadePurchaseMessage;
+        private readonly IPublisher<CreatedNewObjectRequest> playerMadePurchaseMessage;
         
         private readonly LifetimeScope purchase;
         private readonly Vector3 position;      
@@ -39,7 +39,7 @@ namespace Purchase
                 FinanceConfig financeConfig,
                 PurchaseObject purchaseObject,
                 GameObject instance,
-                IPublisher<PlayerMadePurchaseMessage> playerMadePurchaseMessage
+                IPublisher<CreatedNewObjectRequest> playerMadePurchaseMessage
             )
         {
             this.place = place;
@@ -81,7 +81,7 @@ namespace Purchase
                     Object.Destroy(item.gameObject);
                     if (isDone && moneyObjects.Count is 0)
                     {
-                        playerMadePurchaseMessage.Publish(new PlayerMadePurchaseMessage(purchase, position, rotation));
+                        playerMadePurchaseMessage.Publish(new CreatedNewObjectRequest(purchase, position, rotation));
                         Object.Destroy(instance);
                     }
                     continue;

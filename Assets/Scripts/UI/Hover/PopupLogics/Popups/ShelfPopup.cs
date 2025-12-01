@@ -1,16 +1,20 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Inventory;
 using Inventory.Item;
 using Shelf;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using VContainer;
+using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ShelfPopup : IObjectPopup
     {
+        public event Action CloseButton;
+
         private readonly ItemConfig itemConfig;
         private readonly IInventory inventory;
         private readonly PopupHolders popupHolders;

@@ -1,5 +1,6 @@
 ﻿using Inventory.Finance;
 using TMPro;
+using UI.Configs;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

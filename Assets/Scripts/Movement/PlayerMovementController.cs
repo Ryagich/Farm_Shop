@@ -1,4 +1,5 @@
 ﻿using CameraScripts;
+using GameModes;
 using Gravity;
 using MessagePipe;
 using Messages;
@@ -64,7 +65,7 @@ namespace Movement
 
         private void OnGameModeChanged(GameModeChangedMessage msg)
         {
-            if (msg.GameMode is GameModes.GameModes.Game)
+            if (msg.GameMode is GameMode.Game)
             {
                 playerMovement.ChangeState(true);
                 virtualPlayerMovement.ChangeState(false, transform.position);
@@ -72,7 +73,7 @@ namespace Movement
                 playerAnimationController.ChangeState(true, direction);
                 cameraMovement.ChangeTarget(transform);
             }
-            else if (msg.GameMode is GameModes.GameModes.Redactor)
+            else if (msg.GameMode is GameMode.Inventory or GameMode.Redactor)
             {
                 playerMovement.ChangeState(false);
                 virtualPlayerMovement.ChangeState(true, transform.position);

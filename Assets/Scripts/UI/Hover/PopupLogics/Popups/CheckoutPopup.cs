@@ -1,12 +1,16 @@
-﻿using Checkout;
+﻿using System;
+using Checkout;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class CheckoutPopup : IObjectPopup
     {
+        public event Action CloseButton;
+
         private readonly PopupHolders popupHolders;
         private readonly Canvas canvas;
         private readonly ByersQueue byersQueue;

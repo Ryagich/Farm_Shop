@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ChangeCursorState",
+                    "name": "OpenGameMode",
                     "type": "Button",
                     "id": "df430204-f7fe-42a3-a607-a5d8f8ea2797",
                     "expectedControlType": "",
@@ -45,6 +45,42 @@
                     "name": "OpenShopMode",
                     "type": "Button",
                     "id": "3221e610-a3f1-42fa-bf54-675bace8307c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "b7c5f9b2-05b9-439f-80a6-3b5a3011c246",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right Click",
+                    "type": "Button",
+                    "id": "d6f7f788-fe13-499b-a524-f1a785beec0d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Left Rotate",
+                    "type": "Button",
+                    "id": "2292420c-4d37-4031-ad82-92dae070e109",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right Rotate",
+                    "type": "Button",
+                    "id": "85fc4082-c15e-458e-8f86-e43f92e7be73",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -125,7 +161,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangeCursorState",
+                    "action": "OpenGameMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -148,6 +184,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenShopMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "361c0ef1-f921-4733-a99b-2cdca6be0df2",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34e8a6b3-a8ef-4a9a-99d6-9e611d6dac97",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c546e1ab-b10c-42d4-bcef-9159ba6808e1",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0aefafe4-d587-450a-b4a4-ccc3defce017",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

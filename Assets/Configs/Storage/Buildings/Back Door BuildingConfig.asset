@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
+  m_Name: Back Door BuildingConfig
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 4
+  <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <Name>k__BackingField: Back Door
+  <Building>k__BackingField: {fileID: 196666081437068741, guid: 6c37e98b85eae0b47859f1d1100c7315, type: 3}
+  <HighlightBuilding>k__BackingField: {fileID: 6587971095263616599, guid: 7135f35f84aa39e4493f39bba69e8224, type: 3}
+  <Size>k__BackingField: {x: 6, y: 1}
+  <Price>k__BackingField: 0
+  <ShowInShop>k__BackingField: 1

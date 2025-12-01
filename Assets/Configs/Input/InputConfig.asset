@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1945b6e137cadf74597391120080a0a8, type: 3}
   m_Name: InputConfig
   m_EditorClassIdentifier: 
-  <MoveInput>k__BackingField: {fileID: 3520359616301873282, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
   <PointerPosition>k__BackingField: {fileID: -8400786543966450113, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
-  <ChangeCursorState>k__BackingField: {fileID: 3964138241985054219, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
+  <Click>k__BackingField: {fileID: 2674951002900594906, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
+  <RightClick>k__BackingField: {fileID: -8739214023811454096, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
+  <MoveInput>k__BackingField: {fileID: 3520359616301873282, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
+  <OpenGameMode>k__BackingField: {fileID: 3964138241985054219, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
   <OpenRedactorMode>k__BackingField: {fileID: 599119550119022609, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
   <OpenShopMode>k__BackingField: {fileID: 410616583666334882, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
+  <LeftRotate>k__BackingField: {fileID: 4926979620118285200, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
+  <RightRotate>k__BackingField: {fileID: -4060825139932532229, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}

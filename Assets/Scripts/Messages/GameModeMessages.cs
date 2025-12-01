@@ -1,22 +1,17 @@
-﻿namespace Messages
+﻿using GameModes;
+
+namespace Messages
 {
     public readonly struct GameModeChangedMessage
     {
-        public readonly GameModes.GameModes GameMode;
+        public readonly GameMode GameMode;
+        public readonly Area Area;
 
-        public GameModeChangedMessage(GameModes.GameModes gameMode)
+        public GameModeChangedMessage(GameMode gameMode, Area area = Area.None)
         {
             GameMode = gameMode;
+            Area = area;
         }
     }
-    
-    public readonly struct GameModeChangedRequest
-    {
-        public readonly GameModes.GameModes GameMode;
-
-        public GameModeChangedRequest(GameModes.GameModes gameMode)
-        {
-            GameMode = gameMode;
-        }
-    }
+    public readonly struct GridExtendMessage { }
 }
