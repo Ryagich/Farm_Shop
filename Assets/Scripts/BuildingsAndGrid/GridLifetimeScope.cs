@@ -1,6 +1,7 @@
 ﻿using BuildingsAndGrid.Buildings;
 using BuildingsAndGrid.Environment;
 using BuildingsAndGrid.Extension;
+using Objects;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -21,7 +22,9 @@ namespace BuildingsAndGrid
             builder.Register<GridRaycaster>(Lifetime.Scoped);
             builder.Register<TilesController>(Lifetime.Scoped);
             builder.Register<GridExtensionSpawner>(Lifetime.Scoped);
-
+            builder.Register<BuildingPlacer>(Lifetime.Scoped);
+            
+            builder.RegisterEntryPoint<DefaultBuildingsCreator>().AsSelf();
             builder.RegisterEntryPoint<VisualGridSeparation>().AsSelf();
             builder.RegisterEntryPoint<VisualFloor>().AsSelf();
             builder.RegisterEntryPoint<GridColliderBuilder>().AsSelf();

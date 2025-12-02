@@ -24,7 +24,7 @@ MonoBehaviour:
     <Type>k__BackingField: 2
   <TileSize>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
   <yOffset>k__BackingField: 0.01
-  <EnvironmentAddSizeSize>k__BackingField: {x: 7, y: 12}
+  <EnvironmentAddSizeSize>k__BackingField: {x: 70, y: 70}
   <ShopPlankSize>k__BackingField: 5
   <ExpansionPref>k__BackingField: {fileID: -8389771217377643718, guid: 6b2ee9c1002d17648aa39690ecc12a8c, type: 3}
   <ExtensionLayer>k__BackingField:

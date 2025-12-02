@@ -1,4 +1,6 @@
-﻿using BuildingsAndGrid.Buildings;
+﻿using System.Collections.Generic;
+using BuildingsAndGrid;
+using BuildingsAndGrid.Buildings;
 using MessagePipe;
 using Messages;
 using UniRx;
@@ -11,6 +13,8 @@ namespace Objects
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ObjectCreator : IStartable
     {
+        private readonly GridSettings gridSettings;
+        private readonly TilesController tilesController;
         private readonly IObjectResolver resolver;
         private readonly IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher;
         private readonly IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher;
@@ -18,6 +22,7 @@ namespace Objects
 
         public ObjectCreator
             (
+                
                 IObjectResolver resolver,
                 IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher,
                 IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher,

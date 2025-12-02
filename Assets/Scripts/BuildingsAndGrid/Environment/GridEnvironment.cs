@@ -189,11 +189,14 @@ namespace BuildingsAndGrid.Environment
 
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
+            
+            var collider = wall.AddComponent<MeshCollider>();
+            collider.sharedMesh = mesh;
         }
 
         private void CreateHorizontalWall(string name, Vector3 center, float width, float thickness, Transform parent)
         {
-            GameObject wall = new GameObject(name);
+            var wall = new GameObject(name);
             wall.transform.SetParent(parent);
 
             var mf = wall.AddComponent<MeshFilter>();
@@ -223,6 +226,9 @@ namespace BuildingsAndGrid.Environment
 
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
+            
+            var collider = wall.AddComponent<MeshCollider>();
+            collider.sharedMesh = mesh;
         }
 
         private void CreateCorner(string name, Vector3 center, float sizeX, float sizeZ, Transform parent)
@@ -257,6 +263,9 @@ namespace BuildingsAndGrid.Environment
 
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
+            
+            var collider = corner.AddComponent<MeshCollider>();
+            collider.sharedMesh = mesh;
         }
     }
 }

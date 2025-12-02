@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BuildingsAndGrid.Buildings;
 using GameModes;
 using MessagePipe;
 using Messages;
@@ -8,56 +7,45 @@ using VContainer.Unity;
 
 namespace BuildingsAndGrid.Environment
 {
-    //TODO: Большой класс. Дублирования. Нужно бить на классы и методы.
     // ReSharper disable once ClassNeverInstantiated.Global
     public class GridWallsCreator : IStartable
     {
         private readonly GridSettings gridSettings;
-        private readonly GridEnvironmentConfig gridEnvConfig;
         private readonly TilesController tilesController;
 
-        private readonly IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher;
+        private readonly ISubscriber<CreatedNewObjectOnGridMessage> createdNewObjectOnGridSubscriber;
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         private readonly ISubscriber<GameModeChangedMessage> gameModeChangedMessageSubscriber;
 
-        private List<Building> buildings = new();
-        private GameObject environmentParent;
         private GameObject wallView;
+        private GameObject wallsParent;
         private GameObject externalWall;
         private bool lastModeIsRedactor;
-
-        // private GameObject wallsObject;
 
         public GridWallsCreator
             (
                 GridSettings gridSettings,
-                GridEnvironmentConfig gridEnvConfig,
                 TilesController tilesController,
-                IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher,
                 ISubscriber<CreatedNewObjectOnGridMessage> createdNewObjectOnGridSubscriber,
                 ISubscriber<GridExtendMessage> gridExtendSubscriber,
                 ISubscriber<GameModeChangedMessage> gameModeChangedMessageSubscriber
             )
         {
             this.gridSettings = gridSettings;
-            this.gridEnvConfig = gridEnvConfig;
             this.tilesController = tilesController;
 
-            this.createdNewBuildingOnGridPublisher = createdNewBuildingOnGridPublisher;
+            this.createdNewObjectOnGridSubscriber = createdNewObjectOnGridSubscriber;
             this.gameModeChangedMessageSubscriber = gameModeChangedMessageSubscriber;
-            deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
 
-            createdNewObjectOnGridSubscriber.Subscribe(OnNewObjectCreatedOnGrid);
             gridExtendSubscriber.Subscribe(OnGridExtended);
         }
         
         public void Start()
-        {
-            environmentParent = new GameObject("Wall Environment Parent");
-            CreateEnvironment();
-            CreateCheckout();
+        { 
+            wallsParent = new GameObject("Walls Parent");
             DrawWalls();
             gameModeChangedMessageSubscriber.Subscribe(OnGameModeChanged);
+            createdNewObjectOnGridSubscriber.Subscribe(OnNewObjectCreatedOnGrid);
         }
         
         private void OnGameModeChanged(GameModeChangedMessage msg)
@@ -69,10 +57,6 @@ namespace BuildingsAndGrid.Environment
             }
             else if (lastModeIsRedactor)
             {
-                //Какой-то непонятный/неприятный баг.Долго не могу пофиксить.
-                //Костыль. При смене режимов, переустанавливаю двери.
-                ClearBuildings();
-                CreateEnvironment();
                 DrawWall();
                 lastModeIsRedactor = false;
             }
@@ -80,27 +64,13 @@ namespace BuildingsAndGrid.Environment
         
         private void OnGridExtended(GridExtendMessage msg)
         {
-            ClearBuildings();
-            CreateEnvironment();
             DrawWalls();
-        }
-
-        private void ClearBuildings()
-        {
-            foreach (var building in buildings)
-            {
-                if (building)
-                    deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
-            }
-            buildings.Clear();
         }
         
         private void OnNewObjectCreatedOnGrid(CreatedNewObjectOnGridMessage msg)
         {
             if (msg.Building.BuildingConfig.Type is Area.Wall)
             {
-                msg.Transform.SetParent(environmentParent.transform);
-                buildings.Add(msg.Building);
                 DrawWalls();
             }
         }
@@ -127,155 +97,16 @@ namespace BuildingsAndGrid.Environment
             externalWall.layer = Mathf.RoundToInt(Mathf.Log(gridSettings.WallForPlayerLayer.value, 2));
         }
         
-        private void CreateEnvironment()
-        {
-            //BackDoor 1
-            TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
-                                                                     new List<TileAroundInfo>
-                                                                     {
-                                                                         new(Area.Wall, 2),
-                                                                         new(Area.Production, 1),
-                                                                         new(Area.Garden, 1),
-                                                                     }),
-                                      new List<TileAroundInfoWithPosition>
-                                      {
-                                          new(new Vector2Int(gridEnvConfig.BackDoor.Size.x, 0),
-                                              new List<TileAroundInfo>
-                                              {
-                                                  new(Area.Wall, 3),
-                                                  new(Area.Garden, 1),
-                                              })
-                                      },
-                                      gridEnvConfig.BackDoor,
-                                      Quaternion.identity);
-            //BackDoor 2
-            TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
-                                                                     new List<TileAroundInfo>
-                                                                     {
-                                                                         new(Area.Wall, 2),
-                                                                         new(Area.Shop, 1),
-                                                                         new(Area.Garden, 1),
-                                                                     }),
-                                      new List<TileAroundInfoWithPosition>
-                                      {
-                                          new(new Vector2Int(-1, 0),
-                                              new List<TileAroundInfo>
-                                              {
-                                                  new(Area.Wall, 3),
-                                                  new(Area.Garden, 1),
-                                              })
-                                      },
-                                      gridEnvConfig.BackDoor,
-                                      Quaternion.identity);
-            //BackDoor 3
-            TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
-                                                                     new List<TileAroundInfo>
-                                                                     {
-                                                                         new(Area.Wall, 2),
-                                                                         new(Area.Shop, 1),
-                                                                         new(Area.Production, 1),
-                                                                     }),
-                                      new List<TileAroundInfoWithPosition>
-                                      {
-                                          new(new Vector2Int(0, -1),
-                                              new List<TileAroundInfo>
-                                              {
-                                                  new(Area.Wall, 3),
-                                                  new(Area.Garden, 1),
-                                              })
-                                      },
-                                      gridEnvConfig.BackDoor,
-                                      Quaternion.Euler(.0f, 90.0f, .0f));
-            //Shop Door
-            TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
-                                                                     new List<TileAroundInfo>
-                                                                     {
-                                                                         new(Area.Wall, 2),
-                                                                         new(Area.Shop, 1),
-                                                                         new(Area.None, 1),
-                                                                     }),
-                                      new List<TileAroundInfoWithPosition>
-                                      {
-                                          new(new Vector2Int(-1, 0),
-                                              new List<TileAroundInfo>
-                                              {
-                                                  new(Area.Wall, 3),
-                                                  new(Area.None, 1),
-                                              })
-                                      },
-                                      gridEnvConfig.ShopDoorConfig,
-                                      Quaternion.identity);
-        }
-
-        private void CreateCheckout()
-        {
-            TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
-                                                                     new List<TileAroundInfo>
-                                                                     {
-                                                                         new(Area.Shop, 4),
-                                                                     }),
-                                      new List<TileAroundInfoWithPosition>
-                                      {
-                                          new(new Vector2Int(-2, -2),
-                                              new List<TileAroundInfo>
-                                              {
-                                                  new(Area.Wall, 3),
-                                                  new(Area.Garden, 1),
-                                              })
-                                      },
-                                      gridEnvConfig.Checkout,
-                                      Quaternion.identity);
-        }
-
-        private bool TryPlaceBuildingByPattern
-            (
-                TileAroundInfoWithPosition mainCondition,
-                List<TileAroundInfoWithPosition> conditions,
-                BuildingConfig config,
-                Quaternion rotation
-            )
-        {
-            var found = tilesController.Tiles.TryGetTileByTilesCondition(mainCondition, conditions, out var tile);
-            if (!found || tile == null)
-                return false;
-
-            var px = tile.Index.x + mainCondition.Offset.x;
-            var py = tile.Index.y + mainCondition.Offset.y;
-            var size = rotation.Equals(Quaternion.Euler(.0f, .0f, .0f)) ||
-                       rotation.Equals(Quaternion.Euler(.0f, 180.0f, .0f))
-                           ? config.Size
-                           : new Vector2Int(config.Size.y, config.Size.x);
-            var lc = config.HighlightBuilding.Content.localPosition;
-            var localPosition = rotation.Equals(Quaternion.Euler(.0f, .0f, .0f)) ||
-                                rotation.Equals(Quaternion.Euler(.0f, 180.0f, .0f))
-                                    ? lc
-                                    : new Vector3(lc.z, .0f, lc.x);
-            var tilesForBuilding = tilesController.Tiles.GetTilesAround(new Vector2Int(px, py), size);
-
-            createdNewBuildingOnGridPublisher.Publish(
-                                                      new CreatedNewBuildingOnGridRequest(
-                                                           config,
-                                                           new Vector3(px * gridSettings.TileSize.x,
-                                                                       0,
-                                                                       py * gridSettings.TileSize.z),
-                                                           localPosition,
-                                                           rotation,
-                                                           tilesForBuilding
-                                                          ));
-            return true;
-        }
-
         private void UnDraw(GameObject wall)
         {
             if (wall != null)
                 Object.Destroy(wall);
-            wall = null;
         }
 
         private GameObject DrawExternalWalls()
         {
             var wallObject = new GameObject($"External Walls");
-            wallObject.transform.SetParent(environmentParent.transform);
+            wallObject.transform.SetParent(wallsParent.transform);
 
             var tiles = tilesController.Tiles;
             var tileSize = gridSettings.TileSize;
@@ -406,7 +237,7 @@ namespace BuildingsAndGrid.Environment
         private GameObject DrawWalls(string wallName, Material wallMaterial)
         {
             var wallObject = new GameObject(wallName);
-            wallObject.transform.SetParent(environmentParent.transform);
+            wallObject.transform.SetParent(wallsParent.transform);
 
             var tiles = tilesController.Tiles;
             var tileSize = gridSettings.TileSize;
