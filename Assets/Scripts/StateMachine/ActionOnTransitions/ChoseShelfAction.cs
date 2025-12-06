@@ -30,7 +30,8 @@ namespace StateMachine.ActionOnTransitions
                                              .ToArray();
                     var positionForBuyer = freePositions[Random.Range(0, freePositions.Length - 1)];
                     positionForBuyer.IsFree = false;
-                    context.TargetPosition = positionForBuyer.Transform.position;
+                    context.TargetPoint = positionForBuyer.TargetPoint;
+                    context.TP = context.TargetPoint.Target.position;
                     context.UsedInfoAboutPositionAtShelfForBuyer = positionForBuyer;
                 }
             }

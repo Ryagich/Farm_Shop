@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Checkout;
+using Doors;
 using Inventory;
 using MessagePipe;
 using Messages;
@@ -31,12 +32,12 @@ namespace Buyer
                 ShelvesController shelvesController,
                 BuyerLifetimeScope buyerLifetimeScope,
                 CheckoutsController checkoutsController,
-                NavMeshSurface navMeshSurface,
+                SurfaceController surfaceController,
                 Animator animator,
                 IInventory inventory,
-                [Key("ShoppingEnter")] Transform ShoppingEnter,
+                DoorsController doorsController,
                 [Key("Hand")] Transform hand,
-                [Key("SpawnPointsForBuyers")] List<Transform> spawnPointsForBuyers,
+                BuyerSpawnPoints buyerSpawnPoints,
                 IPublisher<BuyerIsOverMessage> buyerIsOverPublisher
             )
         {
@@ -47,13 +48,13 @@ namespace Buyer
             context.NavMeshAgent = navMeshAgent;
             context.ShelvesController = shelvesController;
             context.Inventory = inventory;
-            context.ShoppingEnter = ShoppingEnter;
-            context.SpawnPointsForBuyers = spawnPointsForBuyers;
+            context.DoorsController = doorsController;
+            context.BuyerSpawnPoints = buyerSpawnPoints;
             context.BuyerLifetimeScope = buyerLifetimeScope;
             context.CheckoutsController = checkoutsController;
             context.BuyerIsOverPublisher = buyerIsOverPublisher;
             context.Hand = hand;
-            context.NavMeshSurface = navMeshSurface;
+            context.SurfaceController = surfaceController;
             context.Animator = animator;
             
             SetState(buyerSettings.StateMachineGraph.GetEntryState());
@@ -104,6 +105,13 @@ namespace Buyer
             }
             
             buyerLifetimeScope.CurrentState = state;
+            buyerLifetimeScope.TP = context.TP;
+            buyerLifetimeScope.DistanceToTarget = context.DistanceToTarget;
+            buyerLifetimeScope.QueueIndex = context.QueueIndex;
+            if (context.TargetPoint != null)
+                buyerLifetimeScope.targetPoint = context.TargetPoint.Target;
+            else
+                buyerLifetimeScope.targetPoint = null;
         }
     }
 }

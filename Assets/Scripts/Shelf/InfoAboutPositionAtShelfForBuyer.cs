@@ -1,4 +1,5 @@
-﻿using Inventory;
+﻿using Buyer;
+using Inventory;
 using UnityEngine;
 
 namespace Shelf
@@ -6,7 +7,7 @@ namespace Shelf
     // ReSharper disable once ClassNeverInstantiated.Global
     public class InfoAboutPositionAtShelfForBuyer
     {
-        public readonly Transform Transform;
+        public TargetPoint TargetPoint;
         public readonly IInventory ShelfInventory;
         public bool IsFree;
 
@@ -17,7 +18,7 @@ namespace Shelf
                 bool isFree = true
             )
         {
-            Transform = transform;
+            TargetPoint = new TargetPoint(transform);
             ShelfInventory = shelfInventory;
             IsFree = isFree;
         }

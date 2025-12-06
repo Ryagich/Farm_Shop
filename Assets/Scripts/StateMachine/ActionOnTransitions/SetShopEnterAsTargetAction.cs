@@ -8,7 +8,9 @@ namespace StateMachine.ActionOnTransitions
     {
         public override void DoAction(StateMachineContext context)
         {
-            context.TargetPosition = context.ShoppingEnter.position;
+            var c = context.DoorsController.DoorPoints.Count;
+            context.TargetPoint = context.DoorsController.DoorPoints[Random.Range(0, c)];
+            context.TP = context.TargetPoint.Target.position;
             context.SetLongDistanceToTarget();
         }
     }

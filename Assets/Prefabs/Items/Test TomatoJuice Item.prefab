@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3001820976705595598}
   - component: {fileID: 4698196902297301900}
   - component: {fileID: 49315969530330646}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Test TomatoJuice Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}

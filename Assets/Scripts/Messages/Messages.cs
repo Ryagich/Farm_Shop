@@ -184,23 +184,40 @@ namespace Messages
 
     public readonly struct NewShelfCreatedMessage
     {
-        public readonly InfoAboutShelfForBuyerGenerator InfoAboutShelfForBuyerGenerator;
+        public readonly ShelfInfoRecorder ShelfInfoRecorder;
         public readonly ItemConfig ItemConfig;
         public readonly IInventory Inventory;
 
         public NewShelfCreatedMessage
             (
-                InfoAboutShelfForBuyerGenerator infoAboutShelfForBuyerGenerator,
+                ShelfInfoRecorder shelfInfoRecorder,
                 ItemConfig itemConfig,
                 IInventory inventory
             )
         {
-            InfoAboutShelfForBuyerGenerator = infoAboutShelfForBuyerGenerator;
+            ShelfInfoRecorder = shelfInfoRecorder;
             ItemConfig = itemConfig;
             Inventory = inventory;
         }
     }
 
+    public readonly struct ShelfDeletedMessage
+    {
+        public readonly ItemConfig ItemConfig;
+        public readonly IInventory Inventory;
+
+        public ShelfDeletedMessage
+            (
+                ItemConfig itemConfig,
+                IInventory inventory
+            )
+        {
+            ItemConfig = itemConfig;
+            Inventory = inventory;
+        }
+    }
+
+    
     public readonly struct BuyerIsOverMessage
     {
         public readonly BuyerLifetimeScope BuyerLifetimeScope;
@@ -216,6 +233,16 @@ namespace Messages
         public readonly CheckoutController CheckoutController;
         
         public NewCheckoutCreatedMessage(CheckoutController checkoutController)
+        {
+            CheckoutController = checkoutController;
+        }
+    }
+    
+    public readonly struct CheckoutDeletedMessage
+    {
+        public readonly CheckoutController CheckoutController;
+        
+        public CheckoutDeletedMessage(CheckoutController checkoutController)
         {
             CheckoutController = checkoutController;
         }

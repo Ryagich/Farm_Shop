@@ -10,7 +10,7 @@ namespace Shelf
     {
         public Dictionary<ItemConfig, Dictionary<IInventory, List<InfoAboutPositionAtShelfForBuyer>>> PositionsAtShelvesByTypes = new();
 
-        public void OnNewShelfCreated(NewShelfCreatedMessage msg)
+        public void RegisterShelf(NewShelfCreatedMessage msg)
         {
             if (!PositionsAtShelvesByTypes.ContainsKey(msg.ItemConfig))
             {
@@ -18,10 +18,15 @@ namespace Shelf
             }
 
             PositionsAtShelvesByTypes[msg.ItemConfig].Add(msg.Inventory, new());
-            foreach (var pos in msg.InfoAboutShelfForBuyerGenerator.info)
+            foreach (var pos in msg.ShelfInfoRecorder.info)
             {
                 PositionsAtShelvesByTypes[msg.ItemConfig][msg.Inventory].Add(pos);
             }
+        }
+        
+        public void UnregisterShelf(ShelfDeletedMessage msg)
+        {
+            PositionsAtShelvesByTypes[msg.ItemConfig].Remove(msg.Inventory);
         }
     }
 }

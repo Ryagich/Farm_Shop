@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Buyer;
 using Checkout;
+using Doors;
 using Inventory;
 using MessagePipe;
 using Messages;
 using Shelf;
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,19 +19,21 @@ namespace StateMachine
         public NavMeshAgent NavMeshAgent;
         public ShelvesController ShelvesController;
         public IInventory Inventory;
-        public Transform ShoppingEnter;
         public Transform Hand;
-        public List<Transform> SpawnPointsForBuyers;
+        public BuyerSpawnPoints BuyerSpawnPoints;
         public BuyerLifetimeScope BuyerLifetimeScope;
         public CheckoutsController CheckoutsController;
         public IPublisher<BuyerIsOverMessage> BuyerIsOverPublisher;
-        public NavMeshSurface NavMeshSurface;
+        public SurfaceController SurfaceController;
         public Animator Animator;
+        public DoorsController DoorsController;
 
         public InfoAboutPositionAtShelfForBuyer UsedInfoAboutPositionAtShelfForBuyer;
         public CheckoutController CheckoutController;
 
-        public Vector3 TargetPosition;
+        public TargetPoint TargetPoint;
+        public Vector3 TP;
+
         public float DistanceToTarget;
         public float DeltaTime;
         public float TimeBetweenIterations;
@@ -59,12 +61,14 @@ namespace StateMachine
             if (!NavMeshAgent.isOnNavMesh)
                 return false;
 
-            if (!NavMeshSurface)
+            if (!SurfaceController.Surface)
+                return false;
+            if (TargetPoint == null || !TargetPoint.Target)
                 return false;
 
             // Найдём ближайшие валидные точки на навмеш для агента и цели
             if (NavMesh.SamplePosition(NavMeshAgent.transform.position, out var agentHit, 2f, NavMesh.AllAreas) &&
-                NavMesh.SamplePosition(TargetPosition, out var targetHit, 2f, NavMesh.AllAreas))
+                NavMesh.SamplePosition(TargetPoint.Target.position, out var targetHit, 2f, NavMesh.AllAreas))
             {
                 // Если удалось найти обе точки — считаем расстояние между ними по навмешу
                 var path = new NavMeshPath();

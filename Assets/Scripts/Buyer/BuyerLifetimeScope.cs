@@ -14,7 +14,11 @@ namespace Buyer
     public class BuyerLifetimeScope : LifetimeScope
     {
         [field: SerializeField] public State CurrentState = null!;
-  
+        [field: SerializeField] public Vector3 TP;
+        [field: SerializeField] public float DistanceToTarget;
+        [field: SerializeField] public int QueueIndex;
+        [field: SerializeField] public Transform targetPoint;
+
         [SerializeField] private Animator animator = null!;
 
         protected override void Configure(IContainerBuilder builder)

@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tomato Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1990033931522030, guid: 6bda52962e6ebeb4db15b7cff977f831, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4212210564314218, guid: 6bda52962e6ebeb4db15b7cff977f831, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.1175542

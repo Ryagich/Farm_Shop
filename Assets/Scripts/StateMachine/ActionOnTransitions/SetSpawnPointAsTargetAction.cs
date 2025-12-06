@@ -8,7 +8,9 @@ namespace StateMachine.ActionOnTransitions
     {
         public override void DoAction(StateMachineContext context)
         {
-            context.TargetPosition = context.SpawnPointsForBuyers[Random.Range(0, context.SpawnPointsForBuyers.Count - 1)].position;
+            context.TargetPoint = context.BuyerSpawnPoints
+                                            .SpawnPoints[Random.Range(0, context.BuyerSpawnPoints.SpawnPoints.Count - 1)];
+            context.TP = context.TargetPoint.Target.position;
             context.SetLongDistanceToTarget();
         }
     }

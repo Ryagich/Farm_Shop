@@ -1,17 +1,20 @@
-﻿using Inventory;
+﻿using System;
+using Inventory;
 using Inventory.Item;
 using Messages;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Checkout
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class CheckoutController : IStartable
+    public class CheckoutController : IStartable, IDisposable
     {
         private readonly IInventory rawInventory;
         private readonly IInventory completeInventory;
+        private readonly CheckoutsController checkoutsController;
         public ByersQueue ByersQueue { get; }
         public MoneyTaker MoneyTaker { get; }
         public bool CanPay;
@@ -28,13 +31,22 @@ namespace Checkout
         {
             this.rawInventory = rawInventory;
             this.completeInventory = completeInventory;
+            this.checkoutsController = checkoutsController;
             ByersQueue = byersQueue;
             MoneyTaker = moneyTaker;
 
-            checkoutsController.OnNewShelfCreated(new NewCheckoutCreatedMessage(this));
             interactable.Interacted += MoveItems;
             interactable.EndInteracted += OnStopInteract;
+        }
 
+        public void Start()
+        {
+            checkoutsController.RegisterCheckout(new NewCheckoutCreatedMessage(this));
+        }
+        
+        public void Dispose()
+        {
+            checkoutsController.UnregisterCheckout(new CheckoutDeletedMessage(this));
         }
 
         public bool CanGet()
@@ -67,7 +79,5 @@ namespace Checkout
         {
             CanPay = false;
         }
-        
-        public void Start() { }
     }
 }

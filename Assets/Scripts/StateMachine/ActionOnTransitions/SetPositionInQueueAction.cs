@@ -21,9 +21,13 @@ namespace StateMachine.ActionOnTransitions
                 }
             }
             context.CheckoutController = checkoutWithMinQueue;
-            context.TargetPosition = checkoutWithMinQueue.ByersQueue.GetBuyerPosition();
-            context.QueueIndex = checkoutWithMinQueue.ByersQueue.Buyers.Count;
+            context.QueueIndex = checkoutWithMinQueue.ByersQueue.BuyersCount;
+            var pos = checkoutWithMinQueue.ByersQueue.GetBuyerPosition(context.QueueIndex);
+            context.TargetPoint = pos.Item1;
+            context.TP = context.TargetPoint.Target.position;
+            pos.Item2 = false;
             checkoutWithMinQueue.ByersQueue.Buyers.Add(context);
+            checkoutWithMinQueue.ByersQueue.BuyersCount++;
         }
     }
 }

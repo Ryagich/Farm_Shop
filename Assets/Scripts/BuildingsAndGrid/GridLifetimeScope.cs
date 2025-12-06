@@ -20,7 +20,6 @@ namespace BuildingsAndGrid
                    .Keyed("GridRoot"); // <<< добавили
             
             builder.Register<GridRaycaster>(Lifetime.Scoped);
-            builder.Register<TilesController>(Lifetime.Scoped);
             builder.Register<GridExtensionSpawner>(Lifetime.Scoped);
             builder.Register<BuildingPlacer>(Lifetime.Scoped);
             

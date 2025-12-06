@@ -18,7 +18,7 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly ItemConfig itemConfig;
         private readonly IInventory inventory;
         private readonly PopupHolders popupHolders;
-        private readonly InfoAboutShelfForBuyerGenerator infoAboutShelfForBuyerGenerator;
+        private readonly ShelfInfoRecorder shelfInfoRecorder;
         private readonly Canvas canvas;
         private readonly int placesCount;
 
@@ -27,7 +27,7 @@ namespace UI.Hover.PopupLogics.Popups
                 ItemConfig itemConfig,
                 PopupHolders popupHolders,
                 IInventory inventory,
-                InfoAboutShelfForBuyerGenerator infoAboutShelfForBuyerGenerator,
+                ShelfInfoRecorder shelfInfoRecorder,
                 Canvas canvas,
                 [Key("placesCount")] int placesCount
             )
@@ -35,7 +35,7 @@ namespace UI.Hover.PopupLogics.Popups
             this.itemConfig = itemConfig;
             this.inventory = inventory;
             this.popupHolders = popupHolders;
-            this.infoAboutShelfForBuyerGenerator = infoAboutShelfForBuyerGenerator;
+            this.shelfInfoRecorder = shelfInfoRecorder;
             this.canvas = canvas;
             this.placesCount = placesCount;
         }
@@ -48,8 +48,8 @@ namespace UI.Hover.PopupLogics.Popups
             popup.ProductsCount.text = $"{inventory.Items.Count} / {placesCount}";
             popup.ProductsFillImage.fillAmount = (float)inventory.Items.Count / placesCount;
             
-            popup.BuyersCount.text = $"{infoAboutShelfForBuyerGenerator.info.Where(i => !i.IsFree).ToArray().Length} / {infoAboutShelfForBuyerGenerator.info.Count}";
-            popup.BuyersFillImage.fillAmount = (float)infoAboutShelfForBuyerGenerator.info.Where(i => !i.IsFree).ToArray().Length / infoAboutShelfForBuyerGenerator.info.Count;
+            popup.BuyersCount.text = $"{shelfInfoRecorder.info.Where(i => !i.IsFree).ToArray().Length} / {shelfInfoRecorder.info.Count}";
+            popup.BuyersFillImage.fillAmount = (float)shelfInfoRecorder.info.Where(i => !i.IsFree).ToArray().Length / shelfInfoRecorder.info.Count;
 
             return popup.GetComponent<RectTransform>();
         }

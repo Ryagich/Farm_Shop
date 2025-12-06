@@ -19,7 +19,7 @@ MonoBehaviour:
     State: {fileID: 11400000, guid: 40e08157ff9006349be4bbcfb8a51c14, type: 2}
   - Position: {x: 2399.842, y: 1282.589}
     State: {fileID: 11400000, guid: 601c1e65fba0cd44486e1245ae98d34b, type: 2}
-  - Position: {x: 2690.851, y: 1452.9526}
+  - Position: {x: 2686.9294, y: 1414.5212}
     State: {fileID: 11400000, guid: d2f6b88883de6464b931ffc723ce4d75, type: 2}
   - Position: {x: 2699.342, y: 1063.9128}
     State: {fileID: 11400000, guid: fdcfd516c6ece2347ba45271b59d8b77, type: 2}
@@ -29,7 +29,7 @@ MonoBehaviour:
     State: {fileID: 11400000, guid: 206e18e9fa5fabd4c8bb84bfda6ff9f4, type: 2}
   - Position: {x: 3189.7095, y: 1455.6736}
     State: {fileID: 11400000, guid: afecf29235eb13a43b7c766fbf882567, type: 2}
-  - Position: {x: 3426.142, y: 1456.7408}
+  - Position: {x: 3434.838, y: 1443.4076}
     State: {fileID: 11400000, guid: 0e141116c286b0047943e8d45869868a, type: 2}
   - Position: {x: 3674.3567, y: 1456.772}
     State: {fileID: 11400000, guid: c97daed7af8f7654d9e173f3d2a6438a, type: 2}

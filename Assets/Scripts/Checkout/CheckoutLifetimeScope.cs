@@ -1,4 +1,5 @@
-﻿using BuildingsAndGrid.Buildings;
+﻿using System.Collections.Generic;
+using BuildingsAndGrid.Buildings;
 using Inventory;
 using Inventory.Movers;
 using Inventory.ObjectInventory;
@@ -14,7 +15,7 @@ namespace Checkout
     {
         [field: SerializeField] private Transform rawHand = null!;
         [field: SerializeField] private Transform completeHand = null!;
-        [field: SerializeField] private Transform queuePoint = null!;
+        [field: SerializeField] private Transform queuePoint;
         [field: SerializeField] private Transform placeForMoney = null!;
         [field: SerializeField] public Transform Center { get; private set; } = null!;
 
@@ -29,7 +30,7 @@ namespace Checkout
             builder.RegisterInstance(building);
             builder.RegisterInstance(rawHand).Keyed("RawHand"); 
             builder.RegisterInstance(completeHand).Keyed("CompleteHand");
-            builder.RegisterInstance(queuePoint).Keyed("QueuePoint");
+            builder.RegisterInstance(queuePoint).Keyed("queuePoint");
             builder.RegisterInstance(placeForMoney).Keyed("PlaceForMoney");
 
             building.SetContent(Center);

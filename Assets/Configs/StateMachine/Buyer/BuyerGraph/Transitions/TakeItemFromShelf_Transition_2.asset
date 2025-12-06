@@ -16,5 +16,6 @@ MonoBehaviour:
   <Conditions>k__BackingField:
   - {fileID: 11400000, guid: b20766664966f2745bf212036f23e8ba, type: 2}
   <ActionOnTransitions>k__BackingField:
+  - {fileID: 11400000, guid: d852b6220339dd14684b15346b2c7a5a, type: 2}
   - {fileID: 11400000, guid: 5b252061dfe1c254f826bf125bf63a71, type: 2}
   TargetState: {fileID: 11400000, guid: fdcfd516c6ece2347ba45271b59d8b77, type: 2}

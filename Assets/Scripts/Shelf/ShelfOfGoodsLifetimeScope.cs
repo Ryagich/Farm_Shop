@@ -24,7 +24,6 @@ namespace Shelf
 
         protected override void Configure(IContainerBuilder builder)
         {
-            // === Ищем Places и PlacesForBuyer НА ЛЮБОЙ ГЛУБИНЕ ===
             var placesParent = FindDeepChild(transform, "Places");
             var buyerPlacesParent = FindDeepChild(transform, "PlacesForBuyer");
 
@@ -34,26 +33,21 @@ namespace Shelf
             if (buyerPlacesParent == null)
                 throw new System.Exception($"ShelfOfGoodsLifetimeScope: Не найден PlacesForBuyer в префабе {gameObject.name}");
 
-            // === Считываем точки Places ===
             foreach (Transform child in placesParent)
             {
                 places.Add((child.position, child.rotation));
                 Destroy(child.gameObject);
             }
-
-            // === Считываем точки PlacesForBuyer ===
             foreach (Transform child in buyerPlacesParent)
             {
                 placesForBuyer.Add(child);
             }
 
-            // === Добавляем компоненты ===
             var interactable = gameObject.AddComponent<Interactable.Interactable>();
             var hoverTrigger = gameObject.AddComponent<HoverTrigger>();
             var building     = gameObject.AddComponent<Building>();
             building.SetContent(Center);
 
-            // === DI Registration ===
             builder.RegisterInstance(interactable);
             builder.RegisterInstance(hoverTrigger).AsSelf();
             builder.RegisterInstance(building);
@@ -78,7 +72,7 @@ namespace Shelf
             {
                 ep.Add<ItemTaker>().AsSelf();
                 ep.Add<PlacesItemMover>().AsSelf();
-                ep.Add<InfoAboutShelfForBuyerGenerator>().AsSelf();
+                ep.Add<ShelfInfoRecorder>().AsSelf();
             });
 
             builder.RegisterEntryPoint<InventoryDisposable>().AsSelf();
@@ -91,9 +85,9 @@ namespace Shelf
         // =====================================================================
         private Transform FindDeepChild(Transform parent, string target)
         {
-            string normalizedTarget = NormalizeName(target);
+            var normalizedTarget = NormalizeName(target);
 
-            foreach (Transform child in parent.GetComponentsInChildren<Transform>(true))
+            foreach (var child in parent.GetComponentsInChildren<Transform>(true))
             {
                 if (NormalizeName(child.name) == normalizedTarget)
                     return child;

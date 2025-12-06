@@ -1,4 +1,5 @@
 ﻿using StateMachine.Graph;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 namespace Buyer
@@ -20,5 +21,17 @@ namespace Buyer
         [field: SerializeField] public float ChanceToLeaveForExtraBuyer { get; private set; } = .1f;
         [field: SerializeField] public Color OutOfStockColor { get; private set; } = Color.gray;
         [field: SerializeField] public Color NotForSaleColor { get; private set; } = Color.red;
+        
+        //Spawn
+        [field: SerializeField] public int SpawnPlacesCount { get; private set; } = 5;
+        [field: SerializeField] public Vector3 SpaceBetweenSpawnPlaces { get; private set; } = new(3.0f, .0f, .0f);
+        [field: SerializeField] public Vector3 SpaceBetweenGrid { get; private set; } = new(.0f, .0f, 15.0f);
+        [field: SerializeField] public float TimeBetweenSpawnBuyers { get; private set; } = 5.0f;
+        [field: SerializeField] public float AddTimeForBuyer { get; private set; } = 1.0f;
+        [field: SerializeField] public int MaxBuyers { get; private set; } = 7;
+        
+        //Prefabs
+        [field: SerializeField] public NavMeshSurface NavMeshSurface { get; private set; }
+        [field: SerializeField] public BuyerLifetimeScope BuyerPrefab { get; private set; } = null!;
     }
 }

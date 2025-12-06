@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 439653432605249362}
-  - component: {fileID: 196666081437068741}
+  - component: {fileID: 4226474196908871871}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -171,7 +171,7 @@ Transform:
   - {fileID: 7642006783268253281}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &196666081437068741
+--- !u!114 &4226474196908871871
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8361445583855510470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f9acaee22b4195b43342f0acae5884, type: 3}
+  m_Script: {fileID: 11500000, guid: 7135794c89c546fda6941f24b0a1de06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
@@ -188,6 +188,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   <Center>k__BackingField: {fileID: 7642006783268253281}
+  <DoorEnter>k__BackingField: {fileID: 7642006783268253281}
 --- !u!1001 &6707510902267225222
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,10 +17,10 @@ MonoBehaviour:
     <Size>k__BackingField: {x: 33, y: 10}
     <Type>k__BackingField: 1
   - <Position>k__BackingField: {x: 0, y: 11}
-    <Size>k__BackingField: {x: 12, y: 12}
+    <Size>k__BackingField: {x: 12, y: 13}
     <Type>k__BackingField: 3
   - <Position>k__BackingField: {x: 12, y: 11}
-    <Size>k__BackingField: {x: 21, y: 12}
+    <Size>k__BackingField: {x: 21, y: 13}
     <Type>k__BackingField: 2
   <TileSize>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
   <yOffset>k__BackingField: 0.01

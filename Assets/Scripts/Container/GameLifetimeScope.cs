@@ -4,6 +4,7 @@ using BuildingsAndGrid.Environment;
 using Buyer;
 using CameraScripts;
 using Checkout;
+using Doors;
 using GameModes;
 using Gravity;
 using Input;
@@ -49,13 +50,8 @@ namespace Container
         [field: SerializeField] public GridEnvironmentConfig GridEnvironmentConfig { get; private set; } = null!;
         [field: SerializeField] public PopupHolders PopupHolders { get; private set; } = null!;
         [field: SerializeField] public Camera Camera { get; private set; } = null!;
-        [field: SerializeField] public NavMeshSurface NavMeshSurface { get; private set; } = null!;
         [field: SerializeField] public Canvas Canvas { get; private set; } = null!;
 
-        
-        [field: SerializeField] public Transform ShoppingEnter { get; private set; } = null!;
-
-        
         private PlayerLifetimeScope playerScope;
 
         protected override void Configure(IContainerBuilder builder)
@@ -78,20 +74,22 @@ namespace Container
             builder.RegisterInstance(GridEnvironmentConfig).AsSelf();
             
             builder.RegisterInstance(PopupHolders).AsSelf();
-            builder.RegisterInstance(NavMeshSurface).AsSelf();
             builder.RegisterInstance(Canvas).AsSelf();
-            builder.RegisterInstance(ShoppingEnter).As<Transform>().Keyed("ShoppingEnter");
-
             builder.RegisterInstance(Camera).AsSelf();
 
             // Core
             builder.Register<ShelvesController>(Lifetime.Singleton).AsSelf();
+            builder.Register<DoorsController>(Lifetime.Singleton).AsSelf();
             builder.Register<CheckoutsController>(Lifetime.Singleton).AsSelf();
             builder.Register<FinanceManager>(Lifetime.Singleton);
             builder.Register<CursorHandler>(Lifetime.Singleton);
             builder.Register<CursorController>(Lifetime.Singleton);
             builder.Register<HoverRaycaster>(Lifetime.Singleton);
             builder.Register<Storage.Storage>(Lifetime.Singleton)
+                   .AsSelf()
+                   .As<IStartable>();
+            builder.Register<TilesController>(Lifetime.Scoped);
+            builder.Register<SurfaceController>(Lifetime.Singleton)
                    .AsSelf()
                    .As<IStartable>();
             
@@ -104,6 +102,7 @@ namespace Container
             builder.RegisterMessageBroker<CreatedNewObjectMessage>(options);
             builder.RegisterMessageBroker<CreatedNewObjectOnGridMessage>(options);
             builder.RegisterMessageBroker<NewShelfCreatedMessage>(options);
+            builder.RegisterMessageBroker<ShelfDeletedMessage>(options);
             builder.RegisterMessageBroker<PlaySoundMessage>(options);
             builder.RegisterMessageBroker<InteractableMessage>(options);
             builder.RegisterMessageBroker<InteractableEndMessage>(options);

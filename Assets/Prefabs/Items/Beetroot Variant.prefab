@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1635757618814564, guid: 435c0173f537ec94a883d3eb4e63c64f, type: 3}
       propertyPath: m_Name
-      value: SM_Prop_Beetroot_01 Variant
+      value: Beetroot Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635757618814564, guid: 435c0173f537ec94a883d3eb4e63c64f, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4633325385742910, guid: 435c0173f537ec94a883d3eb4e63c64f, type: 3}
       propertyPath: m_LocalScale.x

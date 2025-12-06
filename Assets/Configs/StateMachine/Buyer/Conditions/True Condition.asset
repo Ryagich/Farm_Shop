@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f531c1e582d5462cacd0f6ad735255f1, type: 3}
   m_Name: True Condition
   m_EditorClassIdentifier: 
-  <TargetState>k__BackingField: {fileID: 11400000, guid: d78e726dafc3f634d9729a075460ad64, type: 2}

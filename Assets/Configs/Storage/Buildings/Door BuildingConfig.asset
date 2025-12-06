@@ -15,7 +15,7 @@ MonoBehaviour:
   <Type>k__BackingField: 4
   <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   <Name>k__BackingField: Door
-  <Building>k__BackingField: {fileID: 196666081437068741, guid: 280e4afe881333b46b51d1bb810bec7f, type: 3}
+  <Building>k__BackingField: {fileID: 4226474196908871871, guid: 280e4afe881333b46b51d1bb810bec7f, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 6587971095263616599, guid: 4a6ff03f4bdceac4f8c81360f4c6fe8d, type: 3}
   <Size>k__BackingField: {x: 20, y: 1}
   <Price>k__BackingField: 0

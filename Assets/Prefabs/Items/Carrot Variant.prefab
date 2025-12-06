@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carrot Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1301151405176600, guid: 56aff3ec1fc023d43855db67754849a1, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4126295819710146, guid: 56aff3ec1fc023d43855db67754849a1, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
