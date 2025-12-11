@@ -186,17 +186,20 @@ namespace Messages
     {
         public readonly ShelfInfoRecorder ShelfInfoRecorder;
         public readonly ItemConfig ItemConfig;
+        public readonly BuildingInteractableFlag BuildingInteractableFlag;
         public readonly IInventory Inventory;
 
         public NewShelfCreatedMessage
             (
                 ShelfInfoRecorder shelfInfoRecorder,
                 ItemConfig itemConfig,
+                BuildingInteractableFlag buildingInteractableFlag,
                 IInventory inventory
             )
         {
             ShelfInfoRecorder = shelfInfoRecorder;
             ItemConfig = itemConfig;
+            BuildingInteractableFlag = buildingInteractableFlag;
             Inventory = inventory;
         }
     }

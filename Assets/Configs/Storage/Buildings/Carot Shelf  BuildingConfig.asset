@@ -17,6 +17,6 @@ MonoBehaviour:
   <Name>k__BackingField: Carrot Shelf Of Goods
   <Building>k__BackingField: {fileID: 6371271840119661707, guid: f8f14e98c97f3c141b953428e5074704, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 5924636531613310000, guid: e684fe2e176192541b8f8caebb1a1c3b, type: 3}
-  <Size>k__BackingField: {x: 5, y: 4}
+  <Size>k__BackingField: {x: 5, y: 5}
   <Price>k__BackingField: 0
   <ShowInShop>k__BackingField: 1

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BuildingsAndGrid.Buildings;
 using Inventory;
 using Inventory.Item;
 using Messages;
@@ -20,6 +21,7 @@ namespace Shelf
         private readonly ItemConfig itemConfig;
         private readonly ShelvesController shelvesController;
         private readonly IInventory inventory;
+        private readonly BuildingInteractableFlag buildingInteractableFlag;
 
         public readonly List<InfoAboutPositionAtShelfForBuyer> info;
         
@@ -28,18 +30,21 @@ namespace Shelf
                 ItemConfig itemConfig,
                 [Key("placesForBuyer")] List<Transform> places,
                 ShelvesController shelvesController,
+                BuildingInteractableFlag buildingInteractableFlag,
                 IInventory inventory
             )
         {
             this.itemConfig = itemConfig;
             this.shelvesController = shelvesController;
+            this.buildingInteractableFlag = buildingInteractableFlag;
             this.inventory = inventory;
-            info = places.Select(place => new InfoAboutPositionAtShelfForBuyer(place, inventory)).ToList();
+            
+            info = places.Select(place => new InfoAboutPositionAtShelfForBuyer(place, inventory, buildingInteractableFlag)).ToList();
         }
         
         public void Start()
         {
-            shelvesController.RegisterShelf(new NewShelfCreatedMessage(this, itemConfig, inventory));
+            shelvesController.RegisterShelf(new NewShelfCreatedMessage(this, itemConfig, buildingInteractableFlag, inventory));
         }
         
         public void Dispose()

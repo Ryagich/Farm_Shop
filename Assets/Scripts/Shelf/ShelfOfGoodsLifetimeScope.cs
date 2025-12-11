@@ -19,7 +19,7 @@ namespace Shelf
         [field: SerializeField] public ItemConfig ItemConfig { get; private set; } = null!;
         [field: SerializeField] public Transform Center { get; private set; } = null!;
 
-        private readonly List<(Vector3 pos, Quaternion rot)> places = new();
+        private readonly List<Transform> places = new();
         private readonly List<Transform> placesForBuyer = new();
 
         protected override void Configure(IContainerBuilder builder)
@@ -35,8 +35,8 @@ namespace Shelf
 
             foreach (Transform child in placesParent)
             {
-                places.Add((child.position, child.rotation));
-                Destroy(child.gameObject);
+                places.Add(child);
+                // Destroy(child.gameObject);
             }
             foreach (Transform child in buyerPlacesParent)
             {
@@ -45,7 +45,7 @@ namespace Shelf
 
             var interactable = gameObject.AddComponent<Interactable.Interactable>();
             var hoverTrigger = gameObject.AddComponent<HoverTrigger>();
-            var building     = gameObject.AddComponent<Building>();
+            var building = gameObject.AddComponent<Building>();
             building.SetContent(Center);
 
             builder.RegisterInstance(interactable);
@@ -59,15 +59,16 @@ namespace Shelf
             builder.RegisterInstance(places).Keyed("places");
             builder.RegisterInstance(placesForBuyer).Keyed("placesForBuyer");
             builder.RegisterInstance(places.Count).Keyed("placesCount");
-
+            
             builder.Register<PlacesInventory>(Lifetime.Scoped)
                    .As<IInventory>()
                    .AsSelf();
 
             builder.Register<ItemTaker>(Lifetime.Scoped).AsSelf();
-            builder.Register<PlacesItemMover>(Lifetime.Scoped).AsSelf();
+            // builder.Register<PlacesItemMover>(Lifetime.Scoped).AsSelf();
             builder.Register<ShelfPopup>(Lifetime.Scoped).As<IObjectPopup>().AsSelf();
-
+            builder.Register<BuildingInteractableFlag>(Lifetime.Scoped).AsSelf();
+            
             builder.UseEntryPoints(ep =>
             {
                 ep.Add<ItemTaker>().AsSelf();

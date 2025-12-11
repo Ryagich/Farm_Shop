@@ -25,6 +25,7 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly Canvas canvas;
         private readonly PlantGrowerByUpper plantGrowerByUpper;
         private readonly PlantGrowerByStages plantGrowerByStages;
+        
         private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
@@ -73,20 +74,20 @@ namespace UI.Hover.PopupLogics.Popups
                 popup.GrowStage.text = $"Grow Stage: {plantGrowerByStages.currentStage + 1}";
                 popup.GrowFill.fillAmount = plantGrowerByStages.timer / plantGrowerByStages.stageTime;
             }
-            popup.ButtonMove.onClick.AddListener(OnMove);
-            popup.ButtonMoveToInventory.onClick.AddListener(OnInventory);
+            popup.ButtonMove.onClick.AddListener(Move);
+            popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
                     
             return popup.GetComponent<RectTransform>();
         }
 
-        private void OnInventory()
+        private void MoveInInventory()
         {
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
             CloseButton?.Invoke();
         }
         
-        private void OnMove()
+        private void Move()
         {
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));

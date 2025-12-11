@@ -3,6 +3,7 @@ using Checkout;
 using MessagePipe;
 using Messages;
 using UnityEngine;
+using UnityEngine.AI;
 using VContainer.Unity;
 
 namespace Buyer
@@ -65,8 +66,11 @@ namespace Buyer
             }
             var spawnPoint = buyerSpawnPoints.SpawnPoints[Random.Range(0, buyerSpawnPoints.SpawnPoints.Count)].Target.transform;
             var buyerScope = parentScope.CreateChildFromPrefab(buyerSettings.BuyerPrefab);
-
+            var agent = buyerScope.GetComponent<NavMeshAgent>();
+            agent.enabled = false;
             buyerScope.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
+            agent.enabled = true;
+            
             buyers.Add(buyerScope);
         }
     }

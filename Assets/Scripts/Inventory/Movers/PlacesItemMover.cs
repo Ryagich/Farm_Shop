@@ -12,14 +12,15 @@ namespace Inventory.Movers
         private readonly Transform transform;
         private readonly Vector3 startPos;
         private readonly IInventory inventory;
-        private readonly List<(Vector3, Quaternion)> places;
+        // private readonly List<(Vector3, Quaternion)> places;
+        private readonly List<Transform> places;
         private readonly ItemsConfig config;
 
         public PlacesItemMover
             (
                 Transform transform,
                 [Key("StartPosition")] Vector3 startPos,
-                [Key("places")] List<(Vector3, Quaternion)> places,
+                [Key("places")] List<Transform> places,
                 IInventory inventory,
                 ItemsConfig config
             )
@@ -39,9 +40,9 @@ namespace Inventory.Movers
             {
                 var item = inventory.Items[i];
                 var itemTrans = item.transform;
-                var offset = places[i].Item1 - startPos;
-                var target = transform.position + offset;
-                
+                // var offset = places[i].Item1 - startPos;
+                // var target = transform.position + offset;
+                var target = places[i].position;
                 if (Vector3.Distance(itemTrans.position, target) < 0.01f)
                 {
                     continue;
@@ -50,7 +51,7 @@ namespace Inventory.Movers
                 itemTrans.position =
                     Vector3.MoveTowards(itemTrans.position, target, config.MoveSpeed * Time.deltaTime);
                 itemTrans.rotation =
-                    Quaternion.RotateTowards(itemTrans.rotation, places[i].Item2, config.MoveSpeed * Time.deltaTime);
+                    Quaternion.RotateTowards(itemTrans.rotation, places[i].rotation, config.MoveSpeed * Time.deltaTime);
             }
         }
     }

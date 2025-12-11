@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace BuildingsAndGrid
+namespace BuildingsAndGrid.Extension
 {
     public class ExtensionPointer : MonoBehaviour
     {

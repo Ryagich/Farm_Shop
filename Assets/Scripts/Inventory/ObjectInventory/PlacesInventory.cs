@@ -20,6 +20,7 @@ namespace Inventory.ObjectInventory
             (
                 ItemConfig itemConfig,
                 IObjectResolver resolver, 
+                
                 [Key("placesCount")] int placesCount
             )
         {

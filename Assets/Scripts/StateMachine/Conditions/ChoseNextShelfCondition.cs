@@ -30,7 +30,8 @@ namespace StateMachine.Conditions
                    )
                 {
                     var shelves = type.Where(shelf => shelf.Key.CanGet() 
-                                                   && shelf.Value.Any(any => any.IsFree))
+                                                   && shelf.Value.Any(any => any.IsFree
+                                                                      && any.BuildingInteractableFlag.IsInteractable))
                                       .ToArray();
                     if (shelves.Length <= 0)
                         continue;
