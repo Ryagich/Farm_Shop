@@ -25,5 +25,8 @@ namespace BuildingsAndGrid
         [field: SerializeField] public Material GreenMaterial { get; private set; }
         [field: SerializeField] public LayerMask WallLayer { get; private set; }
         [field: SerializeField] public LayerMask WallForPlayerLayer { get; private set; }
+
+        [field: SerializeField] public float PriceForNewTile { get; private set; }
+        [field: SerializeField] public float PriceForExistingTile { get; private set; }
     }
 }

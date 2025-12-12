@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameModes;
+using Inventory.Finance;
 using MessagePipe;
 using Messages;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace BuildingsAndGrid.Extension
 
         private readonly List<GameObject> tiles = new();
         private readonly GridExtensionSpawner gridExtensionSpawner;
+        private readonly FinanceManager financeManager;
 
         private ExtensionPointer currentPointer;
 
@@ -28,6 +30,7 @@ namespace BuildingsAndGrid.Extension
                 Camera camera,
                 TilesController tilesController,
                 GridExtensionSpawner gridExtensionSpawner,
+                FinanceManager financeManager,
                 ISubscriber<GameModeChangedMessage> gameModeChangedSubscriber,
                 ISubscriber<ClickMessage> clickSubscriber
             )
@@ -36,6 +39,7 @@ namespace BuildingsAndGrid.Extension
             this.camera = camera;
             this.tilesController = tilesController;
             this.gridExtensionSpawner = gridExtensionSpawner;
+            this.financeManager = financeManager;
 
             clickSubscriber.Subscribe(ExtentGrid);
             gameModeChangedSubscriber.Subscribe(OnGameModeChanged);
@@ -52,10 +56,11 @@ namespace BuildingsAndGrid.Extension
         
         private void ExtentGrid(ClickMessage msg)
         {
-            if (currentPointer != null)
+            if (currentPointer != null && financeManager.TryChangeValue(-currentPointer.Price))
             {
                 tilesController.ExtendGrid(currentPointer.Direction, currentPointer.Tiles);
                 gridExtensionSpawner.ForceRefresh();
+                
             }
         }
 

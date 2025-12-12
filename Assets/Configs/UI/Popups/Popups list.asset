@@ -20,6 +20,7 @@ MonoBehaviour:
   <LandingPlantIsItemHolder>k__BackingField: {fileID: 2776826685469944024, guid: 1b03e32ca251f8147820f228b57446fb, type: 3}
   <EnvironmentHolder>k__BackingField: {fileID: 7586862265563986677, guid: bcd71d8ea6d9c9348a9d52f1216024ea, type: 3}
   <LandingFruitPlantHolder>k__BackingField: {fileID: 5124477032651769193, guid: a8dee9f663511394396c403e29a05f58, type: 3}
+  <ExtensionPointerPopupHolder>k__BackingField: {fileID: 7552421247568904374, guid: b5e792ff7a8ce17488daf773ccff9b8b, type: 3}
   <LandingFruitPlantInfoAboutFruits>k__BackingField: {fileID: 942752634895724971, guid: 4720ee3e6c8fe5e46a7fb840cf15a7c3, type: 3}
   <ProductionZoneHolder>k__BackingField: {fileID: 9057745268707947563, guid: bc2d891963b33054383cfec3c4dabf7a, type: 3}
   <MaterialProductText>k__BackingField: {fileID: 1160537559324519533, guid: 8540e87873013274081cdc1733dc15f9, type: 3}

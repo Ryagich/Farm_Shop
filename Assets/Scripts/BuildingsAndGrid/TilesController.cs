@@ -79,12 +79,12 @@ namespace BuildingsAndGrid
 
                         if (neighbor == null)
                         {
-                            // сосед пустой ➜ ставим стену
+                            // сосед пустой -> стенa
                             tiles.SetTile(nx, ny, new Tile(new Vector2Int(nx, ny), Area.Wall));
                             continue;
                         }
 
-                        // типы разные и оба не стена ➜ ставим стену вместо соседа, если он пустой
+                        // типы разные и не стена -> ставим стену вместо соседа, если он пустой
                         if (tile.Type != neighbor.Type &&
                             tile.Type != Area.Wall &&
                             neighbor.Type != Area.Wall)
@@ -116,13 +116,13 @@ namespace BuildingsAndGrid
                 }
             }
 
-            // 2️⃣ Расширяем сетку на 1 клетку со всех сторон
+            // Расширяем сетку на 1 клетку со всех сторон
             tiles.Resize(new Vector2Int(-1, 0));
             tiles.Resize(new Vector2Int(1, 0));
             tiles.Resize(new Vector2Int(0, -1));
             tiles.Resize(new Vector2Int(0, 1));
 
-            // 3️⃣ Строим стеновую рамку по внешнему контуру
+            // Строим стеновую рамку по внешнему контуру
             for (int x = minX - 1; x <= maxX + 1; x++)
             {
                 for (int y = minY - 1; y <= maxY + 1; y++)

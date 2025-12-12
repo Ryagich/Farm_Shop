@@ -164,7 +164,7 @@ namespace BuildingsAndGrid.Extension
                     pos.y * gridSettings.TileSize.z
                 );
 
-                extension.SetValues(direction, g);
+                extension.SetValues(gridSettings, direction, g, tilesController.Tiles.tiles.Length);
                 extensions.Add(extension);
             }
         }
