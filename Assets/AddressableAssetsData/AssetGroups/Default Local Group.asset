@@ -17,6 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 25f0052a1105f8e4ea43d3a6b153520d
   m_SerializeEntries:
+  - m_GUID: 0680eb6509cd88649a5b5204e6260082
+    m_Address: Assets/Configs/Storage/Buildings/Landings/Tomato Landing  BuildingConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Buildings
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b8c9c7c297174447a30d55e43bda405
+    m_Address: Assets/Configs/Storage/Buildings/Shelf Beetroot BuildingConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Buildings
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3045ff5de011d27419fcb1b3c368eb0b
     m_Address: Assets/Configs/Storage/Buildings/Checkout BuildingConfig.asset
     m_ReadOnly: 0
@@ -41,8 +53,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Buildings
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 915a32feaac45ac4f9284eb31bd6def6
+    m_Address: Assets/Configs/Storage/Buildings/Shelfs/Shelf Tomaro BuildingConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Buildings
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9d35308ec785a984584f339059892024
     m_Address: Assets/Configs/Storage/Buildings/Carot Lamding  BuildingConfig 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Buildings
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f29d49c261d3ada40b9f5f9baf6c2fdb
+    m_Address: Assets/Configs/Storage/Buildings/Beetroot Landing  BuildingConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Buildings

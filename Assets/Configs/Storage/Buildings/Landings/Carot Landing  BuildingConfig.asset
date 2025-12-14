@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Carot Landing  BuildingConfig
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 458b651ed167a984897761433624ce59, type: 3}
   <Name>k__BackingField: Carrot Landing
   <Building>k__BackingField: {fileID: 4297344667067523135, guid: 88607b7901fa9ae4a87f08c2be94bedc, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 3837425968706085277, guid: 93faf3498d9c38c4ba253fae65c6809b, type: 3}

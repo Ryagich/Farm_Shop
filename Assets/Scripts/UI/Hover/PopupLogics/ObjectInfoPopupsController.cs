@@ -128,8 +128,6 @@ namespace UI.Hover.PopupLogics
             {
                 Object.Destroy(currentPopup.gameObject);
             }
-            Debug.Log($"currentHover {currentHover != null}");
-            Debug.Log($"currentHover.ObjectPopup { currentHover.ObjectPopup != null}");
             currentHover.ObjectPopup.CloseButton += OnClosePopup;
 
             if (!cursorHandler.IsVisible)

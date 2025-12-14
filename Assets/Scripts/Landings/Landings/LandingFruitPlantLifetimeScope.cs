@@ -1,4 +1,5 @@
-﻿using Inventory.ObjectInventory;
+﻿using BuildingsAndGrid.Buildings;
+using Inventory.ObjectInventory;
 using Landings.Plants;
 using Landings.Plants.PlantConfigs;
 using MessagePipe;
@@ -16,15 +17,21 @@ namespace Landings.Landings
     public class LandingFruitPlantLifetimeScope : LifetimeScope
     {
         [field: SerializeField] public FruitPlantConfig PlantConfig { get; private set; } = null!;
+        [field: SerializeField] public Transform Center { get; private set; } = null!;
 
         protected override void Configure(IContainerBuilder builder)
         {
             var interactable = gameObject.AddComponent<Interactable.Interactable>();
             var hoverTrigger = gameObject.AddComponent<HoverTrigger>();
+            var building = gameObject.AddComponent<Building>();
 
             builder.RegisterInstance(interactable);
-            builder.RegisterInstance(hoverTrigger).AsSelf();
-            builder.RegisterInstance(transform);
+            builder.RegisterInstance(hoverTrigger);
+            builder.RegisterInstance(building);
+            builder.RegisterInstance(Center);
+            building.SetContent(Center);
+            
+            // builder.RegisterInstance(transform);
             builder.RegisterInstance(gameObject);
             builder.RegisterInstance(PlantConfig)
                    .AsSelf()

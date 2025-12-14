@@ -18,6 +18,7 @@ namespace Checkout
         [field: SerializeField] private Transform queuePoint;
         [field: SerializeField] private Transform placeForMoney = null!;
         [field: SerializeField] public Transform Center { get; private set; } = null!;
+        [field: SerializeField] public int QueueCount { get; private set; } = 5;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -32,6 +33,7 @@ namespace Checkout
             builder.RegisterInstance(completeHand).Keyed("CompleteHand");
             builder.RegisterInstance(queuePoint).Keyed("queuePoint");
             builder.RegisterInstance(placeForMoney).Keyed("PlaceForMoney");
+            builder.RegisterInstance(QueueCount).Keyed("QueueCount");
 
             building.SetContent(Center);
 

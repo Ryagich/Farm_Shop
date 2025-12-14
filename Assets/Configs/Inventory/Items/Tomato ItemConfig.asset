@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HandPrefab>k__BackingField: {fileID: 2299143465062301022, guid: b4d4fce3d6fb65648af23ab700f546d8, type: 3}
   <ItemName>k__BackingField: Tomato
-  <height>k__BackingField: 0.15
+  <height>k__BackingField: 0.25
   <Price>k__BackingField: 1

@@ -12,8 +12,6 @@ namespace Checkout
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ByersQueue : IDisposable
     {
-        private readonly BuyerSettings buyerSettings;
-        private readonly Transform startQueueTransform;
         public List<StateMachineContext> Buyers = new();
         public int BuyersCount;
 
@@ -22,13 +20,11 @@ namespace Checkout
         public ByersQueue
             (
                 BuyerSettings buyerSettings,
-                [Key("queuePoint")] Transform startQueueTransform
+                [Key("queuePoint")] Transform startQueueTransform,
+                [Key("QueueCount")] int queueCount
             )
         {
-            this.buyerSettings = buyerSettings;
-            this.startQueueTransform = startQueueTransform;
-            
-            for (var i = 0; i < buyerSettings.CriticalCountOfQueue + 1; i++)
+            for (var i = 0; i < queueCount; i++)
             {
                 var place = new GameObject($"Queue Place {i}");
                 var pt = place.transform;

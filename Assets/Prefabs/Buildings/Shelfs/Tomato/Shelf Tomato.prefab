@@ -1713,7 +1713,7 @@ GameObject:
   - component: {fileID: 3110820619858483132}
   - component: {fileID: 6371271840119661707}
   m_Layer: 0
-  m_Name: Carrot ShelfOfGoods
+  m_Name: Shelf Tomato
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1751,7 +1751,7 @@ MonoBehaviour:
     TypeName: Container.GameLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  <ItemConfig>k__BackingField: {fileID: 11400000, guid: 9369fa5abea4fdf40b9772357b6d27e1, type: 2}
+  <ItemConfig>k__BackingField: {fileID: 11400000, guid: 5ec665709712faa49a7d92bd609873ab, type: 2}
   <Center>k__BackingField: {fileID: 8075248306808592098}
 --- !u!1 &5307123445698283570
 GameObject:

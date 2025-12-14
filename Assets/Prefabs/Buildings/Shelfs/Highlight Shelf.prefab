@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3110820619858483132}
   - component: {fileID: 5924636531613310000}
   m_Layer: 0
-  m_Name: Highlight Carrot ShelfOfGoods
+  m_Name: Highlight Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

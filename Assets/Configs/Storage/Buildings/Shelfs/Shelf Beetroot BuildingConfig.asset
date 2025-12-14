@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
-  m_Name: Carot Shelf  BuildingConfig
+  m_Name: Shelf Beetroot BuildingConfig
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 2
-  <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  <Name>k__BackingField: Carrot Shelf Of Goods
-  <Building>k__BackingField: {fileID: 6371271840119661707, guid: f8f14e98c97f3c141b953428e5074704, type: 3}
-  <HighlightBuilding>k__BackingField: {fileID: 5924636531613310000, guid: e684fe2e176192541b8f8caebb1a1c3b, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1c11d28d844b7f142b7f33e193c1646c, type: 3}
+  <Name>k__BackingField: 'Shelf For Beetroot '
+  <Building>k__BackingField: {fileID: 6371271840119661707, guid: a273423eaec69804db88b0f25dad6051, type: 3}
+  <HighlightBuilding>k__BackingField: {fileID: 5924636531613310000, guid: 9a4f0d3a32aef1c49b73d817c87cc1f5, type: 3}
   <Size>k__BackingField: {x: 5, y: 5}
   <Price>k__BackingField: 0
   <ShowInShop>k__BackingField: 1
