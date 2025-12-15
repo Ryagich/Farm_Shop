@@ -119,6 +119,18 @@ MonoBehaviour:
     m_Key: Word_Buyers
     m_Metadata:
       m_Items: []
+  - m_Id: 120041982115840
+    m_Key: GoToShop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 128645145542656
+    m_Key: Word_Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129026017705984
+    m_Key: MoveToInventory
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

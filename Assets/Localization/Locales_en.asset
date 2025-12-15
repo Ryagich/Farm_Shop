@@ -122,6 +122,18 @@ MonoBehaviour:
     m_Localized: Buyers
     m_Metadata:
       m_Items: []
+  - m_Id: 120041982115840
+    m_Localized: Go to shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 128645145542656
+    m_Localized: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129026017705984
+    m_Localized: Move to inventory
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
