@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Inventory.ObjectInventory;
+using Localization;
 using Products;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace UI.Hover.PopupLogics.Popups
             var popup = Object.Instantiate(popupHolders.ProductionZoneHolder, canvas.transform);
             var popupRect = popup.GetComponent<RectTransform>();
 
-            popup.ProductionProductName.text = $"Product: {productConfig.ItemConfig.ItemName}";
+            popup.ProductionProductName.text = $"Product: {productConfig.ItemConfig.Name.GetLocalizedString()}";
             popup.ProductionTime.text = $"Production time: {productConfig.Time}";
             popup.ReadyToTake.text = $"Ready: {productionZoneController.productionInventory.Items.Count}";
             var materialsHeaderRect = popup.MaterialsHeader.GetComponent<RectTransform>();
@@ -54,7 +55,7 @@ namespace UI.Hover.PopupLogics.Popups
                 var materialTextRect = materialTextHolder.GetComponent<RectTransform>();
                 addHeight += materialTextRect.sizeDelta.y;
                 materialTextRect.anchoredPosition = materialTextRect.anchoredPosition.WithY(startHeight - addHeight);
-                materialTextHolder.text = $"{material.ItemConfig.ItemName} {materialInventoriesController.inventories.First(i => i.GetConfig() == material.ItemConfig).Items.Count} / {material.CountForProduct}";
+                materialTextHolder.text = $"{material.ItemConfig.Name.GetLocalizedString()} {materialInventoriesController.inventories.First(i => i.GetConfig() == material.ItemConfig).Items.Count} / {material.CountForProduct}";
             }
             popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + addHeight);         
             

@@ -4,6 +4,7 @@ using BuildingsAndGrid.Buildings;
 using GameModes;
 using Inventory;
 using Inventory.Item;
+using Localization;
 using MessagePipe;
 using Messages;
 using Shelf;
@@ -21,6 +22,7 @@ namespace UI.Hover.PopupLogics.Popups
         public event Action CloseButton;
 
         private readonly ItemConfig itemConfig;
+        private readonly LocalizationConfig localizationConfig;
         private readonly IInventory inventory;
         private readonly PopupHolders popupHolders;
         private readonly ShelfInfoRecorder shelfInfoRecorder;
@@ -37,6 +39,7 @@ namespace UI.Hover.PopupLogics.Popups
         public ShelfPopup
             (
                 ItemConfig itemConfig,
+                LocalizationConfig localizationConfig,
                 PopupHolders popupHolders,
                 IInventory inventory,
                 ShelfInfoRecorder shelfInfoRecorder,
@@ -47,6 +50,7 @@ namespace UI.Hover.PopupLogics.Popups
             )
         {
             this.itemConfig = itemConfig;
+            this.localizationConfig = localizationConfig;
             this.inventory = inventory;
             this.popupHolders = popupHolders;
             this.shelfInfoRecorder = shelfInfoRecorder;
@@ -64,7 +68,7 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.ShelfPopupHolder, canvas.transform);
-            popup.ProductDescription.text = $"Product: {itemConfig.ItemName}";
+            popup.ProductDescription.text = $"{localizationConfig.ProductWord.GetLocalizedString()}: {itemConfig.Name.GetLocalizedString()}";
             
             popup.ProductsCount.text = $"{inventory.Items.Count} / {placesCount}";
             popup.ProductsFillImage.fillAmount = (float)inventory.Items.Count / placesCount;
@@ -85,11 +89,11 @@ namespace UI.Hover.PopupLogics.Popups
 
             if (buildingInteractableFlag.IsInteractable)
             {
-                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = "Disable";
+                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.DisableWord.GetLocalizedString()}";
             }
             else
             {
-                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = "Activate";
+                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.ActivateWord.GetLocalizedString()}";
             }
             popup.ButtonDisable.onClick.AddListener(() => buildingInteractableFlag.IsInteractable = !buildingInteractableFlag.IsInteractable);
             

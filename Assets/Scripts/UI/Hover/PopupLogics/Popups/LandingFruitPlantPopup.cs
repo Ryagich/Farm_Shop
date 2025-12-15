@@ -4,6 +4,7 @@ using Landings;
 using Landings.Landings;
 using Landings.Plants;
 using Landings.Plants.PlantConfigs;
+using Localization;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using Utils;
@@ -17,6 +18,7 @@ namespace UI.Hover.PopupLogics.Popups
     {
         public event Action CloseButton;
 
+        private readonly LocalizationConfig localizationConfig;
         private readonly PopupHolders popupHolders;
         private readonly FruitPlantConfig fruitPlantConfig;
         private readonly Canvas canvas;
@@ -27,6 +29,7 @@ namespace UI.Hover.PopupLogics.Popups
 
         public LandingFruitPlantPopup
             (
+                LocalizationConfig localizationConfig,
                 PopupHolders popupHolders,
                 FruitPlantConfig fruitPlantConfig,
                 LandingFruitPlantController landingFruitPlantController,
@@ -36,6 +39,7 @@ namespace UI.Hover.PopupLogics.Popups
                 [Key(nameof(PlantGrowerByStages))] PlantGrowerByStages plantGrowerByStages
             )
         {
+            this.localizationConfig = localizationConfig;
             this.popupHolders = popupHolders;
             this.fruitPlantConfig = fruitPlantConfig;
             this.canvas = canvas;
@@ -48,16 +52,16 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.LandingFruitPlantHolder, canvas.transform);
-            popup.PlantName.text = $"{fruitPlantConfig.HandFruit.ItemName}";
+            popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedString()}";
             
             if (plantGrowerByUpper.IsPlanting)
             {
-                popup.GrowStage.text = $"Grow Stage: 1";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: 1";
                 popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance / plantGrowerByUpper.Distance;
             }
             else if (plantGrowerByStages.IsPlanted)
             {
-                popup.GrowStage.text = $"Grow Stage: Grown";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: {localizationConfig.GrownWord.GetLocalizedString()}";
                 popup.GrowFill.fillAmount = 1;
 
                 var popupRect = popup.GetComponent<RectTransform>();
@@ -65,14 +69,14 @@ namespace UI.Hover.PopupLogics.Popups
                 var holderRect = aboutFruits.GetComponent<RectTransform>();
                 var lastRect = popup.GrowStage.GetComponent<RectTransform>();
 
-                aboutFruits.FruitsCount.text = $"Fruits: {landingFruitPlantController.fruitCount}";
-                aboutFruits.FruitsReady.text = $"Ready {inventory.GetCount()}";
+                aboutFruits.FruitsCount.text = $"{localizationConfig.FruitsWord.GetLocalizedString()}: {landingFruitPlantController.fruitCount}";
+                aboutFruits.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedString()} {inventory.GetCount()}";
                 holderRect.anchoredPosition = new Vector2(.0f, lastRect.anchoredPosition.y - lastRect.sizeDelta.y);
                 popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + holderRect.sizeDelta.y);
             }
             else
             {
-                popup.GrowStage.text = $"Grow Stage: {plantGrowerByStages.currentStage + 1}";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: {plantGrowerByStages.currentStage + 1}";
                 popup.GrowFill.fillAmount = plantGrowerByStages.timer / plantGrowerByStages.stageTime;
             }
             return popup.GetComponent<RectTransform>();

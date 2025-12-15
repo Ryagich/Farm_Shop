@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Locales_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: a7b7152a19155234c974decdd1edacb3, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 47560856420352
+    m_Localized: Beetroot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47694780547072
+    m_Localized: Carrot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47756596199424
+    m_Localized: Tomato
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63637808201728
+    m_Localized: Back door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63791562997760
+    m_Localized: Main door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73317720768512
+    m_Localized: Beetroot landing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73058051407872
+    m_Localized: Checkout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73457714053120
+    m_Localized: Carrot landing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74995803078656
+    m_Localized: Tomato landing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77040161374208
+    m_Localized: Tomato shelf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77133480443904
+    m_Localized: Carrot shelf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77211259617280
+    m_Localized: Beetroot shelf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 97510130696192
+    m_Localized: Price
+    m_Metadata:
+      m_Items: []
+  - m_Id: 97565872996352
+    m_Localized: In inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 101848139939840
+    m_Localized: Product
+    m_Metadata:
+      m_Items: []
+  - m_Id: 101942260121600
+    m_Localized: Turn off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102131540672512
+    m_Localized: Turn on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102214487228416
+    m_Localized: Grow stage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102315804835840
+    m_Localized: Grown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102406280167424
+    m_Localized: Fruits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102512018571264
+    m_Localized: Ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103643469824000
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104098027520000
+    m_Localized: Redactor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104272808361984
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 109246325964800
+    m_Localized: Shelf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 117139771211776
+    m_Localized: Buyers
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -65,7 +65,6 @@ namespace Shelf
                    .AsSelf();
 
             builder.Register<ItemTaker>(Lifetime.Scoped).AsSelf();
-            // builder.Register<PlacesItemMover>(Lifetime.Scoped).AsSelf();
             builder.Register<ShelfPopup>(Lifetime.Scoped).As<IObjectPopup>().AsSelf();
             builder.Register<BuildingInteractableFlag>(Lifetime.Scoped).AsSelf();
             

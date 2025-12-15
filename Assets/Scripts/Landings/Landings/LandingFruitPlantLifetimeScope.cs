@@ -65,7 +65,6 @@ namespace Landings.Landings
                                        ep.Add<LandingFruitPlantController>().AsSelf();
                                        ep.Add<ItemGiverFromInventorySoundPlayer>().AsSelf();
                                    });
-            
             builder.RegisterBuildCallback(container =>
                                           {
                                               container.Inject(hoverTrigger);

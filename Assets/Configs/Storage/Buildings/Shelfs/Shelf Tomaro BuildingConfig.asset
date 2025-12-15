@@ -14,9 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 2
   <Icon>k__BackingField: {fileID: 21300000, guid: 2fa4178bbf0917543be5b3901a5e65d2, type: 3}
-  <Name>k__BackingField: Shelf For Tomato
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 77040161374208
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Building>k__BackingField: {fileID: 6371271840119661707, guid: d8df1b96c26c389478c4db95e9aea52e, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 5924636531613310000, guid: 9a4f0d3a32aef1c49b73d817c87cc1f5, type: 3}
   <Size>k__BackingField: {x: 5, y: 5}
   <Price>k__BackingField: 0
   <ShowInShop>k__BackingField: 1
+  references:
+    version: 2
+    RefIds: []

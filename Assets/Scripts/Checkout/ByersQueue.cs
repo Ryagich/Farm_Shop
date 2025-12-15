@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Buyer;
 using StateMachine;
 using UnityEngine;
@@ -53,27 +52,7 @@ namespace Checkout
             {
                 return queuePoints[^1];
             }
-            // while (index > queuePoints.Count)
-            // {
-            //     var place = new GameObject($"Queue Place {queuePoints.Count}");
-            //     var pt = place.transform;
-            //     pt.SetParent(startQueueTransform);
-            //     pt.localPosition = startQueueTransform.forward * buyerSettings.QueueDistance * queuePoints.Count;
-            //     queuePoints.Add((new TargetPoint(place.transform), true));
-            // }
-            return queuePoints[index]; //queuePoint.position + queuePoint.forward * buyerSettings.QueueDistance * index;
-        }
-        
-        public bool TryGetFreePlace(out (TargetPoint, bool) placeInQueue)
-        {
-            placeInQueue = queuePoints[^1];
-            var freePlace = queuePoints.FirstOrDefault(f => f.Item2);
-            if (freePlace != default)
-            {
-                placeInQueue = freePlace;
-                return true;
-            }
-            return false; //queuePoint.position + queuePoint.forward * buyerSettings.QueueDistance * Buyers.Count;
+            return queuePoints[index];
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using GameModes;
+using Localization;
 using MessagePipe;
 using Messages;
 using UI.Configs;
@@ -17,6 +18,7 @@ namespace UI.Pages
         public Area CurrentArea { get; private set; } = Area.Shop;
 
         private readonly UIConfig uiConfig;
+        private readonly LocalizationConfig localizationConfig;
         private readonly Storage.Storage storage;
         private readonly RectTransform canvasRect;
         private readonly IObjectResolver resolver;
@@ -30,6 +32,7 @@ namespace UI.Pages
         public InventoryPage
             (
                 UIConfig uiConfig,
+                LocalizationConfig localizationConfig,
                 Canvas canvas,
                 Storage.Storage storage,
                 UIUtils uiUtils,
@@ -40,6 +43,7 @@ namespace UI.Pages
             )   
         {
             this.uiConfig = uiConfig;
+            this.localizationConfig = localizationConfig;
             this.uiUtils = uiUtils;
             this.storage = storage;
             this.resolver = resolver;
@@ -76,8 +80,8 @@ namespace UI.Pages
                                           + new Vector2(i * (cardSize.x + uiConfig.SpaceBetweenProductionCards), 0);
                 card.Icon.sprite = buildingConfig.Icon;
                 card.SizeText.text = $"{buildingConfig.Size.x}x{buildingConfig.Size.y}";
-                card.Text.text = $"{buildingConfig.Name}\n" +
-                                 $"In Inventory: {buildings[i].Count}";
+                card.Text.text = $"{buildingConfig.Name.GetLocalizedString()}\n" +
+                                 $"{localizationConfig.InInventory.GetLocalizedString()}: {buildings[i].Count}";
                 var i1 = i;
                 
                 card.Button.onClick.AddListener(() => choseBuildingPublisher.Publish(new ChoseBuildingMessage(buildings[i1].BuildingConfig, default, default, default, null)));
@@ -111,7 +115,7 @@ namespace UI.Pages
                 card.Button.onClick.AddListener(() => openShopWithAreaRequestPublisher
                                                    .Publish(new OpenShopWithAreaRequest(Area.Production)));
             }
-            card.Text.text = $"Go to shop";
+            card.Text.text = $"{localizationConfig.GoToShop.GetLocalizedString()}";
         }
         
         public void SetArea(Area area)

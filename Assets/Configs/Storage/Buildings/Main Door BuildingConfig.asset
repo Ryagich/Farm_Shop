@@ -10,13 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
-  m_Name: Door BuildingConfig
+  m_Name: Main Door BuildingConfig
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 4
   <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  <Name>k__BackingField: Door
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 63791562997760
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Building>k__BackingField: {fileID: 4226474196908871871, guid: 280e4afe881333b46b51d1bb810bec7f, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 6587971095263616599, guid: 4a6ff03f4bdceac4f8c81360f4c6fe8d, type: 3}
   <Size>k__BackingField: {x: 20, y: 1}
   <Price>k__BackingField: 0
   <ShowInShop>k__BackingField: 1
+  references:
+    version: 2
+    RefIds: []

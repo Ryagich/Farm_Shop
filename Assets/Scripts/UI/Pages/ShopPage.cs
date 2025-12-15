@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GameModes;
 using Inventory.Finance;
+using Localization;
 using Storage;
 using UI.Configs;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace UI.Pages
         public  Area CurrentArea { get; private set; } = Area.Shop;
         
         private readonly UIConfig uiConfig;
+        private readonly LocalizationConfig localizationConfig;
         private readonly Storage.Storage storage;
         private readonly FinanceManager financeManager;
         private readonly RectTransform canvasRect;
@@ -28,6 +30,7 @@ namespace UI.Pages
         public ShopPage
             (
                 UIConfig uiConfig,
+                LocalizationConfig localizationConfig,
                 FinanceManager financeManager,
                 Storage.Storage storage,
                 UIUtils uiUtils,
@@ -36,6 +39,7 @@ namespace UI.Pages
             )   
         {
             this.uiConfig = uiConfig;
+            this.localizationConfig = localizationConfig;
             this.financeManager = financeManager;
             this.storage = storage;
             this.uiUtils = uiUtils;
@@ -66,16 +70,19 @@ namespace UI.Pages
                 var buildingConfig = buildings[i].BuildingConfig;
                 var card = resolver.Instantiate(uiConfig.PurchaseCardPrefab, content);
                 var cardRect = card.GetComponent<RectTransform>();
-                var x = (i % uiConfig.CardsRowCount) * spaceToOneCard - ((uiConfig.CardsRowCount - 1) * spaceToOneCard) / 2;
+                var rows = uiConfig.CardsRowCount is 0 ? 1 : uiConfig.CardsRowCount;
+                var x = (i % uiConfig.CardsRowCount) * spaceToOneCard - ((rows - 1) * spaceToOneCard) / 2;
                 cardRect.anchoredPosition = new Vector2(x,
-                                                    - uiConfig.SpaceBetweenPurchaseCards.y * (i / uiConfig.CardsRowCount) 
+                                                        // ReSharper disable once PossibleLossOfFraction
+                                                        - uiConfig.SpaceBetweenPurchaseCards.y * (i / rows) 
                                                       - uiConfig.SpaceBetweenPurchaseCards.y / 2 
-                                                      - cardSize.y * (i / uiConfig.CardsRowCount));
+                                                        // ReSharper disable once PossibleLossOfFraction
+                                                      - cardSize.y * (i / rows));
                 card.Icon.sprite = buildingConfig.Icon;
                 card.SizeText.text = $"{buildingConfig.Size.x}x{buildingConfig.Size.y}";
-                card.Name.text = $"{buildingConfig.Name}\n" +
-                                 $"Price: {buildings[i].BuildingConfig.Price}";
-                card.InInventory.text = $"In Inventory: {buildings[i].Count}";
+                card.Name.text = $"{buildingConfig.Name.GetLocalizedString()}\n" +
+                                 $"{localizationConfig.PriceWord.GetLocalizedString()}: {buildings[i].BuildingConfig.Price}";
+                card.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedString()}: {buildings[i].Count}";
 
                 var i1 = i;
                 card.Button.onClick.AddListener(() => Buy(buildings[i1]));

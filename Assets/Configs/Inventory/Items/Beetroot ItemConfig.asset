@@ -13,6 +13,17 @@ MonoBehaviour:
   m_Name: Beetroot ItemConfig
   m_EditorClassIdentifier: 
   <HandPrefab>k__BackingField: {fileID: 7841479982067445408, guid: 25aaed1bc7fcaf54f928a001b7bfe37a, type: 3}
-  <ItemName>k__BackingField: Beetroot
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 47560856420352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <height>k__BackingField: 0.5
   <Price>k__BackingField: 1
+  references:
+    version: 2
+    RefIds: []

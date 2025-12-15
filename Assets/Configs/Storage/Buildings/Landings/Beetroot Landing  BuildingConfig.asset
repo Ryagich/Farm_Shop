@@ -14,9 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 21300000, guid: 60ac4e89f89dee54ba6a547ae4d7519d, type: 3}
-  <Name>k__BackingField: Beetroot Landing
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 73317720768512
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Building>k__BackingField: {fileID: 4297344667067523135, guid: e4a1ab2c195766d4faff1e9b28b1b8bf, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 3837425968706085277, guid: 04b968b1d06279546af7541cca7ec4f8, type: 3}
   <Size>k__BackingField: {x: 4, y: 4}
   <Price>k__BackingField: 0
   <ShowInShop>k__BackingField: 1
+  references:
+    version: 2
+    RefIds: []

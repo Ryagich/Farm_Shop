@@ -998,6 +998,7 @@ MonoBehaviour:
   <HoverSettings>k__BackingField: {fileID: 11400000, guid: 4ba8600ff5992254791b84db30fa8e35, type: 2}
   <SoundsConfig>k__BackingField: {fileID: 11400000, guid: 5bd0e325e025c1843a8b256b8347f861, type: 2}
   <GridEnvironmentConfig>k__BackingField: {fileID: 11400000, guid: b6f95a875a0fa77489becdfb03f64dbe, type: 2}
+  <LocalizationConfig>k__BackingField: {fileID: 11400000, guid: 994d76bef27512d4abbd05c6430ef15b, type: 2}
   <PopupHolders>k__BackingField: {fileID: 11400000, guid: 92111fa584d33814fabb78f724c18f8f, type: 2}
   <Camera>k__BackingField: {fileID: 963194227}
   <Canvas>k__BackingField: {fileID: 319103531}

@@ -13,6 +13,7 @@ using Interactable;
 using Inventory;
 using Inventory.Finance;
 using Inventory.Item;
+using Localization;
 using MessagePipe;
 using Messages;
 using Movement;
@@ -48,6 +49,7 @@ namespace Container
         [field: SerializeField] public HoverSettings HoverSettings { get; private set; } = null!;
         [field: SerializeField] public SoundsConfig SoundsConfig { get; private set; } = null!;
         [field: SerializeField] public GridEnvironmentConfig GridEnvironmentConfig { get; private set; } = null!;
+        [field: SerializeField] public LocalizationConfig LocalizationConfig { get; private set; } = null!;
         [field: SerializeField] public PopupHolders PopupHolders { get; private set; } = null!;
         [field: SerializeField] public Camera Camera { get; private set; } = null!;
         [field: SerializeField] public Canvas Canvas { get; private set; } = null!;
@@ -72,6 +74,7 @@ namespace Container
             builder.RegisterInstance(GridSettings).AsSelf();
             builder.RegisterInstance(HighlightConfig).AsSelf();
             builder.RegisterInstance(GridEnvironmentConfig).AsSelf();
+            builder.RegisterInstance(LocalizationConfig).AsSelf();
             
             builder.RegisterInstance(PopupHolders).AsSelf();
             builder.RegisterInstance(Canvas).AsSelf();

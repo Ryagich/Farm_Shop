@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Buyer;
+using Localization;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using Utils;
@@ -13,17 +14,20 @@ namespace UI.Hover.PopupLogics.Popups
     {
         public event Action CloseButton;
 
+        private readonly LocalizationConfig localizationConfig;
         private readonly PopupHolders popupHolders;
         private readonly BuyerController buyerController;
         private readonly Canvas canvas;
 
         public BuyerPopup
             (
+                LocalizationConfig localizationConfig,
                 PopupHolders popupHolders,
                 BuyerController buyerController,
                 Canvas canvas
             )
         {
+            this.localizationConfig = localizationConfig;
             this.popupHolders = popupHolders;
             this.buyerController = buyerController;
             this.canvas = canvas;
@@ -41,7 +45,7 @@ namespace UI.Hover.PopupLogics.Popups
                 var holderRect = positionHolder.GetComponent<RectTransform>();
                 holderRect.anchoredPosition = new Vector2(.0f, h);
                 h -= holderRect.sizeDelta.y;
-                positionHolder.ProductName.text = $"Product: {buyPosition.Config.ItemName}";
+                positionHolder.ProductName.text = $"{localizationConfig.ProductWord.GetLocalizedString()}: {buyPosition.Config.Name.GetLocalizedString()}";
                 positionHolder.ProductCounts.text = $"{buyPosition.Count} / {buyPosition.Need}";
                 positionHolder.Fill.fillAmount = (float)buyPosition.Count / buyPosition.Need;
 
