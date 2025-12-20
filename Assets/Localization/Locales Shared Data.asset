@@ -104,7 +104,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 104098027520000
-    m_Key: Word_Redactor
+    m_Key: Word_Storage
     m_Metadata:
       m_Items: []
   - m_Id: 104272808361984
@@ -129,6 +129,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 129026017705984
     m_Key: MoveToInventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1336145140236288
+    m_Key: Help_ChoseUI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1482142210310144
+    m_Key: Help_PlaceBuilding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1484378780975104
+    m_Key: Help_CancelBuilding
     m_Metadata:
       m_Items: []
   m_Metadata:

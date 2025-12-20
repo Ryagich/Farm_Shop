@@ -107,7 +107,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 104098027520000
-    m_Localized: Redactor
+    m_Localized: Storage
     m_Metadata:
       m_Items: []
   - m_Id: 104272808361984
@@ -132,6 +132,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 129026017705984
     m_Localized: Move to inventory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1336145140236288
+    m_Localized: Freeze window -
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1482142210310144
+    m_Localized: Place
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1484378780975104
+    m_Localized: Cancel
     m_Metadata:
       m_Items: []
   references:

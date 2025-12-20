@@ -18,6 +18,7 @@ namespace UI
     public class UIUtils
     {
         private readonly UIConfig uiConfig;
+        private readonly SpritesConfig spritesConfig;
         private readonly FinanceManager financeManager;
         private readonly IObjectResolver resolver;
         private readonly IPublisher<ChangeGameModeRequest> openPageRequestPublisher;
@@ -25,12 +26,14 @@ namespace UI
         public UIUtils
             ( 
                 UIConfig uiConfig, 
+                SpritesConfig spritesConfig,
                 FinanceManager financeManager,
                 IObjectResolver resolver,
                 IPublisher<ChangeGameModeRequest> openPageRequestPublisher
             )
         {
             this.uiConfig = uiConfig;
+            this.spritesConfig = spritesConfig;
             this.financeManager = financeManager;
             this.resolver = resolver;
             this.openPageRequestPublisher = openPageRequestPublisher;
@@ -61,7 +64,7 @@ namespace UI
             var buttonToGameIcon = buttonToGameRect.GetComponentsInChildren<Image>().First(i => i.name.Equals("Image"));
             buttonToGame.onClick.AddListener(() => OpenPage(GameModes.GameMode.Game));
             buttonToGame.name = $"Button To Game";
-            buttonToGameIcon.sprite = uiConfig.SpritesConfig.GameIcon;
+            buttonToGameIcon.sprite = spritesConfig.GameIcon;
             buttonToGameRect.anchoredPosition = buttonPosition;
             buttonPosition += Vector2.down * (10 + buttonToGameRect.sizeDelta.y);
             
@@ -72,7 +75,7 @@ namespace UI
             buttonToShop.name = $"Button To Shop";
             buttonToShopRect.anchoredPosition = buttonPosition;
             buttonPosition += Vector2.down * (10 + buttonToShopRect.sizeDelta.y);
-            buttonToShopIcon.sprite = uiConfig.SpritesConfig.ShopIcon;
+            buttonToShopIcon.sprite = spritesConfig.ShopIcon;
             
             var buttonToRedactor = resolver.Instantiate(uiConfig.GameMenuButton, buttonsParentRect);
             var buttonToRedactorRect = buttonToRedactor.GetComponent<RectTransform>();
@@ -80,7 +83,7 @@ namespace UI
             buttonToRedactor.onClick.AddListener(() => OpenPage(GameModes.GameMode.Inventory));
             buttonToRedactor.name = $"Button To Redactor";
             buttonToRedactorRect.anchoredPosition = buttonPosition;
-            buttonToRedactorIcon.sprite = uiConfig.SpritesConfig.RedactorIcon;
+            buttonToRedactorIcon.sprite = spritesConfig.RedactorIcon;
             
             switch (type)
             {

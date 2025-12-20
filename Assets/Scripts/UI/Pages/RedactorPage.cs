@@ -11,9 +11,10 @@ namespace UI.Pages
     {
         private readonly UIConfig uiConfig;
         private readonly UIUtils uiUtils;
+        private readonly HelpInfoDrawer helpInfoDrawer;
         private readonly IObjectResolver resolver;
-        public override PageType Type { get; } = PageType.Shop;
-        public  Area CurrentArea { get; private set; } = Area.Shop;
+        public override PageType Type { get; } = PageType.Redactor;
+        public Area CurrentArea { get; private set; } = Area.None;
 
         private readonly RectTransform canvasRect;
         private RectTransform contentRect = null!;
@@ -23,11 +24,13 @@ namespace UI.Pages
                 UIConfig uiConfig,
                 UIUtils uiUtils,
                 Canvas canvas,
+                HelpInfoDrawer helpInfoDrawer,
                 IObjectResolver resolver
             )
         {
             this.uiConfig = uiConfig;
             this.uiUtils = uiUtils;
+            this.helpInfoDrawer = helpInfoDrawer;
             this.resolver = resolver;
             canvasRect = canvas.GetComponent<RectTransform>();
         }
@@ -38,6 +41,7 @@ namespace UI.Pages
             contentRect.name = $"{uiConfig.ContentPref.name} | {Type}";
             
             uiUtils.DrawFinanceDrawer(contentRect);
+            helpInfoDrawer.DrawMouseHelpForRedactorPage(contentRect);
         }
 
         public void SetArea(Area area)
@@ -46,6 +50,8 @@ namespace UI.Pages
 
         public override void Hide()
         {
+            if (contentRect)
+                Object.Destroy(contentRect.gameObject);
         }
     }
 }

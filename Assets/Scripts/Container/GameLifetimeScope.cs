@@ -20,6 +20,7 @@ using Movement;
 using Objects;
 using Shelf;
 using Sounds;
+using UI;
 using UI.Configs;
 using UI.Hover;
 using UI.Hover.PopupLogics;
@@ -50,6 +51,8 @@ namespace Container
         [field: SerializeField] public SoundsConfig SoundsConfig { get; private set; } = null!;
         [field: SerializeField] public GridEnvironmentConfig GridEnvironmentConfig { get; private set; } = null!;
         [field: SerializeField] public LocalizationConfig LocalizationConfig { get; private set; } = null!;
+        [field: SerializeField] public HelpInfoConfig HelpInfoConfig { get; private set; } = null!;
+        [field: SerializeField] public SpritesConfig SpritesConfig { get; private set; }
         [field: SerializeField] public PopupHolders PopupHolders { get; private set; } = null!;
         [field: SerializeField] public Camera Camera { get; private set; } = null!;
         [field: SerializeField] public Canvas Canvas { get; private set; } = null!;
@@ -75,6 +78,8 @@ namespace Container
             builder.RegisterInstance(HighlightConfig).AsSelf();
             builder.RegisterInstance(GridEnvironmentConfig).AsSelf();
             builder.RegisterInstance(LocalizationConfig).AsSelf();
+            builder.RegisterInstance(HelpInfoConfig).AsSelf();
+            builder.RegisterInstance(SpritesConfig).AsSelf();
             
             builder.RegisterInstance(PopupHolders).AsSelf();
             builder.RegisterInstance(Canvas).AsSelf();

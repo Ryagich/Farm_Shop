@@ -3,6 +3,7 @@ using GameModes;
 using Inventory.Finance;
 using Localization;
 using Storage;
+using TMPro;
 using UI.Configs;
 using UnityEngine;
 using Utils;
@@ -57,6 +58,15 @@ namespace UI.Pages
             var content = viewRect.GetComponentsInChildren<RectTransform>()
                                           .First(child => child.name.Equals("Content"));
             var sectionButtons = resolver.Instantiate(uiConfig.SectionButtons, viewRect);
+            var sectionButtonsRect = sectionButtons.GetComponent<RectTransform>();
+            var title = viewRect.GetComponentsInChildren<RectTransform>()
+                                .First(child => child.name.Equals("Title"));
+            sectionButtonsRect.SetParent(title);
+            sectionButtonsRect.anchorMin = new Vector2(.0f, .5f);
+            sectionButtonsRect.anchorMax = new Vector2(.0f, .5f);
+            sectionButtonsRect.pivot = new Vector2(.0f, .5f);
+            sectionButtonsRect.anchoredPosition = new Vector2(25.0f, .0f);
+
             var buildings = storage.GetBuildings(CurrentArea).Where(b => b.BuildingConfig.ShowInShop).ToList();
             var spaceToOneCard = viewRect.sizeDelta.x / uiConfig.CardsRowCount;
             var cardSize = uiConfig.PurchaseCardPrefab.GetComponent<RectTransform>().sizeDelta;
@@ -80,10 +90,9 @@ namespace UI.Pages
                                                       - cardSize.y * (i / rows));
                 card.Icon.sprite = buildingConfig.Icon;
                 card.SizeText.text = $"{buildingConfig.Size.x}x{buildingConfig.Size.y}";
-                card.Name.text = $"{buildingConfig.Name.GetLocalizedString()}\n" +
-                                 $"{localizationConfig.PriceWord.GetLocalizedString()}: {buildings[i].BuildingConfig.Price}";
+                card.Name.text = $"{buildingConfig.Name.GetLocalizedString()}";
                 card.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedString()}: {buildings[i].Count}";
-
+                card.Button.GetComponentInChildren<TMP_Text>().text = $"{buildings[i].BuildingConfig.Price}$";
                 var i1 = i;
                 card.Button.onClick.AddListener(() => Buy(buildings[i1]));
             }
@@ -105,8 +114,7 @@ namespace UI.Pages
         public void SetArea(Area area)
         {
             CurrentArea = area;
-            Hide();
-            Draw();
+            ReDraw();
         }
 
         private void ReDraw()

@@ -19,5 +19,10 @@ namespace Localization
         [field: SerializeField] public LocalizedString ReadyWord { get; private set; }
         [field: SerializeField] public LocalizedString BuyersWord { get; private set; }
         [field: SerializeField] public LocalizedString GoToShop { get; private set; }
+
+        [field: Header("Helps")]
+        [field: SerializeField] public LocalizedString RKMHelpForChoseUI { get; private set; }
+        [field: SerializeField] public LocalizedString HelpForPlaceBuilding { get; private set; }
+        [field: SerializeField] public LocalizedString CancelBuilding { get; private set; }
     }
 }

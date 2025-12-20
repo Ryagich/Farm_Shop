@@ -18,3 +18,5 @@ MonoBehaviour:
   <ProductionIcon>k__BackingField: {fileID: 21300000, guid: c10d6036f2a24f04789deadaf05257b2, type: 3}
   <ToShopIcon>k__BackingField: {fileID: 21300000, guid: 868b7b444ec082d44ae4b1cf0c7a46fe, type: 3}
   <GardenIcon>k__BackingField: {fileID: 21300000, guid: a90207abf089c3f44a02937b4d23fe43, type: 3}
+  <LCMIcon>k__BackingField: {fileID: 21300000, guid: 2cff2e49762ba594891c64c840aa0c00, type: 3}
+  <RCMIcon>k__BackingField: {fileID: 21300000, guid: eae93d6afe1836a4180add6d448bf51b, type: 3}

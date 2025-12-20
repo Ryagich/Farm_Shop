@@ -18,7 +18,6 @@ namespace UI.Configs
         [field: SerializeField] public ProductionCard ProductCardPrefab { get; private set; } = null!;
         [field: SerializeField] public Vector2 SpaceBetweenPurchaseCards { get; private set; } = new Vector2(265f, 50);
         [field: SerializeField] public int CardsRowCount { get; private set; } = 6;
-        [field: SerializeField] public SpritesConfig SpritesConfig { get; private set; }
         [field: SerializeField] public SectionButtons SectionButtons { get; private set; }
         [field: SerializeField] public Vector3 SectionButtonsPositionForShopPage { get; private set; }
         [field: SerializeField] public Vector3 SectionButtonsPositionForRedactorPage { get; private set; }

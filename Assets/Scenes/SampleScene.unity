@@ -999,6 +999,8 @@ MonoBehaviour:
   <SoundsConfig>k__BackingField: {fileID: 11400000, guid: 5bd0e325e025c1843a8b256b8347f861, type: 2}
   <GridEnvironmentConfig>k__BackingField: {fileID: 11400000, guid: b6f95a875a0fa77489becdfb03f64dbe, type: 2}
   <LocalizationConfig>k__BackingField: {fileID: 11400000, guid: 994d76bef27512d4abbd05c6430ef15b, type: 2}
+  <HelpInfoConfig>k__BackingField: {fileID: 11400000, guid: e3a052dc757e9d14fa7c109c14489f2f, type: 2}
+  <SpritesConfig>k__BackingField: {fileID: 11400000, guid: 9fa373c319175174587c5febb6c92548, type: 2}
   <PopupHolders>k__BackingField: {fileID: 11400000, guid: 92111fa584d33814fabb78f724c18f8f, type: 2}
   <Camera>k__BackingField: {fileID: 963194227}
   <Canvas>k__BackingField: {fileID: 319103531}

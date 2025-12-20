@@ -12,14 +12,17 @@ namespace UI
         {
             builder.RegisterInstance(Canvas).As<Canvas>();
             
-            builder.Register<MainPage>(Lifetime.Scoped).As<MainPage>();
-            builder.Register<MainPageWithUI>(Lifetime.Scoped).As<MainPageWithUI>();
-            builder.Register<ShopPage>(Lifetime.Scoped).As<ShopPage>();
-            builder.Register<InventoryPage>(Lifetime.Scoped);
+            builder.Register<MainPage>(Lifetime.Scoped);
+            // builder.Register<MainPageWithUI>(Lifetime.Scoped);
+            builder.Register<ShopPage>(Lifetime.Scoped);
+            // builder.Register<InventoryPage>(Lifetime.Scoped);
             builder.Register<RedactorPage>(Lifetime.Scoped);
             builder.Register<UIUtils>(Lifetime.Scoped);
-
-            builder.RegisterEntryPoint<PagesController>().AsSelf();
+            builder.Register<HelpInfoDrawer>(Lifetime.Scoped);
+            
+            builder.RegisterEntryPoint<PagesController>();
+            builder.RegisterEntryPoint<InventoryPage>().AsSelf();
+            builder.RegisterEntryPoint<MainPageWithUI>().AsSelf();
         }
     }
 }

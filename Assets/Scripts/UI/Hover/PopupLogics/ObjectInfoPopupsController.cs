@@ -22,7 +22,8 @@ namespace UI.Hover.PopupLogics
         private HoverTrigger currentHover;
         private RectTransform currentPopup;
 
-        private bool IsFixed;
+        public bool HavePopup => currentPopup != null;
+        public bool IsFixed;
         private Vector2 position;
         private HoverTrigger hoverTrigger;
         

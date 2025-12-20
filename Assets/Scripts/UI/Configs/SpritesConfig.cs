@@ -11,5 +11,8 @@ namespace UI.Configs
         [field: SerializeField] public Sprite ProductionIcon { get; private set; }
         [field: SerializeField] public Sprite ToShopIcon { get; private set; }
         [field: SerializeField] public Sprite GardenIcon { get; private set; }
+        
+        [field: SerializeField] public Sprite LCMIcon { get; private set; }
+        [field: SerializeField] public Sprite RCMIcon { get; private set; }
     }
 }
