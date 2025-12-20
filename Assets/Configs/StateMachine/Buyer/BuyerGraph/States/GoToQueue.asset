@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf29600a98724efea7cca5403fff2012, type: 3}
   m_Name: GoToQueue
   m_EditorClassIdentifier: 
-  <StateName>k__BackingField: State Name
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 1849307509800960
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Behaviours:
   - {fileID: 11400000, guid: d78e726dafc3f634d9729a075460ad64, type: 2}
   Transitions:
   - {fileID: 11400000, guid: 111d00575e8d8f84ba452e6c31bf4e1b, type: 2}
+  references:
+    version: 2
+    RefIds: []

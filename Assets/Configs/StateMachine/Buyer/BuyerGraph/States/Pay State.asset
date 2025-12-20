@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf29600a98724efea7cca5403fff2012, type: 3}
   m_Name: Pay State
   m_EditorClassIdentifier: 
-  <StateName>k__BackingField: State Name
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 1936001588248576
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Behaviours:
   - {fileID: 11400000, guid: f079bfec3c314764c9e64fdf22704039, type: 2}
   Transitions:
   - {fileID: 11400000, guid: 4d9dbdbb4043592418a4ff0c8925d3b6, type: 2}
+  references:
+    version: 2
+    RefIds: []

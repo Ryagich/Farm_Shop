@@ -143,6 +143,54 @@ MonoBehaviour:
     m_Key: Help_CancelBuilding
     m_Metadata:
       m_Items: []
+  - m_Id: 1845724148121600
+    m_Key: State_Name_Default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1849307509800960
+    m_Key: State_Name_GoToQueue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853444456693760
+    m_Key: State_Name_GoAway
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853552866869248
+    m_Key: State_Name_GetItemToCheckout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1929295659515904
+    m_Key: State_Name_Goes_to_the_Store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1930367316770816
+    m_Key: State_Name_In_Queue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1935829256880128
+    m_Key: State_Name_Move_To_Shelf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936001588248576
+    m_Key: State_Name_Pays
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936176071294976
+    m_Key: State_Name_TakeItemFromCheckout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936678381142016
+    m_Key: Word_Buyer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1937819462516736
+    m_Key: Products_List
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1942479724331008
+    m_Key: Current_status
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

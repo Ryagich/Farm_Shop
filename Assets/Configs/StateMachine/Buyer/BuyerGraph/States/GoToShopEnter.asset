@@ -12,9 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf29600a98724efea7cca5403fff2012, type: 3}
   m_Name: GoToShopEnter
   m_EditorClassIdentifier: 
-  <StateName>k__BackingField: State Name
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 1929295659515904
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Behaviours:
   - {fileID: 11400000, guid: d78e726dafc3f634d9729a075460ad64, type: 2}
   Transitions:
   - {fileID: 11400000, guid: 9334bf3f0b9d72a4da638a3636d08759, type: 2}
   - {fileID: 11400000, guid: b9ae4af1c9e80ef48b1e91c0def99347, type: 2}
+  references:
+    version: 2
+    RefIds: []

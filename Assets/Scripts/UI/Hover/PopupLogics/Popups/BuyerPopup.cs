@@ -45,7 +45,8 @@ namespace UI.Hover.PopupLogics.Popups
                 var holderRect = positionHolder.GetComponent<RectTransform>();
                 holderRect.anchoredPosition = new Vector2(.0f, h);
                 h -= holderRect.sizeDelta.y;
-                positionHolder.ProductName.text = $"{localizationConfig.ProductWord.GetLocalizedString()}: {buyPosition.Config.Name.GetLocalizedString()}";
+                positionHolder.ProductName.text = $"{buyPosition.Config.Name.GetLocalizedString()}";
+                // positionHolder.ProductName.text = $"{localizationConfig.ProductWord.GetLocalizedString()}: {buyPosition.Config.Name.GetLocalizedString()}";
                 positionHolder.ProductCounts.text = $"{buyPosition.Count} / {buyPosition.Need}";
                 positionHolder.Fill.fillAmount = (float)buyPosition.Count / buyPosition.Need;
 
@@ -62,7 +63,7 @@ namespace UI.Hover.PopupLogics.Popups
                     positionHolder.FillBack.color = buyerController.context.BuyerSettings.OutOfStockColor;
                 }
             }
-            popup.BuyerStatus.text = buyerController.CurrentState.StateName;
+            popup.BuyerStatus.text = buyerController.CurrentState.Name.GetLocalizedString();
             popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y
                                 + (buyerController.context.BuyPositions.Count 
                                  * popupHolders.BuyerProductInfo.GetComponent<RectTransform>().sizeDelta.y) 

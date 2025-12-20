@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf29600a98724efea7cca5403fff2012, type: 3}
   m_Name: Destroy_State
   m_EditorClassIdentifier: 
-  <StateName>k__BackingField: State Name
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 1845724148121600
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Behaviours:
   - {fileID: 11400000, guid: 82de2dcadbc4c074ea25605675da4967, type: 2}
   Transitions:
   - {fileID: 11400000, guid: 3efa8811c3ee2ef418a6063e6d4a92cd, type: 2}
+  references:
+    version: 2
+    RefIds: []
