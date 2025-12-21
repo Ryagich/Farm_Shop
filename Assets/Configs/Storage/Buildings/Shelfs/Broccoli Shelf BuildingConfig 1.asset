@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
+  m_Name: Broccoli Shelf BuildingConfig 1
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 2
+  <Icon>k__BackingField: {fileID: 21300000, guid: eaf9380fb77a1f54f9b0245440425b11, type: 3}
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 2136119839014912
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Building>k__BackingField: {fileID: 6371271840119661707, guid: 836d3d4f8fe8b8d4d904c1ab61fec275, type: 3}
+  <HighlightBuilding>k__BackingField: {fileID: 5924636531613310000, guid: 9a4f0d3a32aef1c49b73d817c87cc1f5, type: 3}
+  <Size>k__BackingField: {x: 5, y: 5}
+  <Price>k__BackingField: 0
+  <ShowInShop>k__BackingField: 1
+  references:
+    version: 2
+    RefIds: []

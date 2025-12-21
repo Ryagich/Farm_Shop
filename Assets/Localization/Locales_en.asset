@@ -194,6 +194,18 @@ MonoBehaviour:
     m_Localized: 'Current status:'
     m_Metadata:
       m_Items: []
+  - m_Id: 2087792493707264
+    m_Localized: Broccoli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2128722215026688
+    m_Localized: Broccoli landing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2136119839014912
+    m_Localized: Broccoli shelf
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
