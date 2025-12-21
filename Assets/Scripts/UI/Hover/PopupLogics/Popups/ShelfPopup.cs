@@ -68,7 +68,7 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.ShelfPopupHolder, canvas.transform);
-            popup.ProductDescription.text = $"{localizationConfig.ProductWord.GetLocalizedString()}: {itemConfig.Name.GetLocalizedString()}";
+            popup.ProductDescription.text = $"{localizationConfig.ProductWord.GetLocalizedStringCached()}: {itemConfig.Name.GetLocalizedStringCached()}";
             
             popup.ProductsCount.text = $"{inventory.Items.Count} / {placesCount}";
             popup.ProductsFillImage.fillAmount = (float)inventory.Items.Count / placesCount;
@@ -89,11 +89,11 @@ namespace UI.Hover.PopupLogics.Popups
 
             if (buildingInteractableFlag.IsInteractable)
             {
-                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.DisableWord.GetLocalizedString()}";
+                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.DisableWord.GetLocalizedStringCached()}";
             }
             else
             {
-                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.ActivateWord.GetLocalizedString()}";
+                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.ActivateWord.GetLocalizedStringCached()}";
             }
             popup.ButtonDisable.onClick.AddListener(() => buildingInteractableFlag.IsInteractable = !buildingInteractableFlag.IsInteractable);
             

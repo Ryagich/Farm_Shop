@@ -52,16 +52,16 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.LandingFruitPlantHolder, canvas.transform);
-            popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedString()}";
+            popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedStringCached()}";
             
             if (plantGrowerByUpper.IsPlanting)
             {
-                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: 1";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
                 popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance / plantGrowerByUpper.Distance;
             }
             else if (plantGrowerByStages.IsPlanted)
             {
-                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: {localizationConfig.GrownWord.GetLocalizedString()}";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {localizationConfig.GrownWord.GetLocalizedStringCached()}";
                 popup.GrowFill.fillAmount = 1;
 
                 var popupRect = popup.GetComponent<RectTransform>();
@@ -69,14 +69,14 @@ namespace UI.Hover.PopupLogics.Popups
                 var holderRect = aboutFruits.GetComponent<RectTransform>();
                 var lastRect = popup.GrowStage.GetComponent<RectTransform>();
 
-                aboutFruits.FruitsCount.text = $"{localizationConfig.FruitsWord.GetLocalizedString()}: {landingFruitPlantController.fruitCount}";
-                aboutFruits.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedString()} {inventory.GetCount()}";
+                aboutFruits.FruitsCount.text = $"{localizationConfig.FruitsWord.GetLocalizedStringCached()}: {landingFruitPlantController.fruitCount}";
+                aboutFruits.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedStringCached()} {inventory.GetCount()}";
                 holderRect.anchoredPosition = new Vector2(.0f, lastRect.anchoredPosition.y - lastRect.sizeDelta.y);
                 popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + holderRect.sizeDelta.y);
             }
             else
             {
-                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: {plantGrowerByStages.currentStage + 1}";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {plantGrowerByStages.currentStage + 1}";
                 popup.GrowFill.fillAmount = plantGrowerByStages.timer / plantGrowerByStages.stageTime;
             }
             return popup.GetComponent<RectTransform>();

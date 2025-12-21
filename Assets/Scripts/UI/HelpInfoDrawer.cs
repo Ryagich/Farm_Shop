@@ -36,7 +36,7 @@ namespace UI
             var RCMHelp = Object.Instantiate(helpInfoConfig.RightSimpleHelp, parentRect);
             RCMHelp.anchoredPosition = helpInfoConfig.RightHelpDefaultPosition;
             RCMHelp.GetComponentInChildren<Image>().sprite = spritesConfig.RCMIcon;
-            RCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.RKMHelpForChoseUI.GetLocalizedString();
+            RCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.RKMHelpForChoseUI.GetLocalizedStringCached();
             
             return RCMHelp;
         }
@@ -53,7 +53,7 @@ namespace UI
             RCMHelp.anchoredPosition = helpInfoConfig.RightHelpDefaultPosition;
             
             RCMHelp.GetComponentInChildren<Image>().sprite = spritesConfig.RCMIcon;
-            RCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.RKMHelpForChoseUI.GetLocalizedString();
+            RCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.RKMHelpForChoseUI.GetLocalizedStringCached();
             
             return RCMHelp;
         }
@@ -72,7 +72,7 @@ namespace UI
             RCMHelp.anchoredPosition = helpInfoConfig.RightHelpDefaultPosition + Vector2.up * (y + helpInfoConfig.RightHelpDistance.y);
 
             RCMHelp.GetComponentInChildren<Image>().sprite = spritesConfig.RCMIcon;
-            RCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.CancelBuilding.GetLocalizedString();
+            RCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.CancelBuilding.GetLocalizedStringCached();
             y += RCMHelp.sizeDelta.y;
             
             var LCMHelp = Object.Instantiate(helpInfoConfig.RightSimpleHelp, parentRect);
@@ -82,7 +82,7 @@ namespace UI
             
             LCMHelp.anchoredPosition = helpInfoConfig.RightHelpDefaultPosition + Vector2.up * (y + helpInfoConfig.RightHelpDistance.y);
             LCMHelp.GetComponentInChildren<Image>().sprite = spritesConfig.LCMIcon;
-            LCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.HelpForPlaceBuilding.GetLocalizedString();
+            LCMHelp.GetComponentInChildren<TMP_Text>().text = localizationConfig.HelpForPlaceBuilding.GetLocalizedStringCached();
         }
     }
 }

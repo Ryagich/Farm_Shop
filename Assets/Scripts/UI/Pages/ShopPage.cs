@@ -90,8 +90,8 @@ namespace UI.Pages
                                                       - cardSize.y * (i / rows));
                 card.Icon.sprite = buildingConfig.Icon;
                 card.SizeText.text = $"{buildingConfig.Size.x}x{buildingConfig.Size.y}";
-                card.Name.text = $"{buildingConfig.Name.GetLocalizedString()}";
-                card.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedString()}: {buildings[i].Count}";
+                card.Name.text = $"{buildingConfig.Name.GetLocalizedStringCached()}";
+                card.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {buildings[i].Count}";
                 card.Button.GetComponentInChildren<TMP_Text>().text = $"{buildings[i].BuildingConfig.Price}$";
                 var i1 = i;
                 card.Button.onClick.AddListener(() => Buy(buildings[i1]));

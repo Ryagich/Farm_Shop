@@ -36,7 +36,7 @@ namespace Localization
             }
         }
 
-        public static string GetLocalizedString(this LocalizedString localizedString)
+        public static string GetLocalizedStringCached(this LocalizedString localizedString)
         {
             return Cache[localizedString.TableEntryReference.KeyId];
         }

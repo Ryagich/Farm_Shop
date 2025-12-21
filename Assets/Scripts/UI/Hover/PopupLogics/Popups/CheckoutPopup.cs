@@ -34,7 +34,7 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.CheckoutPopupHolder, canvas.transform);
-            popup.BuyersCount.text = $"{localizationConfig.BuyersWord.GetLocalizedString()}: {byersQueue.Buyers.Count}";
+            popup.BuyersCount.text = $"{localizationConfig.BuyersWord.GetLocalizedStringCached()}: {byersQueue.Buyers.Count}";
             return popup.GetComponent<RectTransform>();
         }
     }

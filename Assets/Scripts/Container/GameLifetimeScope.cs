@@ -25,7 +25,6 @@ using UI.Configs;
 using UI.Hover;
 using UI.Hover.PopupLogics;
 using UI.Hover.PopupLogics.Holders;
-using Unity.AI.Navigation;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -80,7 +79,7 @@ namespace Container
             builder.RegisterInstance(LocalizationConfig).AsSelf();
             builder.RegisterInstance(HelpInfoConfig).AsSelf();
             builder.RegisterInstance(SpritesConfig).AsSelf();
-            
+
             builder.RegisterInstance(PopupHolders).AsSelf();
             builder.RegisterInstance(Canvas).AsSelf();
             builder.RegisterInstance(Camera).AsSelf();
@@ -100,7 +99,7 @@ namespace Container
             builder.Register<SurfaceController>(Lifetime.Singleton)
                    .AsSelf()
                    .As<IStartable>();
-            
+
             // === MessagePipe ===
             var options = builder.RegisterMessagePipe();
             builder.RegisterMessageBroker<PlayerMoveMessage>(options);
@@ -118,7 +117,7 @@ namespace Container
             builder.RegisterMessageBroker<AddBuildingToStorageRequest>(options);
             builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
             builder.RegisterMessageBroker<GridExtendMessage>(options);
-            
+
             // === InputHandler ===
             builder.Register<InputHandler>(Lifetime.Singleton).AsSelf().As<IStartable>();
 
@@ -127,19 +126,23 @@ namespace Container
             builder.RegisterComponent(soundsManager).AsSelf();
 
             builder.RegisterBuildCallback(container =>
-            {
-                GlobalMessagePipe.SetProvider(container.AsServiceProvider());
-                playerScope = CreateChildFromPrefab(PlayerPrefab, childBuilder =>
-                {
-                    //childBuilder.RegisterMessageBroker<InteractableMessage>(options);
-                    //childBuilder.RegisterMessageBroker<InteractableEndMessage>(options);
-                });
-                soundsManager.SetPlayer(playerScope);
-            });
+                                          {
+                                              GlobalMessagePipe.SetProvider(container.AsServiceProvider());
+                                              playerScope = CreateChildFromPrefab(PlayerPrefab, childBuilder =>
+                                                       {
+                                                           //childBuilder.RegisterMessageBroker<InteractableMessage>(options);
+                                                           //childBuilder.RegisterMessageBroker<InteractableEndMessage>(options);
+                                                       });
+                                              soundsManager.SetPlayer(playerScope);
+                                          });
+
             builder.RegisterEntryPoint<ObjectCreator>().AsSelf();
             builder.RegisterEntryPoint<ObjectMoverInHisPlace>().AsSelf();
             builder.RegisterEntryPoint<ObjectInfoPopupsController>().AsSelf();
             builder.RegisterEntryPoint<GameModesController>().AsSelf();
+            builder.RegisterEntryPoint<Bootloader>()
+                   .AsSelf()
+                   .As<IStartable>();
         }
     }
 }

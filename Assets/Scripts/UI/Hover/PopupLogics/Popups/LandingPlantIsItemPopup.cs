@@ -61,21 +61,21 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.LandingPlantIsItemHolder, canvas.transform);
-            popup.PlantName.text = $"{plantConfig.Stages.Last().GetComponent<ItemHolder>().Config.Name.GetLocalizedString()}";
+            popup.PlantName.text = $"{plantConfig.Stages.Last().GetComponent<ItemHolder>().Config.Name.GetLocalizedStringCached()}";
             
             if (plantGrowerByUpper.IsPlanting)
             {
-                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: 1";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
                 popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance / plantGrowerByUpper.Distance;
             }
             else if (plantGrowerByStages.IsPlanted)
             {
-                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: Grown";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: Grown";
                 popup.GrowFill.fillAmount = 1;
             }
             else
             {
-                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedString()}: {plantGrowerByStages.currentStage + 1}";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {plantGrowerByStages.currentStage + 1}";
                 popup.GrowFill.fillAmount = plantGrowerByStages.timer / plantGrowerByStages.stageTime;
             }
             popup.ButtonMove.onClick.AddListener(Move);

@@ -122,8 +122,8 @@ namespace UI.Pages
                                           + new Vector2(i * (cardSize.x + uiConfig.SpaceBetweenProductionCards), 0);
                 card.Icon.sprite = buildingConfig.Icon;
                 card.SizeText.text = $"{buildingConfig.Size.x}x{buildingConfig.Size.y}";
-                card.Name.text = $"{buildingConfig.Name.GetLocalizedString()}";
-                card.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedString()}: {buildings[i].Count}";
+                card.Name.text = $"{buildingConfig.Name.GetLocalizedStringCached()}";
+                card.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {buildings[i].Count}";
                 var i1 = i;
 
                 card.Button.onClick.AddListener(() =>
@@ -166,7 +166,7 @@ namespace UI.Pages
             }
             card.SizeText.text = $"";
             card.Name.text = $"";
-            card.InInventory.text = $"{localizationConfig.GoToShop.GetLocalizedString()}";
+            card.InInventory.text = $"{localizationConfig.GoToShop.GetLocalizedStringCached()}";
         }
         
         public void SetArea(Area area)
