@@ -51,7 +51,7 @@ namespace StateMachine
         {
             if (UsedInfoAboutPositionAtShelfForBuyer is not null)
             {
-                UsedInfoAboutPositionAtShelfForBuyer.IsFree = true;
+                UsedInfoAboutPositionAtShelfForBuyer.IsFree.Value = true;
                 UsedInfoAboutPositionAtShelfForBuyer = null;
             }
         }

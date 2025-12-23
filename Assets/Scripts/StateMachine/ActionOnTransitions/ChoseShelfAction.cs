@@ -19,7 +19,7 @@ namespace StateMachine.ActionOnTransitions
                 {
                     var shelves = type.Where(shelf => shelf.Key.CanGet() 
                                                    && shelf.Value
-                                                           .Any(any => any.IsFree 
+                                                           .Any(any => any.IsFree.Value
                                                                      && any.BuildingInteractableFlag.IsInteractable))
                                       .ToArray();
                     if (shelves.Length <= 0)
@@ -28,10 +28,10 @@ namespace StateMachine.ActionOnTransitions
                     context.ClearInfoAboutShelf();
                     var shelf = shelves[Random.Range(0, shelves.Length - 1)];
                     var freePositions = shelf.Value
-                                             .Where(p => p.IsFree)
+                                             .Where(p => p.IsFree.Value)
                                              .ToArray();
                     var positionForBuyer = freePositions[Random.Range(0, freePositions.Length - 1)];
-                    positionForBuyer.IsFree = false;
+                    positionForBuyer.IsFree.Value = false;
                     context.TargetPoint = positionForBuyer.TargetPoint;
                     context.TP = context.TargetPoint.Target.position;
                     context.UsedInfoAboutPositionAtShelfForBuyer = positionForBuyer;

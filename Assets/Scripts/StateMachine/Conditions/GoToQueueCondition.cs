@@ -22,7 +22,7 @@ namespace StateMachine.Conditions
                            .TryGetValue(position.Config, out var type))
                 {
                     var shelves = type.Where(p => p.Key.CanGet()
-                                          && p.Value.Any(any => any.IsFree 
+                                          && p.Value.Any(any => any.IsFree.Value 
                                                      || (context.UsedInfoAboutPositionAtShelfForBuyer is not null 
                                                      && context.UsedInfoAboutPositionAtShelfForBuyer == any)))
                                       .ToArray();

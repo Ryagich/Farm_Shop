@@ -1,6 +1,7 @@
 ﻿using BuildingsAndGrid.Buildings;
 using Buyer;
 using Inventory;
+using UniRx;
 using UnityEngine;
 
 namespace Shelf
@@ -11,20 +12,18 @@ namespace Shelf
         public TargetPoint TargetPoint;
         public readonly IInventory ShelfInventory;
         public readonly BuildingInteractableFlag BuildingInteractableFlag;
-        public bool IsFree;
+        public ReactiveProperty<bool> IsFree = new(true);
 
         public InfoAboutPositionAtShelfForBuyer
             (
                 Transform transform,
                 IInventory shelfInventory, 
-                BuildingInteractableFlag buildingInteractableFlag,
-                bool isFree = true
+                BuildingInteractableFlag buildingInteractableFlag
             )
         {
             TargetPoint = new TargetPoint(transform);
             ShelfInventory = shelfInventory;
             BuildingInteractableFlag = buildingInteractableFlag;
-            IsFree = isFree;
         }
     }
 }

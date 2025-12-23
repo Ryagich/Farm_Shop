@@ -9,7 +9,7 @@ namespace StateMachine.ActionOnTransitions
          public override void DoAction(StateMachineContext context)
          {
              if (context.UsedInfoAboutPositionAtShelfForBuyer != null)
-                 context.UsedInfoAboutPositionAtShelfForBuyer.IsFree = true;
+                 context.UsedInfoAboutPositionAtShelfForBuyer.IsFree.Value = true;
              context.UsedInfoAboutPositionAtShelfForBuyer = null;
              // ReSharper disable once RedundantCheckBeforeAssignment
              if (context.TargetPoint != null)

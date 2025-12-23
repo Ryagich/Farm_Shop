@@ -77,20 +77,18 @@ namespace UI.Hover.PopupLogics
                 IsFixed = !IsFixed;
         }
         
-        private void UpdatePosition()
-        {
-            if (!IsFixed)
-            {     
-                position = inputConfig.PointerPosition.action.ReadValue<Vector2>();
-                hoverTrigger = hoverRaycaster.GetHoveredObject(position);
-            }
-        }
-        
         public void Tick()
         {
-            UpdatePosition();
             if (IsFixed)
+            {
+                if (currentPopup)
+                    UpdatePosition();
                 return;
+            }
+            
+            position = inputConfig.PointerPosition.action.ReadValue<Vector2>();
+            hoverTrigger = hoverRaycaster.GetHoveredObject(position);
+            
             if (!currentHover && !hoverTrigger || (gameModesController.GameMode != GameMode.Game 
                                                 && gameModesController.GameMode != GameMode.Inventory))
             {
@@ -106,9 +104,9 @@ namespace UI.Hover.PopupLogics
                 ClosePopup();
                 currentHover = null;
             }
-            else if (currentHover.gameObject == hoverTrigger.gameObject)
+            else if (currentHover.gameObject == hoverTrigger.gameObject && currentPopup)
             {
-                DrawPopup();
+                UpdatePosition();
             }
             else if (currentHover.gameObject != hoverTrigger.gameObject)
             {
@@ -122,21 +120,10 @@ namespace UI.Hover.PopupLogics
             IsFixed = false;
             currentHover.ObjectPopup.CloseButton -= OnClosePopup;
         }
-        
-        private void DrawPopup()
-        {
-            if (currentPopup)
-            {
-                Object.Destroy(currentPopup.gameObject);
-            }
-            currentHover.ObjectPopup.CloseButton += OnClosePopup;
 
-            if (!cursorHandler.IsVisible)
-            {
-                return;
-            }
-            var popupRect = currentHover.ObjectPopup.DrawPopup();
-            var popupSize = popupRect.rect.size;
+        private void UpdatePosition()
+        {
+            var popupSize = currentPopup.rect.size;
             var screenPos = position;
             if (screenPos.x + popupSize.x > Screen.width)
             {
@@ -152,9 +139,23 @@ namespace UI.Hover.PopupLogics
                                                                     null,
                                                                     out var localPoint
                                                                    );
+            currentPopup.anchoredPosition = localPoint;
+        }
+        
+        private void DrawPopup()
+        {
+            if (currentPopup)
+            {
+                Object.Destroy(currentPopup.gameObject);
+            }
+            currentHover.ObjectPopup.CloseButton += OnClosePopup;
+            if (!cursorHandler.IsVisible)
+            {
+                return;
+            }
+            currentPopup = currentHover.ObjectPopup.DrawPopup();
             
-            popupRect.anchoredPosition = localPoint;
-            currentPopup = popupRect;
+            UpdatePosition();
         }
         
         private void ClosePopup()

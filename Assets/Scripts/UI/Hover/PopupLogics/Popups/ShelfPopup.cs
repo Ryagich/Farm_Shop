@@ -13,14 +13,18 @@ using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
 using VContainer;
 using Object = UnityEngine.Object;
+using UniRx;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class ShelfPopup : IObjectPopup
+    public class ShelfPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
 
+        private CompositeDisposable disposables = new();
+        private RectTransform popupRect;
+        
         private readonly ItemConfig itemConfig;
         private readonly LocalizationConfig localizationConfig;
         private readonly IInventory inventory;
@@ -35,7 +39,7 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
-
+        
         public ShelfPopup
             (
                 ItemConfig itemConfig,
@@ -64,40 +68,74 @@ namespace UI.Hover.PopupLogics.Popups
             addBuildingToStoragePublisher = GlobalMessagePipe.GetPublisher<AddBuildingToStorageRequest>();
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
-
+        
         public RectTransform DrawPopup()
         {
-            var popup = Object.Instantiate(popupHolders.ShelfPopupHolder, canvas.transform);
-            popup.ProductDescription.text = $"{localizationConfig.ProductWord.GetLocalizedStringCached()}: {itemConfig.Name.GetLocalizedStringCached()}";
+            disposables = new CompositeDisposable();
+            popupRect = Object.Instantiate(popupHolders.ShelfPopupHolder, canvas.transform)
+                              .GetComponent<RectTransform>();
+
+            var popup = popupRect.GetComponent<ShelfPopupHolder>();
+
+            popup.ButtonMove.onClick.AddListener(Move);
+            popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
+            popup.ButtonDisable.onClick.AddListener(Dispose);
+
+            Redraw();
+            Subscribe();
+
+            return popupRect;
+        }
+        
+        private void Subscribe()
+        {
+            shelfInfoRecorder.info
+                             .ObserveAdd()
+                             .Subscribe(e =>
+                                        {
+                                            e.Value.IsFree
+                                             .Subscribe(_ => Redraw())
+                                             .AddTo(disposables);
+                                            Redraw();
+                                        })
+                             .AddTo(disposables);
+
+            shelfInfoRecorder.info
+                             .ObserveRemove()
+                             .Subscribe(_ => Redraw())
+                             .AddTo(disposables);
+
+            foreach (var item in shelfInfoRecorder.info)
+            {
+                item.IsFree
+                    .Subscribe(_ => Redraw())
+                    .AddTo(disposables);
+            }
+        }
+        
+        private void Redraw()
+        {
+            if (!popupRect)
+                return;
+            var popup = popupRect.GetComponent<ShelfPopupHolder>();
+
+            var total = shelfInfoRecorder.info.Count;
+            var busy = total - shelfInfoRecorder.info.Count(i => i.IsFree.Value);
             
+            popup.BuyersCount.text = $"{busy} / {total}";
+            popup.BuyersFillImage.fillAmount = total == 0 ? 0f : (float)busy / total;
+
             popup.ProductsCount.text = $"{inventory.Items.Count} / {placesCount}";
             popup.ProductsFillImage.fillAmount = (float)inventory.Items.Count / placesCount;
+
+            var allFree = shelfInfoRecorder.info.All(i => i.IsFree.Value);
+            popup.ButtonMove.interactable = allFree;
+            popup.ButtonMoveToInventory.interactable = allFree;
             
-            popup.BuyersCount.text = $"{shelfInfoRecorder.info.Where(i => !i.IsFree).ToArray().Length} / {shelfInfoRecorder.info.Count}";
-            popup.BuyersFillImage.fillAmount = (float)shelfInfoRecorder.info.Where(i => !i.IsFree).ToArray().Length / shelfInfoRecorder.info.Count;
-
-            if (shelfInfoRecorder.info.All(i => i.IsFree))
-            {
-                popup.ButtonMove.onClick.AddListener(Move);
-                popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
-            }
-            else
-            {
-                popup.ButtonMove.interactable = false;
-                popup.ButtonMoveToInventory.interactable = false;
-            }
-
             if (buildingInteractableFlag.IsInteractable)
-            {
                 popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.DisableWord.GetLocalizedStringCached()}";
-            }
             else
-            {
                 popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.ActivateWord.GetLocalizedStringCached()}";
-            }
-            popup.ButtonDisable.onClick.AddListener(() => buildingInteractableFlag.IsInteractable = !buildingInteractableFlag.IsInteractable);
-            
-            return popup.GetComponent<RectTransform>();
         }
         
         private void MoveInInventory()
@@ -105,6 +143,7 @@ namespace UI.Hover.PopupLogics.Popups
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
             CloseButton?.Invoke();
+            Dispose();
         }
         
         private void Move()
@@ -121,6 +160,14 @@ namespace UI.Hover.PopupLogics.Popups
                                                                           ));
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
             CloseButton?.Invoke();
+            Dispose();
+        }
+        
+        public void Dispose()
+        {
+            disposables.Dispose();
+            if (popupRect)
+                Object.Destroy(popupRect.gameObject);
         }
     }
 }

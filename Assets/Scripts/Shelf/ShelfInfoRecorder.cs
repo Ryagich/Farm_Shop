@@ -5,6 +5,7 @@ using BuildingsAndGrid.Buildings;
 using Inventory;
 using Inventory.Item;
 using Messages;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -23,7 +24,7 @@ namespace Shelf
         private readonly IInventory inventory;
         private readonly BuildingInteractableFlag buildingInteractableFlag;
 
-        public readonly List<InfoAboutPositionAtShelfForBuyer> info;
+        public readonly ReactiveCollection<InfoAboutPositionAtShelfForBuyer> info;
         
         public ShelfInfoRecorder
             (
@@ -39,7 +40,11 @@ namespace Shelf
             this.buildingInteractableFlag = buildingInteractableFlag;
             this.inventory = inventory;
             
-            info = places.Select(place => new InfoAboutPositionAtShelfForBuyer(place, inventory, buildingInteractableFlag)).ToList();
+            info = new ReactiveCollection<InfoAboutPositionAtShelfForBuyer>(
+                                                                            places.Select(place =>
+                                                                                    new InfoAboutPositionAtShelfForBuyer(place, inventory, buildingInteractableFlag)
+                                                                                )
+                                                                           );
         }
         
         public void Start()
