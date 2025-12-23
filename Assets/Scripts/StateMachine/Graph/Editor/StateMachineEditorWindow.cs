@@ -5,7 +5,7 @@ using StateMachine.Graph.Model;
 using UnityEditor;
 using UnityEngine;
 
-namespace StateMachine.Graph
+namespace StateMachine.Graph.Editor
 {
     public class StateMachineEditorWindow : EditorWindow
     {
