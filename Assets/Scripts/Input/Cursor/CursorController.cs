@@ -8,7 +8,7 @@ namespace Input.Cursor
     public class CursorController
     {
         private readonly CursorHandler cursorHandler;
-        public bool IsVisibleInPlayMode;
+        public bool IsVisibleInPlayMode = true;
 
         public CursorController
             (
