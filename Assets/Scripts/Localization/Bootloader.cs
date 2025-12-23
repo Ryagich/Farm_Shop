@@ -15,7 +15,6 @@ namespace Localization
         
         public async void Start()
         {
-            // VContainer ожидает void, но async допустим
             await StartAsync();
         }
         

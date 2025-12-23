@@ -13,8 +13,6 @@ namespace Buyer
     {
         private readonly BuyerSettings buyerSettings;
         private readonly BuyerSpawnPoints buyerSpawnPoints;
-        private readonly CheckoutsController checkoutsController;
-        private readonly BuyerLifetimeScope buyerPrefab;
         private readonly LifetimeScope parentScope;
 
         private float t;
@@ -24,14 +22,12 @@ namespace Buyer
             (
                 BuyerSettings buyerSettings,
                 BuyerSpawnPoints buyerSpawnPoints,
-                CheckoutsController checkoutsController,
                 LifetimeScope parentScope,
                 ISubscriber<BuyerIsOverMessage> BuyerIsOverSubscriber
             )
         {
             this.buyerSettings = buyerSettings;
             this.buyerSpawnPoints = buyerSpawnPoints;
-            this.checkoutsController = checkoutsController;
             this.parentScope = parentScope;
             
             BuyerIsOverSubscriber.Subscribe(OnBuyerIsOver);
@@ -65,7 +61,7 @@ namespace Buyer
                 return;
             }
             var spawnPoint = buyerSpawnPoints.SpawnPoints[Random.Range(0, buyerSpawnPoints.SpawnPoints.Count)].Target.transform;
-            var buyerScope = parentScope.CreateChildFromPrefab(buyerSettings.BuyerPrefab);
+            var buyerScope = parentScope.CreateChildFromPrefab(buyerSettings.BuyerPrefabs[Random.Range(0, buyerSettings.BuyerPrefabs.Count)]);
             var agent = buyerScope.GetComponent<NavMeshAgent>();
             agent.enabled = false;
             buyerScope.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);

@@ -26,8 +26,10 @@ namespace Buyer
             var hoverTrigger = gameObject.AddComponent<HoverTrigger>();
             var hand = transform.Find("Hand");
             var agent = GetComponent<NavMeshAgent>();
+            var buyerLook = GetComponent<BuyerLookController>();
             
             agent.avoidancePriority = Random.Range(0, 99);
+            builder.RegisterInstance(buyerLook).AsSelf();
             builder.RegisterInstance(hoverTrigger).AsSelf();
             builder.RegisterInstance(agent).AsSelf();
             builder.RegisterInstance(animator).AsSelf();

@@ -1,4 +1,5 @@
-﻿using StateMachine.Graph;
+﻿using System.Collections.Generic;
+using StateMachine.Graph;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -32,6 +33,8 @@ namespace Buyer
         
         //Prefabs
         [field: SerializeField] public NavMeshSurface NavMeshSurface { get; private set; }
-        [field: SerializeField] public BuyerLifetimeScope BuyerPrefab { get; private set; } = null!;
+        [field: SerializeField] public List<BuyerLifetimeScope> BuyerPrefabs { get; private set; } = null!;
+        [field: SerializeField] public float GenderChance { get; private set; } = .4f;
+
     }
 }

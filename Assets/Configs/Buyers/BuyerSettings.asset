@@ -33,4 +33,6 @@ MonoBehaviour:
   <AddTimeForBuyer>k__BackingField: 0.5
   <MaxBuyers>k__BackingField: 7
   <NavMeshSurface>k__BackingField: {fileID: 6046941319562431378, guid: 596c0de358d767046b9cda98b1935b0b, type: 3}
-  <BuyerPrefab>k__BackingField: {fileID: 3251009515886415242, guid: 6fbe736a2b7388744b584a687614c6e4, type: 3}
+  <BuyerPrefabs>k__BackingField:
+  - {fileID: 3251009515886415242, guid: 6fbe736a2b7388744b584a687614c6e4, type: 3}
+  - {fileID: 5204217600458138607, guid: a1606453aa409a546afc0d852dbbf2d7, type: 3}
