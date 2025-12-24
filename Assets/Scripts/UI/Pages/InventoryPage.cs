@@ -5,6 +5,7 @@ using MessagePipe;
 using Messages;
 using UI.Configs;
 using UI.Hover.PopupLogics;
+using UniRx;
 using UnityEngine;
 using Utils;
 using VContainer;
@@ -30,12 +31,14 @@ namespace UI.Pages
         private readonly IPublisher<OpenShopWithAreaRequest> openShopWithAreaRequestPublisher;
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
         private readonly IPublisher<ChoseBuildingMessage> choseBuildingPublisher;
+        private readonly ISubscriber<AddBuildingToStorageRequest> addBuildingToStorageRequest;
 
         private RectTransform contentRect = null!;
         private RectTransform viewRect = null!;
         
         private bool isActive;
         private RectTransform helpRect;
+        private CompositeDisposable disposables = new();
 
         public InventoryPage
             (
@@ -50,7 +53,8 @@ namespace UI.Pages
                 IObjectResolver resolver,
                 IPublisher<OpenShopWithAreaRequest> openShopWithAreaRequestPublisher,
                 IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher,
-                IPublisher<ChoseBuildingMessage> choseBuildingPublisher
+                IPublisher<ChoseBuildingMessage> choseBuildingPublisher,
+                ISubscriber<AddBuildingToStorageRequest> addBuildingToStorageRequest
             )   
         {
             this.uiConfig = uiConfig;
@@ -64,7 +68,10 @@ namespace UI.Pages
             this.openShopWithAreaRequestPublisher = openShopWithAreaRequestPublisher;
             this.changeGameModeRequestPublisher = changeGameModeRequestPublisher;
             this.choseBuildingPublisher = choseBuildingPublisher;
+            this.addBuildingToStorageRequest = addBuildingToStorageRequest;
 
+            addBuildingToStorageRequest.Subscribe(ReDraw).AddTo(disposables);
+            
             canvasRect = canvas.GetComponent<RectTransform>();
         }
 
@@ -84,6 +91,7 @@ namespace UI.Pages
 
         public override void Draw()
         {
+            disposables = new CompositeDisposable();
             if (contentRect)
                 Object.Destroy(contentRect.gameObject);
             contentRect = resolver.Instantiate(uiConfig.ContentPref, canvasRect);
@@ -135,11 +143,11 @@ namespace UI.Pages
                                                     changeGameModeRequestPublisher
                                                        .Publish(new ChangeGameModeRequest(GameMode.Redactor)));
             }
-            DrawCardTo(content, buildings.Count);
+            DrawCardMoveToShop(content, buildings.Count);
             isActive = true;
         }
 
-        private void DrawCardTo(RectTransform content, int cardCount)
+        private void DrawCardMoveToShop(RectTransform content, int cardCount)
         {
             var card = resolver.Instantiate(uiConfig.ProductCardPrefab, content);
             var cardRect = card.GetComponent<RectTransform>();
@@ -175,6 +183,11 @@ namespace UI.Pages
             ReDraw();
         }
         
+        private void ReDraw(AddBuildingToStorageRequest msg)
+        {
+            ReDraw();
+        }
+        
         private void ReDraw()
         {
             Hide();
@@ -183,6 +196,7 @@ namespace UI.Pages
         
         public override void Hide()
         {
+            disposables.Dispose();
             if (contentRect)
                 Object.Destroy(contentRect.gameObject);
         }
