@@ -23,7 +23,7 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   <height>k__BackingField: 0.5
-  <Price>k__BackingField: 1
+  <Price>k__BackingField: 3
   references:
     version: 2
     RefIds: []
