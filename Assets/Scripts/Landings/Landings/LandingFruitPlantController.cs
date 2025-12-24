@@ -21,7 +21,7 @@ namespace Landings.Landings
         private readonly CompositeDisposable disposables = new();
         
         private GameObject plant;
-        public int fruitCount { get; private set; }
+        public ReactiveProperty<int> fruitCount { get; private set; } = new();
         private int fruitGivensCount;
 
         public LandingFruitPlantController
@@ -74,8 +74,8 @@ namespace Landings.Landings
                 places.Add(child);
             }
             fruitGrower.SetPoints(places);
-            fruitCount = fruitGrower.StartGrow();
-            if (fruitCount <= 0)
+            fruitCount.Value = fruitGrower.StartGrow();
+            if (fruitCount.Value <= 0)
             {
                 Restart();
             }
@@ -84,7 +84,7 @@ namespace Landings.Landings
         private void OnItemGiven(ItemGivenFromInventory msg)
         {
             fruitGivensCount++;
-            if (fruitGivensCount >= fruitCount)
+            if (fruitGivensCount >= fruitCount.Value)
             {
                 Restart();
             }

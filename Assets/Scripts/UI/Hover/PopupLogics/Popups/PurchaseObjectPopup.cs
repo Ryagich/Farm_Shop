@@ -9,6 +9,8 @@ using Object = UnityEngine.Object;
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
+    //TODO: в игре пока нет PurchaseObject - поэтому класс этот скипнул. Когда зоны будешь в игру доделывать - нужно и этот классик пилануть
+    //Смотри другие реализации IObjectPopup
     public class PurchaseObjectPopup : IObjectPopup
     {
         public event Action CloseButton;
@@ -43,6 +45,16 @@ namespace UI.Hover.PopupLogics.Popups
             popup.Fill.fillAmount = (float)(cost - purchaseObject.Remaining.Value) / cost;
             
             return popup.GetComponent<RectTransform>();
+        }
+
+        public void Redraw()
+        {
+            
+        }
+
+        public void Subscribe()
+        {
+            
         }
     } 
 }

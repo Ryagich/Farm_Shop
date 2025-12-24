@@ -2,6 +2,7 @@
 using Landings.Plants.PlantConfigs;
 using MessagePipe;
 using Messages;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -23,7 +24,7 @@ namespace Landings.Plants
         public bool IsPlanting { get; private set; }
         public float GrowTime { get; private set; }
         public float Distance { get; private set; }
-        public float LostDistance { get; private set; }
+        public ReactiveProperty<float> LostDistance { get; private set; } = new();
 
         private float speed;
         
@@ -83,7 +84,7 @@ namespace Landings.Plants
             var localPos = plant.transform.localPosition;
             plant.transform.localPosition = Vector3.MoveTowards(localPos, plantConfig.TargetPosition,
                                                                 speed * Time.deltaTime);
-            LostDistance = Vector3.Distance(localPos, plantConfig.StartPosition);
+            LostDistance.Value = Vector3.Distance(localPos, plantConfig.StartPosition);
         }
 
         private void UpdateLocalValues()

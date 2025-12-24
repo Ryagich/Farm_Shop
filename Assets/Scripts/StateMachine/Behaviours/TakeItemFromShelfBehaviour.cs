@@ -27,13 +27,13 @@ namespace StateMachine.Behaviours
             var buyPos = context.BuyPositions.First(p => p.Config == config);
 
             if (context.Inventory.CanAdd(config)
-             && buyPos.Count < buyPos.Need)
+             && buyPos.Count.Value < buyPos.Need)
             {
                 var itemHolder = shelfInventory.Get();
                 context.Inventory.Add(config, itemHolder.transform.localToWorldMatrix);
                 Destroy(itemHolder.gameObject);
                 SetDefaultParameters(context);
-                buyPos.Count++;
+                buyPos.Count.Value++;
                 return;
             }
             context.T += context.DeltaTime;

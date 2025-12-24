@@ -1,11 +1,15 @@
 ﻿using System;
+using BuildingsAndGrid.Buildings;
+using GameModes;
 using Inventory.ObjectInventory;
-using Landings;
 using Landings.Landings;
 using Landings.Plants;
 using Landings.Plants.PlantConfigs;
 using Localization;
+using MessagePipe;
+using Messages;
 using UI.Hover.PopupLogics.Holders;
+using UniRx;
 using UnityEngine;
 using Utils;
 using VContainer;
@@ -14,7 +18,7 @@ using Object = UnityEngine.Object;
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class LandingFruitPlantPopup : IObjectPopup
+    public class LandingFruitPlantPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
 
@@ -26,7 +30,16 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly PlantGrowerByStages plantGrowerByStages;
         private readonly LandingFruitPlantController landingFruitPlantController;
         private readonly FruitPlantInventory inventory;
+        private readonly Building building;
 
+        private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;
+        private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
+        private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
+        private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
+        
+        private CompositeDisposable disposables = new();
+        private RectTransform popupRect;
+     
         public LandingFruitPlantPopup
             (
                 LocalizationConfig localizationConfig,
@@ -34,6 +47,7 @@ namespace UI.Hover.PopupLogics.Popups
                 FruitPlantConfig fruitPlantConfig,
                 LandingFruitPlantController landingFruitPlantController,
                 FruitPlantInventory inventory,
+                Building building,
                 Canvas canvas,
                 [Key(nameof(PlantGrowerByUpper))] PlantGrowerByUpper plantGrowerByUpper,
                 [Key(nameof(PlantGrowerByStages))] PlantGrowerByStages plantGrowerByStages
@@ -47,24 +61,46 @@ namespace UI.Hover.PopupLogics.Popups
             this.plantGrowerByStages = plantGrowerByStages;
             this.landingFruitPlantController = landingFruitPlantController;
             this.inventory = inventory;
+            this.building = building;
+
+            choseBuildingMessagePublisher = GlobalMessagePipe.GetPublisher<ChoseBuildingMessage>();
+            deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
+            addBuildingToStoragePublisher = GlobalMessagePipe.GetPublisher<AddBuildingToStorageRequest>();
+            changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.LandingFruitPlantHolder, canvas.transform);
-            popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedStringCached()}";
+            popupRect = popup.GetComponent<RectTransform>();
+            disposables = new CompositeDisposable();
+
+            popup.ButtonMove.onClick.AddListener(Move);
+            popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
             
+            Redraw();
+            Subscribe();
+            
+            return popup.GetComponent<RectTransform>();
+        }
+
+        public void Redraw()
+        {
+            if (!popupRect)
+                return;
+            var popup = popupRect.GetComponent<LandingFruitPlantHolder>();
+            
+            popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedStringCached()}";
             if (plantGrowerByUpper.IsPlanting)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
-                popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance / plantGrowerByUpper.Distance;
+                popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance.Value / plantGrowerByUpper.Distance;
             }
             else if (plantGrowerByStages.IsPlanted)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {localizationConfig.GrownWord.GetLocalizedStringCached()}";
                 popup.GrowFill.fillAmount = 1;
 
-                var popupRect = popup.GetComponent<RectTransform>();
                 var aboutFruits = Object.Instantiate(popupHolders.LandingFruitPlantInfoAboutFruits, popup.transform);
                 var holderRect = aboutFruits.GetComponent<RectTransform>();
                 var lastRect = popup.GrowStage.GetComponent<RectTransform>();
@@ -77,9 +113,54 @@ namespace UI.Hover.PopupLogics.Popups
             else
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {plantGrowerByStages.currentStage + 1}";
-                popup.GrowFill.fillAmount = plantGrowerByStages.timer / plantGrowerByStages.stageTime;
+                popup.GrowFill.fillAmount = plantGrowerByStages.timer.Value / plantGrowerByStages.stageTime;
             }
-            return popup.GetComponent<RectTransform>();
+        }
+        
+        public void Subscribe()
+        {
+            inventory.Fruits
+                     .ObserveAdd()
+                     .Subscribe(_ => Redraw())
+                     .AddTo(disposables);
+            inventory.Fruits
+                     .ObserveRemove()
+                     .Subscribe(_ => Redraw())
+                     .AddTo(disposables);
+            plantGrowerByUpper.LostDistance.Subscribe(_ => Redraw()).AddTo(disposables);
+            plantGrowerByStages.timer.Subscribe(_ => Redraw()).AddTo(disposables);
+        }
+        
+        private void MoveInInventory()
+        {
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
+            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
+            CloseButton?.Invoke();
+            Dispose();
+        }
+        
+        private void Move()
+        {
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
+            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
+            choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
+                                                                           building.BuildingConfig,
+                                                                           building.transform.position,
+                                                                           building.Content.localPosition,
+                                                                           building.Content.rotation,
+                                                                           building.Tiles,
+                                                                           true
+                                                                          ));
+            changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
+            CloseButton?.Invoke();
+            Dispose();
+        }
+        
+        public void Dispose()
+        {
+            disposables.Dispose();
+            if (popupRect)
+                Object.Destroy(popupRect.gameObject);
         }
     }
 }

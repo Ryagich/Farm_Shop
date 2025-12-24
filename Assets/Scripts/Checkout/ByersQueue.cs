@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Buyer;
 using StateMachine;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using Object = UnityEngine.Object;
@@ -11,7 +12,7 @@ namespace Checkout
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ByersQueue : IDisposable
     {
-        public List<StateMachineContext> Buyers = new();
+        public ReactiveCollection<StateMachineContext> Buyers = new();
         public int BuyersCount;
 
         public readonly List<(TargetPoint, bool)> queuePoints = new();

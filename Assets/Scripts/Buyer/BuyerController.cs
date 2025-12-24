@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Checkout;
 using Doors;
 using Inventory;
@@ -8,7 +7,7 @@ using Messages;
 using Shelf;
 using StateMachine;
 using StateMachine.Graph.Model;
-using Unity.AI.Navigation;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
@@ -20,7 +19,7 @@ namespace Buyer
     public class BuyerController : IFixedTickable
     {
         private readonly BuyerLifetimeScope buyerLifetimeScope;
-        public State CurrentState { get; private set; }
+        public ReactiveProperty<State> CurrentState { get; private set; } = new();
 
         public StateMachineContext context;
         
@@ -68,12 +67,12 @@ namespace Buyer
             }
             context.DeltaTime = Time.fixedDeltaTime;
 
-            foreach (var behaviour in CurrentState.Behaviours)
+            foreach (var behaviour in CurrentState.Value.Behaviours)
             {
                 behaviour.Logic(context);
             }
             
-            foreach (var transition in CurrentState.Transitions)
+            foreach (var transition in CurrentState.Value.Transitions)
             {
                 if (transition.CanTransition(context))
                 {
@@ -89,17 +88,18 @@ namespace Buyer
         
         private void SetState(State state)
         {
-            if (CurrentState != null)
+            if (CurrentState.Value != null)
             {
-                foreach (var behaviour in CurrentState.Behaviours)
+                foreach (var behaviour in CurrentState.Value.Behaviours)
                 {
                     behaviour.Exit(context);
                 }
             }
             
             
-            CurrentState = state;
-            foreach (var behaviour in CurrentState.Behaviours)
+            // ReSharper disable once PossibleNullReferenceException
+            CurrentState.Value = state;
+            foreach (var behaviour in CurrentState.Value.Behaviours)
             {
                 behaviour.Enter(context);
             }

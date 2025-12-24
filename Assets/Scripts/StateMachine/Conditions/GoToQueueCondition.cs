@@ -9,13 +9,13 @@ namespace StateMachine.Conditions
     {
         public override bool IsCondition(StateMachineContext context)
         {
-            if (context.BuyPositions.All(p => p.Count is 0))
+            if (context.BuyPositions.All(p => p.Count.Value is 0))
             {
                 return false;
             }
             foreach (var position in context.BuyPositions)
             {
-                if (position.Count >= position.Need)
+                if (position.Count.Value >= position.Need)
                     continue;
                 if (context.ShelvesController
                            .PositionsAtShelvesByTypes

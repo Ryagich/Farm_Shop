@@ -1,5 +1,6 @@
 ﻿using System;
 using Inventory.Item;
+using UniRx;
 
 namespace Buyer
 {
@@ -8,7 +9,7 @@ namespace Buyer
     {
         public ItemConfig Config { get; private set; }
         public int Need { get; private set; }
-        public int Count { get; set; }
+        public ReactiveProperty<int> Count { get; set; } = new();
 
         public BuyPosition(ItemConfig config, int need)
         {

@@ -15,7 +15,7 @@ namespace StateMachine.Conditions
                 var config = context.UsedInfoAboutPositionAtShelfForBuyer.ShelfInventory.GetConfig();
                 var buyPos = context.BuyPositions.First(p => p.Config == config);
                 if (context.Inventory.CanAdd(config)
-                 && buyPos.Count < buyPos.Need)
+                 && buyPos.Count.Value < buyPos.Need)
                 {
                     // Debug.Log($"Используем еще прошлую полку");
                     return false;
@@ -23,7 +23,7 @@ namespace StateMachine.Conditions
             }
             foreach (var position in context.BuyPositions)
             {
-                if (position.Count < position.Need
+                if (position.Count.Value < position.Need
                  && context.ShelvesController
                                              .PositionsAtShelvesByTypes
                                              .TryGetValue(position.Config, out var type)

@@ -9,6 +9,7 @@ using Localization;
 using MessagePipe;
 using Messages;
 using UI.Hover.PopupLogics.Holders;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using Object = UnityEngine.Object;
@@ -16,7 +17,7 @@ using Object = UnityEngine.Object;
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class LandingPlantIsItemPopup : IObjectPopup
+    public class LandingPlantIsItemPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
 
@@ -32,6 +33,9 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
+                
+        private CompositeDisposable disposables = new();
+        private RectTransform popupRect;
         
         public LandingPlantIsItemPopup
             (
@@ -61,27 +65,46 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.LandingPlantIsItemHolder, canvas.transform);
-            popup.PlantName.text = $"{plantConfig.Stages.Last().GetComponent<ItemHolder>().Config.Name.GetLocalizedStringCached()}";
+            popupRect = popup.GetComponent<RectTransform>();
+            disposables = new CompositeDisposable();
+
+            popup.ButtonMove.onClick.AddListener(Move);
+            popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
             
+            Redraw();
+            Subscribe();
+            
+            return popupRect;
+        }
+
+        public void Redraw()
+        {
+            if (!popupRect)
+                return;
+            var popup = popupRect.GetComponent<LandingPlantIsItemHolder>();
+            
+            popup.PlantName.text = $"{plantConfig.Stages.Last().GetComponent<ItemHolder>().Config.Name.GetLocalizedStringCached()}";
             if (plantGrowerByUpper.IsPlanting)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
-                popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance / plantGrowerByUpper.Distance;
+                popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance.Value / plantGrowerByUpper.Distance;
             }
             else if (plantGrowerByStages.IsPlanted)
             {
-                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: Grown";
+                popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {localizationConfig.GrownWord.GetLocalizedStringCached()}";
                 popup.GrowFill.fillAmount = 1;
             }
             else
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {plantGrowerByStages.currentStage + 1}";
-                popup.GrowFill.fillAmount = plantGrowerByStages.timer / plantGrowerByStages.stageTime;
+                popup.GrowFill.fillAmount = plantGrowerByStages.timer.Value / plantGrowerByStages.stageTime;
             }
-            popup.ButtonMove.onClick.AddListener(Move);
-            popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
-                    
-            return popup.GetComponent<RectTransform>();
+        }
+
+        public void Subscribe()
+        {
+            plantGrowerByUpper.LostDistance.Subscribe(_ => Redraw()).AddTo(disposables);
+            plantGrowerByStages.timer.Subscribe(_ => Redraw()).AddTo(disposables);
         }
 
         private void MoveInInventory()
@@ -89,6 +112,7 @@ namespace UI.Hover.PopupLogics.Popups
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
             CloseButton?.Invoke();
+            Dispose();
         }
         
         private void Move()
@@ -105,6 +129,14 @@ namespace UI.Hover.PopupLogics.Popups
                                                                           ));
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
             CloseButton?.Invoke();
+            Dispose();
+        }
+        
+        public void Dispose()
+        {
+            disposables.Dispose();
+            if (popupRect)
+                Object.Destroy(popupRect.gameObject);
         }
     }
 }

@@ -4,13 +4,14 @@ using GameModes;
 using MessagePipe;
 using Messages;
 using UI.Hover.PopupLogics.Holders;
+using UniRx;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class EnvironmentPopup : IObjectPopup
+    public class EnvironmentPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
 
@@ -22,7 +23,10 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
-
+       
+        private CompositeDisposable disposables = new();
+        private RectTransform popupRect;
+        
         public EnvironmentPopup
             (
                 PopupHolders popupHolders,
@@ -43,11 +47,16 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform DrawPopup()
         {
             var popup = Object.Instantiate(popupHolders.EnvironmentHolder, canvas.transform);
+            popupRect = popup.GetComponent<RectTransform>();
+            disposables = new CompositeDisposable();
 
             popup.ButtonMove.onClick.AddListener(OnMove);
             
-            return popup.GetComponent<RectTransform>();
+            return popupRect;
         }
+
+        public void Redraw() { }
+        public void Subscribe() { }
 
         private void OnMove()
         {
@@ -63,6 +72,14 @@ namespace UI.Hover.PopupLogics.Popups
                                                                            ));
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
             CloseButton?.Invoke();
+            Dispose();
+        }
+        
+        public void Dispose()
+        {
+            disposables.Dispose();
+            if (popupRect)
+                Object.Destroy(popupRect.gameObject);
         }
     }
 }

@@ -2,13 +2,14 @@
 using Checkout;
 using Localization;
 using UI.Hover.PopupLogics.Holders;
+using UniRx;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class CheckoutPopup : IObjectPopup
+    public class CheckoutPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
 
@@ -16,6 +17,9 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly PopupHolders popupHolders;
         private readonly Canvas canvas;
         private readonly ByersQueue byersQueue;
+
+        private CompositeDisposable disposables = new();
+        private RectTransform popupRect;
 
         public CheckoutPopup
             (                
@@ -33,9 +37,34 @@ namespace UI.Hover.PopupLogics.Popups
 
         public RectTransform DrawPopup()
         {
-            var popup = Object.Instantiate(popupHolders.CheckoutPopupHolder, canvas.transform);
+            disposables = new CompositeDisposable();
+            popupRect = Object.Instantiate(popupHolders.CheckoutPopupHolder, canvas.transform)
+                              .GetComponent<RectTransform>();
+            Redraw();
+            Subscribe();
+            
+            return popupRect;
+        }
+
+        public void Redraw()
+        {
+            var popup = popupRect.GetComponent<CheckoutPopupHolder>();
             popup.BuyersCount.text = $"{localizationConfig.BuyersWord.GetLocalizedStringCached()}: {byersQueue.Buyers.Count}";
-            return popup.GetComponent<RectTransform>();
+        }
+
+        public void Subscribe()
+        {
+            byersQueue.Buyers
+                      .ObserveAdd()
+                      .Subscribe(_ => Redraw())
+                      .AddTo(disposables);
+        }
+        
+        public void Dispose()
+        {
+            disposables.Dispose();
+            if (popupRect)
+                Object.Destroy(popupRect.gameObject);
         }
     }
 }

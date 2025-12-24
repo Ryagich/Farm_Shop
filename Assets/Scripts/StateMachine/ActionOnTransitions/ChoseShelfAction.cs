@@ -11,7 +11,7 @@ namespace StateMachine.ActionOnTransitions
         {
             foreach (var position in context.BuyPositions)
             {
-                if (position.Count < position.Need 
+                if (position.Count.Value < position.Need 
                  && context.ShelvesController
                                              .PositionsAtShelvesByTypes
                                              .TryGetValue(position.Config, out var type)

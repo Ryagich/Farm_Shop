@@ -7,5 +7,7 @@ namespace UI.Hover.PopupLogics.Popups
     {
         public event Action CloseButton; 
         public RectTransform DrawPopup();
+        public void Redraw();
+        public void Subscribe();
     }
 }

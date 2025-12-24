@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Landings.Plants;
+using UniRx;
 using VContainer;
 
 namespace Inventory.ObjectInventory
@@ -9,7 +10,7 @@ namespace Inventory.ObjectInventory
     // ReSharper disable once ClassNeverInstantiated.Global
     public class FruitPlantInventory
     {
-        private readonly List<Fruit> Fruits = new();
+        public readonly ReactiveCollection<Fruit> Fruits = new();
 
         private readonly IObjectResolver resolver;
       

@@ -11,7 +11,7 @@ namespace StateMachine.Behaviours
         {
             foreach (var position in context.BuyPositions)
             {
-                for (var i = 0; i < position.Count; i++)
+                for (var i = 0; i < position.Count.Value; i++)
                 {
                     context.Costs.Add(position.Config.Price);
                 }

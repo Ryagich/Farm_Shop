@@ -2,6 +2,7 @@
 using Landings.Plants.PlantConfigs;
 using MessagePipe;
 using Messages;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -20,7 +21,7 @@ namespace Landings.Plants
         private GameObject plant;
         public bool IsPlanted { get; private set; } = true;
         public int currentStage { get; private set; }
-        public float timer { get; private set; }
+        public ReactiveProperty<float> timer { get; private set; } = new();
         public float stageTime { get; private set; }
 
         public PlantGrowerByStages
@@ -65,10 +66,10 @@ namespace Landings.Plants
             if (IsPlanted)
                 return;
 
-            timer += Time.deltaTime;
-            if (timer >= stageTime)
+            timer.Value += Time.deltaTime;
+            if (timer.Value >= stageTime)
             {
-                timer = 0f;
+                timer.Value = 0f;
                 NextStage();
             }
         }

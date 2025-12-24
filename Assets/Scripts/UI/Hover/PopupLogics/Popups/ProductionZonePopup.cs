@@ -11,6 +11,8 @@ using Object = UnityEngine.Object;
 namespace UI.Hover.PopupLogics.Popups
 {
     // ReSharper disable once ClassNeverInstantiated.Global
+    //TODO: в игре пока нет ProductionZone - поэтому класс этот скипнул. Когда зоны будешь в игру доделывать - нужно и этот классик пилануть
+    //Смотри другие реализации IObjectPopup
     public class ProductionZonePopup : IObjectPopup
     {
         public event Action CloseButton;
@@ -60,6 +62,16 @@ namespace UI.Hover.PopupLogics.Popups
             popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + addHeight);         
             
             return popup.GetComponent<RectTransform>();
+        }
+
+        public void Redraw()
+        {
+            
+        }
+
+        public void Subscribe()
+        {
+            
         }
     }
 }

@@ -12,7 +12,7 @@ namespace StateMachine.Conditions
             var result = true;
             foreach (var position in context.BuyPositions)
             {
-                if (position.Count is not 0)
+                if (position.Count.Value is not 0)
                 {
                     result = false;
                     break;         

@@ -3,7 +3,6 @@ using System.Linq;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using Inventory;
-using Inventory.Item;
 using Localization;
 using MessagePipe;
 using Messages;
@@ -22,7 +21,6 @@ namespace UI.Hover.PopupLogics.Popups
     {
         public event Action CloseButton;
         
-        private readonly ItemConfig itemConfig;
         private readonly LocalizationConfig localizationConfig;
         private readonly IInventory inventory;
         private readonly PopupHolders popupHolders;
@@ -42,7 +40,6 @@ namespace UI.Hover.PopupLogics.Popups
         
         public ShelfPopup
             (
-                ItemConfig itemConfig,
                 LocalizationConfig localizationConfig,
                 PopupHolders popupHolders,
                 IInventory inventory,
@@ -53,7 +50,6 @@ namespace UI.Hover.PopupLogics.Popups
                 [Key("placesCount")] int placesCount
             )
         {
-            this.itemConfig = itemConfig;
             this.localizationConfig = localizationConfig;
             this.inventory = inventory;
             this.popupHolders = popupHolders;
@@ -71,11 +67,9 @@ namespace UI.Hover.PopupLogics.Popups
         
         public RectTransform DrawPopup()
         {
+            var popup = Object.Instantiate(popupHolders.ShelfPopupHolder, canvas.transform);
+            popupRect = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
-            popupRect = Object.Instantiate(popupHolders.ShelfPopupHolder, canvas.transform)
-                              .GetComponent<RectTransform>();
-
-            var popup = popupRect.GetComponent<ShelfPopupHolder>();
 
             popup.ButtonMove.onClick.AddListener(Move);
             popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
@@ -88,33 +82,7 @@ namespace UI.Hover.PopupLogics.Popups
             return popupRect;
         }
         
-        private void Subscribe()
-        {
-            shelfInfoRecorder.info
-                             .ObserveAdd()
-                             .Subscribe(e =>
-                                        {
-                                            e.Value.IsFree
-                                             .Subscribe(_ => Redraw())
-                                             .AddTo(disposables);
-                                            Redraw();
-                                        })
-                             .AddTo(disposables);
-
-            shelfInfoRecorder.info
-                             .ObserveRemove()
-                             .Subscribe(_ => Redraw())
-                             .AddTo(disposables);
-
-            foreach (var item in shelfInfoRecorder.info)
-            {
-                item.IsFree
-                    .Subscribe(_ => Redraw())
-                    .AddTo(disposables);
-            }
-        }
-        
-        private void Redraw()
+        public void Redraw()
         {
             if (!popupRect)
                 return;
@@ -138,6 +106,41 @@ namespace UI.Hover.PopupLogics.Popups
                                                                         : $"{localizationConfig.ActivateWord.GetLocalizedStringCached()}";
         }
         
+        public void Subscribe()
+        {
+            shelfInfoRecorder.info
+                             .ObserveAdd()
+                             .Subscribe(e =>
+                                        {
+                                            e.Value.IsFree
+                                             .Subscribe(_ => Redraw())
+                                             .AddTo(disposables);
+                                            Redraw();
+                                        })
+                             .AddTo(disposables);
+
+            shelfInfoRecorder.info
+                             .ObserveRemove()
+                             .Subscribe(_ => Redraw())
+                             .AddTo(disposables);
+
+            foreach (var item in shelfInfoRecorder.info)
+            {
+                item.IsFree
+                    .Subscribe(_ => Redraw())
+                    .AddTo(disposables);
+            }
+
+            inventory.Items
+                     .ObserveAdd()
+                     .Subscribe(_ => Redraw())
+                     .AddTo(disposables);
+            inventory.Items
+                     .ObserveRemove()
+                     .Subscribe(_ => Redraw())
+                     .AddTo(disposables);
+        }
+
         private void MoveInInventory()
         {
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
