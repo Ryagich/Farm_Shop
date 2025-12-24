@@ -21,9 +21,6 @@ namespace UI.Hover.PopupLogics.Popups
     public class ShelfPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
-
-        private CompositeDisposable disposables = new();
-        private RectTransform popupRect;
         
         private readonly ItemConfig itemConfig;
         private readonly LocalizationConfig localizationConfig;
@@ -39,6 +36,9 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
+        
+        private CompositeDisposable disposables = new();
+        private RectTransform popupRect;
         
         public ShelfPopup
             (
@@ -79,8 +79,9 @@ namespace UI.Hover.PopupLogics.Popups
 
             popup.ButtonMove.onClick.AddListener(Move);
             popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
-            popup.ButtonDisable.onClick.AddListener(Dispose);
-
+            popup.ButtonDisable.onClick.AddListener(ChangeInteractableState); 
+            // popup.ButtonDisable.onClick.AddListener(Dispose);
+            
             Redraw();
             Subscribe();
 
@@ -132,10 +133,9 @@ namespace UI.Hover.PopupLogics.Popups
             popup.ButtonMove.interactable = allFree;
             popup.ButtonMoveToInventory.interactable = allFree;
             
-            if (buildingInteractableFlag.IsInteractable)
-                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.DisableWord.GetLocalizedStringCached()}";
-            else
-                popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = $"{localizationConfig.ActivateWord.GetLocalizedStringCached()}";
+            popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = buildingInteractableFlag.IsInteractable 
+                                                                        ? $"{localizationConfig.DisableWord.GetLocalizedStringCached()}" 
+                                                                        : $"{localizationConfig.ActivateWord.GetLocalizedStringCached()}";
         }
         
         private void MoveInInventory()
@@ -161,6 +161,12 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
             CloseButton?.Invoke();
             Dispose();
+        }
+
+        private void ChangeInteractableState()
+        {
+            buildingInteractableFlag.IsInteractable = !buildingInteractableFlag.IsInteractable;
+            Redraw();
         }
         
         public void Dispose()
