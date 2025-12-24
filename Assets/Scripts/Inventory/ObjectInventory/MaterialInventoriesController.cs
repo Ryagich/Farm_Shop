@@ -5,6 +5,7 @@ using Inventory.Movers;
 using MessagePipe;
 using Messages;
 using Products;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -92,7 +93,7 @@ namespace Inventory.ObjectInventory
             }
         }
 
-        public List<ItemHolder> Items { get; } = new();
+        public ReactiveCollection<ItemHolder> Items { get; } = new();
 
         public bool CanGet()
         {

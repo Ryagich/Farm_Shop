@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Inventory.Item;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,7 +12,7 @@ namespace Inventory
     // ReSharper disable once ClassNeverInstantiated.Global
     public class InventoryPlayer : IInventory
     {
-        public List<ItemHolder> Items { get; private set; } = new();
+        public ReactiveCollection<ItemHolder> Items { get; private set; } = new();
 
         private readonly InventoryConfig inventoryConfig;
         private readonly IObjectResolver resolver;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Inventory.Item;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -10,7 +11,7 @@ namespace Inventory.ObjectInventory
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PlacesInventory : IInventory
     {
-        public List<ItemHolder> Items { get; private set; } = new();
+        public ReactiveCollection<ItemHolder> Items { get; private set; } = new();
         
         private readonly ItemConfig itemConfig;
         private readonly int placesCount;

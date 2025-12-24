@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Inventory.Item;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,7 +13,7 @@ namespace Inventory.ObjectInventory
     {
         private readonly IObjectResolver resolver;
 
-        public List<ItemHolder> Items { get; private set; } = new();
+        public ReactiveCollection<ItemHolder> Items { get; private set; } = new();
 
         public UnlimitedInventory(IObjectResolver resolver)
         {
