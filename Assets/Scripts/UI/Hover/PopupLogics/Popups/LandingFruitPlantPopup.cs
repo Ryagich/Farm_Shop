@@ -113,16 +113,16 @@ namespace UI.Hover.PopupLogics.Popups
                 fruitsInfo = Object.Instantiate(popupHolders.LandingFruitPlantInfoAboutFruits, popup.transform);
                 var holderRect = fruitsInfo.GetComponent<RectTransform>();
                 var lastRect = popup.GrowStage.GetComponent<RectTransform>();
-                var moveButtonRect =  popup.ButtonMove.GetComponent<RectTransform>();
-                var inventoryButtonRect =  popup.ButtonMove.GetComponent<RectTransform>();
+                var moveButtonRect = popup.ButtonMove.GetComponent<RectTransform>();
+                var inventoryButtonRect = popup.ButtonMoveToInventory.GetComponent<RectTransform>();
 
                 fruitsInfo.FruitsCount.text = $"{localizationConfig.FruitsWord.GetLocalizedStringCached()}: {landingFruitPlantController.fruitCount}";
                 fruitsInfo.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedStringCached()} {inventory.GetCount()}";
                 holderRect.anchoredPosition = new Vector2(.0f, lastRect.anchoredPosition.y - lastRect.sizeDelta.y);
                 // popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + holderRect.sizeDelta.y);
                 popupRect.sizeDelta = popupRect.sizeDelta.WithY(baseHeight + holderRect.sizeDelta.y);
-                moveButtonRect.anchoredPosition = moveButtonRect.anchoredPosition.WithY(holderRect.anchoredPosition.y - holderRect.sizeDelta.y - 5);
-                inventoryButtonRect.anchoredPosition = inventoryButtonRect.anchoredPosition.WithY(moveButtonRect.anchoredPosition.y - moveButtonRect.sizeDelta.y - 5);
+                moveButtonRect.anchoredPosition = moveButtonRect.anchoredPosition.WithY(holderRect.anchoredPosition.y - holderRect.sizeDelta.y);
+                inventoryButtonRect.anchoredPosition = inventoryButtonRect.anchoredPosition.WithY(moveButtonRect.anchoredPosition.y - moveButtonRect.sizeDelta.y);
             }
             else
             {
@@ -144,6 +144,7 @@ namespace UI.Hover.PopupLogics.Popups
             plantGrowerByUpper.LostDistance.Subscribe(_ => Redraw()).AddTo(disposables);
             plantGrowerByStages.timer.Subscribe(_ => Redraw()).AddTo(disposables);
             plantGrowerByStages.IsPlanted.Subscribe(_ => Redraw()).AddTo(disposables);
+            landingFruitPlantController.fruitCount.Subscribe(_ => Redraw()).AddTo(disposables);
         }
         
         private void MoveInInventory()
