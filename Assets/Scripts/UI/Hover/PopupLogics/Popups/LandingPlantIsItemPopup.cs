@@ -89,7 +89,7 @@ namespace UI.Hover.PopupLogics.Popups
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
                 popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance.Value / plantGrowerByUpper.Distance;
             }
-            else if (plantGrowerByStages.IsPlanted)
+            else if (plantGrowerByStages.IsPlanted.Value)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {localizationConfig.GrownWord.GetLocalizedStringCached()}";
                 popup.GrowFill.fillAmount = 1;
@@ -105,6 +105,7 @@ namespace UI.Hover.PopupLogics.Popups
         {
             plantGrowerByUpper.LostDistance.Subscribe(_ => Redraw()).AddTo(disposables);
             plantGrowerByStages.timer.Subscribe(_ => Redraw()).AddTo(disposables);
+            plantGrowerByStages.IsPlanted.Subscribe(_ => Redraw()).AddTo(disposables);
         }
 
         private void MoveInInventory()

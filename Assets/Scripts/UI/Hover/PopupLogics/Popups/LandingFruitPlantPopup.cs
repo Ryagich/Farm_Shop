@@ -74,7 +74,8 @@ namespace UI.Hover.PopupLogics.Popups
             var popup = Object.Instantiate(popupHolders.LandingFruitPlantHolder, canvas.transform);
             popupRect = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
-
+            baseHeight = popupRect.sizeDelta.y;
+            
             popup.ButtonMove.onClick.AddListener(Move);
             popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
             
@@ -83,7 +84,10 @@ namespace UI.Hover.PopupLogics.Popups
             
             return popup.GetComponent<RectTransform>();
         }
-
+        
+        private LandingFruitPlantInfoAboutFruits fruitsInfo;
+        private float baseHeight;
+        
         public void Redraw()
         {
             if (!popupRect)
@@ -91,24 +95,34 @@ namespace UI.Hover.PopupLogics.Popups
             var popup = popupRect.GetComponent<LandingFruitPlantHolder>();
             
             popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedStringCached()}";
+            if (fruitsInfo)
+            {
+                Object.Destroy(fruitsInfo.gameObject);
+            }
+            
             if (plantGrowerByUpper.IsPlanting)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
                 popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance.Value / plantGrowerByUpper.Distance;
             }
-            else if (plantGrowerByStages.IsPlanted)
+            else if (plantGrowerByStages.IsPlanted.Value)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {localizationConfig.GrownWord.GetLocalizedStringCached()}";
                 popup.GrowFill.fillAmount = 1;
 
-                var aboutFruits = Object.Instantiate(popupHolders.LandingFruitPlantInfoAboutFruits, popup.transform);
-                var holderRect = aboutFruits.GetComponent<RectTransform>();
+                fruitsInfo = Object.Instantiate(popupHolders.LandingFruitPlantInfoAboutFruits, popup.transform);
+                var holderRect = fruitsInfo.GetComponent<RectTransform>();
                 var lastRect = popup.GrowStage.GetComponent<RectTransform>();
+                var moveButtonRect =  popup.ButtonMove.GetComponent<RectTransform>();
+                var inventoryButtonRect =  popup.ButtonMove.GetComponent<RectTransform>();
 
-                aboutFruits.FruitsCount.text = $"{localizationConfig.FruitsWord.GetLocalizedStringCached()}: {landingFruitPlantController.fruitCount}";
-                aboutFruits.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedStringCached()} {inventory.GetCount()}";
+                fruitsInfo.FruitsCount.text = $"{localizationConfig.FruitsWord.GetLocalizedStringCached()}: {landingFruitPlantController.fruitCount}";
+                fruitsInfo.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedStringCached()} {inventory.GetCount()}";
                 holderRect.anchoredPosition = new Vector2(.0f, lastRect.anchoredPosition.y - lastRect.sizeDelta.y);
-                popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + holderRect.sizeDelta.y);
+                // popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + holderRect.sizeDelta.y);
+                popupRect.sizeDelta = popupRect.sizeDelta.WithY(baseHeight + holderRect.sizeDelta.y);
+                moveButtonRect.anchoredPosition = moveButtonRect.anchoredPosition.WithY(holderRect.anchoredPosition.y - holderRect.sizeDelta.y - 5);
+                inventoryButtonRect.anchoredPosition = inventoryButtonRect.anchoredPosition.WithY(moveButtonRect.anchoredPosition.y - moveButtonRect.sizeDelta.y - 5);
             }
             else
             {
@@ -129,6 +143,7 @@ namespace UI.Hover.PopupLogics.Popups
                      .AddTo(disposables);
             plantGrowerByUpper.LostDistance.Subscribe(_ => Redraw()).AddTo(disposables);
             plantGrowerByStages.timer.Subscribe(_ => Redraw()).AddTo(disposables);
+            plantGrowerByStages.IsPlanted.Subscribe(_ => Redraw()).AddTo(disposables);
         }
         
         private void MoveInInventory()

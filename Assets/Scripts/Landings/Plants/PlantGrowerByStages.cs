@@ -19,7 +19,7 @@ namespace Landings.Plants
         private readonly IPublisher<PlaySoundMessage> globalPlaySoundPublisher;
 
         private GameObject plant;
-        public bool IsPlanted { get; private set; } = true;
+        public ReactiveProperty<bool> IsPlanted { get; private set; } = new(true);
         public int currentStage { get; private set; }
         public ReactiveProperty<float> timer { get; private set; } = new();
         public float stageTime { get; private set; }
@@ -44,7 +44,7 @@ namespace Landings.Plants
         public void StartGrow()
         {
             NextStage(false);
-            IsPlanted = false;
+            IsPlanted.Value = false;
         }
 
         public GameObject GivePlant()
@@ -63,7 +63,7 @@ namespace Landings.Plants
 
         public void Tick()
         {
-            if (IsPlanted)
+            if (IsPlanted.Value)
                 return;
 
             timer.Value += Time.deltaTime;
@@ -80,7 +80,7 @@ namespace Landings.Plants
             currentStage++;
             if (currentStage >= plantConfig.Stages.Count)
             {
-                IsPlanted = true;
+                IsPlanted.Value = true;
                 currentStage = 0;
                 plantHasFinishedGrowPublisher.Publish(new PlantHasFinishedGrownMessage(this));
             }
