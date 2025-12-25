@@ -52,6 +52,11 @@ namespace UI.Hover.PopupLogics.Popups
         
         public void Redraw()
         {
+            if (buyerController is null)
+            {
+                Dispose();
+                return;
+            }
             if (!popupRect)
                 return;
             var popup = popupRect.GetComponent<BuyerPopupHolder>();

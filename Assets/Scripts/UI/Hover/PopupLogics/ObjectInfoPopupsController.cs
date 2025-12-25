@@ -25,8 +25,7 @@ namespace UI.Hover.PopupLogics
         public bool HavePopup => currentPopup != null;
         public bool IsFixed;
         private Vector2 position;
-        private HoverTrigger hoverTrigger;
-        
+
         public ObjectInfoPopupsController
             (
                 InputConfig inputConfig,
@@ -59,24 +58,21 @@ namespace UI.Hover.PopupLogics
         {
             if (!currentPopup)
                 return;
-            // Получаем экранную позицию курсора
             var pos = inputConfig.PointerPosition.action.ReadValue<Vector2>();
-
-            // Для canvas в Screen Space Overlay — камера не нужна
             var isPopup = RectTransformUtility.RectangleContainsScreenPoint(currentPopup, pos, null);
             if (isPopup)
                 return;
             if (IsFixed)
                 IsFixed = false;
         }
-        
+
         private void OnRightClick(RightClickMessage msg)
         {
-            if (hoverTrigger && (gameModesController.GameMode is GameMode.Game
-                                  || gameModesController.GameMode is GameMode.Inventory))
+            if (currentHover && (gameModesController.GameMode is GameMode.Game
+                              || gameModesController.GameMode is GameMode.Inventory))
                 IsFixed = !IsFixed;
         }
-        
+
         public void Tick()
         {
             if (IsFixed)
@@ -85,24 +81,24 @@ namespace UI.Hover.PopupLogics
                     UpdatePosition();
                 return;
             }
-            
+
             position = inputConfig.PointerPosition.action.ReadValue<Vector2>();
-            hoverTrigger = hoverRaycaster.GetHoveredObject(position);
-            
-            if (!currentHover && !hoverTrigger || (gameModesController.GameMode != GameMode.Game 
+            var hoverTrigger = hoverRaycaster.GetHoveredObject(position);
+
+            if (!currentHover && !hoverTrigger || (gameModesController.GameMode != GameMode.Game
                                                 && gameModesController.GameMode != GameMode.Inventory))
             {
                 ClosePopup();
             }
             else if (!currentHover && hoverTrigger)
             {
-                currentHover = hoverTrigger;
+                SetHover(hoverTrigger);
                 DrawPopup();
             }
             else if (currentHover && !hoverTrigger)
             {
+                SetHover(null);
                 ClosePopup();
-                currentHover = null;
             }
             else if (currentHover.gameObject == hoverTrigger.gameObject && currentPopup)
             {
@@ -110,9 +106,27 @@ namespace UI.Hover.PopupLogics
             }
             else if (currentHover.gameObject != hoverTrigger.gameObject)
             {
-                currentHover = hoverTrigger;
+                SetHover(hoverTrigger);
                 DrawPopup();
             }
+        }
+
+        private void SetHover(HoverTrigger hoverTrigger)
+        {
+            if (currentHover)
+            {
+                currentHover.Disposabled -= Subscribe;
+            }
+            currentHover = hoverTrigger;
+            if (currentHover)
+                currentHover.Disposabled += Subscribe;
+        }
+
+        private void Subscribe()
+        {
+            IsFixed = false;
+            currentHover = null;
+            ClosePopup();
         }
 
         private void OnClosePopup()
