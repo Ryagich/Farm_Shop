@@ -8,5 +8,6 @@ namespace Movement
         [field: SerializeField] public float Speed { get; private set; } = 5f;
         [field: SerializeField] public string MovingName { get; private set; } = "IsMoving";
         [field: SerializeField] public CharacterController VirtualPlayerPrefab { get; private set; }
+        [field: SerializeField] public float StepDistance { get; private set; } = 1.2f;
     }
 }

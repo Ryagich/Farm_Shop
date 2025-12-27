@@ -15,3 +15,4 @@ MonoBehaviour:
   <Speed>k__BackingField: 5
   <MovingName>k__BackingField: IsMoving
   <VirtualPlayerPrefab>k__BackingField: {fileID: 9196917524993579517, guid: 7899a7474089b824d864ec96a8a5b179, type: 3}
+  <StepDistance>k__BackingField: 0.9

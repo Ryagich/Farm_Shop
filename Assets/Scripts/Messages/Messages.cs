@@ -254,10 +254,14 @@ namespace Messages
     public readonly struct PlaySoundMessage
     {
         public readonly SoundSettings SoundSettings;
-
-        public PlaySoundMessage(SoundSettings soundSettings)
+        public readonly Vector3 Position;
+        public readonly Transform Parent;
+        
+        public PlaySoundMessage(SoundSettings soundSettings, Vector3 position, Transform parent)
         {
             SoundSettings = soundSettings;
+            Position = position;
+            Parent = parent;
         }
     }
 }

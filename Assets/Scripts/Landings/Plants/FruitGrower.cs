@@ -99,8 +99,7 @@ namespace Landings.Plants
             t.DOScale(targetScale, .5f).SetEase(Ease.OutElastic, .2f);
             fruit.CurrentStage++;
             var newSettings = plantConfig.FruitSoundConfig.SoundSettings;
-            newSettings.position = fruit.FruitObj.transform.position;
-            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
+            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings, fruit.FruitObj.transform.position, null));
         }
     }
     

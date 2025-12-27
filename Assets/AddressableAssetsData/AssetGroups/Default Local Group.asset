@@ -23,11 +23,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Buildings
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1df385f9137f1e743ba1d50a9d46719f
-    m_Address: Assets/Configs/Inventory/Items/Broccoli ItemConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2b8c9c7c297174447a30d55e43bda405
     m_Address: Assets/Configs/Storage/Buildings/Shelf Beetroot BuildingConfig.asset
     m_ReadOnly: 0

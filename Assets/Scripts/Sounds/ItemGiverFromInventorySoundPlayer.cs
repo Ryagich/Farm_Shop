@@ -32,8 +32,7 @@ namespace Sounds
         private void PlaySound(ItemGivenFromInventory msg)
         {
             var newSettings = itemGivenSound.SoundSettings;
-            newSettings.position = gameObject.transform.position;
-            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
+            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings, gameObject.transform.position, null));
         }
 
         public void Start() { }

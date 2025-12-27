@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sounds
@@ -6,12 +7,12 @@ namespace Sounds
     [Serializable]
     public class SoundSettings
     {
-        [field: SerializeField] public AudioClip Clip;
-        [field: SerializeField] public Vector3 position;
-        [field: SerializeField] public Transform parent;
+        [field: SerializeField] public List<AudioClip> Clips;
+        // [field: SerializeField] public Vector3 position;
+        // [field: SerializeField] public Transform parent;
         [field: SerializeField] public float priority = 128f;
         [field: SerializeField] public float volume = 1f;
-        [field: SerializeField] public float pitch = 1f;
+        [field: SerializeField] public Vector2 pitch = new (.9f,1.1f);
         [field: SerializeField] public float spatialBlend = 1f;
         [field: SerializeField] public float reverbZoneMix = 1f;
         [field: SerializeField] public float MinDistance = 1f;
@@ -19,17 +20,18 @@ namespace Sounds
         [field: SerializeField] public bool isUISound;
         [field: SerializeField] public float DistanceToPlay = 10.0f;
 
-        public SoundSettings(Vector3 position, Transform parent = null)
-        {
-            this.position = position;
-            this.parent = parent;
-        }
+        public SoundSettings() { }
+        // public SoundSettings(Vector3 position, Transform parent = null)
+        // {
+        //     this.position = position;
+        //     this.parent = parent;
+        // }
 
         public SoundSettings(SoundSettings oldSettings)
         {
-            Clip = oldSettings.Clip;
-            position = oldSettings.position;
-            parent = oldSettings.parent;
+            Clips = oldSettings.Clips;
+            // position = oldSettings.position;
+            // parent = oldSettings.parent;
             priority = oldSettings.priority;
             volume = oldSettings.volume;
             pitch = oldSettings.pitch;

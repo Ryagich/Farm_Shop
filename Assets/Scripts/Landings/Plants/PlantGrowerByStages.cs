@@ -102,8 +102,7 @@ namespace Landings.Plants
                 t.DOScale(targetScale, .5f).SetEase(Ease.OutElastic, .2f);
             }
             var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundSettings;
-            newSettings.position = plant.transform.position;
-            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
+            globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings, plant.transform.position, null));
         }
     }
 }

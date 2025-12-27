@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac27c1e442104a398b55af29ddd70ab7, type: 3}
+  m_Name: Step on Wood Sound Config
+  m_EditorClassIdentifier: 
+  <SoundSettings>k__BackingField:
+    Clips:
+    - {fileID: 8300000, guid: fc8f13856f167c0459113030e0c0b952, type: 3}
+    - {fileID: 8300000, guid: 2ef62fe4c6a192c40bdb6f13d2a099a4, type: 3}
+    - {fileID: 8300000, guid: 91b2d6994b3679a4d878e8477d578349, type: 3}
+    - {fileID: 8300000, guid: 7d0434bc18971364a9573a61c03357e5, type: 3}
+    - {fileID: 8300000, guid: bec2e0b1a2612914a84de7a1a8ad653b, type: 3}
+    - {fileID: 8300000, guid: a8a6b8ddde5e0b8439c1012cfeff281a, type: 3}
+    - {fileID: 8300000, guid: 575f72dac3760f14089c525d696adbd1, type: 3}
+    - {fileID: 8300000, guid: b2676bff3f8cf0e498e1552164aea52b, type: 3}
+    - {fileID: 8300000, guid: e4a443e4326eac246b2b308a48af4c6e, type: 3}
+    - {fileID: 8300000, guid: 70c064c715065114c87a3fc377217315, type: 3}
+    - {fileID: 8300000, guid: 6f53dd9673e065042b579fc2e589a5bb, type: 3}
+    - {fileID: 8300000, guid: ee71cdd00b3395548a4c13cc773ac1e6, type: 3}
+    - {fileID: 8300000, guid: 251590927b0f5aa43a9379d1eca07883, type: 3}
+    - {fileID: 8300000, guid: 6328c76942b3f7c4aba1ed174e89ac46, type: 3}
+    - {fileID: 8300000, guid: e3e8566fd62253c43b818bd01b4a32a4, type: 3}
+    - {fileID: 8300000, guid: 5bc1c75f2bbfc3145b48351fb425b711, type: 3}
+    - {fileID: 8300000, guid: 6a183a63b03b0f44e950864aa71e2755, type: 3}
+    - {fileID: 8300000, guid: cd51ebc2b86f8b6468e1f512ff596ad6, type: 3}
+    - {fileID: 8300000, guid: c3efacaf680f2ba438eb36413b9e2d0b, type: 3}
+    - {fileID: 8300000, guid: eff2eb797bd6be747be9a370e019964e, type: 3}
+    - {fileID: 8300000, guid: 5010031783787c947be21532cf87fee6, type: 3}
+    - {fileID: 8300000, guid: 182013048cca34d48a4477f625e1eae5, type: 3}
+    - {fileID: 8300000, guid: 57ce86f1bc7d15744a3e3fca1ba7b689, type: 3}
+    - {fileID: 8300000, guid: acf577afbda2b7a4aa3a40198aac0c38, type: 3}
+    - {fileID: 8300000, guid: fc914a699b027b04aa8caedf23a1807b, type: 3}
+    - {fileID: 8300000, guid: ee372a282e51cab4d93f6ff43d0d78a0, type: 3}
+    - {fileID: 8300000, guid: e6c1533e53e08794b814be808f9f064c, type: 3}
+    - {fileID: 8300000, guid: 1c11bdcd55627474e90f6b3539edefe3, type: 3}
+    - {fileID: 8300000, guid: 0fceda1e279933341aad69b262854a81, type: 3}
+    - {fileID: 8300000, guid: 0122da9543da3d04abb2c5aa208c6a59, type: 3}
+    - {fileID: 8300000, guid: 8d221f48f364da2438b7243880200d6a, type: 3}
+    - {fileID: 8300000, guid: 37638ef7c6a278249afd8e5f664b5217, type: 3}
+    - {fileID: 8300000, guid: acd486e3f6c108d43a693d81ea37819f, type: 3}
+    - {fileID: 8300000, guid: 331c8545c5fc18c4a94f06660570ad97, type: 3}
+    - {fileID: 8300000, guid: c2e18ac7b6f6661428b603d710a650a4, type: 3}
+    - {fileID: 8300000, guid: 3600e1b66275b0541985874179566a17, type: 3}
+    - {fileID: 8300000, guid: 8f2aa4519c8b2504c80d7c384b37eaad, type: 3}
+    - {fileID: 8300000, guid: 33e86cecaba9d1241a94835d37bc45bf, type: 3}
+    - {fileID: 8300000, guid: bcc8efc84f144cc4a9718e81ace818cb, type: 3}
+    - {fileID: 8300000, guid: 76489d8a3187a914da2a258ba7483c5f, type: 3}
+    - {fileID: 8300000, guid: 8034f47d56bc3dc4a964f5e0e7032259, type: 3}
+    - {fileID: 8300000, guid: 6da4acb5f3599424a97ad3a9b0eaf2d0, type: 3}
+    - {fileID: 8300000, guid: c195aa05807a0074faa8f38bd697727a, type: 3}
+    - {fileID: 8300000, guid: 15b4862fec1abcd4b8498eb9830b846c, type: 3}
+    priority: 128
+    volume: 0.25
+    pitch: {x: 0.9, y: 1.1}
+    spatialBlend: 1
+    reverbZoneMix: 1
+    MinDistance: 0
+    MaxDistance: 2
+    isUISound: 0
+    DistanceToPlay: 2

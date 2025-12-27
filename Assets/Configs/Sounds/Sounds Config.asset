@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Sounds Config
   m_EditorClassIdentifier: 
   <AudioSourcePrefab>k__BackingField: {fileID: 91912392594503535, guid: 28188af52ed6dc242a054c65c46d4d7c, type: 3}
+  <StepOnGroundSoundSettings>k__BackingField: {fileID: 11400000, guid: 0d54b31c135aef846842ed4c2089c2fc, type: 2}
+  <StepOnWoodSoundSettings>k__BackingField: {fileID: 11400000, guid: 7b50fb4ee608f7c4c8e2ee2a52822b6a, type: 2}
+  <StepOnStoneSoundSettings>k__BackingField: {fileID: 11400000, guid: 3d80abe260a96324db4488029d1cedfd, type: 2}

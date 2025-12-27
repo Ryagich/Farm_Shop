@@ -48,6 +48,8 @@ namespace UI.Hover.PopupLogics.Popups
 
         public void Redraw()
         {
+            if (!popupRect)
+                return;
             var popup = popupRect.GetComponent<CheckoutPopupHolder>();
             popup.BuyersCount.text = $"{localizationConfig.BuyersWord.GetLocalizedStringCached()}: {byersQueue.Buyers.Count}";
         }

@@ -55,32 +55,33 @@ namespace Sounds
 
         private void PlaySound(PlaySoundMessage msg)
         {
-            if (msg.SoundSettings.isUISound || Vector3.Distance(playerLifetimeScope.transform.position, msg.SoundSettings.position) 
+            if (msg.SoundSettings.isUISound || Vector3.Distance(playerLifetimeScope.transform.position, msg.Position) 
                 <= msg.SoundSettings.DistanceToPlay)
             {
-                Get(msg.SoundSettings);
+                Get(msg.SoundSettings, msg.Position, msg.Parent);
             }
         }
         
-        private AudioSource Get(SoundSettings settings, bool needToReturn = true)
+        private AudioSource Get(SoundSettings settings, Vector3 position, Transform soundParent, bool needToReturn = true)
         {
             var source = sourcePool.Get();
             var sourceTrans = source.transform;
 
-            sourceTrans.position = settings.position;
-            if (settings.parent)
+            sourceTrans.position = position;
+            if (soundParent)
             {
-                sourceTrans.SetParent(settings.parent);
+                sourceTrans.SetParent(soundParent);
             }
             else
             {
                 sourceTrans.SetParent(parent.transform);
             }
             source.volume = settings.volume;
-            source.pitch = settings.pitch;
+            source.pitch = Random.Range(settings.pitch.x, settings.pitch.y);
             source.minDistance = settings.MinDistance;
             source.maxDistance = settings.MaxDistance;
-            source.PlayOneShot(settings.Clip);
+            var clip = settings.Clips[Random.Range(0, settings.Clips.Count)];
+            source.PlayOneShot(clip);
             source.spatialBlend = settings.spatialBlend;
 
             if (needToReturn)

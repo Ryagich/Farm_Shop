@@ -37,11 +37,12 @@ namespace Container
             builder.RegisterEntryPoint<InventoryPlayer>().AsSelf();
             builder.RegisterEntryPoint<InventoryPlayerItemMover>().AsSelf();
             builder.RegisterEntryPoint<PlayerInteractableLogic>().AsSelf();
-        
+            
             builder.RegisterEntryPoint<PlayerGravity>().AsSelf();
             builder.RegisterEntryPoint<PlayerMovementController>().AsSelf();
             builder.RegisterEntryPoint<PlayerMovement>().AsSelf();
             builder.RegisterEntryPoint<VirtualPlayerMovement>().AsSelf();
+            builder.RegisterEntryPoint<StepSoundPlayer>().AsSelf();
         }
     }
 }

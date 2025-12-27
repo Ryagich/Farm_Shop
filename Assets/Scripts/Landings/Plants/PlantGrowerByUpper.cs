@@ -76,8 +76,7 @@ namespace Landings.Plants
             {
                 IsPlanting = false;
                 var newSettings = plantConfig.PlantSoundsSettings.GrownStageSoundSettings;
-                newSettings.position = plant.transform.position;
-                globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings));
+                globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings, plant.transform.position, null));
                 plantHasGrownPublisher.Publish(new PlantHasGrownMessage(this));
                 return;
             }
