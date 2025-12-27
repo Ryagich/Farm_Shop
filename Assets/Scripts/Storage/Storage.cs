@@ -43,10 +43,15 @@ namespace Storage
         {
             LoadBuildings(configs =>
                           {
+                              Buildings.Clear();
+
                               foreach (var config in configs)
                               {
                                   Buildings.Add(new BuildingInStorage(config));
                               }
+
+                              Buildings.Sort((a, b) =>
+                                                 a.BuildingConfig.Price.CompareTo(b.BuildingConfig.Price));
                           });
         }
         
