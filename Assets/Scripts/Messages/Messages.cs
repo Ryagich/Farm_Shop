@@ -111,6 +111,16 @@ namespace Messages
             Rotation = rotation;
         }
     }
+
+    public readonly struct ObjectInHisPlaceMessage
+    {
+        public readonly Transform Transform;
+
+        public ObjectInHisPlaceMessage(Transform transform)
+        {
+            Transform = transform;
+        }
+    }
     
     public readonly struct CreatedNewObjectOnGridMessage
     {

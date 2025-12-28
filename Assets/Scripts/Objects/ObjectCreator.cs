@@ -22,7 +22,6 @@ namespace Objects
 
         public ObjectCreator
             (
-                
                 IObjectResolver resolver,
                 IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher,
                 IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher,

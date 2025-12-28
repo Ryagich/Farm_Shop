@@ -690,6 +690,10 @@ PrefabInstance:
       value: SM_Chr_Attach_Glasses_01
       objectReference: {fileID: 0}
     - target: {fileID: 1789919243174566, guid: 21964305d01b6054290f08a48cc6ebab, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789919243174566, guid: 21964305d01b6054290f08a48cc6ebab, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -759,6 +763,10 @@ PrefabInstance:
     - target: {fileID: 1520169474670594, guid: 59607cf23fbe18f4196263a6931d7223, type: 3}
       propertyPath: m_Name
       value: SM_Chr_Attach_CowboyHat_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520169474670594, guid: 59607cf23fbe18f4196263a6931d7223, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1520169474670594, guid: 59607cf23fbe18f4196263a6931d7223, type: 3}
       propertyPath: m_IsActive
@@ -832,6 +840,10 @@ PrefabInstance:
       value: SM_Chr_Attach_Buckethat_01 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1175263103371402, guid: 60fa9e0c6567acd45b844ed4537a6d72, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175263103371402, guid: 60fa9e0c6567acd45b844ed4537a6d72, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -901,6 +913,10 @@ PrefabInstance:
     - target: {fileID: 1402176337369730, guid: 03e427f7de0325a4d8d9c100636fa33b, type: 3}
       propertyPath: m_Name
       value: SM_Chr_Attach_Glasses_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402176337369730, guid: 03e427f7de0325a4d8d9c100636fa33b, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1402176337369730, guid: 03e427f7de0325a4d8d9c100636fa33b, type: 3}
       propertyPath: m_IsActive
@@ -974,6 +990,10 @@ PrefabInstance:
       value: SM_Chr_Attach_Cap_01
       objectReference: {fileID: 0}
     - target: {fileID: 1234441060978622, guid: b2eed9c07e9096a44a25870919024434, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1234441060978622, guid: b2eed9c07e9096a44a25870919024434, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1043,6 +1063,10 @@ PrefabInstance:
     - target: {fileID: 1254271035324700, guid: 6d98707291ceb3b47bf4a66f89bef440, type: 3}
       propertyPath: m_Name
       value: SM_Chr_Attach_Glasses_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1254271035324700, guid: 6d98707291ceb3b47bf4a66f89bef440, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1254271035324700, guid: 6d98707291ceb3b47bf4a66f89bef440, type: 3}
       propertyPath: m_IsActive
@@ -1116,6 +1140,10 @@ PrefabInstance:
       value: SM_Chr_Attach_Cap_02
       objectReference: {fileID: 0}
     - target: {fileID: 1659438537627314, guid: db5ab358cbd96524e90b0bf01186af8e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659438537627314, guid: db5ab358cbd96524e90b0bf01186af8e, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1187,6 +1215,10 @@ PrefabInstance:
       value: SM_Chr_Attach_Earrings_01
       objectReference: {fileID: 0}
     - target: {fileID: 1612400903069958, guid: 2e8f3122315ae55478ff9d70c3e9eb59, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612400903069958, guid: 2e8f3122315ae55478ff9d70c3e9eb59, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1256,6 +1288,10 @@ PrefabInstance:
     - target: {fileID: 1721547798896826, guid: 3a5f41839607207408f71375fa8f1473, type: 3}
       propertyPath: m_Name
       value: SM_Chr_Attach_CowboyHat_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1721547798896826, guid: 3a5f41839607207408f71375fa8f1473, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1721547798896826, guid: 3a5f41839607207408f71375fa8f1473, type: 3}
       propertyPath: m_IsActive

@@ -15,11 +15,13 @@ namespace Objects
     {
         private readonly List<(Transform, Vector3)> scopeTransforms = new();
         private readonly ItemsConfig itemsConfig;
+        private readonly IPublisher<ObjectInHisPlaceMessage> objectInHisPlacePublisher;
         private readonly CompositeDisposable disposables = new();
 
         public ObjectMoverInHisPlace
             (
                 ItemsConfig itemsConfig,
+                IPublisher<ObjectInHisPlaceMessage> objectInHisPlacePublisher,
                 ISubscriber<CreatedNewObjectMessage> playerMadePurchaseSubscriber,
                 ISubscriber<CreatedNewObjectOnGridMessage> createdNewObjectOnGridSubscriber,
                 ISubscriber<DeleteBuildingOnGridRequest> deleteBuildingOnGridRequestSubscriber
@@ -30,6 +32,7 @@ namespace Objects
             deleteBuildingOnGridRequestSubscriber.Subscribe(DeleteBuilding);
             
             this.itemsConfig = itemsConfig;
+            this.objectInHisPlacePublisher = objectInHisPlacePublisher;
         }
 
         private void DeleteBuilding(DeleteBuildingOnGridRequest msg)
@@ -74,6 +77,7 @@ namespace Objects
             foreach (var scopeTransform in toRemove)
             {
                 scopeTransforms.Remove(scopeTransform);
+                objectInHisPlacePublisher.Publish(new ObjectInHisPlaceMessage(scopeTransform.Item1));
             }
         }
     }

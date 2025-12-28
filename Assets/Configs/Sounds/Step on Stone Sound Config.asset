@@ -31,6 +31,6 @@ MonoBehaviour:
     spatialBlend: 1
     reverbZoneMix: 1
     MinDistance: 0
-    MaxDistance: 0.6
+    MaxDistance: 0.75
     isUISound: 0
     DistanceToPlay: 2

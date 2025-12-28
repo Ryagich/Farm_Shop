@@ -14,30 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SoundSettings>k__BackingField:
     Clips:
-    - {fileID: 8300000, guid: 65c19a739623e014c98b71268e3eea32, type: 3}
-    - {fileID: 8300000, guid: cfbfa9752932ec44ab3c8f098c401684, type: 3}
-    - {fileID: 8300000, guid: bf44a98066a5e0a419f01a8b6edf5120, type: 3}
-    - {fileID: 8300000, guid: 6e060d3e2e936c547999ac443becf75f, type: 3}
-    - {fileID: 8300000, guid: f43a1818d8e09a74e8ab1c4e398049dd, type: 3}
-    - {fileID: 8300000, guid: e67a0779cfad3354ab6ace4c0f22ef83, type: 3}
-    - {fileID: 8300000, guid: e1f51cb013bb02a4d9a43040d0f4b811, type: 3}
-    - {fileID: 8300000, guid: e2833c5a2815e3a44ba40ad30ae6e811, type: 3}
-    - {fileID: 8300000, guid: 0fb0d48b95bf977479f7a20e5a1536ea, type: 3}
-    - {fileID: 8300000, guid: 2a7c1e39ae2d1504095fb0fb11c3ff93, type: 3}
-    - {fileID: 8300000, guid: cd6642c39039b584daecfe6151fd1b84, type: 3}
-    - {fileID: 8300000, guid: 92ce6ba508ceffc47a5d93def9f286a5, type: 3}
-    - {fileID: 8300000, guid: e7e2a36eb3cd0824699b8c93ac83c217, type: 3}
     - {fileID: 8300000, guid: 3cea3749460679340829ecbffcd6d7d6, type: 3}
-    - {fileID: 8300000, guid: 778c25f5ad876d5419291ba8959923e6, type: 3}
-    - {fileID: 8300000, guid: 0ecadfb952693f345aa868bdef5f59d7, type: 3}
-    position: {x: 0, y: 0, z: 0}
-    parent: {fileID: 0}
     priority: 128
-    volume: 0.07
-    pitch: 1
+    volume: 0.6
+    pitch: {x: 0.9, y: 1.1}
     spatialBlend: 0
     reverbZoneMix: 1
     MinDistance: 0
-    MaxDistance: 5
+    MaxDistance: 1.25
     isUISound: 0
     DistanceToPlay: 3
