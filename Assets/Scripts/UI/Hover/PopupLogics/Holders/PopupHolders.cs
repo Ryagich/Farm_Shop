@@ -18,5 +18,6 @@ namespace UI.Hover.PopupLogics.Holders
         [field: SerializeField] public LandingFruitPlantInfoAboutFruits LandingFruitPlantInfoAboutFruits { get; private set; } = null!;
         [field: SerializeField] public ProductionZoneHolder ProductionZoneHolder { get; private set; } = null!;
         [field: SerializeField] public TMP_Text MaterialProductText { get; private set; } = null!;
+        [field: SerializeField] public InteractableSimpleBuildingHolder InteractableSimpleBuildingHolder { get; private set; } = null!;
     }
 }

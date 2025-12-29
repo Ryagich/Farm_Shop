@@ -144,6 +144,24 @@ namespace BuildingsAndGrid.Environment
                                                      },
                                                      gridEnvConfig.CarrotLanding,
                                                      Quaternion.identity);
+            //Deleter
+            buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
+                                                      new List<TileAroundInfo>
+                                                      {
+                                                          new(Area.Production, 4),
+                                                      }),
+                                                     new List<TileAroundInfoWithPosition>
+                                                     {
+                                                         new(new Vector2Int(3, -7),
+                                                             new List<TileAroundInfo>
+                                                             {
+                                                                 new(Area.Wall, 3),
+                                                                 new(Area.Garden, 1),
+                                                             })
+                                                     },
+                                                     gridEnvConfig.Deleter,
+                                                     Quaternion.identity);
+            
         }
         
         private void CreateEnvironment()

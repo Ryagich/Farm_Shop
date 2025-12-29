@@ -84,6 +84,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Buildings
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd08f0e031b5a214ea1b39999abf557b
+    m_Address: Assets/Configs/Storage/Buildings/Deleter BuildingConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Buildings
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cab887b0b9b86fb47b298ee661c8fe6b, type: 2}
   m_SchemaSet:
