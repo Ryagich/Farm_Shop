@@ -13,7 +13,6 @@ namespace Sounds
         [field: SerializeField] public float priority = 128f;
         [field: SerializeField] public float volume = 1f;
         [field: SerializeField] public Vector2 pitch = new (.9f,1.1f);
-        [field: SerializeField] public float spatialBlend = 1f;
         [field: SerializeField] public float reverbZoneMix = 1f;
         [field: SerializeField] public float MinDistance = 1f;
         [field: SerializeField] public float MaxDistance = 10;
@@ -35,7 +34,6 @@ namespace Sounds
             priority = oldSettings.priority;
             volume = oldSettings.volume;
             pitch = oldSettings.pitch;
-            spatialBlend = oldSettings.spatialBlend;
             reverbZoneMix = oldSettings.reverbZoneMix;
             MinDistance = oldSettings.MinDistance;
             MaxDistance = oldSettings.MaxDistance;

@@ -2,6 +2,8 @@
 using Interactable;
 using Inventory;
 using Inventory.Movers;
+using Inventory.ObjectInventory;
+using Inventory.ObjectInventory.Sounds;
 using Movement;
 using UnityEngine;
 using VContainer;
@@ -20,6 +22,7 @@ namespace Container
             builder.RegisterComponentInHierarchy<CharacterController>().AsSelf();
             builder.RegisterInstance(hand).As<Transform>().Keyed("Hand"); 
             builder.RegisterInstance(transform);
+            builder.RegisterInstance(transform).Keyed("TransformForSound"); 
             builder.RegisterInstance(particle);
             builder.RegisterInstance(animator);
             
@@ -42,7 +45,10 @@ namespace Container
             builder.RegisterEntryPoint<PlayerMovementController>().AsSelf();
             builder.RegisterEntryPoint<PlayerMovement>().AsSelf();
             builder.RegisterEntryPoint<VirtualPlayerMovement>().AsSelf();
+            
             builder.RegisterEntryPoint<StepSoundPlayer>().AsSelf();
+            builder.RegisterEntryPoint<InventorySoundForRemoving>(Lifetime.Scoped).AsSelf();
+
         }
     }
 }

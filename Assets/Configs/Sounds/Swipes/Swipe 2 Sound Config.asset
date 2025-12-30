@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac27c1e442104a398b55af29ddd70ab7, type: 3}
+  m_Name: Swipe 2 Sound Config
+  m_EditorClassIdentifier: 
+  <SoundSettings>k__BackingField:
+    Clips:
+    - {fileID: 8300000, guid: bec2fbec183ebb642b32dba8315457e9, type: 3}
+    - {fileID: 8300000, guid: bd4419b7c76cf6348a3b5d71e7174a36, type: 3}
+    - {fileID: 8300000, guid: b73de44362cb7f0438672538544f680d, type: 3}
+    priority: 128
+    volume: 1
+    pitch: {x: 0.9, y: 1.1}
+    reverbZoneMix: 1
+    MinDistance: 0
+    MaxDistance: 2.35
+    isUISound: 1
+    DistanceToPlay: 4

@@ -76,13 +76,13 @@ namespace Sounds
             {
                 sourceTrans.SetParent(parent.transform);
             }
+            source.spatialBlend = settings.isUISound ? 0 : 1;
             source.volume = settings.volume;
             source.pitch = Random.Range(settings.pitch.x, settings.pitch.y);
             source.minDistance = settings.MinDistance;
             source.maxDistance = settings.MaxDistance;
             var clip = settings.Clips[Random.Range(0, settings.Clips.Count)];
             source.PlayOneShot(clip);
-            source.spatialBlend = settings.spatialBlend;
 
             if (needToReturn)
             {

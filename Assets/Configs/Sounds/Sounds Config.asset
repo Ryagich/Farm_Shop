@@ -16,3 +16,5 @@ MonoBehaviour:
   <StepOnGroundSoundSettings>k__BackingField: {fileID: 11400000, guid: 0d54b31c135aef846842ed4c2089c2fc, type: 2}
   <StepOnWoodSoundSettings>k__BackingField: {fileID: 11400000, guid: 7b50fb4ee608f7c4c8e2ee2a52822b6a, type: 2}
   <StepOnStoneSoundSettings>k__BackingField: {fileID: 11400000, guid: 3d80abe260a96324db4488029d1cedfd, type: 2}
+  <ScannerSoundSettings>k__BackingField: {fileID: 11400000, guid: 494d4daf9a4cc8541a20e1df98d1ca27, type: 2}
+  <SwipeSoundSettings_1>k__BackingField: {fileID: 11400000, guid: 968b9d6bee20f4d4d832cc19dc40f3bd, type: 2}

@@ -1,6 +1,7 @@
 ﻿using Inventory;
 using Inventory.Movers;
 using Inventory.ObjectInventory;
+using Inventory.ObjectInventory.Sounds;
 using StateMachine.Graph.Model;
 using UI.Hover;
 using UI.Hover.PopupLogics.Popups;
@@ -36,11 +37,15 @@ namespace Buyer
             builder.RegisterInstance(agent).AsSelf();
             builder.RegisterInstance(animator).AsSelf();
             builder.RegisterInstance(hand).As<Transform>().Keyed("Hand"); 
+            builder.RegisterInstance(transform).Keyed("TransformForSound"); 
 
             builder.Register<SimpleInventory>(Lifetime.Scoped).As<IInventory>().AsSelf();
+            builder.RegisterEntryPoint<InventorySoundForAdding>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<InventorySoundForRemoving>(Lifetime.Scoped).AsSelf();
+
             builder.Register<BuyerPopup>(Lifetime.Scoped)
-                   .As<IObjectPopup>()
-                   .AsSelf(); 
+                                           .As<IObjectPopup>()
+                                           .AsSelf(); 
             // builder.Register<BuyerController>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<BuyerController>().AsSelf();
             builder.UseEntryPoints(ep =>

@@ -42,7 +42,6 @@ namespace Inventory.Movers
                 itemTrans.position = Vector3.Lerp(itemTrans.position, position, itemsConfig.MoveSpeed * (1 - Mathf.Pow(1 - 1.0f / (i + 11), itemsConfig.Gamma * Time.deltaTime)));
                 itemTrans.rotation = Quaternion.RotateTowards(itemTrans.rotation, place.rotation, itemsConfig.MoveSpeed * Time.deltaTime);
             }
-            
         }
     }
 }
