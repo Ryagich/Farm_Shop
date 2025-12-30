@@ -99,6 +99,13 @@ namespace Container
             builder.Register<SurfaceController>(Lifetime.Singleton)
                    .AsSelf()
                    .As<IStartable>();
+            
+            //Buyers
+            builder.Register<ShoppingListGenerator>(Lifetime.Singleton).AsSelf();
+            builder.Register<BuyerSpawnPoints>(Lifetime.Singleton)
+                   .AsSelf()
+                   .As<IStartable>();
+            builder.RegisterEntryPoint<BuyersSpawner>().AsSelf();
 
             // === MessagePipe ===
             var options = builder.RegisterMessagePipe();
@@ -117,6 +124,7 @@ namespace Container
             builder.RegisterMessageBroker<AddBuildingToStorageRequest>(options);
             builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
             builder.RegisterMessageBroker<GridExtendMessage>(options);
+            builder.RegisterMessageBroker<BuyerIsOverMessage>(options);
 
             // === InputHandler ===
             builder.Register<InputHandler>(Lifetime.Singleton).AsSelf().As<IStartable>();

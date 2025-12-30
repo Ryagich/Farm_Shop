@@ -9,10 +9,13 @@ namespace StateMachine.Conditions
     {
         public override bool IsCondition(StateMachineContext context)
         {
-            var checkoutWithMinQueue = context.CheckoutsController.Checkouts.First();
+            var checkouts = context.CheckoutsController.Checkouts.Where(c => c.IsInteractable).ToList();
+            if (checkouts.Count is 0)
+                return true;
+            var checkoutWithMinQueue = context.CheckoutsController.Checkouts.First(c => c.IsInteractable);
             var min = checkoutWithMinQueue.ByersQueue.Buyers.Count;
             
-            foreach (var checkout in context.CheckoutsController.Checkouts)
+            foreach (var checkout in checkouts)
             {
                 if (checkout.ByersQueue.Buyers.Count < min)
                 {

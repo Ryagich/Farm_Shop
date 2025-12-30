@@ -2,6 +2,7 @@
 using Checkout;
 using MessagePipe;
 using Messages;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer.Unity;
@@ -16,7 +17,7 @@ namespace Buyer
         private readonly LifetimeScope parentScope;
 
         private float t;
-        private List<BuyerLifetimeScope> buyers = new();
+        public ReactiveCollection<BuyerLifetimeScope> buyers = new();
         
         public BuyersSpawner
             (

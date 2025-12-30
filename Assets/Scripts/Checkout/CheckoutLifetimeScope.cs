@@ -43,6 +43,8 @@ namespace Checkout
             builder.Register<CheckoutPopup>(Lifetime.Scoped)
                    .As<IObjectPopup>()
                    .AsSelf();
+            builder.Register<BuildingInteractableFlag>(Lifetime.Scoped).AsSelf();
+
             builder.UseEntryPoints(ep =>
                                    {
                                        ep.Add<CheckoutController>();

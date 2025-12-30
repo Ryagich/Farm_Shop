@@ -1,4 +1,5 @@
 ﻿using System;
+using BuildingsAndGrid.Buildings;
 using Inventory;
 using Inventory.Item;
 using Messages;
@@ -15,10 +16,11 @@ namespace Checkout
         private readonly IInventory rawInventory;
         private readonly IInventory completeInventory;
         private readonly CheckoutsController checkoutsController;
+        private readonly BuildingInteractableFlag buildingInteractableFlag;
         public ByersQueue ByersQueue { get; }
         public MoneyTaker MoneyTaker { get; }
         public bool CanPay;
-        
+        public bool IsInteractable => buildingInteractableFlag.IsInteractable;
         public CheckoutController
             (
                 [Key("RawInventory")] IInventory rawInventory,
@@ -26,12 +28,14 @@ namespace Checkout
                 Interactable.Interactable interactable,
                 ByersQueue byersQueue,
                 CheckoutsController checkoutsController,
-                MoneyTaker moneyTaker
+                MoneyTaker moneyTaker,
+                BuildingInteractableFlag buildingInteractableFlag
             )
         {
             this.rawInventory = rawInventory;
             this.completeInventory = completeInventory;
             this.checkoutsController = checkoutsController;
+            this.buildingInteractableFlag = buildingInteractableFlag;
             ByersQueue = byersQueue;
             MoneyTaker = moneyTaker;
 

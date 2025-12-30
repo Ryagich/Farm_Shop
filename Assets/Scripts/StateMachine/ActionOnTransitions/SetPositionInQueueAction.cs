@@ -9,6 +9,9 @@ namespace StateMachine.ActionOnTransitions
     {
         public override void DoAction(StateMachineContext context)
         {
+            var checkouts = context.CheckoutsController.Checkouts.Where(c => c.IsInteractable).ToList();
+            if (checkouts.Count is 0)
+                return;
             var checkoutWithMinQueue = context.CheckoutsController.Checkouts.First();
             var min = checkoutWithMinQueue.ByersQueue.Buyers.Count;
             

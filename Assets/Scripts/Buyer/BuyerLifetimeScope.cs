@@ -4,6 +4,7 @@ using Inventory.ObjectInventory;
 using StateMachine.Graph.Model;
 using UI.Hover;
 using UI.Hover.PopupLogics.Popups;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
@@ -18,6 +19,7 @@ namespace Buyer
         [field: SerializeField] public float DistanceToTarget;
         [field: SerializeField] public int QueueIndex;
         [field: SerializeField] public Transform targetPoint;
+        [field: SerializeField] public ReactiveProperty<bool> IsInsideShop;
 
         [SerializeField] private Animator animator = null!;
 

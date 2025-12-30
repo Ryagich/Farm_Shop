@@ -21,6 +21,7 @@ namespace Movement
         private readonly PlayerParticleController playerParticleController;
         private readonly PlayerAnimationController playerAnimationController;
         private readonly CameraMovement cameraMovement;
+        private readonly ISubscriber<GameModeChangedMessage> gameModeChangedSubscriber;
 
         private Vector2 direction;
         private Transform vpTransform;
@@ -50,8 +51,8 @@ namespace Movement
             this.playerParticleController = playerParticleController;
             this.playerAnimationController = playerAnimationController;
             this.cameraMovement = cameraMovement;
+            this.gameModeChangedSubscriber = gameModeChangedSubscriber;
 
-            gameModeChangedSubscriber.Subscribe(OnGameModeChanged);
             playerMoveSubscriber.Subscribe(OnMove);
         }
 
@@ -61,6 +62,7 @@ namespace Movement
             vpTransform = vp.GetComponent<Transform>();
             virtualPlayerMovement.Construct(vpTransform, vp);
             vpPlayerGravity = new PlayerGravity(vp, gravityConfig);
+            gameModeChangedSubscriber.Subscribe(OnGameModeChanged);
         }
 
         private void OnGameModeChanged(GameModeChangedMessage msg)
