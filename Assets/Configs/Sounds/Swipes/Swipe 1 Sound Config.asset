@@ -21,6 +21,6 @@ MonoBehaviour:
     pitch: {x: 0.9, y: 1.1}
     reverbZoneMix: 1
     MinDistance: 0
-    MaxDistance: 1.5
+    MaxDistance: 1.6
     isUISound: 0
     DistanceToPlay: 4

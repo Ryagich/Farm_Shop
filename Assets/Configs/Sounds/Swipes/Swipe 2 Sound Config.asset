@@ -18,10 +18,10 @@ MonoBehaviour:
     - {fileID: 8300000, guid: bd4419b7c76cf6348a3b5d71e7174a36, type: 3}
     - {fileID: 8300000, guid: b73de44362cb7f0438672538544f680d, type: 3}
     priority: 128
-    volume: 1
+    volume: 0.15
     pitch: {x: 0.9, y: 1.1}
     reverbZoneMix: 1
     MinDistance: 0
-    MaxDistance: 2.35
-    isUISound: 1
+    MaxDistance: 1.6
+    isUISound: 0
     DistanceToPlay: 4
