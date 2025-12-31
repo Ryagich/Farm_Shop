@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Inventory.Item;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
 
 namespace Inventory.Movers
@@ -15,7 +16,7 @@ namespace Inventory.Movers
         [SuppressMessage("ReSharper", "ParameterHidesMember")]
         public DeleterItemMover
             (
-                Transform place,
+                [Key("PlaceToDelete")] Transform place,
                 ItemsConfig config,
                 IInventory inventory 
             )
@@ -29,9 +30,8 @@ namespace Inventory.Movers
         {
             if (inventory.Items.Count == 0)
                 return;
-            for (var i = 0; i < inventory.Items.Count; i++)
+            foreach (var item in inventory.Items)
             {
-                var item = inventory.Items[i];
                 var itemTrans = item.transform;
                 var position = place.position;
 

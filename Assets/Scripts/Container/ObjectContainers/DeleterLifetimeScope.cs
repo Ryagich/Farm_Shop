@@ -17,8 +17,6 @@ namespace Container.ObjectContainers
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(transform);
-
             var interactable = gameObject.AddComponent<Interactable.Interactable>();
             var hoverTrigger = gameObject.AddComponent<HoverTrigger>();
             var building = gameObject.AddComponent<Building>();
@@ -27,7 +25,9 @@ namespace Container.ObjectContainers
             builder.RegisterInstance(interactable).AsSelf();
             builder.RegisterInstance(hoverTrigger).AsSelf();
             builder.RegisterInstance(building);
-            
+            builder.RegisterInstance(transform);
+            builder.RegisterInstance(Center).Keyed("PlaceToDelete");
+
             builder.Register<UnlimitedInventory>(Lifetime.Scoped)
                    .As<IInventory>()
                    .AsSelf();
