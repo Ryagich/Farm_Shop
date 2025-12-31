@@ -101,6 +101,7 @@ namespace BuildingsAndGrid.Buildings
                                                          highlightBuildingTransform.position,
                                                          highlightBuilding.Content.localPosition,
                                                          highlightBuilding.GetContentRotation(), tiles));
+                highlightBuilding.HaveLastPosition = false;
                 buildingInStorage.Count--;
                 if (buildingInStorage.Count < 1)
                 {
