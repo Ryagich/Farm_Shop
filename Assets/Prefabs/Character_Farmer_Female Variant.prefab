@@ -4963,6 +4963,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  stepSoundConfig: {fileID: 11400000, guid: f7170d64748344c428b3853388cec29d, type: 2}
 --- !u!143 &9196917524993579517
 CharacterController:
   m_ObjectHideFlags: 0

@@ -2,6 +2,8 @@
 using Inventory.Movers;
 using Inventory.ObjectInventory;
 using Inventory.ObjectInventory.Sounds;
+using Movement;
+using Sounds;
 using StateMachine.Graph.Model;
 using UI.Hover;
 using UI.Hover.PopupLogics.Popups;
@@ -15,6 +17,8 @@ namespace Buyer
 {
     public class BuyerLifetimeScope : LifetimeScope
     {
+        [SerializeField] private StepSoundConfig stepSoundConfig;
+
         [field: SerializeField] public State CurrentState = null!;
         [field: SerializeField] public Vector3 TP;
         [field: SerializeField] public float DistanceToTarget;
@@ -37,11 +41,15 @@ namespace Buyer
             builder.RegisterInstance(agent).AsSelf();
             builder.RegisterInstance(animator).AsSelf();
             builder.RegisterInstance(hand).As<Transform>().Keyed("Hand"); 
-            builder.RegisterInstance(transform).Keyed("TransformForSound"); 
+            builder.RegisterInstance(transform).Keyed("TransformForSound");
+            builder.RegisterInstance(transform);
+            
+            builder.RegisterInstance(stepSoundConfig);
 
             builder.Register<SimpleInventory>(Lifetime.Scoped).As<IInventory>().AsSelf();
             builder.RegisterEntryPoint<InventorySoundForAdding>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<InventorySoundForRemoving>(Lifetime.Scoped).AsSelf();
+            builder.RegisterEntryPoint<StepSound>().AsSelf();
 
             builder.Register<BuyerPopup>(Lifetime.Scoped)
                                            .As<IObjectPopup>()
@@ -58,7 +66,6 @@ namespace Buyer
                                           {
                                               container.Inject(hoverTrigger);
                                           });
-            
         }
     }
 }

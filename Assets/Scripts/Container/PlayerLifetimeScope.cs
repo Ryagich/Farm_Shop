@@ -5,6 +5,7 @@ using Inventory.Movers;
 using Inventory.ObjectInventory;
 using Inventory.ObjectInventory.Sounds;
 using Movement;
+using Sounds;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -13,6 +14,8 @@ namespace Container
 {
     public class PlayerLifetimeScope : LifetimeScope
     {
+        [SerializeField] private StepSoundConfig stepSoundConfig;
+        
         protected override void Configure(IContainerBuilder builder)
         {
             var hand = transform.Find("Hand");
@@ -26,6 +29,8 @@ namespace Container
             builder.RegisterInstance(particle);
             builder.RegisterInstance(animator);
             
+            builder.RegisterInstance(stepSoundConfig);
+
             var founder = gameObject.AddComponent<InteractableFounder>();
             builder.RegisterComponent(founder).AsSelf();
             
@@ -46,9 +51,8 @@ namespace Container
             builder.RegisterEntryPoint<PlayerMovement>().AsSelf();
             builder.RegisterEntryPoint<VirtualPlayerMovement>().AsSelf();
             
-            builder.RegisterEntryPoint<StepSoundPlayer>().AsSelf();
+            builder.RegisterEntryPoint<StepSound>().AsSelf();
             builder.RegisterEntryPoint<InventorySoundForRemoving>(Lifetime.Scoped).AsSelf();
-
         }
     }
 }

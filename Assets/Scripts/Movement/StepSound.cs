@@ -9,11 +9,10 @@ using VContainer.Unity;
 namespace Movement
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class StepSoundPlayer : IFixedTickable
+    public class StepSound : IFixedTickable
     {
         private readonly GridSettings gridSettings;
-        private readonly PlayerMovementConfig playerMovementConfig;
-        private readonly SoundsConfig soundsConfig;
+        private readonly StepSoundConfig stepSoundConfig;
         private readonly TilesController tilesController;
         private readonly Transform transform;
         private readonly IPublisher<PlaySoundMessage> soundMessagePublisher;
@@ -21,20 +20,17 @@ namespace Movement
         private Vector3 lastPosition;
         private float distanceAccumulator;
 
-        // расстояние между шагами
-
-        public StepSoundPlayer(
+        public StepSound
+            (
                 GridSettings gridSettings,
-                PlayerMovementConfig playerMovementConfig,
-                SoundsConfig soundsConfig,
+                StepSoundConfig stepSoundConfig,
                 TilesController tilesController,
                 Transform transform,
                 IPublisher<PlaySoundMessage> soundMessagePublisher
             )
         {
             this.gridSettings = gridSettings;
-            this.playerMovementConfig = playerMovementConfig;
-            this.soundsConfig = soundsConfig;
+            this.stepSoundConfig = stepSoundConfig;
             this.tilesController = tilesController;
             this.transform = transform;
             this.soundMessagePublisher = soundMessagePublisher;
@@ -50,9 +46,9 @@ namespace Movement
             distanceAccumulator += delta;
             lastPosition = currentPosition;
 
-            if (distanceAccumulator < playerMovementConfig.StepDistance)
+            if (distanceAccumulator < stepSoundConfig.StepDistance)
                 return;
-            distanceAccumulator -= playerMovementConfig.StepDistance;
+            distanceAccumulator -= stepSoundConfig.StepDistance;
             tilesController.Tiles.TryGetTile((int)(currentPosition.x / gridSettings.TileSize.x),
                                              (int)(currentPosition.z / gridSettings.TileSize.z),
                                              out var tile);
@@ -60,14 +56,14 @@ namespace Movement
             {
                 if (tile.Type is Area.Wall or Area.Production)
                 {
-                    soundMessagePublisher.Publish(new PlaySoundMessage(soundsConfig.StepOnStoneSoundSettings.SoundSettings,
+                    soundMessagePublisher.Publish(new PlaySoundMessage(stepSoundConfig.StepOnStoneSoundSettings.SoundSettings,
                                                                        transform.position, null));
                 }
                 else if (tile.Type is Area.Shop)
-                    soundMessagePublisher.Publish(new PlaySoundMessage(soundsConfig.StepOnWoodSoundSettings.SoundSettings,
+                    soundMessagePublisher.Publish(new PlaySoundMessage(stepSoundConfig.StepOnWoodSoundSettings.SoundSettings,
                                                                        transform.position, null));
                 else if (tile.Type is Area.Garden)
-                    soundMessagePublisher.Publish(new PlaySoundMessage(soundsConfig.StepOnGroundSoundSettings.SoundSettings,
+                    soundMessagePublisher.Publish(new PlaySoundMessage(stepSoundConfig.StepOnGroundSoundSettings.SoundSettings,
                                                                        transform.position, null));
             }
         }

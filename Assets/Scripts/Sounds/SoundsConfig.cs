@@ -6,9 +6,6 @@ namespace Sounds
     public class SoundsConfig : ScriptableObject
     {
         [field: SerializeField] public AudioSource AudioSourcePrefab { get; private set; }
-        [field: SerializeField] public SoundConfig StepOnGroundSoundSettings { get; private set; }
-        [field: SerializeField] public SoundConfig StepOnWoodSoundSettings { get; private set; }
-        [field: SerializeField] public SoundConfig StepOnStoneSoundSettings { get; private set; }
         [field: SerializeField] public SoundConfig ScannerSoundSettings { get; private set; }
         [field: SerializeField] public SoundConfig SwipeSoundSettings_1 { get; private set; }
     }

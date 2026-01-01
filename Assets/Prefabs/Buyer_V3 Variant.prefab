@@ -1402,11 +1402,14 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  stepSoundConfig: {fileID: 11400000, guid: 9c8b2d69434a9ef47b881c40c5adb0d6, type: 2}
   CurrentState: {fileID: 0}
   TP: {x: 0, y: 0, z: 0}
   DistanceToTarget: 0
   QueueIndex: 0
   targetPoint: {fileID: 0}
+  IsInsideShop:
+    value: 0
   animator: {fileID: 3850299989832455229}
 --- !u!114 &2608129476963346590
 MonoBehaviour:
