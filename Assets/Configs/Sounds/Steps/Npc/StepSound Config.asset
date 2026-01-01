@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138550c54e3c4f2a8c8f12b4ad4cf7a5, type: 3}
   m_Name: StepSound Config
   m_EditorClassIdentifier: 
-  <StepDistance>k__BackingField: 0.9
+  <StepDistance>k__BackingField: 1.1
   <StepOnGroundSoundSettings>k__BackingField: {fileID: 11400000, guid: 0d54b31c135aef846842ed4c2089c2fc, type: 2}
   <StepOnWoodSoundSettings>k__BackingField: {fileID: 11400000, guid: 7b50fb4ee608f7c4c8e2ee2a52822b6a, type: 2}
   <StepOnStoneSoundSettings>k__BackingField: {fileID: 11400000, guid: 3d80abe260a96324db4488029d1cedfd, type: 2}
