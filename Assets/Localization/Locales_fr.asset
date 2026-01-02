@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Locales_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: a7b7152a19155234c974decdd1edacb3, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 47560856420352
+    m_Localized: Betterave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47694780547072
+    m_Localized: Carotte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47756596199424
+    m_Localized: Tomate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63637808201728
+    m_Localized: "Porte arri\xE8re"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63791562997760
+    m_Localized: Porte principale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73058051407872
+    m_Localized: Caisse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73317720768512
+    m_Localized: Plate-bande de betteraves
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73457714053120
+    m_Localized: Plate-bande de carottes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74995803078656
+    m_Localized: Plate-bande de tomates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77040161374208
+    m_Localized: "\xC9tag\xE8re \xE0 tomates"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77133480443904
+    m_Localized: "\xC9tag\xE8re \xE0 carottes"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77211259617280
+    m_Localized: "\xC9tag\xE8re \xE0 betteraves"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 97510130696192
+    m_Localized: Prix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 97565872996352
+    m_Localized: "Dans l\u2019inventaire"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 101848139939840
+    m_Localized: Produit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 101942260121600
+    m_Localized: "\xC9teindre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102131540672512
+    m_Localized: Allumer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102214487228416
+    m_Localized: Stade de croissance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102315804835840
+    m_Localized: "Pouss\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102406280167424
+    m_Localized: Fruits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102512018571264
+    m_Localized: "Pr\xEAt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103643469824000
+    m_Localized: Acheter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104098027520000
+    m_Localized: "Entrep\xF4t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104272808361984
+    m_Localized: Magasin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 109246325964800
+    m_Localized: "\xC9tag\xE8re"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 117139771211776
+    m_Localized: Acheteurs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 120041982115840
+    m_Localized: Aller au magasin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 128645145542656
+    m_Localized: "D\xE9placer"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129026017705984
+    m_Localized: "Mettre dans l\u2019inventaire"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1336145140236288
+    m_Localized: "Figer la fen\xEAtre -"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1482142210310144
+    m_Localized: Placer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1484378780975104
+    m_Localized: Annuler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1845724148121600
+    m_Localized: Sans nom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1849307509800960
+    m_Localized: "Va dans la file d\u2019attente"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853444456693760
+    m_Localized: "S\u2019en va"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853552866869248
+    m_Localized: "Pose les marchandises \xE0 la caisse"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1929295659515904
+    m_Localized: Va au magasin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1930367316770816
+    m_Localized: "Dans la file d\u2019attente"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1935829256880128
+    m_Localized: "Va vers l\u2019\xE9tag\xE8re"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936001588248576
+    m_Localized: Paie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936176071294976
+    m_Localized: Prend les marchandises
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936678381142016
+    m_Localized: Acheteur
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1937819462516736
+    m_Localized: 'Liste des produits:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1942479724331008
+    m_Localized: 'Statut actuel:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2087792493707264
+    m_Localized: Brocoli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2128722215026688
+    m_Localized: Plate-bande de brocoli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2136119839014912
+    m_Localized: "\xC9tag\xE8re \xE0 brocoli"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2950836161593344
+    m_Localized: Produits
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

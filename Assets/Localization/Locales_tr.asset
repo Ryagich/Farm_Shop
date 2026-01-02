@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Locales_tr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: tr
+  m_SharedData: {fileID: 11400000, guid: a7b7152a19155234c974decdd1edacb3, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 47560856420352
+    m_Localized: Pancar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47694780547072
+    m_Localized: "Havu\xE7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47756596199424
+    m_Localized: Domates
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63637808201728
+    m_Localized: "Arka kap\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63791562997760
+    m_Localized: "Ana kap\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73058051407872
+    m_Localized: Kasa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73317720768512
+    m_Localized: "Pancar yata\u011F\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73457714053120
+    m_Localized: "Havu\xE7 yata\u011F\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74995803078656
+    m_Localized: "Domates yata\u011F\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77040161374208
+    m_Localized: "Domates raf\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77133480443904
+    m_Localized: "Havu\xE7 raf\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 77211259617280
+    m_Localized: "Pancar raf\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 97510130696192
+    m_Localized: Fiyat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 97565872996352
+    m_Localized: Envanterde
+    m_Metadata:
+      m_Items: []
+  - m_Id: 101848139939840
+    m_Localized: "\xDCr\xFCn"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 101942260121600
+    m_Localized: Kapatmak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102131540672512
+    m_Localized: "A\xE7mak"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102214487228416
+    m_Localized: "B\xFCy\xFCme a\u015Famas\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102315804835840
+    m_Localized: "B\xFCy\xFCm\xFC\u015F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102406280167424
+    m_Localized: Meyveler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 102512018571264
+    m_Localized: "Haz\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103643469824000
+    m_Localized: "Sat\u0131n almak"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104098027520000
+    m_Localized: Depo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104272808361984
+    m_Localized: "Ma\u011Faza"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 109246325964800
+    m_Localized: Raf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 117139771211776
+    m_Localized: "Al\u0131c\u0131lar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 120041982115840
+    m_Localized: "Ma\u011Fazaya git"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 128645145542656
+    m_Localized: Hareket ettirmek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129026017705984
+    m_Localized: Envantere koy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1336145140236288
+    m_Localized: Pencereyi sabitle -
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1482142210310144
+    m_Localized: "Yerle\u015Ftirmek"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1484378780975104
+    m_Localized: "\u0130ptal etmek"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1845724148121600
+    m_Localized: "\u0130simsiz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1849307509800960
+    m_Localized: "Kuyru\u011Fa giriyor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853444456693760
+    m_Localized: "Ayr\u0131l\u0131yor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853552866869248
+    m_Localized: "\xDCr\xFCnleri kasaya koyar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1929295659515904
+    m_Localized: "Ma\u011Fazaya gider"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1930367316770816
+    m_Localized: Kuyrukta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1935829256880128
+    m_Localized: Rafa gidiyor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936001588248576
+    m_Localized: "\xD6d\xFCyor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936176071294976
+    m_Localized: "\xDCr\xFCnleri al\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1936678381142016
+    m_Localized: "Al\u0131c\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1937819462516736
+    m_Localized: "\xDCr\xFCn listesi:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1942479724331008
+    m_Localized: 'Mevcut durum:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2087792493707264
+    m_Localized: Brokoli
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2128722215026688
+    m_Localized: "Brokoli yata\u011F\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2136119839014912
+    m_Localized: "Brokoli raf\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2950836161593344
+    m_Localized: "\xDCr\xFCnler"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
