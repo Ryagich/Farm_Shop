@@ -91,6 +91,7 @@ namespace UI.Pages
 
         public override void Draw()
         {
+            Debug.Log($"Draw InventoryPage");
             disposables = new CompositeDisposable();
             if (contentRect)
                 Object.Destroy(contentRect.gameObject);
@@ -200,6 +201,8 @@ namespace UI.Pages
         
         private void ReDraw()
         {
+            if (!contentRect)
+                return;
             Hide();
             Draw();
         }

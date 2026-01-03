@@ -37,6 +37,7 @@ namespace UI.Pages
 
         public override void Draw()
         {
+            Debug.Log($"Draw RedactorPage");
             contentRect = resolver.Instantiate(uiConfig.ContentPref, canvasRect);
             contentRect.name = $"{uiConfig.ContentPref.name} | {Type}";
             

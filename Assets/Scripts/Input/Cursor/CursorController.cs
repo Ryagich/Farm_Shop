@@ -15,7 +15,6 @@ namespace Input.Cursor
                 CursorHandler cursorHandler,
                 ISubscriber<ChangeCursorStateMessage> changeCursorSubscriber,
                 ISubscriber<GameModeChangedMessage> gameModeChangeSubscriber
-
             )
         {
             this.cursorHandler = cursorHandler;

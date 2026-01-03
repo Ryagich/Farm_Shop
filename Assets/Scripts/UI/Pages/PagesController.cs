@@ -43,8 +43,6 @@ namespace UI.Pages
 
             gameModeChangeSubscriber.Subscribe(OnGameModeChanged);
             changeCursorStateSubscriber.Subscribe(OnCursorStateChanged);
-            
-            
         }
 
         private void OnCursorStateChanged(ChangeCursorStateMessage msg)
