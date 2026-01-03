@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MessagePipe;
+using Messages;
 using UnityEngine;
 using VContainer.Unity;
 using YG;
@@ -11,7 +13,13 @@ namespace Localization
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Bootloader : IStartable
     {
+        private readonly IPublisher<TranslationStateChangedMessage> translationStateChangedMessagePublisher;
         private bool initialized;
+
+        public Bootloader(IPublisher<TranslationStateChangedMessage> translationStateChangedMessagePublisher)
+        {
+            this.translationStateChangedMessagePublisher = translationStateChangedMessagePublisher;
+        }
         
         public async void Start()
         {
@@ -45,7 +53,7 @@ namespace Localization
             YG2.GetLanguage();
             Debug.Log($"Configuring language: '{YG2.lang}'");
             await LocalizationHelper.InvalidateAsync(YG2.lang);
-        
+            translationStateChangedMessagePublisher.Publish(new TranslationStateChangedMessage(true));
             YGInsides.LoadProgress();
         }
     }

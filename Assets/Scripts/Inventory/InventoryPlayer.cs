@@ -29,7 +29,7 @@ namespace Inventory
 
         public bool CanAdd(ItemConfig itemConfig)
             => Items.Count is 0
-            || (Items.Count < inventoryConfig.MaxCount && Items.First().Config == itemConfig);
+            || (Items.Count < inventoryConfig.MaxCount && Items.First().Config.ID.Equals(itemConfig.ID));
 
 
         public void Add(ItemConfig itemConfig, Matrix4x4 position)

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Inventory.Item;
 using UnityEngine;
 using VContainer;
@@ -30,7 +31,7 @@ namespace Inventory.Movers
         {
             if (inventory.Items.Count == 0)
                 return;
-            foreach (var item in inventory.Items)
+            foreach (var item in inventory.Items.ToArray())
             {
                 var itemTrans = item.transform;
                 var position = place.position;

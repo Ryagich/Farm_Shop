@@ -30,7 +30,7 @@ namespace Inventory.ObjectInventory
         }
         
         public bool HaveFreePlace() => Items.Count < maxCount;
-        public bool CanAdd(ItemConfig config) => Items.Count < maxCount && config == itemConfig;
+        public bool CanAdd(ItemConfig config) => Items.Count < maxCount && config.Equals(itemConfig);
         public ItemConfig GetConfig() => itemConfig;
         public bool CanGet() => Items.Count is not 0;
 

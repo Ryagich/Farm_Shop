@@ -3,6 +3,7 @@ using System.Linq;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using Inventory;
+using Inventory.Item;
 using Localization;
 using MessagePipe;
 using Messages;
@@ -22,6 +23,7 @@ namespace UI.Hover.PopupLogics.Popups
         public event Action CloseButton;
         
         private readonly LocalizationConfig localizationConfig;
+        private readonly ItemConfig itemConfig;
         private readonly IInventory inventory;
         private readonly PopupHolders popupHolders;
         private readonly ShelfInfoRecorder shelfInfoRecorder;
@@ -41,6 +43,7 @@ namespace UI.Hover.PopupLogics.Popups
         public ShelfPopup
             (
                 LocalizationConfig localizationConfig,
+                ItemConfig itemConfig,
                 PopupHolders popupHolders,
                 IInventory inventory,
                 ShelfInfoRecorder shelfInfoRecorder,
@@ -51,6 +54,7 @@ namespace UI.Hover.PopupLogics.Popups
             )
         {
             this.localizationConfig = localizationConfig;
+            this.itemConfig = itemConfig;
             this.inventory = inventory;
             this.popupHolders = popupHolders;
             this.shelfInfoRecorder = shelfInfoRecorder;
@@ -90,7 +94,8 @@ namespace UI.Hover.PopupLogics.Popups
 
             var total = shelfInfoRecorder.info.Count;
             var busy = total - shelfInfoRecorder.info.Count(i => i.IsFree.Value);
-            
+
+            popup.ProductDescription.text = $"{localizationConfig.ProductWord.GetLocalizedStringCached()}: {itemConfig.Name.GetLocalizedStringCached()}";
             popup.BuyersCount.text = $"{busy} / {total}";
             popup.BuyersFillImage.fillAmount = total == 0 ? 0f : (float)busy / total;
 

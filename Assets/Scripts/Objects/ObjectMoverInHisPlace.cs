@@ -37,6 +37,8 @@ namespace Objects
 
         private void DeleteBuilding(DeleteBuildingOnGridRequest msg)
         {
+            if (!msg.Building)
+                return;
             var el = scopeTransforms.FirstOrDefault(any => any.Item1 == msg.Building.transform);
             if (el != default && el.Item1)
             {

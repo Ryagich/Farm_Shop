@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
   m_Name: Beetroot Landing  BuildingConfig
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: 'Beetroot Landing  '
   <Type>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 21300000, guid: 60ac4e89f89dee54ba6a547ae4d7519d, type: 3}
   <Name>k__BackingField:

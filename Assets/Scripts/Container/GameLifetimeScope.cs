@@ -125,7 +125,8 @@ namespace Container
             builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
             builder.RegisterMessageBroker<GridExtendMessage>(options);
             builder.RegisterMessageBroker<BuyerIsOverMessage>(options);
-
+            builder.RegisterMessageBroker<TranslationStateChangedMessage>(options);
+            
             // === InputHandler ===
             builder.Register<InputHandler>(Lifetime.Singleton).AsSelf().As<IStartable>();
 

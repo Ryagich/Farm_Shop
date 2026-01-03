@@ -29,7 +29,7 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly BuyersSpawner buyersSpawner;
 
         private CompositeDisposable disposables = new();
-        private CompositeDisposable buyersDisposables;
+        private CompositeDisposable buyersDisposables = new();
         private RectTransform popupRect;
 
         private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;

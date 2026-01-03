@@ -31,7 +31,7 @@ namespace Inventory.ObjectInventory
         }
 
         public bool CanAdd(ItemConfig config) => Items.Count < placesCount
-                                              && itemConfig == config;  
+                                              && itemConfig.ID.Equals(config.ID);  
         public ItemConfig GetConfig() => itemConfig;
 
         public void Add(ItemConfig newItemConfig, Matrix4x4 position)

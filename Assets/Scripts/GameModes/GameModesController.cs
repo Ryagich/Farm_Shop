@@ -12,12 +12,15 @@ namespace GameModes
         private readonly IPublisher<GameModeChangedMessage> gameModeChangedPublisher;
         private readonly IPublisher<ChangeCursorStateMessage> changeCursorStatePublisher;
 
+        private bool isLocalizationReady;
+        
         public GameModesController
             (
                 IPublisher<GameModeChangedMessage> gameModeChangedPublisher,
                 IPublisher<ChangeCursorStateMessage> changeCursorStatePublisher,
                 ISubscriber<OpenShopWithAreaRequest> OpenShopWithAreaRequestSubscriber,
-                ISubscriber<ChangeGameModeRequest> OpenPageRequestSubscriber
+                ISubscriber<ChangeGameModeRequest> OpenPageRequestSubscriber,
+                ISubscriber<TranslationStateChangedMessage> TranslationStateChangedMessageSubscriber
             )
         {
             this.gameModeChangedPublisher = gameModeChangedPublisher;
@@ -25,6 +28,15 @@ namespace GameModes
 
             OpenShopWithAreaRequestSubscriber.Subscribe(OpenShopWithArea);
             OpenPageRequestSubscriber.Subscribe(OpenPage);
+            TranslationStateChangedMessageSubscriber.Subscribe(OnLocalizationStateChanged);
+        }
+
+        //Пока приходит сообщение с одного места только в начале игры, поэтому по его приходу - перехожу к нормальному режиму UI
+        //Когда языки можно будет менять с настроек - потребуется дополнительная обработка
+        private void OnLocalizationStateChanged(TranslationStateChangedMessage msg)
+        {
+            isLocalizationReady = msg.IsReady;
+            EnterMainGameMode();
         }
 
         public void Start()
@@ -45,6 +57,8 @@ namespace GameModes
 
         private void OpenPage(ChangeGameModeRequest msg)
         {
+            if (!isLocalizationReady)
+                return;
             if (GameMode == msg.Mode)
             {
                 if (GameMode is GameMode.Game)

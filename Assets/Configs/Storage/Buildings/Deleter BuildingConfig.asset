@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
   m_Name: Deleter BuildingConfig
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: 'Deleter '
   <Type>k__BackingField: 3
   <Icon>k__BackingField: {fileID: 0}
   <Name>k__BackingField:

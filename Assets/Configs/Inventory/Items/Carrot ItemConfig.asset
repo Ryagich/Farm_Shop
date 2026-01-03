@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c032c8f0ba2545b1a39b17252b87f56b, type: 3}
   m_Name: Carrot ItemConfig
   m_EditorClassIdentifier: 
+  <ID>k__BackingField: Carrot ItemConfig ID
   <HandPrefab>k__BackingField: {fileID: 539640655257651489, guid: 101f55c9a62e9f04ab862cf21993194b, type: 3}
   <Name>k__BackingField:
     m_TableReference:

@@ -8,13 +8,14 @@ namespace Input.Cursor
     public class CursorController
     {
         private readonly CursorHandler cursorHandler;
-        public bool IsVisibleInPlayMode = true;
+        public bool IsVisibleInPlayMode;
 
         public CursorController
             (
                 CursorHandler cursorHandler,
                 ISubscriber<ChangeCursorStateMessage> changeCursorSubscriber,
                 ISubscriber<GameModeChangedMessage> gameModeChangeSubscriber
+
             )
         {
             this.cursorHandler = cursorHandler;
@@ -22,7 +23,7 @@ namespace Input.Cursor
             changeCursorSubscriber.Subscribe(OnChangeCursor);
             gameModeChangeSubscriber.Subscribe(OnChangeGameMode);
         }
-
+        
         private void OnChangeGameMode(GameModeChangedMessage msg)
         {
             switch (msg.GameMode)

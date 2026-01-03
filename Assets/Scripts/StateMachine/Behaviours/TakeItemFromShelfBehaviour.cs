@@ -24,9 +24,9 @@ namespace StateMachine.Behaviours
             }
 
             var config = shelfInventory.GetConfig();
-            var buyPos = context.BuyPositions.First(p => p.Config == config);
+            var buyPos = context.BuyPositions.First(p => p.Config.ID.Equals(config.ID));
 
-            if (context.Inventory.CanAdd(config)
+            if (context.Inventory.CanAdd(config)    
              && buyPos.Count.Value < buyPos.Need)
             {
                 var itemHolder = shelfInventory.Get();

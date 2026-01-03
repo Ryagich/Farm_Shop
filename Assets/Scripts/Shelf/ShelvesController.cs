@@ -8,25 +8,25 @@ namespace Shelf
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ShelvesController
     {
-        public Dictionary<ItemConfig, Dictionary<IInventory, List<InfoAboutPositionAtShelfForBuyer>>> PositionsAtShelvesByTypes = new();
+        public Dictionary<string, Dictionary<IInventory, List<InfoAboutPositionAtShelfForBuyer>>> PositionsAtShelvesByTypes = new();
 
         public void RegisterShelf(NewShelfCreatedMessage msg)
         {
-            if (!PositionsAtShelvesByTypes.ContainsKey(msg.ItemConfig))
+            if (!PositionsAtShelvesByTypes.ContainsKey(msg.ItemConfig.ID))
             {
-                PositionsAtShelvesByTypes.Add(msg.ItemConfig, new());
+                PositionsAtShelvesByTypes.Add(msg.ItemConfig.ID, new());
             }
 
-            PositionsAtShelvesByTypes[msg.ItemConfig].Add(msg.Inventory, new());
+            PositionsAtShelvesByTypes[msg.ItemConfig.ID].Add(msg.Inventory, new());
             foreach (var pos in msg.ShelfInfoRecorder.info)
             {
-                PositionsAtShelvesByTypes[msg.ItemConfig][msg.Inventory].Add(pos);
+                PositionsAtShelvesByTypes[msg.ItemConfig.ID][msg.Inventory].Add(pos);
             }
         }
         
         public void UnregisterShelf(ShelfDeletedMessage msg)
         {
-            PositionsAtShelvesByTypes[msg.ItemConfig].Remove(msg.Inventory);
+            PositionsAtShelvesByTypes[msg.ItemConfig.ID].Remove(msg.Inventory);
         }
     }
 }

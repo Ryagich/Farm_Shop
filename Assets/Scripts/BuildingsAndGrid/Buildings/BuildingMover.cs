@@ -154,7 +154,8 @@ namespace BuildingsAndGrid.Buildings
 
         private void HideHighlight()
         {
-            if (highlightBuilding != null) Object.Destroy(highlightBuilding.gameObject);
+            if (highlightBuilding != null)
+                Object.Destroy(highlightBuilding.gameObject);
             highlightBuilding = null;
             HidePreviewTiles();
         }

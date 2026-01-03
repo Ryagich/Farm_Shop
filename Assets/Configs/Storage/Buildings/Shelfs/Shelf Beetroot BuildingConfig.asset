@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
   m_Name: Shelf Beetroot BuildingConfig
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: 'Shelf Beetroot '
   <Type>k__BackingField: 2
   <Icon>k__BackingField: {fileID: 21300000, guid: 1c11d28d844b7f142b7f33e193c1646c, type: 3}
   <Name>k__BackingField:

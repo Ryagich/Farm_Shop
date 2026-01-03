@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c032c8f0ba2545b1a39b17252b87f56b, type: 3}
   m_Name: Broccoli ItemConfig
   m_EditorClassIdentifier: 
+  <ID>k__BackingField: Broccoli ItemConfig ID
   <HandPrefab>k__BackingField: {fileID: 108807781088311193, guid: 7a278d869cff7a34cb9d1079bf7eaa9c, type: 3}
   <Name>k__BackingField:
     m_TableReference:

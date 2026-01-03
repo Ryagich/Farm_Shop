@@ -77,13 +77,28 @@ namespace UI.Hover.PopupLogics.Popups
             return popupRect;
         }
 
-        public void Redraw()
+        public void Redraw()        
         {
-            if (!popupRect)
+            if (!popupRect || plantConfig == null)
+                return;
+            if (plantConfig.Stages == null || plantConfig.Stages.Count == 0)
                 return;
             var popup = popupRect.GetComponent<LandingPlantIsItemHolder>();
+            var lastStage = plantConfig.Stages.LastOrDefault();
+            if (lastStage == null)
+            {
+                popup.PlantName.text = string.Empty;
+                return;
+            }
+            var itemHolder = lastStage.GetComponent<ItemHolder>();
+            if (itemHolder == null)
+            {
+                popup.PlantName.text = string.Empty;
+                return;
+            }
+            popup.PlantName.text = itemHolder.Config.Name.GetLocalizedStringCached();
+            // popup.PlantName.text = $"{plantConfig.Stages.Last().GetComponent<ItemHolder>().Config.Name.GetLocalizedStringCached()}";
             
-            popup.PlantName.text = $"{plantConfig.Stages.Last().GetComponent<ItemHolder>().Config.Name.GetLocalizedStringCached()}";
             if (plantGrowerByUpper.IsPlanting)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
@@ -118,6 +133,9 @@ namespace UI.Hover.PopupLogics.Popups
         
         private void Move()
         {
+            CloseButton?.Invoke();
+            Dispose();
+
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
             choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
@@ -129,8 +147,6 @@ namespace UI.Hover.PopupLogics.Popups
                                                                            true
                                                                           ));
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
-            CloseButton?.Invoke();
-            Dispose();
         }
         
         public void Dispose()

@@ -41,11 +41,10 @@ namespace UI.Pages
             this.inventoryPage = inventoryPage;
             this.redactorPage = redactorPage;
 
-            currentPage = mainPageWithUI;
-            currentPage.Draw();
-            
             gameModeChangeSubscriber.Subscribe(OnGameModeChanged);
             changeCursorStateSubscriber.Subscribe(OnCursorStateChanged);
+            
+            
         }
 
         private void OnCursorStateChanged(ChangeCursorStateMessage msg)

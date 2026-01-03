@@ -99,11 +99,21 @@ namespace UI.Pages
 
             viewRect = resolver.Instantiate(uiConfig.RedactorView, contentRect);
             var content = viewRect.GetComponentsInChildren<RectTransform>()
-                                  .First(child => child.name.Equals("Content"));
+                                  .FirstOrDefault(child => child.name == "Content");
+            if (content == null)
+            {
+                Debug.LogError("InventoryPage: Content not found");
+                return;
+            }
             var sectionButtons = resolver.Instantiate(uiConfig.SectionButtons, viewRect);
             var sectionButtonsRect = sectionButtons.GetComponent<RectTransform>();
             var title = viewRect.GetComponentsInChildren<RectTransform>()
-                                .First(child => child.name.Equals("Title"));
+                                .FirstOrDefault(child => child.name.Equals("Title"));
+            if (title == null)
+            {
+                Debug.LogError("InventoryPage: title not found");
+                return;
+            }
             sectionButtonsRect.SetParent(title);
             sectionButtonsRect.anchorMin = new Vector2(.0f, .5f);
             sectionButtonsRect.anchorMax = new Vector2(.0f, .5f);

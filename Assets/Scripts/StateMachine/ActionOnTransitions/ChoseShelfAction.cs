@@ -14,7 +14,7 @@ namespace StateMachine.ActionOnTransitions
                 if (position.Count.Value < position.Need 
                  && context.ShelvesController
                                              .PositionsAtShelvesByTypes
-                                             .TryGetValue(position.Config, out var type)
+                                             .TryGetValue(position.Config.ID, out var type)
                    )
                 {
                     var shelves = type.Where(shelf => shelf.Key.CanGet() 

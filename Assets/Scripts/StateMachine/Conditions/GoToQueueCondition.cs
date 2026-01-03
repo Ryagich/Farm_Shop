@@ -19,7 +19,7 @@ namespace StateMachine.Conditions
                     continue;
                 if (context.ShelvesController
                            .PositionsAtShelvesByTypes
-                           .TryGetValue(position.Config, out var type))
+                           .TryGetValue(position.Config.ID, out var type))
                 {
                     var shelves = type.Where(p => p.Key.CanGet()
                                           && p.Value.Any(any => any.IsFree.Value 

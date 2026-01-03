@@ -81,7 +81,7 @@ namespace UI.Hover.PopupLogics.Popups
                 positionHolder.Fill.fillAmount = (float)buyPosition.Count.Value / buyPosition.Need;
 
                 var positionsAtShelves = buyerController.context.ShelvesController.PositionsAtShelvesByTypes
-                               .Where(p => p.Key == buyPosition.Config).ToArray();
+                               .Where(p => p.Key.Equals(buyPosition.Config.ID)).ToArray();
                 if (positionsAtShelves.Length is 0)
                 {
                     positionHolder.FillBack.color = buyerController.context.BuyerSettings.NotForSaleColor;

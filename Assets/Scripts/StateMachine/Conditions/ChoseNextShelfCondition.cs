@@ -13,7 +13,7 @@ namespace StateMachine.Conditions
              && context.UsedInfoAboutPositionAtShelfForBuyer.ShelfInventory.CanGet())
             {
                 var config = context.UsedInfoAboutPositionAtShelfForBuyer.ShelfInventory.GetConfig();
-                var buyPos = context.BuyPositions.First(p => p.Config == config);
+                var buyPos = context.BuyPositions.First(p => p.Config.ID.Equals(config.ID));
                 if (context.Inventory.CanAdd(config)
                  && buyPos.Count.Value < buyPos.Need)
                 {
@@ -26,7 +26,7 @@ namespace StateMachine.Conditions
                 if (position.Count.Value < position.Need
                  && context.ShelvesController
                                              .PositionsAtShelvesByTypes
-                                             .TryGetValue(position.Config, out var type)
+                                             .TryGetValue(position.Config.ID, out var type)
                    )
                 {
                     var shelves = type.Where(shelf => shelf.Key.CanGet() 

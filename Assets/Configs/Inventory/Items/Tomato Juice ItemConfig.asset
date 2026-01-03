@@ -12,7 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c032c8f0ba2545b1a39b17252b87f56b, type: 3}
   m_Name: Tomato Juice ItemConfig
   m_EditorClassIdentifier: 
+  <ID>k__BackingField: Tomato Juice ItemConfig ID
   <HandPrefab>k__BackingField: {fileID: 49315969530330646, guid: d401b171ff0eb89468ec4c0138bdd800, type: 3}
-  <ItemName>k__BackingField: Tomato Juice
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <height>k__BackingField: 0.3
   <Price>k__BackingField: 1
+  references:
+    version: 2
+    RefIds: []
