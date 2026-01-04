@@ -5,7 +5,7 @@ namespace Inventory.Finance
     // ReSharper disable once ClassNeverInstantiated.Global
     public class FinanceManager
     {
-        public ReactiveProperty<int> Value { get; private set; } = new(200);
+        public ReactiveProperty<int> Value { get; private set; } = new(100);
         
         public bool TryChangeValue(int amount)
         {

@@ -14,5 +14,7 @@ namespace UI.Configs
         
         [field: SerializeField] public Sprite LCMIcon { get; private set; }
         [field: SerializeField] public Sprite RCMIcon { get; private set; }
+        [field: SerializeField] public Sprite RotateRight { get; private set; }
+        [field: SerializeField] public Sprite RotateLeft { get; private set; }
     }
 }

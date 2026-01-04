@@ -210,6 +210,14 @@ MonoBehaviour:
     m_Localized: Productos
     m_Metadata:
       m_Items: []
+  - m_Id: 7238313194012672
+    m_Localized: Girar a la derecha
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7239011612737536
+    m_Localized: Girar a la izquierda
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

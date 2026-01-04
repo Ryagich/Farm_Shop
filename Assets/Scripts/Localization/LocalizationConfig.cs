@@ -24,5 +24,7 @@ namespace Localization
         [field: SerializeField] public LocalizedString RKMHelpForChoseUI { get; private set; }
         [field: SerializeField] public LocalizedString HelpForPlaceBuilding { get; private set; }
         [field: SerializeField] public LocalizedString CancelBuilding { get; private set; }
+        [field: SerializeField] public LocalizedString RotateRight { get; private set; }
+        [field: SerializeField] public LocalizedString RotateLeft { get; private set; }
     }
 }

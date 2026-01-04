@@ -27,7 +27,7 @@ MonoBehaviour:
   <Building>k__BackingField: {fileID: 4297344667067523135, guid: e4a1ab2c195766d4faff1e9b28b1b8bf, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 3837425968706085277, guid: 04b968b1d06279546af7541cca7ec4f8, type: 3}
   <Size>k__BackingField: {x: 4, y: 4}
-  <Price>k__BackingField: 100
+  <Price>k__BackingField: 75
   <ShowInShop>k__BackingField: 1
   references:
     version: 2

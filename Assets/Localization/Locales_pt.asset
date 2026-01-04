@@ -210,6 +210,14 @@ MonoBehaviour:
     m_Localized: Produtos
     m_Metadata:
       m_Items: []
+  - m_Id: 7238313194012672
+    m_Localized: "Girar \xE0 direita"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7239011612737536
+    m_Localized: "Girar \xE0 esquerda"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
