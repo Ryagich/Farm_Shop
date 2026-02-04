@@ -30,7 +30,7 @@ namespace Movement
             this.playerMovementConfig = playerMovementConfig;
             this.cam = cam;
             this.playerTransform = playerTransform;
-            this.controller = controller;
+            this.controller = controller;   
 
             playerMoveSubscriber.Subscribe(OnMove);
         }
@@ -53,7 +53,6 @@ namespace Movement
         {
             canMove = newState;
         }
-        
 
         private void OnMove(PlayerMoveMessage msg)
         {
