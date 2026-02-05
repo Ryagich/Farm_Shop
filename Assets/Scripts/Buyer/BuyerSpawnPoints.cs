@@ -46,7 +46,6 @@ namespace Buyer
         private void CreateSpawnPlaces()
         {
             Clear();
-            Debug.Log($"CreateSpawnPlaces {buyerSettings.SpawnPlacesCount}");
             for (var i = 0; i < buyerSettings.SpawnPlacesCount; i++)
             {
                 var place = new GameObject("SpawnPlace");

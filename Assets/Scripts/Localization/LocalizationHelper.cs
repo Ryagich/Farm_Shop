@@ -41,4 +41,20 @@ namespace Localization
             return Cache[localizedString.TableEntryReference.KeyId];
         }
     }
+    
+    public static class LocalizationAwaiter
+    {
+        private static TaskCompletionSource<bool> _tcs;
+
+        public static Task WaitUntilReadyAsync()
+        {
+            _tcs ??= new TaskCompletionSource<bool>();
+            return _tcs.Task;
+        }
+
+        internal static void SignalReady()
+        {
+            _tcs?.TrySetResult(true);
+        }
+    }
 }

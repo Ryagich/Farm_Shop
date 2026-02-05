@@ -65,8 +65,9 @@ namespace Container.Project
             builder.RegisterInstance(LocalizationConfig).AsSelf();
             builder.RegisterInstance(HelpInfoConfig).AsSelf();
             builder.RegisterInstance(SpritesConfig).AsSelf();
-
             builder.RegisterInstance(PopupHolders).AsSelf();
+            
+            builder.RegisterEntryPoint<Bootloader>().AsSelf();
         }
     }
 }

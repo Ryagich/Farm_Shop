@@ -6,7 +6,6 @@ using GameModes;
 using Input;
 using Input.Cursor;
 using Inventory.Finance;
-using Localization;
 using MessagePipe;
 using Messages;
 using Objects;
@@ -72,7 +71,6 @@ namespace Container
             builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
             builder.RegisterMessageBroker<GridExtendMessage>(options);
             builder.RegisterMessageBroker<BuyerIsOverMessage>(options);
-            builder.RegisterMessageBroker<TranslationStateChangedMessage>(options);
             
             // === InputHandler ===
             builder.Register<InputHandler>(Lifetime.Singleton).AsSelf().As<IStartable>();
@@ -92,9 +90,6 @@ namespace Container
             builder.RegisterEntryPoint<ObjectMoverInHisPlace>().AsSelf();
             builder.RegisterEntryPoint<ObjectInfoPopupsController>().AsSelf();
             builder.RegisterEntryPoint<GameModesController>().AsSelf();
-            builder.RegisterEntryPoint<Bootloader>()
-                   .AsSelf()
-                   .As<IStartable>();
             builder.RegisterEntryPoint<Storage.Storage>().AsSelf();
         }
     }

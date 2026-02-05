@@ -1,6 +1,9 @@
-﻿using MessagePipe;
+﻿using Localization;
+using MessagePipe;
 using Messages;
+using Utils;
 using VContainer.Unity;
+using YG;
 
 namespace GameModes
 {
@@ -19,8 +22,7 @@ namespace GameModes
                 IPublisher<GameModeChangedMessage> gameModeChangedPublisher,
                 IPublisher<ChangeCursorStateMessage> changeCursorStatePublisher,
                 ISubscriber<OpenShopWithAreaRequest> OpenShopWithAreaRequestSubscriber,
-                ISubscriber<ChangeGameModeRequest> OpenPageRequestSubscriber,
-                ISubscriber<TranslationStateChangedMessage> TranslationStateChangedMessageSubscriber
+                ISubscriber<ChangeGameModeRequest> OpenPageRequestSubscriber
             )
         {
             this.gameModeChangedPublisher = gameModeChangedPublisher;
@@ -28,19 +30,13 @@ namespace GameModes
 
             OpenShopWithAreaRequestSubscriber.Subscribe(OpenShopWithArea);
             OpenPageRequestSubscriber.Subscribe(OpenPage);
-            TranslationStateChangedMessageSubscriber.Subscribe(OnLocalizationStateChanged);
         }
 
-        //Пока приходит сообщение с одного места только в начале игры, поэтому по его приходу - перехожу к нормальному режиму UI
-        //Когда языки можно будет менять с настроек - потребуется дополнительная обработка
-        private void OnLocalizationStateChanged(TranslationStateChangedMessage msg)
+        public async void Start()
         {
-            isLocalizationReady = msg.IsReady;
+            await YG2Awaiter.WaitForSDKDataAsync();
+            await LocalizationAwaiter.WaitUntilReadyAsync();
             EnterMainGameMode();
-        }
-
-        public void Start()
-        {
             gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode.Game));
         }
 
