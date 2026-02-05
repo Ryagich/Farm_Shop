@@ -931,31 +931,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: Container.Project.ProjectLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
-  <InputConfig>k__BackingField: {fileID: 11400000, guid: 32518178712c11f40aa6611e7b47d0c8, type: 2}
-  <CameraConfig>k__BackingField: {fileID: 11400000, guid: af373cdbed27fdb4d8d6f1c1ebfaeb5f, type: 2}
-  <PlayerMovementConfig>k__BackingField: {fileID: 11400000, guid: aef091b6882435c4590fa5ae20949712, type: 2}
-  <GravityConfig>k__BackingField: {fileID: 11400000, guid: c06890c87f606964f8f09850f7a12a7e, type: 2}
-  <InteractableConfig>k__BackingField: {fileID: 11400000, guid: 77569accf61c3e44fbd8483507c74ab8, type: 2}
-  <InventoryConfig>k__BackingField: {fileID: 11400000, guid: 8cbe1a1b2c1f7834bb7cdb7789da0360, type: 2}
-  <ItemsConfig>k__BackingField: {fileID: 11400000, guid: b1c516956f0b2314baae306d3d412710, type: 2}
-  <FinanceConfig>k__BackingField: {fileID: 11400000, guid: 0e47387c7bb3f294dada2afebdcbecf1, type: 2}
-  <UIConfig>k__BackingField: {fileID: 11400000, guid: 9b7111a544d0433429f71d1e568f998d, type: 2}
-  <GridSettings>k__BackingField: {fileID: 11400000, guid: 8607a5947b1569448b1cf98ae03849fc, type: 2}
-  <HighlightConfig>k__BackingField: {fileID: 11400000, guid: a070b6d863b36544fae3be7352991dcb, type: 2}
-  <PlayerPrefab>k__BackingField: {fileID: 3975499552241471268, guid: bf6c87a6c16e8fc4eb204e159ead47ac, type: 3}
-  <BuyerSettings>k__BackingField: {fileID: 11400000, guid: c713a29fa9fd3b94f8251c725605b95e, type: 2}
-  <HoverSettings>k__BackingField: {fileID: 11400000, guid: 4ba8600ff5992254791b84db30fa8e35, type: 2}
-  <SoundsConfig>k__BackingField: {fileID: 11400000, guid: 5bd0e325e025c1843a8b256b8347f861, type: 2}
-  <GridEnvironmentConfig>k__BackingField: {fileID: 11400000, guid: b6f95a875a0fa77489becdfb03f64dbe, type: 2}
-  <LocalizationConfig>k__BackingField: {fileID: 11400000, guid: 994d76bef27512d4abbd05c6430ef15b, type: 2}
-  <HelpInfoConfig>k__BackingField: {fileID: 11400000, guid: e3a052dc757e9d14fa7c109c14489f2f, type: 2}
-  <SpritesConfig>k__BackingField: {fileID: 11400000, guid: 9fa373c319175174587c5febb6c92548, type: 2}
-  <PopupHolders>k__BackingField: {fileID: 11400000, guid: 92111fa584d33814fabb78f724c18f8f, type: 2}
   <Camera>k__BackingField: {fileID: 963194227}
   <Canvas>k__BackingField: {fileID: 319103531}
+  <PlayerPrefab>k__BackingField: {fileID: 3975499552241471268, guid: bf6c87a6c16e8fc4eb204e159ead47ac, type: 3}
 --- !u!114 &514724671
 MonoBehaviour:
   m_ObjectHideFlags: 0
