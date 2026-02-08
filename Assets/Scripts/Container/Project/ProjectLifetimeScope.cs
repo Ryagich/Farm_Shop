@@ -68,6 +68,7 @@ namespace Container.Project
             builder.RegisterInstance(PopupHolders).AsSelf();
             
             builder.RegisterEntryPoint<Bootloader>().AsSelf();
+            
         }
     }
 }

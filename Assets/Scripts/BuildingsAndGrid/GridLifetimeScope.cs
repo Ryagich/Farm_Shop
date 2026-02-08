@@ -19,9 +19,9 @@ namespace BuildingsAndGrid
                    .As<Transform>()
                    .Keyed("GridRoot"); // <<< добавили
             
-            builder.Register<GridRaycaster>(Lifetime.Scoped);
-            builder.Register<GridExtensionSpawner>(Lifetime.Scoped);
-            builder.Register<BuildingPlacer>(Lifetime.Scoped);
+            builder.Register<GridRaycaster>(Lifetime.Singleton);
+            builder.Register<GridExtensionSpawner>(Lifetime.Singleton);
+            builder.Register<BuildingPlacer>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<DefaultBuildingsCreator>().AsSelf();
             builder.RegisterEntryPoint<VisualGridSeparation>().AsSelf();

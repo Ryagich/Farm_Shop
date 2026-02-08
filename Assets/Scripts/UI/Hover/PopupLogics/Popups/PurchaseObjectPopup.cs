@@ -19,13 +19,11 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly PurchaseObject purchaseObject;
         private readonly LifetimeScope purchase;
         private readonly int cost;
-        private readonly Canvas canvas;
 
         public PurchaseObjectPopup
             (
                 PopupHolders popupHolders,
                 PurchaseObject purchaseObject,
-                Canvas canvas,
                 [Key("Purchase")] LifetimeScope purchase,
                 [Key("Cost")] int cost
             )
@@ -34,10 +32,9 @@ namespace UI.Hover.PopupLogics.Popups
             this.purchaseObject = purchaseObject;
             this.purchase = purchase;
             this.cost = cost;
-            this.canvas = canvas;
         }
             
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.PurchaseObjectHolder, canvas.transform);
             popup.PurchaseObjectName.text = $"Object: {purchase.name}";

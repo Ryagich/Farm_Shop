@@ -167,7 +167,7 @@ namespace UI.Hover.PopupLogics
             {
                 return;
             }
-            currentPopup = currentHover.ObjectPopup.DrawPopup();
+            currentPopup = currentHover.ObjectPopup.DrawPopup(canvas);
             
             UpdatePosition();
         }

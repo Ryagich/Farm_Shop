@@ -6,7 +6,7 @@ namespace UI.Hover.PopupLogics.Popups
     public interface IObjectPopup
     {
         public event Action CloseButton; 
-        public RectTransform DrawPopup();
+        public RectTransform DrawPopup(Canvas canvas);
         public void Redraw();
         public void Subscribe();
     }

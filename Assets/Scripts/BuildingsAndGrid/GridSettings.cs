@@ -12,7 +12,7 @@ namespace BuildingsAndGrid
         [field: SerializeField] public float yOffset { get; private set; } = .01f;
         [field: SerializeField] public Vector2Int EnvironmentAddSizeSize { get; private set; }
         [field: SerializeField] public float ShopPlankSize { get; private set; } = .5f;
-        [field: SerializeField] public ExtensionPointer ExpansionPref { get; private set; }
+        [field: SerializeField] public ExtensionPointerLifetimeScope ExpansionPref { get; private set; }
         [field: SerializeField] public LayerMask ExtensionLayer { get; private set; }
         [field: SerializeField] public GameObject HighlightTile { get; private set; }
         [field: SerializeField] public Material GhostMaterial { get; private set; }

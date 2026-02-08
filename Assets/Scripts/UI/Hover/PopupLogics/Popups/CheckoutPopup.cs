@@ -24,7 +24,6 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly PopupHolders popupHolders;
         private readonly Building building;
         private readonly BuildingInteractableFlag buildingInteractableFlag;
-        private readonly Canvas canvas;
         private readonly ByersQueue byersQueue;
         private readonly BuyersSpawner buyersSpawner;
 
@@ -43,7 +42,6 @@ namespace UI.Hover.PopupLogics.Popups
                 PopupHolders popupHolders,
                 Building building,
                 BuildingInteractableFlag buildingInteractableFlag,
-                Canvas canvas,
                 ByersQueue byersQueue,
                 BuyersSpawner buyersSpawner
             )
@@ -52,7 +50,6 @@ namespace UI.Hover.PopupLogics.Popups
             this.popupHolders = popupHolders;
             this.building = building;
             this.buildingInteractableFlag = buildingInteractableFlag;
-            this.canvas = canvas;
             this.byersQueue = byersQueue;
             this.buyersSpawner = buyersSpawner;
 
@@ -62,7 +59,7 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.CheckoutPopupHolder, canvas.transform);
             popupRect = popup.GetComponent<RectTransform>();

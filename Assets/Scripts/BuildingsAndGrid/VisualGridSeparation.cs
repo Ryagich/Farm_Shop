@@ -17,13 +17,13 @@ namespace BuildingsAndGrid
         private const float LineThickness = 0.03f;
 
         private VisualGridSeparation
-        (
-            GridSettings gridSettings,
-            TilesController tilesController,
-            MeshFilter meshFilter,
-            ISubscriber<GameModeChangedMessage> GameModeChangedSubscriber,
-            ISubscriber<GridExtendMessage> gridExtendSubscriber
-        )
+            (
+                GridSettings gridSettings,
+                TilesController tilesController,
+                MeshFilter meshFilter,
+                ISubscriber<GameModeChangedMessage> GameModeChangedSubscriber,
+                ISubscriber<GridExtendMessage> gridExtendSubscriber
+            )
         {
             this.gridSettings = gridSettings;
             this.meshFilter = meshFilter;
@@ -34,8 +34,7 @@ namespace BuildingsAndGrid
             Draw();
         }
 
-        private void OnGridExtended(GridExtendMessage msg)
-            => Draw();
+        private void OnGridExtended(GridExtendMessage msg) => Draw();
         
         private void OnGameModeChanged(GameModeChangedMessage msg)
             => OnGameModeChanged(msg.GameMode);

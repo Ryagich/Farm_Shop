@@ -11,7 +11,12 @@ namespace BuildingsAndGrid
         private readonly Camera camera;
         private readonly Plane plane = new (Vector3.up, Vector3.zero);
         
-        public GridRaycaster(InputConfig inputConfig, GridSettings gridSettings, Camera camera)
+        public GridRaycaster
+            (
+                InputConfig inputConfig,
+                GridSettings gridSettings,
+                Camera camera
+            )
         {
             this.inputConfig = inputConfig;
             this.gridSettings = gridSettings;

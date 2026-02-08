@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameModes;
+using Localization;
 using MessagePipe;
 using Messages;
 using UnityEngine;
@@ -42,6 +43,7 @@ namespace BuildingsAndGrid.Environment
         
         public void Start()
         { 
+            // await YG2Awaiter.WaitForSDKDataAsync();
             wallsParent = new GameObject("Walls Parent");
             DrawWalls();
             gameModeChangedMessageSubscriber.Subscribe(OnGameModeChanged);

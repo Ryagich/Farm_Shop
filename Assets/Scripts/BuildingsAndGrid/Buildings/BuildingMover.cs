@@ -30,17 +30,20 @@ namespace BuildingsAndGrid.Buildings
 // ===== Превью плитки =====
         private readonly System.Collections.Generic.List<GameObject> previewTiles = new();
 
-        public BuildingMover(GridRaycaster gridRaycaster,
-                             TilesController tilesController, GridSettings gridSettings, Storage.Storage storage,
-                             IObjectResolver resolver,
-                             IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridRequest,
-                             IPublisher<ChangeGameModeRequest> changeGameModePublisher,
-                             ISubscriber<GameModeChangedMessage> gameModeChangedSubscriber,
-                             ISubscriber<ClickMessage> clickSubscriber,
-                             ISubscriber<RightClickMessage> rightClickSubscriber,
-                             ISubscriber<ChoseBuildingMessage> chooseBuildingSubscriber,
-                             ISubscriber<LeftRotateMessage> leftRotateSubscriber,
-                             ISubscriber<RightRotateMessage> rightRotateSubscriber)
+        public BuildingMover
+            (
+                GridRaycaster gridRaycaster,
+                TilesController tilesController, GridSettings gridSettings, Storage.Storage storage,
+                IObjectResolver resolver,
+                IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridRequest,
+                IPublisher<ChangeGameModeRequest> changeGameModePublisher,
+                ISubscriber<GameModeChangedMessage> gameModeChangedSubscriber,
+                ISubscriber<ClickMessage> clickSubscriber,
+                ISubscriber<RightClickMessage> rightClickSubscriber,
+                ISubscriber<ChoseBuildingMessage> chooseBuildingSubscriber,
+                ISubscriber<LeftRotateMessage> leftRotateSubscriber,
+                ISubscriber<RightRotateMessage> rightRotateSubscriber
+            )
         {
             this.gridRaycaster = gridRaycaster;
             this.tilesController = tilesController;

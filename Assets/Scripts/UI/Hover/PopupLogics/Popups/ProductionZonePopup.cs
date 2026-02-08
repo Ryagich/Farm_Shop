@@ -21,25 +21,23 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly MaterialInventoriesController materialInventoriesController;
         private readonly ProductionZoneController productionZoneController;
         private readonly PopupHolders popupHolders;
-        private readonly Canvas canvas;
 
         public ProductionZonePopup
             (
                 ProductConfig productConfig,
                 MaterialInventoriesController materialInventoriesController,
                 ProductionZoneController productionZoneController,
-                PopupHolders popupHolders,
-                Canvas canvas
+                PopupHolders popupHolders
+                
             )
         {
             this.productConfig = productConfig;
             this.materialInventoriesController = materialInventoriesController;
             this.productionZoneController = productionZoneController;
             this.popupHolders = popupHolders;
-            this.canvas = canvas;
         }
 
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.ProductionZoneHolder, canvas.transform);
             var popupRect = popup.GetComponent<RectTransform>();

@@ -4,6 +4,8 @@ using GameModes;
 using MessagePipe;
 using Messages;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace BuildingsAndGrid.Extension
@@ -13,20 +15,24 @@ namespace BuildingsAndGrid.Extension
     {
         private readonly GridSettings gridSettings;
         private readonly TilesController tilesController;
+        private readonly GridLifetimeScope gridLifetimeScope;
 
         private List<ExtensionPointer> extensions = new();
 
         private GridExtensionSpawner
-        (
-            GridSettings gridSettings,
-            TilesController tilesController,
-            ISubscriber<GameModeChangedMessage> gameModeChangeSubscriber
-        )
+            (
+                GridSettings gridSettings,
+                TilesController tilesController,
+                ISubscriber<GameModeChangedMessage> gameModeChangeSubscriber,
+                GridLifetimeScope gridLifetimeScope
+            )
         {
             this.gridSettings = gridSettings;
             this.tilesController = tilesController;
+            this.gridLifetimeScope = gridLifetimeScope;
 
             gameModeChangeSubscriber.Subscribe(OnGameModeChanged);
+            Debug.Log($"GridExtensionSpawner Constructor");
         }
 
         private void OnGameModeChanged(GameModeChangedMessage msg)
@@ -39,7 +45,7 @@ namespace BuildingsAndGrid.Extension
 
         public void ForceRefresh()
         {
-            HideExtensions();
+            // HideExtensions();
             ShowExtensions();
         }
 
@@ -56,13 +62,13 @@ namespace BuildingsAndGrid.Extension
             {
                 var tile = SafeGet(tiles, x, y);
                 if (tile == null) continue;
-
+            
                 bool hasBelow = y - 1 >= tiles.MinY && SafeGet(tiles, x, y - 1) != null;
                 if (!hasBelow)
                     bottomTiles.Add(tile);
             }
             SpawnPointers(bottomTiles, Vector2Int.down);
-
+            
             // ===== TOP edge =====
             var topTiles = new List<Tile>();
             for (var x = tiles.MinX; x < tiles.MaxX; x++)
@@ -70,13 +76,13 @@ namespace BuildingsAndGrid.Extension
             {
                 var tile = SafeGet(tiles, x, y);
                 if (tile == null) continue;
-
+            
                 bool hasAbove = y + 1 < tiles.MaxY && SafeGet(tiles, x, y + 1) != null;
                 if (!hasAbove)
                     topTiles.Add(tile);
             }
             SpawnPointers(topTiles, Vector2Int.up);
-
+            
             // ===== LEFT edge =====
             var leftTiles = new List<Tile>();
             for (var x = tiles.MinX; x < tiles.MaxX; x++)
@@ -84,13 +90,13 @@ namespace BuildingsAndGrid.Extension
             {
                 var tile = SafeGet(tiles, x, y);
                 if (tile == null) continue;
-
+            
                 bool hasLeft = x - 1 >= tiles.MinX && SafeGet(tiles, x - 1, y) != null;
                 if (!hasLeft)
                     leftTiles.Add(tile);
             }
             SpawnPointers(leftTiles, Vector2Int.left);
-
+            
             // ===== RIGHT edge =====
             var rightTiles = new List<Tile>();
             for (var x = tiles.MinX; x < tiles.MaxX; x++)
@@ -98,7 +104,7 @@ namespace BuildingsAndGrid.Extension
             {
                 var tile = SafeGet(tiles, x, y);
                 if (tile == null) continue;
-
+            
                 bool hasRight = x + 1 < tiles.MaxX && SafeGet(tiles, x + 1, y) != null;
                 if (!hasRight)
                     rightTiles.Add(tile);
@@ -122,7 +128,7 @@ namespace BuildingsAndGrid.Extension
                 tiles = tiles.OrderBy(t => t.Index.y).ThenBy(t => t.Index.x).ToList();
             else
                 tiles = tiles.OrderBy(t => t.Index.x).ThenBy(t => t.Index.y).ToList();
-
+            
             // === группируем по непрерывным последовательностям ===
             List<List<Tile>> groups = new();
             List<Tile> group = new() { tiles[0] };
@@ -147,11 +153,13 @@ namespace BuildingsAndGrid.Extension
                 }
             }
             groups.Add(group);
-
+            
             // === создаём ExtensionPointer на группу ===
             foreach (var g in groups)
             {
-                var extension = Object.Instantiate(gridSettings.ExpansionPref);
+                var extension = gridLifetimeScope.CreateChildFromPrefab(gridSettings.ExpansionPref);
+                var extensionPointer = extension.GetComponent<ExtensionPointer>();
+                // var extension = gridLifetimeScope.Instantiate(gridSettings.ExpansionPref);
 
                 var pos = Vector2.zero;
                 foreach (var t in g)
@@ -164,8 +172,8 @@ namespace BuildingsAndGrid.Extension
                     pos.y * gridSettings.TileSize.z
                 );
 
-                extension.SetValues(gridSettings, direction, g, tilesController.Tiles.tiles.Length);
-                extensions.Add(extension);
+                extensionPointer.SetValues(gridSettings, direction, g, tilesController.Tiles.tiles.Length);
+                extensions.Add(extensionPointer);
             }
         }
 

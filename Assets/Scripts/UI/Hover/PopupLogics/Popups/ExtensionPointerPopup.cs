@@ -14,7 +14,6 @@ namespace UI.Hover.PopupLogics.Popups
 
         private readonly PopupHolders popupHolders;
         private readonly ExtensionPointer extensionPointer;
-        private readonly Canvas canvas;
 
         private CompositeDisposable disposables = new();
         private RectTransform popupRect;
@@ -22,16 +21,14 @@ namespace UI.Hover.PopupLogics.Popups
         public ExtensionPointerPopup
             (
                 PopupHolders popupHolders,
-                ExtensionPointer extensionPointer,
-                Canvas canvas
+                ExtensionPointer extensionPointer
             )
         {
             this.popupHolders = popupHolders;
             this.extensionPointer = extensionPointer;
-            this.canvas = canvas;
         }
             
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.ExtensionPointerPopupHolder, canvas.transform);
             popupRect = popup.GetComponent<RectTransform>();

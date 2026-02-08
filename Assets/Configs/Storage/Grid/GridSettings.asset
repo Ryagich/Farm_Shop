@@ -26,7 +26,7 @@ MonoBehaviour:
   <yOffset>k__BackingField: 0.01
   <EnvironmentAddSizeSize>k__BackingField: {x: 70, y: 70}
   <ShopPlankSize>k__BackingField: 5
-  <ExpansionPref>k__BackingField: {fileID: -8389771217377643718, guid: 6b2ee9c1002d17648aa39690ecc12a8c, type: 3}
+  <ExpansionPref>k__BackingField: {fileID: 4484847155784570286, guid: 6b2ee9c1002d17648aa39690ecc12a8c, type: 3}
   <ExtensionLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 4096
@@ -45,5 +45,5 @@ MonoBehaviour:
   <WallForPlayerLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 16384
-  <PriceForNewTile>k__BackingField: 2
+  <PriceForNewTile>k__BackingField: 0
   <PriceForExistingTile>k__BackingField: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BuildingsAndGrid;
 using BuildingsAndGrid.Buildings;
+using Container.Game;
 using MessagePipe;
 using Messages;
 using UniRx;
@@ -16,6 +17,7 @@ namespace Objects
         private readonly GridSettings gridSettings;
         private readonly TilesController tilesController;
         private readonly IObjectResolver resolver;
+        private readonly GameLifetimeScope gameLifetimeScope;
         private readonly IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher;
         private readonly IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher;
         private readonly CompositeDisposable disposables = new();
@@ -23,6 +25,7 @@ namespace Objects
         public ObjectCreator
             (
                 IObjectResolver resolver,
+                GameLifetimeScope gameLifetimeScope,
                 IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher,
                 IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher,
                 ISubscriber<CreatedNewBuildingOnGridRequest> createdNewObjectOnGridSubscriber,
@@ -31,6 +34,7 @@ namespace Objects
             )
         {
             this.resolver = resolver;
+            this.gameLifetimeScope = gameLifetimeScope;
             this.createdNewObjectPublisher = createdNewObjectPublisher;
             this.createdNewObjectOnGridPublisher = createdNewObjectOnGridPublisher;
 
@@ -41,14 +45,16 @@ namespace Objects
 
         private void CreateObject(CreatedNewObjectRequest msg)
         {
-            var objScope = resolver.Instantiate(msg.Scope);
+            // var objScope = resolver.Instantiate(msg.Scope);
+            var objScope = gameLifetimeScope.CreateChildFromPrefab(msg.Scope);
             var objTransform = objScope.gameObject.transform;
             createdNewObjectPublisher.Publish(new CreatedNewObjectMessage(objTransform, msg.Position, msg.Rotation));
         }
 
         private void CreateObjectOnGrid(CreatedNewBuildingOnGridRequest msg)
         {
-            var buildingScope = resolver.Instantiate(msg.BuildingConfig.Building);
+            // var buildingScope = resolver.Instantiate(msg.BuildingConfig.Building);
+            var buildingScope = gameLifetimeScope.CreateChildFromPrefab(msg.BuildingConfig.Building);
             var building = buildingScope.GetComponent<Building>();
             var buildingTransform = building.gameObject.transform;
             building.SetTiles(msg.Tiles);

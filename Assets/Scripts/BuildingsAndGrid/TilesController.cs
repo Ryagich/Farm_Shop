@@ -5,6 +5,7 @@ using GameModes;
 using MessagePipe;
 using Messages;
 using UnityEngine;
+using YG;
 
 namespace BuildingsAndGrid
 {
@@ -24,11 +25,56 @@ namespace BuildingsAndGrid
         {
             this.gridSettings = gridSettings;
             this.gridExtendPublisher = gridExtendPublisher;
-            Tiles = CreateGrid();
+            Tiles = YG2.saves.Tiles == null || YG2.saves.Tiles.GetLength(0) is 0 ? CreateNewGrid() : CreateGrid();
         }
         
         private Tiles CreateGrid()
         {
+            var saved = YG2.saves.Tiles;
+            var savedOffset = YG2.saves.Offset;
+
+            var width  = saved.GetLength(0);
+            var height = saved.GetLength(1);
+
+            Debug.Log($"Create Grid {width}|{height}, Offset={savedOffset}");
+
+            // ВАЖНО: создаём Tiles сразу с offset из сейва
+            var tiles = new Tiles(width, height, savedOffset);
+
+            // идём по REAL координатам массива сохранения
+            for (var realX = 0; realX < width; realX++)
+            for (var realY = 0; realY < height; realY++)
+            {
+                var savedValue = saved[realX, realY];
+
+                if (!TryParseArea(savedValue, out var type))
+                    throw new ArgumentException($"Area '{savedValue}' not exist");
+
+                // перевод в LOGICAL координаты
+                var logicalX = realX - savedOffset.x;
+                var logicalY = realY - savedOffset.y;
+
+                var index = new Vector2Int(logicalX, logicalY);
+
+                // безопасная проверка на занятость
+                if (tiles.TryGetTile(logicalX, logicalY, out var existing) && existing != null)
+                    throw new ArgumentOutOfRangeException($"На этом месте уже есть тайл. {index}");
+
+                tiles.SetTile(logicalX, logicalY, new Tile(index, type));
+            }
+
+            return tiles;
+        }
+
+        
+        private static bool TryParseArea(string value, out Area area)
+        {
+            return Enum.TryParse(value, out area);
+        }
+        
+        private Tiles CreateNewGrid()
+        {
+            Debug.Log($"CreateNewGrid");
             var tiles = GetEmptyTiles();
             var startPosition = gridSettings.Info[0].Position;
 
@@ -42,12 +88,24 @@ namespace BuildingsAndGrid
                     var tile = new Tile(index, info.Type);
 
                     if (tiles.GetTile(tile.Index.x, tile.Index.y) != null)
+                    {
                         throw new ArgumentOutOfRangeException($"На этом месте уже есть тайл. {index}");
-
+                    }
                     tiles.SetTile(tile.Index.x, tile.Index.y, tile);
                 }
             AddInnerWalls(tiles);
             AddWalls(tiles);
+            
+            YG2.saves.Offset = tiles.Offset;
+            YG2.saves.Tiles = new string[tiles.tiles.GetLength(0), tiles.tiles.GetLength(1)];
+
+            for (var x = 0; x < tiles.tiles.GetLength(0); x++)
+            for (var y = 0; y < tiles.tiles.GetLength(1); y++)
+            {
+                YG2.saves.Tiles[x, y] = tiles.tiles[x, y].Type.ToString();
+            }
+
+            YG2.SaveProgress();
 
             return tiles;
         }
@@ -62,17 +120,17 @@ namespace BuildingsAndGrid
                                     new Vector2Int(0, -1)
                                 };
 
-            for (int x = tiles.MinX; x < tiles.MaxX; x++)
+            for (var x = tiles.MinX; x < tiles.MaxX; x++)
             {
-                for (int y = tiles.MinY; y < tiles.MaxY; y++)
+                for (var y = tiles.MinY; y < tiles.MaxY; y++)
                 {
                     if (!tiles.TryGetTile(x, y, out var tile) || tile == null)
                         continue;
 
                     foreach (var dir in dirs)
                     {
-                        int nx = x + dir.x;
-                        int ny = y + dir.y;
+                        var nx = x + dir.x;
+                        var ny = y + dir.y;
 
                         if (!tiles.TryGetTile(nx, ny, out var neighbor))
                             continue;
@@ -123,12 +181,12 @@ namespace BuildingsAndGrid
             tiles.Resize(new Vector2Int(0, 1));
 
             // Строим стеновую рамку по внешнему контуру
-            for (int x = minX - 1; x <= maxX + 1; x++)
+            for (var x = minX - 1; x <= maxX + 1; x++)
             {
-                for (int y = minY - 1; y <= maxY + 1; y++)
+                for (var y = minY - 1; y <= maxY + 1; y++)
                 {
                     // если это граница — ставим стену
-                    bool isBorder =
+                    var isBorder =
                         x == minX - 1 ||
                         x == maxX + 1 ||
                         y == minY - 1 ||
@@ -173,6 +231,17 @@ namespace BuildingsAndGrid
         {
             Tiles.Extend(direction, baseTiles);
             gridExtendPublisher.Publish(new GridExtendMessage());
+
+            YG2.saves.Offset = Tiles.Offset;
+            YG2.saves.Tiles = new string[Tiles.tiles.GetLength(0), Tiles.tiles.GetLength(1)];
+            
+            for (var x = 0; x < Tiles.tiles.GetLength(0); x++)
+            for (var y = 0; y < Tiles.tiles.GetLength(1); y++)
+            {
+                YG2.saves.Tiles[x, y] = Tiles.tiles[x, y].Type.ToString();
+            }
+            
+            YG2.SaveProgress();
         }
     }
 }

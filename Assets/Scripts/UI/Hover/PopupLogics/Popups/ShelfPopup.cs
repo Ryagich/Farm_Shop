@@ -29,7 +29,6 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly ShelfInfoRecorder shelfInfoRecorder;
         private readonly Building building;
         private readonly BuildingInteractableFlag buildingInteractableFlag;
-        private readonly Canvas canvas;
         private readonly int placesCount;
 
         private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;
@@ -49,7 +48,6 @@ namespace UI.Hover.PopupLogics.Popups
                 ShelfInfoRecorder shelfInfoRecorder,
                 Building building,
                 BuildingInteractableFlag buildingInteractableFlag,
-                Canvas canvas,
                 [Key("placesCount")] int placesCount
             )
         {
@@ -60,7 +58,6 @@ namespace UI.Hover.PopupLogics.Popups
             this.shelfInfoRecorder = shelfInfoRecorder;
             this.building = building;
             this.buildingInteractableFlag = buildingInteractableFlag;
-            this.canvas = canvas;
             this.placesCount = placesCount;
             
             choseBuildingMessagePublisher = GlobalMessagePipe.GetPublisher<ChoseBuildingMessage>();
@@ -69,7 +66,7 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
         
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.ShelfPopupHolder, canvas.transform);
             popupRect = popup.GetComponent<RectTransform>();

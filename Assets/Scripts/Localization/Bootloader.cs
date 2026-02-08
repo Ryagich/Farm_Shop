@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Utils;
 using VContainer.Unity;
 using YG;
 using YG.Insides;
@@ -30,9 +28,9 @@ namespace Localization
             YG2.GetLanguage();
             
             Debug.Log($"Configuring language: '{YG2.lang}'");
+            YGInsides.LoadProgress();
             await LocalizationHelper.InvalidateAsync(YG2.lang);
             LocalizationAwaiter.SignalReady();
-            YGInsides.LoadProgress();
         }
     }
 }

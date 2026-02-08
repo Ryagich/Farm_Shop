@@ -1,4 +1,5 @@
-﻿using UI.Pages;
+﻿using UI.Hover.PopupLogics;
+using UI.Pages;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,17 +13,18 @@ namespace UI
         {
             builder.RegisterInstance(Canvas).As<Canvas>();
             
-            builder.Register<MainPage>(Lifetime.Scoped);
+            builder.Register<MainPage>(Lifetime.Singleton);
             // builder.Register<MainPageWithUI>(Lifetime.Scoped);
-            builder.Register<ShopPage>(Lifetime.Scoped);
+            builder.Register<ShopPage>(Lifetime.Singleton);
             // builder.Register<InventoryPage>(Lifetime.Scoped);
-            builder.Register<RedactorPage>(Lifetime.Scoped);
-            builder.Register<UIUtils>(Lifetime.Scoped);
-            builder.Register<HelpInfoDrawer>(Lifetime.Scoped);
+            builder.Register<RedactorPage>(Lifetime.Singleton);
+            builder.Register<UIUtils>(Lifetime.Singleton);
+            builder.Register<HelpInfoDrawer>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<PagesController>();
             builder.RegisterEntryPoint<InventoryPage>().AsSelf();
             builder.RegisterEntryPoint<MainPageWithUI>().AsSelf();
+            builder.RegisterEntryPoint<ObjectInfoPopupsController>().AsSelf();
         }
     }
 }

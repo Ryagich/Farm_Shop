@@ -40,7 +40,7 @@ namespace BuildingsAndGrid.Environment
             createdNewObjectOnGridSubscriber.Subscribe(OnNewObjectCreatedOnGrid);
             gridExtendSubscriber.Subscribe(OnGridExtended);
         }
-
+        
         public void Start()
         { 
             environmentParent = new GameObject("Wall Environment Parent");

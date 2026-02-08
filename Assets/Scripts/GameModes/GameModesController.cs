@@ -15,8 +15,6 @@ namespace GameModes
         private readonly IPublisher<GameModeChangedMessage> gameModeChangedPublisher;
         private readonly IPublisher<ChangeCursorStateMessage> changeCursorStatePublisher;
 
-        private bool isLocalizationReady;
-        
         public GameModesController
             (
                 IPublisher<GameModeChangedMessage> gameModeChangedPublisher,
@@ -32,10 +30,8 @@ namespace GameModes
             OpenPageRequestSubscriber.Subscribe(OpenPage);
         }
 
-        public async void Start()
+        public void Start()
         {
-            await YG2Awaiter.WaitForSDKDataAsync();
-            await LocalizationAwaiter.WaitUntilReadyAsync();
             EnterMainGameMode();
             gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode.Game));
         }
@@ -53,8 +49,6 @@ namespace GameModes
 
         private void OpenPage(ChangeGameModeRequest msg)
         {
-            if (!isLocalizationReady)
-                return;
             if (GameMode == msg.Mode)
             {
                 if (GameMode is GameMode.Game)

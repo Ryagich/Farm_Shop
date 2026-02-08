@@ -25,7 +25,6 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly PopupHolders popupHolders;
         private readonly PlantConfig plantConfig;
         private readonly Building building;
-        private readonly Canvas canvas;
         private readonly PlantGrowerByUpper plantGrowerByUpper;
         private readonly PlantGrowerByStages plantGrowerByStages;
         
@@ -43,7 +42,6 @@ namespace UI.Hover.PopupLogics.Popups
                 PopupHolders popupHolders,
                 PlantConfig plantConfig,
                 Building building,
-                Canvas canvas,
                 [Key(nameof(PlantGrowerByUpper))] PlantGrowerByUpper plantGrowerByUpper,
                 [Key(nameof(PlantGrowerByStages))] PlantGrowerByStages plantGrowerByStages
             )
@@ -52,7 +50,6 @@ namespace UI.Hover.PopupLogics.Popups
             this.popupHolders = popupHolders;
             this.plantConfig = plantConfig;
             this.building = building;
-            this.canvas = canvas;
             this.plantGrowerByUpper = plantGrowerByUpper;
             this.plantGrowerByStages = plantGrowerByStages;
             
@@ -62,7 +59,7 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.LandingPlantIsItemHolder, canvas.transform);
             popupRect = popup.GetComponent<RectTransform>();

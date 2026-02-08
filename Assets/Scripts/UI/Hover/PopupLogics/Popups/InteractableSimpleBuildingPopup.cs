@@ -15,7 +15,6 @@ namespace UI.Hover.PopupLogics.Popups
     // ReSharper disable once ClassNeverInstantiated.Global
     public class InteractableSimpleBuildingPopup : IObjectPopup, IDisposable
     {
-        private readonly Canvas canvas;
         public event Action CloseButton;
 
         private readonly LocalizationConfig localizationConfig;
@@ -36,15 +35,13 @@ namespace UI.Hover.PopupLogics.Popups
                 LocalizationConfig localizationConfig,
                 PopupHolders popupHolders,
                 Building building,
-                BuildingInteractableFlag buildingInteractableFlag,
-                Canvas canvas
+                BuildingInteractableFlag buildingInteractableFlag
             )
         {
             this.localizationConfig = localizationConfig;
             this.popupHolders = popupHolders;
             this.building = building;
             this.buildingInteractableFlag = buildingInteractableFlag;
-            this.canvas = canvas;
         
             choseBuildingMessagePublisher = GlobalMessagePipe.GetPublisher<ChoseBuildingMessage>();
             deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
@@ -52,7 +49,7 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.InteractableSimpleBuildingHolder, canvas.transform);
             popupRect = popup.GetComponent<RectTransform>();

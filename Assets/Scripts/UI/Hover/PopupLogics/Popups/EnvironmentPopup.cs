@@ -17,7 +17,6 @@ namespace UI.Hover.PopupLogics.Popups
 
         private readonly PopupHolders popupHolders;
         private readonly Building building;
-        private readonly Canvas canvas;
 
         private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
@@ -30,13 +29,11 @@ namespace UI.Hover.PopupLogics.Popups
         public EnvironmentPopup
             (
                 PopupHolders popupHolders,
-                Building building,
-                Canvas canvas
+                Building building
             )
         {
             this.popupHolders = popupHolders;
             this.building = building;
-            this.canvas = canvas;
             
             choseBuildingMessagePublisher = GlobalMessagePipe.GetPublisher<ChoseBuildingMessage>();
             deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
@@ -44,7 +41,7 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
         
-        public RectTransform DrawPopup()
+        public RectTransform DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.EnvironmentHolder, canvas.transform);
             popupRect = popup.GetComponent<RectTransform>();

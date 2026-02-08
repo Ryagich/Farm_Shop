@@ -11,22 +11,28 @@ namespace BuildingsAndGrid
     public class Tiles
     {
         public Tile[,] tiles { get; private set; }
-        private Vector2Int offset = Vector2Int.zero;
+        public Vector2Int Offset { get; private set; } = Vector2Int.zero;
 
-        public int MaxX => tiles.GetLength(0) - offset.x;
-        public int MaxY => tiles.GetLength(1) - offset.y;
-        public int MinX => -offset.x;
-        public int MinY => -offset.y;
+        public int MaxX => tiles.GetLength(0) - Offset.x;
+        public int MaxY => tiles.GetLength(1) - Offset.y;
+        public int MinX => -Offset.x;
+        public int MinY => -Offset.y;
 
         public Tiles(int width, int height)
         {
             tiles = new Tile[width, height];
         }
-
+        
+        public Tiles(int width, int height, Vector2Int offset)
+        {
+            tiles = new Tile[width, height];
+            Offset = offset;
+        }
+        
         public Tile GetTile(int x, int y)
         {
-            var realX = x + offset.x;
-            var realY = y + offset.y;
+            var realX = x + Offset.x;
+            var realY = y + Offset.y;
 
             if (realX < 0 || realX >= tiles.GetLength(0)
                           || realY < 0 || realY >= tiles.GetLength(1))
@@ -39,8 +45,8 @@ namespace BuildingsAndGrid
         
         public bool TryGetTile(int x, int y, out Tile tile)
         {
-            var realX = x + offset.x;
-            var realY = y + offset.y;
+            var realX = x + Offset.x;
+            var realY = y + Offset.y;
 
             if (realX < 0 || realX >= tiles.GetLength(0)
              || realY < 0 || realY >= tiles.GetLength(1))
@@ -54,8 +60,8 @@ namespace BuildingsAndGrid
         
         public void SetTile(int x, int y, Tile tile)
         {
-            var realX = x + offset.x;
-            var realY = y + offset.y;
+            var realX = x + Offset.x;
+            var realY = y + Offset.y;
 
             if (realX < 0 || realX >= tiles.GetLength(0)
                           || realY < 0 || realY >= tiles.GetLength(1))
@@ -66,12 +72,12 @@ namespace BuildingsAndGrid
 
         public void Resize(Vector2Int direction)
         {
-            var newOffset = offset;
+            var newOffset = Offset;
 
             if (direction.x < 0)
-                newOffset = offset.WithXInt(offset.x + 1);
+                newOffset = Offset.WithXInt(Offset.x + 1);
             if (direction.y < 0)
-                newOffset = offset.WithYInt(offset.y + 1);
+                newOffset = Offset.WithYInt(Offset.y + 1);
 
             var newTiles = new Tile[tiles.GetLength(0) + Mathf.Abs(direction.x),
                 tiles.GetLength(1) + Mathf.Abs(direction.y)];
@@ -79,9 +85,9 @@ namespace BuildingsAndGrid
             for (var x = 0; x < tiles.GetLength(0); x++)
             for (var y = 0; y < tiles.GetLength(1); y++)
             {
-                newTiles[x - offset.x + newOffset.x, y - offset.y + newOffset.y] = tiles[x, y];
+                newTiles[x - Offset.x + newOffset.x, y - Offset.y + newOffset.y] = tiles[x, y];
             }
-            offset = newOffset;
+            Offset = newOffset;
             tiles = newTiles;
         }
         
