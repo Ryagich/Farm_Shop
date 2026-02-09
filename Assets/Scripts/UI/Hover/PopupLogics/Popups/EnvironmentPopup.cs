@@ -47,7 +47,7 @@ namespace UI.Hover.PopupLogics.Popups
             popupRect = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
 
-            popup.ButtonMove.onClick.AddListener(OnMove);
+            popup.ButtonMove.onClick.AddListener(Move);
             
             return popupRect;
         }
@@ -55,16 +55,17 @@ namespace UI.Hover.PopupLogics.Popups
         public void Redraw() { }
         public void Subscribe() { }
 
-        private void OnMove()
+        private void Move()
         {
-            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
-            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false));
+            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, false));
             choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
                                                                            building.BuildingConfig,
                                                                            building.transform.position,
                                                                            building.Content.localPosition,
                                                                            building.Content.rotation,
                                                                            building.Tiles,
+                                                                           building.Cell,
                                                                            true
                                                                            ));
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));

@@ -51,15 +51,16 @@ namespace Objects
                                     : new Vector3(lc.z, .0f, lc.x);
             var tilesForBuilding = tilesController.Tiles.GetTilesAround(new Vector2Int(px, py), size);
 
-            createdNewBuildingOnGridPublisher.Publish(
-                                                      new CreatedNewBuildingOnGridRequest(
+            createdNewBuildingOnGridPublisher.Publish(new CreatedNewBuildingOnGridRequest
+                                                          (
                                                            config,
                                                            new Vector3(px * gridSettings.TileSize.x,
                                                                        0,
                                                                        py * gridSettings.TileSize.z),
                                                            localPosition,
                                                            rotation,
-                                                           tilesForBuilding
+                                                           tilesForBuilding,
+                                                           new Vector2Int(px, py)
                                                           ));
             return true;
         }

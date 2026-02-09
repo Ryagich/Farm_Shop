@@ -45,5 +45,5 @@ MonoBehaviour:
   <WallForPlayerLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 16384
-  <PriceForNewTile>k__BackingField: 0
-  <PriceForExistingTile>k__BackingField: 0
+  <PriceForNewTile>k__BackingField: 2
+  <PriceForExistingTile>k__BackingField: 0.05

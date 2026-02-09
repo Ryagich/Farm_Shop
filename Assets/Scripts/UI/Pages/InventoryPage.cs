@@ -147,9 +147,9 @@ namespace UI.Pages
 
                 card.Button.onClick.AddListener(() =>
                                                     choseBuildingPublisher
-                                                       .Publish(new
-                                                                    ChoseBuildingMessage(buildings[i1].BuildingConfig,
-                                                                         default, default, default, null)));
+                                                       .Publish(new ChoseBuildingMessage
+                                                                    (buildings[i1].BuildingConfig,
+                                                                         default, default, default, null, default)));
                 card.Button.onClick.AddListener(() =>
                                                     changeGameModeRequestPublisher
                                                        .Publish(new ChangeGameModeRequest(GameMode.Redactor)));

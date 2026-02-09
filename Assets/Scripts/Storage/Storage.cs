@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using MessagePipe;
@@ -7,6 +8,7 @@ using Messages;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using VContainer.Unity;
+using YG;
 
 namespace Storage
 {
@@ -24,6 +26,11 @@ namespace Storage
             addBuildingToStorageRequest.Subscribe(Add);
         }
 
+        public BuildingConfig GetBuildingConfigById(string id)
+        {
+            return buildingsById[id].BuildingConfig;
+        }
+        
         public BuildingInStorage Get(BuildingConfig buildingConfig)
         {
             if (buildingConfig == null)
@@ -54,6 +61,14 @@ namespace Storage
             }
 
             buildingInStorage.Count++;
+            
+            if (msg.NeedRemoveFromSave)
+            {
+                var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                                               .First(s => s.Id.Equals(buildingInStorage.BuildingConfig.Id));
+                buildingInStorageSave.Count = buildingInStorage.Count;
+                YG2.SaveProgress();
+            }
         }
 
         public IEnumerable<BuildingInStorage> GetBuildings(Area area)
@@ -70,6 +85,8 @@ namespace Storage
                 Buildings.Clear();
                 buildingsById.Clear();
 
+                YG2.saves.BuildingInStorageSave ??= new List<BuildingInStorageSave>();
+                
                 foreach (var config in configs)
                 {
                     if (string.IsNullOrEmpty(config.Id))
@@ -87,10 +104,23 @@ namespace Storage
                     var entry = new BuildingInStorage(config);
                     Buildings.Add(entry);
                     buildingsById.Add(config.Id, entry);
-                }
 
+                    var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                                                   .FirstOrDefault(s => s.Id.Equals(entry.BuildingConfig.Id));
+                    if (buildingInStorageSave != null)
+                    {
+                        entry.Count = buildingInStorageSave.Count;
+                    }
+                    else
+                    {
+                        YG2.saves.BuildingInStorageSave.Add(new BuildingInStorageSave(entry.BuildingConfig.Id, 0));
+                    }
+                }
+                
                 Buildings.Sort((a, b) =>
                     a.BuildingConfig.Price.CompareTo(b.BuildingConfig.Price));
+                
+                StorageAwaiter.SignalReady();
             });
         }
 

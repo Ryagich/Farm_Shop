@@ -20,6 +20,7 @@ namespace Objects
         private readonly GameLifetimeScope gameLifetimeScope;
         private readonly IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher;
         private readonly IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher;
+        private readonly IPublisher<DeleteBuildingOnGridMessage> deleteBuildingOnGridMessagePublisher;
         private readonly CompositeDisposable disposables = new();
 
         public ObjectCreator
@@ -28,6 +29,7 @@ namespace Objects
                 GameLifetimeScope gameLifetimeScope,
                 IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher,
                 IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher,
+                IPublisher<DeleteBuildingOnGridMessage> deleteBuildingOnGridMessagePublisher,
                 ISubscriber<CreatedNewBuildingOnGridRequest> createdNewObjectOnGridSubscriber,
                 ISubscriber<CreatedNewObjectRequest> playerMadePurchaseSubscriber,
                 ISubscriber<DeleteBuildingOnGridRequest> deleteBuildingOnGridRequest
@@ -37,6 +39,7 @@ namespace Objects
             this.gameLifetimeScope = gameLifetimeScope;
             this.createdNewObjectPublisher = createdNewObjectPublisher;
             this.createdNewObjectOnGridPublisher = createdNewObjectOnGridPublisher;
+            this.deleteBuildingOnGridMessagePublisher = deleteBuildingOnGridMessagePublisher;
 
             playerMadePurchaseSubscriber.Subscribe(CreateObject).AddTo(disposables);
             createdNewObjectOnGridSubscriber.Subscribe(CreateObjectOnGrid).AddTo(disposables);
@@ -58,6 +61,7 @@ namespace Objects
             var building = buildingScope.GetComponent<Building>();
             var buildingTransform = building.gameObject.transform;
             building.SetTiles(msg.Tiles);
+            building.Cell = msg.Cell;
             building.SetContentRotation(msg.Rotation);
             building.BuildingConfig = msg.BuildingConfig;
             if (msg.LocalPosition != default)
@@ -71,7 +75,9 @@ namespace Objects
             createdNewObjectOnGridPublisher.Publish(new CreatedNewObjectOnGridMessage(building, 
                                                                                       buildingTransform, 
                                                                                       msg.Position, 
-                                                                                      msg.Rotation));
+                                                                                      msg.Rotation,
+                                                                                      msg.Cell
+                                                                                      ));
         }
 
         private void DeleteBuilding(DeleteBuildingOnGridRequest msg)
@@ -80,6 +86,8 @@ namespace Objects
             {
                 tile.SetBuilding(null);
             }
+            if (msg.NeedRemoveFromSave)
+                deleteBuildingOnGridMessagePublisher.Publish(new DeleteBuildingOnGridMessage(msg.Building.BuildingConfig.Id, msg.Building.Cell));
             Object.Destroy(msg.Building.gameObject);
         }
         

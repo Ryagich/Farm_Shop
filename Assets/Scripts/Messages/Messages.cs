@@ -41,14 +41,16 @@ namespace Messages
         public readonly Vector3 LocalPosition;
         public readonly Quaternion Rotation;
         public readonly List<Tile> Tiles;
-        
+        public readonly Vector2Int Cell;
+
         public CreatedNewBuildingOnGridRequest
             (
                 BuildingConfig buildingConfig,
                 Vector3 position,
                 Vector3 localPosition,
                 Quaternion rotation,
-                List<Tile> tiles
+                List<Tile> tiles,
+                Vector2Int cell
             )
         {
             BuildingConfig = buildingConfig;
@@ -56,26 +58,68 @@ namespace Messages
             LocalPosition = localPosition;
             Rotation = rotation;
             Tiles = tiles;
+            Cell = cell;
         }
     }
 
+    public readonly struct CreatedNewObjectOnGridMessage
+    {
+        public readonly Building Building;
+        public readonly Transform Transform;
+        public readonly Vector3 Position;
+        public readonly Quaternion Rotation;
+        public readonly Vector2Int Cell;
+
+        public CreatedNewObjectOnGridMessage
+            (
+                Building building,
+                Transform transform,
+                Vector3 position,
+                Quaternion rotation,
+                Vector2Int cell
+            )
+        {
+            Building = building;
+            Transform = transform;
+            Position = position;
+            Rotation = rotation;
+            Cell = cell;
+        }
+    }
+    
     public readonly struct DeleteBuildingOnGridRequest
     {
         public readonly Building Building;
+        public readonly bool NeedRemoveFromSave;
         
-        public DeleteBuildingOnGridRequest(Building building)
+        public DeleteBuildingOnGridRequest(Building building, bool needRemoveFromSave)
         {
             Building = building;
+            NeedRemoveFromSave = needRemoveFromSave;
+        }
+    }
+    
+    public readonly struct DeleteBuildingOnGridMessage
+    {
+        public readonly string ID;
+        public readonly Vector2Int Cell;
+        
+        public DeleteBuildingOnGridMessage(string id, Vector2Int cell)
+        {
+            ID = id;
+            Cell = cell;
         }
     }
     
     public readonly struct AddBuildingToStorageRequest
     {
         public readonly BuildingConfig BuildingConfig;
-        
-        public AddBuildingToStorageRequest(BuildingConfig buildingConfig)
+        public readonly bool NeedRemoveFromSave;
+
+        public AddBuildingToStorageRequest(BuildingConfig buildingConfig, bool needRemoveFromSave)
         {
             BuildingConfig = buildingConfig;
+            NeedRemoveFromSave = needRemoveFromSave;
         }
     }
     
@@ -119,28 +163,6 @@ namespace Messages
         public ObjectInHisPlaceMessage(Transform transform)
         {
             Transform = transform;
-        }
-    }
-    
-    public readonly struct CreatedNewObjectOnGridMessage
-    {
-        public readonly Building Building;
-        public readonly Transform Transform;
-        public readonly Vector3 Position;
-        public readonly Quaternion Rotation;
-
-        public CreatedNewObjectOnGridMessage
-            (
-                Building building,
-                Transform transform,
-                Vector3 position,
-                Quaternion rotation
-            )
-        {
-            Building = building;
-            Transform = transform;
-            Position = position;
-            Rotation = rotation;
         }
     }
 
@@ -229,7 +251,6 @@ namespace Messages
             Inventory = inventory;
         }
     }
-
     
     public readonly struct BuyerIsOverMessage
     {

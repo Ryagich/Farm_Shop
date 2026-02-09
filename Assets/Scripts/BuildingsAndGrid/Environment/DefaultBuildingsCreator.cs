@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using MessagePipe;
 using Messages;
 using Objects;
+using Storage;
 using UnityEngine;
 using VContainer.Unity;
+using YG;
 
 namespace BuildingsAndGrid.Environment
 {
@@ -13,80 +16,155 @@ namespace BuildingsAndGrid.Environment
     public class DefaultBuildingsCreator : IStartable
     {
         private readonly GridEnvironmentConfig gridEnvConfig;
+        private readonly GridSettings gridSettings;
+        private readonly TilesController tilesController;
         private readonly BuildingPlacer buildingPlacer;
-       
+        private readonly Storage.Storage storage;
+        private readonly IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher;
+
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         
         private readonly ISubscriber<GameModeChangedMessage> gameModeChangedMessageSubscriber;
         
         private GameObject environmentParent;
         private bool lastModeIsRedactor;
-        private List<Building> buildings = new();
+        private readonly List<Building> wallBuildings = new();
 
         public DefaultBuildingsCreator
             (
                 GridEnvironmentConfig gridEnvConfig,
+                GridSettings gridSettings,
+                TilesController tilesController,
                 BuildingPlacer buildingPlacer,
+                Storage.Storage storage,
+                IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher,
                 ISubscriber<GridExtendMessage> gridExtendSubscriber,
                 ISubscriber<CreatedNewObjectOnGridMessage> createdNewObjectOnGridSubscriber,
-                ISubscriber<GameModeChangedMessage> gameModeChangedMessageSubscriber
+                ISubscriber<GameModeChangedMessage> gameModeChangedMessageSubscriber,
+                ISubscriber<DeleteBuildingOnGridMessage> deleteBuildingOnGridMessageSubscriber
             )
         {
             this.gridEnvConfig = gridEnvConfig;
+            this.gridSettings = gridSettings;
+            this.tilesController = tilesController;
             this.buildingPlacer = buildingPlacer;
+            this.storage = storage;
+            this.createdNewBuildingOnGridPublisher = createdNewBuildingOnGridPublisher;
             this.gameModeChangedMessageSubscriber = gameModeChangedMessageSubscriber;
             deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
 
             createdNewObjectOnGridSubscriber.Subscribe(OnNewObjectCreatedOnGrid);
             gridExtendSubscriber.Subscribe(OnGridExtended);
+            deleteBuildingOnGridMessageSubscriber.Subscribe(OnObjectDelete);
         }
         
-        public void Start()
+        public async void Start()
         { 
+            await StorageAwaiter.WaitReadyAsync();
+            
             environmentParent = new GameObject("Wall Environment Parent");
-            CreateDefaultBuildings();
-            CreateEnvironment();
+            
+            if (YG2.saves.BuildingSaves is null || YG2.saves.BuildingSaves.Count is 0)
+            {
+                CreateDefaultBuildings();
+                CreateEnvironment();
+            }
+            else
+            {
+                CreateSavedBuildings();
+            }
+            
             gameModeChangedMessageSubscriber.Subscribe(OnGameModeChanged);
         }
         
         private void OnGameModeChanged(GameModeChangedMessage msg)
         {
-            if (msg.GameMode == GameMode.Redactor)
+            // if (msg.GameMode == GameMode.Redactor)
+            // {
+            //     lastModeIsRedactor = true;
+            // }
+            // else if (lastModeIsRedactor)
+            // {
+            //     lastModeIsRedactor = false;
+            // }
+        }
+
+        private void CreateSavedBuildings()
+        {
+            Debug.Log($"CreateSavedBuildings | buildings in saves {YG2.saves.BuildingSaves.Count}");
+
+            foreach (var buildingSave in YG2.saves.BuildingSaves)
             {
-                lastModeIsRedactor = true;
-            }
-            else if (lastModeIsRedactor)
-            {
-                //Какой-то непонятный/неприятный баг.Долго не могу пофиксить.
-                //Костыль. При смене режимов, переустанавливаю двери.
-                ClearBuildings();
-                CreateEnvironment();
-                lastModeIsRedactor = false;
+                var buildingConfig = storage.GetBuildingConfigById(buildingSave.Id);
+                var rotation = Quaternion.Euler(buildingSave.RotX, buildingSave.RotY, buildingSave.RotZ);
+                var lc = buildingConfig.HighlightBuilding.Content.localPosition;
+                var localPosition = rotation.Equals(Quaternion.Euler(.0f, .0f, .0f)) ||
+                                    rotation.Equals(Quaternion.Euler(.0f, 180.0f, .0f))
+                                        ? lc
+                                        : new Vector3(lc.z, .0f, lc.x);
+                var currentSize = rotation.Equals(Quaternion.Euler(.0f, .0f, .0f)) ||
+                                  rotation.Equals(Quaternion.Euler(.0f, 180.0f, .0f))
+                                      ? buildingConfig.Size
+                                      : new Vector2Int(buildingConfig.Size.y, buildingConfig.Size.x);
+                var tiles = tilesController.Tiles.GetTilesAround(buildingSave.Cell, currentSize);
+                
+                createdNewBuildingOnGridPublisher.Publish(new CreatedNewBuildingOnGridRequest
+                                                              (
+                                                               buildingConfig,
+                                                               new Vector3(buildingSave.Cell.x * gridSettings.TileSize.x,
+                                                                           0,
+                                                                           buildingSave.Cell.y * gridSettings.TileSize.z),
+                                                               localPosition,
+                                                               rotation,
+                                                               tiles,
+                                                               new Vector2Int(buildingSave.Cell.x, buildingSave.Cell.y)
+                                                              ));
             }
         }
         
         private void OnNewObjectCreatedOnGrid(CreatedNewObjectOnGridMessage msg)
         {
+            if (YG2.saves.BuildingSaves.FirstOrDefault(s => s.Id.Equals(msg.Building.BuildingConfig.Id) &&
+                                                            s.Cell.Equals(msg.Cell)) is null)
+            {
+                YG2.saves.BuildingSaves.Add(new BuildingSave(msg.Building.BuildingConfig.Id, msg.Cell, msg.Rotation));
+                YG2.SaveProgress();
+            }
+            
             if (msg.Building.BuildingConfig.Type is Area.Wall)
             {
                 msg.Transform.SetParent(environmentParent.transform);
-                buildings.Add(msg.Building);
+                wallBuildings.Add(msg.Building);
+            }
+        }
+
+        private void OnObjectDelete(DeleteBuildingOnGridMessage msg)
+        {
+            var save = YG2.saves.BuildingSaves.FirstOrDefault(s => s.Id.Equals(msg.ID) && s.Cell.Equals(msg.Cell));
+            if (save is null)
+            {
+                Debug.Log($"Удалилась постройка, не записаная в сохранениях | wtf");
+            }
+            else
+            {
+                YG2.saves.BuildingSaves.Remove(save);
+                YG2.SaveProgress();
             }
         }
         
-        private void ClearBuildings()
+        private void ClearWallBuildings()
         {
-            foreach (var building in buildings)
+            foreach (var building in wallBuildings)
             {
                 if (building)
-                    deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
+                    deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true));
             }
-            buildings.Clear();
+            wallBuildings.Clear();
         }
         
         private void OnGridExtended(GridExtendMessage msg)
         {
-            ClearBuildings();
+            ClearWallBuildings();
             CreateEnvironment();
         }
         

@@ -46,9 +46,10 @@ namespace Container.Game
                 builder.RegisterMessageBroker<PlayerMoveMessage>(options);
                 builder.RegisterMessageBroker<CreatedNewObjectRequest>(options);
                 builder.RegisterMessageBroker<CreatedNewBuildingOnGridRequest>(options);
-                builder.RegisterMessageBroker<DeleteBuildingOnGridRequest>(options);
                 builder.RegisterMessageBroker<CreatedNewObjectMessage>(options);
                 builder.RegisterMessageBroker<CreatedNewObjectOnGridMessage>(options);
+                builder.RegisterMessageBroker<DeleteBuildingOnGridRequest>(options);
+                builder.RegisterMessageBroker<DeleteBuildingOnGridMessage>(options);
                 builder.RegisterMessageBroker<NewShelfCreatedMessage>(options);
                 builder.RegisterMessageBroker<ShelfDeletedMessage>(options);
                 builder.RegisterMessageBroker<PlaySoundMessage>(options);

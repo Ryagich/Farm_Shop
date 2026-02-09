@@ -79,14 +79,15 @@ namespace UI.Hover.PopupLogics.Popups
 
         private void Move()
         {
-            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building));
-            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig));
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false));
+            addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, false));
             choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
                                                                            building.BuildingConfig,
                                                                            building.transform.position,
                                                                            building.Content.localPosition,
                                                                            building.Content.rotation,
                                                                            building.Tiles,
+                                                                           building.Cell,
                                                                            true
                                                                           ));
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));

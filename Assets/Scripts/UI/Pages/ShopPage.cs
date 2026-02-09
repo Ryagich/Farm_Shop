@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using Utils;
 using VContainer;
 using VContainer.Unity;
+using YG;
 
 namespace UI.Pages
 {
@@ -117,6 +118,10 @@ namespace UI.Pages
             if (financeManager.TryChangeValue(-buildingInStorage.BuildingConfig.Price))
             {
                 buildingInStorage.Count++;
+                var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                                               .First(b => b.Id.Equals(buildingInStorage.BuildingConfig.Id));
+                buildingInStorageSave.Count = buildingInStorage.Count;
+                YG2.SaveProgress();
                 ReDraw();
             }
         }

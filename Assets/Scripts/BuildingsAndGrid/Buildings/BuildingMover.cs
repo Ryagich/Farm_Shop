@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using GameModes;
 using MessagePipe;
 using Messages;
@@ -6,11 +7,12 @@ using Storage;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using YG;
 using Object = UnityEngine.Object;
 
 namespace BuildingsAndGrid.Buildings
 {
-// ReSharper disable once ClassNeverInstantiated.Global
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class BuildingMover : ITickable
     {
         private readonly GridRaycaster gridRaycaster;
@@ -27,13 +29,15 @@ namespace BuildingsAndGrid.Buildings
 
         private Vector2Int currentSize;
 
-// ===== Превью плитки =====
+        // ===== Превью плитки =====
         private readonly System.Collections.Generic.List<GameObject> previewTiles = new();
 
         public BuildingMover
             (
                 GridRaycaster gridRaycaster,
-                TilesController tilesController, GridSettings gridSettings, Storage.Storage storage,
+                TilesController tilesController,
+                GridSettings gridSettings,
+                Storage.Storage storage,
                 IObjectResolver resolver,
                 IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridRequest,
                 IPublisher<ChangeGameModeRequest> changeGameModePublisher,
@@ -94,18 +98,29 @@ namespace BuildingsAndGrid.Buildings
             {
                 return;
             }
-            
+            Debug.Log($"currentCell {currentCell}");
             var cell = currentCell;
             if (tilesController.CanPlace(cell, currentSize, buildingConfig.Type))
             {
                 var tiles = tilesController.Tiles.GetTilesAround(cell, currentSize);
                 var highlightBuildingTransform = highlightBuilding.transform;
-                createdNewBuildingOnGridRequest.Publish(new CreatedNewBuildingOnGridRequest(buildingConfig,
-                                                         highlightBuildingTransform.position,
-                                                         highlightBuilding.Content.localPosition,
-                                                         highlightBuilding.GetContentRotation(), tiles));
+                createdNewBuildingOnGridRequest.Publish(new CreatedNewBuildingOnGridRequest
+                                                            (
+                                                             buildingConfig,
+                                                             highlightBuildingTransform.position,
+                                                             highlightBuilding.Content.localPosition,
+                                                             highlightBuilding.GetContentRotation(),
+                                                             tiles,
+                                                             cell
+                                                            ));
                 highlightBuilding.HaveLastPosition = false;
                 buildingInStorage.Count--;
+                
+                var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                                               .First(b => b.Id.Equals(buildingInStorage.BuildingConfig.Id));
+                buildingInStorageSave.Count = buildingInStorage.Count;
+                YG2.SaveProgress();
+                
                 if (buildingInStorage.Count < 1)
                 {
                     HideHighlight();
@@ -128,11 +143,15 @@ namespace BuildingsAndGrid.Buildings
         {
             if (highlightBuilding && highlightBuilding.HaveLastPosition)
             {
-                createdNewBuildingOnGridRequest.Publish(new CreatedNewBuildingOnGridRequest(buildingConfig,
-                                                         highlightBuilding.LastPosition,
-                                                         highlightBuilding.LastLocalPosition,
-                                                         highlightBuilding.LastRotation,
-                                                         highlightBuilding.LastTiles));
+                createdNewBuildingOnGridRequest.Publish(new CreatedNewBuildingOnGridRequest
+                                                            (
+                                                             buildingConfig,
+                                                             highlightBuilding.LastPosition,
+                                                             highlightBuilding.LastLocalPosition,
+                                                             highlightBuilding.LastRotation,
+                                                             highlightBuilding.LastTiles,
+                                                             highlightBuilding.LastCell
+                                                            ));
                 buildingInStorage.Count--;
             }
             HideHighlight();
@@ -151,6 +170,7 @@ namespace BuildingsAndGrid.Buildings
                 highlightBuilding.LastLocalPosition = msg.LastLocalPosition;
                 highlightBuilding.LastRotation = msg.LastRotation;
                 highlightBuilding.LastTiles = msg.LastTiles;
+                highlightBuilding.LastCell = msg.LastCell;
                 highlightBuilding.HaveLastPosition = true;
             }
         }

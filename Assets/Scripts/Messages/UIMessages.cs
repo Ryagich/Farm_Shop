@@ -13,6 +13,7 @@ namespace Messages
         public readonly Vector3 LastLocalPosition;
         public readonly Quaternion LastRotation;
         public readonly List<Tile> LastTiles;
+        public readonly Vector2Int LastCell;
         public readonly bool HaveLastPosition;
         
         public ChoseBuildingMessage
@@ -22,6 +23,7 @@ namespace Messages
                 Vector3 lastLocalPosition,
                 Quaternion lastRotation,
                 List<Tile> lastTiles,
+                Vector2Int lastCell,
                 bool haveLastPosition = false
             )
         {
@@ -30,6 +32,7 @@ namespace Messages
             LastLocalPosition = lastLocalPosition;
             LastRotation = lastRotation;
             LastTiles = lastTiles;
+            LastCell = lastCell;
             HaveLastPosition = haveLastPosition;
         }
     }

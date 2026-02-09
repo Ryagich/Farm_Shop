@@ -11,6 +11,7 @@ namespace BuildingsAndGrid.Buildings
         [field: SerializeField] public Vector3 LastPosition;
         [field: SerializeField] public Vector3 LastLocalPosition;
         [field: SerializeField] public Quaternion LastRotation;
+        [field: SerializeField] public Vector2Int LastCell;
         public List<Tile> LastTiles = new();
         
         public void RotateLeft()
@@ -28,8 +29,6 @@ namespace BuildingsAndGrid.Buildings
         }
         
         public Quaternion GetContentRotation() => Content.rotation;
-        
-        
         
         public void SetMaterial(Material material)
         {
