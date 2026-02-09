@@ -30,9 +30,8 @@ MonoBehaviour:
     - {fileID: 8300000, guid: e3e8566fd62253c43b818bd01b4a32a4, type: 3}
     - {fileID: 8300000, guid: 5bc1c75f2bbfc3145b48351fb425b711, type: 3}
     priority: 128
-    volume: 0.3
+    volume: {x: 0.45, y: 0.55}
     pitch: {x: 0.9, y: 1.1}
-    spatialBlend: 1
     reverbZoneMix: 1
     MinDistance: 0
     MaxDistance: 2
