@@ -113,7 +113,7 @@ namespace Storage
                     }
                     else
                     {
-                        YG2.saves.BuildingInStorageSave.Add(new BuildingInStorageSave(entry.BuildingConfig.Id, 0));
+                        YG2.saves.BuildingInStorageSave.Add(new BuildingInStorageSave(entry.BuildingConfig.Id, entry.Count));
                     }
                 }
                 

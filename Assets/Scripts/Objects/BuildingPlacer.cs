@@ -60,6 +60,7 @@ namespace Objects
                                                            localPosition,
                                                            rotation,
                                                            tilesForBuilding,
+                                                           new Vector2Int(px, py),
                                                            new Vector2Int(px, py)
                                                           ));
             return true;

@@ -111,7 +111,8 @@ namespace BuildingsAndGrid.Buildings
                                                              highlightBuilding.Content.localPosition,
                                                              highlightBuilding.GetContentRotation(),
                                                              tiles,
-                                                             cell
+                                                             cell,
+                                                             highlightBuilding.LastCell
                                                             ));
                 highlightBuilding.HaveLastPosition = false;
                 buildingInStorage.Count--;
@@ -150,6 +151,7 @@ namespace BuildingsAndGrid.Buildings
                                                              highlightBuilding.LastLocalPosition,
                                                              highlightBuilding.LastRotation,
                                                              highlightBuilding.LastTiles,
+                                                             highlightBuilding.LastCell,
                                                              highlightBuilding.LastCell
                                                             ));
                 buildingInStorage.Count--;

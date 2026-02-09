@@ -79,7 +79,7 @@ namespace UI.Hover.PopupLogics.Popups
 
         private void Move()
         {
-            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false));
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false, building.Cell));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, false));
             choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
                                                                            building.BuildingConfig,

@@ -122,7 +122,7 @@ namespace UI.Hover.PopupLogics.Popups
 
         private void MoveInInventory()
         {
-            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true));
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true, building.Cell));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, true));
             CloseButton?.Invoke();
             Dispose();
@@ -133,7 +133,7 @@ namespace UI.Hover.PopupLogics.Popups
             CloseButton?.Invoke();
             Dispose();
 
-            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false));
+            deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false, building.Cell));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, false));
             choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
                                                                            building.BuildingConfig,

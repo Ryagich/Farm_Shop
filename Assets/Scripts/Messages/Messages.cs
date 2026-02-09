@@ -42,6 +42,7 @@ namespace Messages
         public readonly Quaternion Rotation;
         public readonly List<Tile> Tiles;
         public readonly Vector2Int Cell;
+        public readonly Vector2Int LastCell;
 
         public CreatedNewBuildingOnGridRequest
             (
@@ -50,7 +51,8 @@ namespace Messages
                 Vector3 localPosition,
                 Quaternion rotation,
                 List<Tile> tiles,
-                Vector2Int cell
+                Vector2Int cell,
+                Vector2Int lastCell
             )
         {
             BuildingConfig = buildingConfig;
@@ -59,6 +61,7 @@ namespace Messages
             Rotation = rotation;
             Tiles = tiles;
             Cell = cell;
+            LastCell = lastCell;
         }
     }
 
@@ -69,6 +72,7 @@ namespace Messages
         public readonly Vector3 Position;
         public readonly Quaternion Rotation;
         public readonly Vector2Int Cell;
+        public readonly Vector2Int LastCell;
 
         public CreatedNewObjectOnGridMessage
             (
@@ -76,7 +80,8 @@ namespace Messages
                 Transform transform,
                 Vector3 position,
                 Quaternion rotation,
-                Vector2Int cell
+                Vector2Int cell,
+                Vector2Int lastCell
             )
         {
             Building = building;
@@ -84,6 +89,7 @@ namespace Messages
             Position = position;
             Rotation = rotation;
             Cell = cell;
+            LastCell = lastCell;
         }
     }
     
@@ -91,11 +97,13 @@ namespace Messages
     {
         public readonly Building Building;
         public readonly bool NeedRemoveFromSave;
-        
-        public DeleteBuildingOnGridRequest(Building building, bool needRemoveFromSave)
+        public readonly Vector2Int OldCell;
+
+        public DeleteBuildingOnGridRequest(Building building, bool needRemoveFromSave, Vector2Int oldCell)
         {
             Building = building;
             NeedRemoveFromSave = needRemoveFromSave;
+            OldCell = oldCell;
         }
     }
     

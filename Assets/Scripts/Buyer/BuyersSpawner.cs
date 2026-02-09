@@ -2,6 +2,7 @@
 using Checkout;
 using MessagePipe;
 using Messages;
+using Storage;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,7 +11,7 @@ using VContainer.Unity;
 namespace Buyer
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class BuyersSpawner : IFixedTickable
+    public class BuyersSpawner : IStartable, IFixedTickable
     {
         private readonly BuyerSettings buyerSettings;
         private readonly BuyerSpawnPoints buyerSpawnPoints;
@@ -18,7 +19,7 @@ namespace Buyer
 
         private float t;
         public ReactiveCollection<BuyerLifetimeScope> buyers = new();
-        
+        private bool isWorldReady;
         public BuyersSpawner
             (
                 BuyerSettings buyerSettings,
@@ -34,8 +35,17 @@ namespace Buyer
             BuyerIsOverSubscriber.Subscribe(OnBuyerIsOver);
         }
 
+        public async void Start()
+        {
+            await StorageAwaiter.WaitReadyAsync();
+            isWorldReady = true;
+        }
+
         public void FixedTick()
         {
+            if (!isWorldReady)
+                return;
+            
             var targetTime = buyerSettings.TimeBetweenSpawnBuyers + buyerSettings.AddTimeForBuyer * buyers.Count;
             if (buyers.Count < buyerSettings.MaxBuyers 
               && t > targetTime

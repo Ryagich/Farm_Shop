@@ -76,7 +76,8 @@ namespace Objects
                                                                                       buildingTransform, 
                                                                                       msg.Position, 
                                                                                       msg.Rotation,
-                                                                                      msg.Cell
+                                                                                      msg.Cell,
+                                                                                      msg.LastCell
                                                                                       ));
         }
 
@@ -87,7 +88,7 @@ namespace Objects
                 tile.SetBuilding(null);
             }
             if (msg.NeedRemoveFromSave)
-                deleteBuildingOnGridMessagePublisher.Publish(new DeleteBuildingOnGridMessage(msg.Building.BuildingConfig.Id, msg.Building.Cell));
+                deleteBuildingOnGridMessagePublisher.Publish(new DeleteBuildingOnGridMessage(msg.Building.BuildingConfig.Id, msg.OldCell));
             Object.Destroy(msg.Building.gameObject);
         }
         

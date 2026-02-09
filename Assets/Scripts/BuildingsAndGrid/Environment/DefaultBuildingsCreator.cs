@@ -44,6 +44,7 @@ namespace BuildingsAndGrid.Environment
                 ISubscriber<DeleteBuildingOnGridMessage> deleteBuildingOnGridMessageSubscriber
             )
         {
+            Debug.Log($"DefaultBuildingsCreator Constructor");
             this.gridEnvConfig = gridEnvConfig;
             this.gridSettings = gridSettings;
             this.tilesController = tilesController;
@@ -64,13 +65,16 @@ namespace BuildingsAndGrid.Environment
             
             environmentParent = new GameObject("Wall Environment Parent");
             
+            Debug.Log($"========================================");
             if (YG2.saves.BuildingSaves is null || YG2.saves.BuildingSaves.Count is 0)
             {
+                Debug.Log($"DefaultBuildingsCreator CreateDefaultBuildings");
                 CreateDefaultBuildings();
                 CreateEnvironment();
             }
             else
             {
+                Debug.Log($"DefaultBuildingsCreator CreateSavedBuildings");
                 CreateSavedBuildings();
             }
             
@@ -93,7 +97,8 @@ namespace BuildingsAndGrid.Environment
         {
             Debug.Log($"CreateSavedBuildings | buildings in saves {YG2.saves.BuildingSaves.Count}");
 
-            foreach (var buildingSave in YG2.saves.BuildingSaves)
+            var snapshot = YG2.saves.BuildingSaves.ToArray();
+            foreach (var buildingSave in snapshot)
             {
                 var buildingConfig = storage.GetBuildingConfigById(buildingSave.Id);
                 var rotation = Quaternion.Euler(buildingSave.RotX, buildingSave.RotY, buildingSave.RotZ);
@@ -117,19 +122,26 @@ namespace BuildingsAndGrid.Environment
                                                                localPosition,
                                                                rotation,
                                                                tiles,
-                                                               new Vector2Int(buildingSave.Cell.x, buildingSave.Cell.y)
+                                                               new Vector2Int(buildingSave.Cell.x, buildingSave.Cell.y),
+                                                               buildingSave.Cell
                                                               ));
             }
         }
         
         private void OnNewObjectCreatedOnGrid(CreatedNewObjectOnGridMessage msg)
         {
-            if (YG2.saves.BuildingSaves.FirstOrDefault(s => s.Id.Equals(msg.Building.BuildingConfig.Id) &&
-                                                            s.Cell.Equals(msg.Cell)) is null)
+            var saveBuildingInLastPlace = YG2.saves.BuildingSaves
+                                             .FirstOrDefault(buildingSave =>
+                                                                 buildingSave.Id.Equals(msg.Building.BuildingConfig
+                                                                         .Id)
+                                                              && buildingSave.Cell.Equals(msg.LastCell));
+            if (saveBuildingInLastPlace != null)
             {
-                YG2.saves.BuildingSaves.Add(new BuildingSave(msg.Building.BuildingConfig.Id, msg.Cell, msg.Rotation));
-                YG2.SaveProgress();
+                YG2.saves.BuildingSaves.Remove(saveBuildingInLastPlace);
             }
+
+            YG2.saves.BuildingSaves.Add(new BuildingSave(msg.Building.BuildingConfig.Id, msg.Cell, msg.Rotation));
+            YG2.SaveProgress();
             
             if (msg.Building.BuildingConfig.Type is Area.Wall)
             {
@@ -140,13 +152,13 @@ namespace BuildingsAndGrid.Environment
 
         private void OnObjectDelete(DeleteBuildingOnGridMessage msg)
         {
-            var save = YG2.saves.BuildingSaves.FirstOrDefault(s => s.Id.Equals(msg.ID) && s.Cell.Equals(msg.Cell));
-            if (save is null)
+            if (!YG2.saves.BuildingSaves.Any(buildingSave => buildingSave.Id.Equals(msg.ID) && buildingSave.Cell.Equals(msg.Cell)))
             {
                 Debug.Log($"Удалилась постройка, не записаная в сохранениях | wtf");
             }
             else
             {
+                var save = YG2.saves.BuildingSaves.First(s => s.Id.Equals(msg.ID) && s.Cell.Equals(msg.Cell));
                 YG2.saves.BuildingSaves.Remove(save);
                 YG2.SaveProgress();
             }
@@ -157,7 +169,7 @@ namespace BuildingsAndGrid.Environment
             foreach (var building in wallBuildings)
             {
                 if (building)
-                    deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true));
+                    deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true, building.Cell));
             }
             wallBuildings.Clear();
         }

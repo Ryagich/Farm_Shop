@@ -4,8 +4,6 @@ using GameModes;
 using MessagePipe;
 using Messages;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace BuildingsAndGrid.Extension
@@ -32,7 +30,6 @@ namespace BuildingsAndGrid.Extension
             this.gridLifetimeScope = gridLifetimeScope;
 
             gameModeChangeSubscriber.Subscribe(OnGameModeChanged);
-            Debug.Log($"GridExtensionSpawner Constructor");
         }
 
         private void OnGameModeChanged(GameModeChangedMessage msg)
@@ -45,7 +42,6 @@ namespace BuildingsAndGrid.Extension
 
         public void ForceRefresh()
         {
-            // HideExtensions();
             ShowExtensions();
         }
 

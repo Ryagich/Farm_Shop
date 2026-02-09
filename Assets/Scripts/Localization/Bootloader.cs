@@ -31,6 +31,7 @@ namespace Localization
             YGInsides.LoadProgress();
             await LocalizationHelper.InvalidateAsync(YG2.lang);
             LocalizationAwaiter.SignalReady();
+            YG2.GameReadyAPI();
         }
     }
 }
