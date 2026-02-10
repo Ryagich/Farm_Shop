@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using BuildingsAndGrid;
+﻿using BuildingsAndGrid;
 using BuildingsAndGrid.Buildings;
 using Container.Game;
 using MessagePipe;
 using Messages;
 using UniRx;
 using UnityEngine;
-using VContainer;
 using VContainer.Unity;
 
 namespace Objects
@@ -16,7 +14,6 @@ namespace Objects
     {
         private readonly GridSettings gridSettings;
         private readonly TilesController tilesController;
-        private readonly IObjectResolver resolver;
         private readonly GameLifetimeScope gameLifetimeScope;
         private readonly IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher;
         private readonly IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher;
@@ -25,7 +22,6 @@ namespace Objects
 
         public ObjectCreator
             (
-                IObjectResolver resolver,
                 GameLifetimeScope gameLifetimeScope,
                 IPublisher<CreatedNewObjectMessage> createdNewObjectPublisher,
                 IPublisher<CreatedNewObjectOnGridMessage> createdNewObjectOnGridPublisher,
@@ -35,7 +31,6 @@ namespace Objects
                 ISubscriber<DeleteBuildingOnGridRequest> deleteBuildingOnGridRequest
             )
         {
-            this.resolver = resolver;
             this.gameLifetimeScope = gameLifetimeScope;
             this.createdNewObjectPublisher = createdNewObjectPublisher;
             this.createdNewObjectOnGridPublisher = createdNewObjectOnGridPublisher;
@@ -77,7 +72,8 @@ namespace Objects
                                                                                       msg.Position, 
                                                                                       msg.Rotation,
                                                                                       msg.Cell,
-                                                                                      msg.LastCell
+                                                                                      msg.LastCell,
+                                                                                      msg.NeedSave
                                                                                       ));
         }
 

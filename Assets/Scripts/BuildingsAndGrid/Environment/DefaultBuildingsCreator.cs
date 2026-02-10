@@ -24,8 +24,6 @@ namespace BuildingsAndGrid.Environment
 
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
         
-        private readonly ISubscriber<GameModeChangedMessage> gameModeChangedMessageSubscriber;
-        
         private GameObject environmentParent;
         private bool lastModeIsRedactor;
         private readonly List<Building> wallBuildings = new();
@@ -40,7 +38,6 @@ namespace BuildingsAndGrid.Environment
                 IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher,
                 ISubscriber<GridExtendMessage> gridExtendSubscriber,
                 ISubscriber<CreatedNewObjectOnGridMessage> createdNewObjectOnGridSubscriber,
-                ISubscriber<GameModeChangedMessage> gameModeChangedMessageSubscriber,
                 ISubscriber<DeleteBuildingOnGridMessage> deleteBuildingOnGridMessageSubscriber
             )
         {
@@ -51,7 +48,6 @@ namespace BuildingsAndGrid.Environment
             this.buildingPlacer = buildingPlacer;
             this.storage = storage;
             this.createdNewBuildingOnGridPublisher = createdNewBuildingOnGridPublisher;
-            this.gameModeChangedMessageSubscriber = gameModeChangedMessageSubscriber;
             deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
 
             createdNewObjectOnGridSubscriber.Subscribe(OnNewObjectCreatedOnGrid);
@@ -77,20 +73,6 @@ namespace BuildingsAndGrid.Environment
                 Debug.Log($"DefaultBuildingsCreator CreateSavedBuildings");
                 CreateSavedBuildings();
             }
-            
-            gameModeChangedMessageSubscriber.Subscribe(OnGameModeChanged);
-        }
-        
-        private void OnGameModeChanged(GameModeChangedMessage msg)
-        {
-            // if (msg.GameMode == GameMode.Redactor)
-            // {
-            //     lastModeIsRedactor = true;
-            // }
-            // else if (lastModeIsRedactor)
-            // {
-            //     lastModeIsRedactor = false;
-            // }
         }
 
         private void CreateSavedBuildings()
@@ -123,9 +105,12 @@ namespace BuildingsAndGrid.Environment
                                                                rotation,
                                                                tiles,
                                                                new Vector2Int(buildingSave.Cell.x, buildingSave.Cell.y),
-                                                               buildingSave.Cell
+                                                               buildingSave.Cell,
+                                                               false
                                                               ));
             }
+            
+            YG2.SaveProgress();
         }
         
         private void OnNewObjectCreatedOnGrid(CreatedNewObjectOnGridMessage msg)
@@ -140,8 +125,11 @@ namespace BuildingsAndGrid.Environment
                 YG2.saves.BuildingSaves.Remove(saveBuildingInLastPlace);
             }
 
-            YG2.saves.BuildingSaves.Add(new BuildingSave(msg.Building.BuildingConfig.Id, msg.Cell, msg.Rotation));
-            YG2.SaveProgress();
+            if (msg.NeedSave)
+            {
+                YG2.saves.BuildingSaves.Add(new BuildingSave(msg.Building.BuildingConfig.Id, msg.Cell, msg.Rotation));
+                YG2.SaveProgress();
+            }
             
             if (msg.Building.BuildingConfig.Type is Area.Wall)
             {

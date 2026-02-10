@@ -61,7 +61,8 @@ namespace Objects
                                                            rotation,
                                                            tilesForBuilding,
                                                            new Vector2Int(px, py),
-                                                           new Vector2Int(px, py)
+                                                           new Vector2Int(px, py),
+                                                           true
                                                           ));
             return true;
         }

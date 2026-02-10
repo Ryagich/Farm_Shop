@@ -43,6 +43,7 @@ namespace Messages
         public readonly List<Tile> Tiles;
         public readonly Vector2Int Cell;
         public readonly Vector2Int LastCell;
+        public readonly bool NeedSave;
 
         public CreatedNewBuildingOnGridRequest
             (
@@ -52,7 +53,8 @@ namespace Messages
                 Quaternion rotation,
                 List<Tile> tiles,
                 Vector2Int cell,
-                Vector2Int lastCell
+                Vector2Int lastCell,
+                bool needSave
             )
         {
             BuildingConfig = buildingConfig;
@@ -62,6 +64,7 @@ namespace Messages
             Tiles = tiles;
             Cell = cell;
             LastCell = lastCell;
+            NeedSave = needSave;
         }
     }
 
@@ -73,6 +76,7 @@ namespace Messages
         public readonly Quaternion Rotation;
         public readonly Vector2Int Cell;
         public readonly Vector2Int LastCell;
+        public readonly bool NeedSave;
 
         public CreatedNewObjectOnGridMessage
             (
@@ -81,7 +85,8 @@ namespace Messages
                 Vector3 position,
                 Quaternion rotation,
                 Vector2Int cell,
-                Vector2Int lastCell
+                Vector2Int lastCell,
+                bool needSave
             )
         {
             Building = building;
@@ -90,6 +95,7 @@ namespace Messages
             Rotation = rotation;
             Cell = cell;
             LastCell = lastCell;
+            NeedSave = needSave;
         }
     }
     

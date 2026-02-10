@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Checkout;
-using MessagePipe;
+﻿using MessagePipe;
 using Messages;
 using Storage;
 using UniRx;
