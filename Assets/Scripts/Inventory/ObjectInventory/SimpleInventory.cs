@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Inventory.Item;
@@ -22,19 +21,19 @@ namespace Inventory.ObjectInventory
             this.resolver = resolver;
         }
         
-        public bool CanAdd(ItemConfig config) => true;
+        public bool CanAdd(ItemConfig itemConfig) => true;
 
-        public void Add(ItemConfig itemConfig, Matrix4x4 position)
+        public void Add(ItemConfig config, Matrix4x4 position)
         {
-            if (CanAdd(itemConfig))
+            if (CanAdd(config))
             {
-                var handItem = resolver.Instantiate(itemConfig.HandPrefab);
+                var handItem = resolver.Instantiate(config.HandPrefab);
                 handItem.transform.SetPositionAndRotation(position.GetPosition(), position.rotation);
                 Items.Add(handItem);
             }
         }
 
-        public bool CanGet() => Items.Count is not 0;
+        public bool CanGet(ItemConfig itemConfig) => Items.Count is not 0;
 
         public ItemConfig GetConfig() => Items.Last().Config;
 
@@ -45,8 +44,11 @@ namespace Inventory.ObjectInventory
             return itemHolder;
         }
 
+        public ItemHolder Get(ItemConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Remove(ItemHolder itemHolder) => Items.Remove(itemHolder);
-        
-        
     }
 }

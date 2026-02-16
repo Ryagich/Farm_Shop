@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using MessagePipe;
@@ -14,6 +15,8 @@ namespace UI.Hover.PopupLogics.Popups
     public class EnvironmentPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly PopupHolders popupHolders;
         private readonly Building building;
@@ -24,7 +27,6 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
        
         private CompositeDisposable disposables = new();
-        private RectTransform popupRect;
         
         public EnvironmentPopup
             (
@@ -41,15 +43,15 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
         
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.EnvironmentHolder, canvas.transform);
-            popupRect = popup.GetComponent<RectTransform>();
+            Root = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
 
             popup.ButtonMove.onClick.AddListener(Move);
             
-            return popupRect;
+            return this;
         }
 
         public void Redraw() { }
@@ -76,8 +78,8 @@ namespace UI.Hover.PopupLogics.Popups
         public void Dispose()
         {
             disposables.Dispose();
-            if (popupRect)
-                Object.Destroy(popupRect.gameObject);
+            if (Root)
+                Object.Destroy(Root.gameObject);
         }
     }
 }

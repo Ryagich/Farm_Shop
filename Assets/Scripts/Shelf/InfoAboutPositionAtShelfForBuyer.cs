@@ -1,6 +1,6 @@
 ﻿using BuildingsAndGrid.Buildings;
 using Buyer;
-using Inventory;
+using Inventory.ObjectInventory;
 using UniRx;
 using UnityEngine;
 
@@ -9,15 +9,15 @@ namespace Shelf
     // ReSharper disable once ClassNeverInstantiated.Global
     public class InfoAboutPositionAtShelfForBuyer
     {
-        public TargetPoint TargetPoint;
-        public readonly IInventory ShelfInventory;
+        public readonly TargetPoint TargetPoint;
+        public readonly ShelfInventory ShelfInventory;
         public readonly BuildingInteractableFlag BuildingInteractableFlag;
-        public ReactiveProperty<bool> IsFree = new(true);
+        public readonly ReactiveProperty<bool> IsFree = new(true);
 
         public InfoAboutPositionAtShelfForBuyer
             (
                 Transform transform,
-                IInventory shelfInventory, 
+                ShelfInventory shelfInventory, 
                 BuildingInteractableFlag buildingInteractableFlag
             )
         {

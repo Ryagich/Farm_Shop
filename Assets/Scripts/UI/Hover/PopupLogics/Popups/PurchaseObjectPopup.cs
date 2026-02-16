@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Purchase;
 using UI.Hover.PopupLogics.Holders;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace UI.Hover.PopupLogics.Popups
     public class PurchaseObjectPopup : IObjectPopup
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly PopupHolders popupHolders;
         private readonly PurchaseObject purchaseObject;
@@ -34,24 +37,17 @@ namespace UI.Hover.PopupLogics.Popups
             this.cost = cost;
         }
             
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.PurchaseObjectHolder, canvas.transform);
             popup.PurchaseObjectName.text = $"Object: {purchase.name}";
             popup.Purchase.text = $"{cost - purchaseObject.Remaining.Value} / {cost}";
             popup.Fill.fillAmount = (float)(cost - purchaseObject.Remaining.Value) / cost;
             
-            return popup.GetComponent<RectTransform>();
+            return this;
         }
 
-        public void Redraw()
-        {
-            
-        }
-
-        public void Subscribe()
-        {
-            
-        }
+        public void Redraw() { }
+        public void Subscribe() { }
     } 
 }

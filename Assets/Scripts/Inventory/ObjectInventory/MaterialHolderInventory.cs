@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Inventory.Item;
 using UniRx;
 using UnityEngine;
@@ -31,14 +30,14 @@ namespace Inventory.ObjectInventory
         
         public bool HaveFreePlace() => Items.Count < maxCount;
         public bool CanAdd(ItemConfig config) => Items.Count < maxCount && config.Equals(itemConfig);
+        public bool CanGet(ItemConfig config) => Items.Count is not 0;
         public ItemConfig GetConfig() => itemConfig;
-        public bool CanGet() => Items.Count is not 0;
 
-        public void Add(ItemConfig newItemConfig, Matrix4x4 position)
+        public void Add(ItemConfig config, Matrix4x4 position)
         {
-            if (CanAdd(newItemConfig))
+            if (CanAdd(config))
             {
-                var handItem = resolver.Instantiate(newItemConfig.HandPrefab);
+                var handItem = resolver.Instantiate(config.HandPrefab);
                 handItem.transform.SetPositionAndRotation(position.GetPosition(), position.rotation);
                 Items.Add(handItem);
             }
@@ -50,10 +49,18 @@ namespace Inventory.ObjectInventory
             Items.Remove(itemHolder);
             return itemHolder;
         }
-        
+
+        public ItemHolder Get(ItemConfig config)
+        {
+            var itemHolder = Items.Last();
+            Items.Remove(itemHolder);
+            return itemHolder;
+        }
+
         public void Remove(ItemHolder itemHolder)
         {
             Items.Remove(itemHolder);
         }
+        public bool HaveItem => Items.Count > 0;
     }
 }

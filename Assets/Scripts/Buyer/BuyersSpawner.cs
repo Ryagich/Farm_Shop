@@ -12,6 +12,7 @@ namespace Buyer
     public class BuyersSpawner : IStartable, IFixedTickable
     {
         private readonly BuyerSettings buyerSettings;
+        private readonly StorageBootstrapper storageBootstrapper;
         private readonly BuyerSpawnPoints buyerSpawnPoints;
         private readonly LifetimeScope parentScope;
 
@@ -21,12 +22,14 @@ namespace Buyer
         public BuyersSpawner
             (
                 BuyerSettings buyerSettings,
+                StorageBootstrapper storageBootstrapper,
                 BuyerSpawnPoints buyerSpawnPoints,
                 LifetimeScope parentScope,
                 ISubscriber<BuyerIsOverMessage> BuyerIsOverSubscriber
             )
         {
             this.buyerSettings = buyerSettings;
+            this.storageBootstrapper = storageBootstrapper;
             this.buyerSpawnPoints = buyerSpawnPoints;
             this.parentScope = parentScope;
             
@@ -35,7 +38,7 @@ namespace Buyer
 
         public async void Start()
         {
-            await StorageAwaiter.WaitReadyAsync();
+            await storageBootstrapper.Ready;
             isWorldReady = true;
         }
 

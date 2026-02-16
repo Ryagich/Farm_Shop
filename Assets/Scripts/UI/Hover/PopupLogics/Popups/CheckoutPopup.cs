@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BuildingsAndGrid.Buildings;
 using Buyer;
@@ -19,6 +20,8 @@ namespace UI.Hover.PopupLogics.Popups
     public class CheckoutPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly LocalizationConfig localizationConfig;
         private readonly PopupHolders popupHolders;
@@ -29,7 +32,6 @@ namespace UI.Hover.PopupLogics.Popups
 
         private CompositeDisposable disposables = new();
         private CompositeDisposable buyersDisposables = new();
-        private RectTransform popupRect;
 
         private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
@@ -59,10 +61,10 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.CheckoutPopupHolder, canvas.transform);
-            popupRect = popup.GetComponent<RectTransform>();
+            Root = popup.GetComponent<RectTransform>();
 
             disposables = new CompositeDisposable();
             buyersDisposables = new CompositeDisposable();
@@ -73,14 +75,14 @@ namespace UI.Hover.PopupLogics.Popups
             Subscribe();
             Redraw();
 
-            return popupRect;
+            return this;
         }
-        
+
         public void Redraw()
         {
-            if (!popupRect)
+            if (!Root)
                 return;
-            var popup = popupRect.GetComponent<CheckoutPopupHolder>();
+            var popup = Root.GetComponent<CheckoutPopupHolder>();
             var buyersInShop = buyersSpawner.buyers.Where(b => b.IsInsideShop.Value).ToArray();
             popup.ButtonMove.interactable = byersQueue.Buyers.Count <= 0 && buyersInShop.Length is 0;
             popup.BuyersCount.text = $"{localizationConfig.BuyersWord.GetLocalizedStringCached()}: {byersQueue.Buyers.Count}";
@@ -150,8 +152,8 @@ namespace UI.Hover.PopupLogics.Popups
             disposables.Dispose();
             buyersDisposables.Dispose();
 
-            if (popupRect)
-                Object.Destroy(popupRect.gameObject);
+            if (Root)
+                Object.Destroy(Root.gameObject);
         }
     }
 }

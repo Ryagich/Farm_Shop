@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using Localization;
@@ -16,6 +17,8 @@ namespace UI.Hover.PopupLogics.Popups
     public class InteractableSimpleBuildingPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly LocalizationConfig localizationConfig;
         private readonly PopupHolders popupHolders;
@@ -28,7 +31,6 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
 
         private CompositeDisposable disposables = new();
-        private RectTransform popupRect;
        
         public InteractableSimpleBuildingPopup
             (
@@ -49,10 +51,10 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.InteractableSimpleBuildingHolder, canvas.transform);
-            popupRect = popup.GetComponent<RectTransform>();
+            Root = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
      
             popup.ButtonMove.onClick.AddListener(Move);
@@ -61,14 +63,14 @@ namespace UI.Hover.PopupLogics.Popups
             Redraw();
             Subscribe();
 
-            return popupRect;
+            return this;
         }
 
         public void Redraw()
         {
-            if (!popupRect)
+            if (!Root)
                 return;
-            var popup = popupRect.GetComponent<InteractableSimpleBuildingHolder>();
+            var popup = Root.GetComponent<InteractableSimpleBuildingHolder>();
 
             popup.ButtonDisable.GetComponentInChildren<TMP_Text>().text = buildingInteractableFlag.IsInteractable 
                                                                               ? $"{localizationConfig.DisableWord.GetLocalizedStringCached()}" 
@@ -104,8 +106,8 @@ namespace UI.Hover.PopupLogics.Popups
         public void Dispose()
         {
             disposables.Dispose();
-            if (popupRect)
-                Object.Destroy(popupRect.gameObject);
+            if (Root)
+                Object.Destroy(Root.gameObject);
         }
     }
 }

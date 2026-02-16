@@ -11,6 +11,7 @@ using Messages;
 using Objects;
 using Shelf;
 using Sounds;
+using Storage;
 using UI.Hover;
 using UnityEngine;
 using VContainer;
@@ -57,6 +58,7 @@ namespace Container.Game
                 builder.RegisterMessageBroker<InteractableEndMessage>(options);
                 builder.RegisterMessageBroker<ChoseBuildingMessage>(options);
                 builder.RegisterMessageBroker<AddBuildingToStorageRequest>(options);
+                builder.RegisterMessageBroker<AddItemToStorageRequest>(options);
                 builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
                 builder.RegisterMessageBroker<GridExtendMessage>(options);
                 builder.RegisterMessageBroker<BuyerIsOverMessage>(options);
@@ -81,7 +83,11 @@ namespace Container.Game
                 builder.RegisterEntryPoint<ObjectCreator>().AsSelf();
                 builder.RegisterEntryPoint<ObjectMoverInHisPlace>().AsSelf();
                 builder.RegisterEntryPoint<GameModesController>().AsSelf();
-                builder.RegisterEntryPoint<Storage.Storage>().AsSelf();
+                
+                //Storage
+                builder.RegisterEntryPoint<BuildingsStorage>().AsSelf();
+                builder.RegisterEntryPoint<ItemsStorage>().AsSelf();
+                builder.RegisterEntryPoint<StorageBootstrapper>().AsSelf();
             }
         }
     }

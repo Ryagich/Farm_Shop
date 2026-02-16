@@ -22,7 +22,8 @@ namespace UI.Pages
 
         private readonly UIConfig uiConfig;
         private readonly LocalizationConfig localizationConfig;
-        private readonly Storage.Storage storage;
+        private readonly BuildingsStorage buildingsStorage;
+        private readonly ItemsStorage itemsStorage;
         private readonly FinanceManager financeManager;
         private readonly RectTransform canvasRect;
         private readonly IObjectResolver resolver;
@@ -34,7 +35,8 @@ namespace UI.Pages
                 UIConfig uiConfig,
                 LocalizationConfig localizationConfig,
                 FinanceManager financeManager,
-                Storage.Storage storage,
+                BuildingsStorage buildingsStorage,
+                ItemsStorage itemsStorage,
                 UIUtils uiUtils,
                 Canvas canvas,
                 IObjectResolver resolver
@@ -43,7 +45,8 @@ namespace UI.Pages
             this.uiConfig = uiConfig;
             this.localizationConfig = localizationConfig;
             this.financeManager = financeManager;
-            this.storage = storage;
+            this.buildingsStorage = buildingsStorage;
+            this.itemsStorage = itemsStorage;
             this.uiUtils = uiUtils;
             this.resolver = resolver;
             canvasRect = canvas.GetComponent<RectTransform>();
@@ -67,7 +70,7 @@ namespace UI.Pages
             sectionButtonsRect.pivot = new Vector2(.0f, .5f);
             sectionButtonsRect.anchoredPosition = new Vector2(25.0f, .0f);
             
-            var buildings = storage.GetBuildings(CurrentArea).Where(b => b.BuildingConfig.ShowInShop).ToList();
+            var buildings = buildingsStorage.GetBuildings(CurrentArea).Where(b => b.BuildingConfig.ShowInShop).ToList();
             var columnCount = buildings.Count / uiConfig.CardsRowCount is 0 ? 1 : buildings.Count / uiConfig.CardsRowCount;
             var cardSize = uiConfig.PurchaseCardPrefab.GetComponent<RectTransform>().rect.size;
             var spaceBetweenCardsX = 60;
@@ -88,32 +91,52 @@ namespace UI.Pages
             {
                 var buildingConfig = buildings[i].BuildingConfig;
                 var card = resolver.Instantiate(uiConfig.PurchaseCardPrefab, content);
-                // var cardRect = card.GetComponent<RectTransform>();
-                // var rows = uiConfig.CardsRowCount is 0 ? 1 : uiConfig.CardsRowCount;
-                // var x = (i % uiConfig.CardsRowCount) * spaceToOneCardX - ((rows - 1) * spaceToOneCardX) / 2;
-                // Debug.Log($"x {x}");
-                // cardRect.anchoredPosition =
-                //     new Vector2(x, 
-                //                 // ReSharper disable once PossibleLossOfFraction
-                //                 -uiConfig.SpaceBetweenPurchaseCards.y * (i / rows) -
-                //                 uiConfig.SpaceBetweenPurchaseCards.y / 2
-                //                 // ReSharper disable once PossibleLossOfFraction
-                //               - cardSize.y * (i / rows));
                 card.Icon.sprite = buildingConfig.Icon;
                 card.SizeText.text = $"{buildingConfig.Size.x}x{buildingConfig.Size.y}";
                 card.Name.text = $"{buildingConfig.Name.GetLocalizedStringCached()}";
                 card.InInventory.text =
                     $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {buildings[i].Count}";
                 card.Button.GetComponentInChildren<TMP_Text>().text = $"{buildings[i].BuildingConfig.Price}$";
+                
                 var i1 = i;
-                card.Button.onClick.AddListener(() => Buy(buildings[i1]));
+                card.Button.onClick.AddListener(() => BuyBuilding(buildings[i1]));
+            }
+            if (CurrentArea == Area.Garden)
+            {
+                for (var i = 0; i < itemsStorage.Items.Count; i++)
+                {
+                    var itemConfig = itemsStorage.Items[i].ItemConfig;
+                    var card = resolver.Instantiate(uiConfig.PurchaseCardPrefab, content);
+                    card.Icon.sprite = itemConfig.Icon;
+                    card.SizeText.text = $"";
+                    card.Name.text = $"{itemConfig.Name.GetLocalizedStringCached()}";
+                    card.InInventory.text =
+                        $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {itemsStorage.Items[i].Count}";
+                    card.Button.GetComponentInChildren<TMP_Text>().text = $"{buildings[i].BuildingConfig.Price}$";
+                    
+                    var i1 = i;
+                    card.Button.onClick.AddListener(() => BuyItem(itemsStorage.Items[i1]));
+                }
             }
             uiUtils.DrawFinanceDrawer(contentRect);
             uiUtils.DrawGameModesSwitchButtons(contentRect, uiConfig.OffsetForGameMenuButtons, Type);
             uiUtils.InitSectionButtons(sectionButtons, uiConfig.SectionButtonsPositionForShopPage, CurrentArea, this);
         }
-
-        private void Buy(BuildingInStorage buildingInStorage)
+        
+        private void BuyItem(ItemInStorage itemInStorage)
+        {
+            if (financeManager.TryChangeValue(-itemInStorage.ItemConfig.Price))
+            {
+                itemInStorage.Count++;
+                var buildingInStorageSave = YG2.saves.ItemInStorageSave
+                                               .First(b => b.Id.Equals(itemInStorage.ItemConfig.Id));
+                buildingInStorageSave.Count = itemInStorage.Count;
+                YG2.SaveProgress();
+                ReDraw();
+            }
+        }
+        
+        private void BuyBuilding(BuildingInStorage buildingInStorage)
         {
             if (financeManager.TryChangeValue(-buildingInStorage.BuildingConfig.Price))
             {

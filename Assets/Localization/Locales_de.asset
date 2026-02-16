@@ -42,30 +42,6 @@ MonoBehaviour:
     m_Localized: Kasse
     m_Metadata:
       m_Items: []
-  - m_Id: 73317720768512
-    m_Localized: Rote-Bete-Beet
-    m_Metadata:
-      m_Items: []
-  - m_Id: 73457714053120
-    m_Localized: Karottenbeet
-    m_Metadata:
-      m_Items: []
-  - m_Id: 74995803078656
-    m_Localized: Tomatenbeet
-    m_Metadata:
-      m_Items: []
-  - m_Id: 77040161374208
-    m_Localized: Tomatenregal
-    m_Metadata:
-      m_Items: []
-  - m_Id: 77133480443904
-    m_Localized: Karottenregal
-    m_Metadata:
-      m_Items: []
-  - m_Id: 77211259617280
-    m_Localized: Rote-Bete-Regal
-    m_Metadata:
-      m_Items: []
   - m_Id: 97510130696192
     m_Localized: Preis
     m_Metadata:
@@ -216,6 +192,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 7239011612737536
     m_Localized: Nach links drehen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22876619634098176
+    m_Localized: Leer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22879518934155264
+    m_Localized: Bearbeiten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22879765529870336
+    m_Localized: "Ausgew\xE4hlt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22879942110068736
+    m_Localized: "Ausw\xE4hlen"
     m_Metadata:
       m_Items: []
   references:

@@ -17,15 +17,14 @@ namespace StateMachine.Conditions
             {
                 if (position.Count.Value >= position.Need)
                     continue;
-                if (context.ShelvesController
-                           .PositionsAtShelvesByTypes
-                           .TryGetValue(position.Config.ID, out var type))
+                if (context.ShelvesController.Shelves.Any(shelf => shelf.Key.CanGet(position.Config)))
+                    //       .TryGetValue(position.Config.Id, out var type))
                 {
-                    var shelves = type.Where(p => p.Key.CanGet()
-                                          && p.Value.Any(any => any.IsFree.Value 
-                                                     || (context.UsedInfoAboutPositionAtShelfForBuyer is not null 
-                                                     && context.UsedInfoAboutPositionAtShelfForBuyer == any)))
-                                      .ToArray();
+                    var shelves = context.ShelvesController.Shelves.Where(p => p.Key.CanGet(position.Config)
+                                                                            && p.Value.Any(any => any.IsFree.Value 
+                                                                                || (context.UsedInfoAboutPositionAtShelfForBuyer is not null 
+                                                                                            && context.UsedInfoAboutPositionAtShelfForBuyer == any)))
+                                         .ToArray();
                     if (shelves.Length > 0)
                         return false;
                 }

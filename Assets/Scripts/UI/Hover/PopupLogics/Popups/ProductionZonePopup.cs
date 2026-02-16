@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Inventory.ObjectInventory;
 using Localization;
@@ -16,6 +17,8 @@ namespace UI.Hover.PopupLogics.Popups
     public class ProductionZonePopup : IObjectPopup
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly ProductConfig productConfig;
         private readonly MaterialInventoriesController materialInventoriesController;
@@ -28,7 +31,6 @@ namespace UI.Hover.PopupLogics.Popups
                 MaterialInventoriesController materialInventoriesController,
                 ProductionZoneController productionZoneController,
                 PopupHolders popupHolders
-                
             )
         {
             this.productConfig = productConfig;
@@ -37,7 +39,7 @@ namespace UI.Hover.PopupLogics.Popups
             this.popupHolders = popupHolders;
         }
 
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.ProductionZoneHolder, canvas.transform);
             var popupRect = popup.GetComponent<RectTransform>();
@@ -59,17 +61,10 @@ namespace UI.Hover.PopupLogics.Popups
             }
             popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + addHeight);         
             
-            return popup.GetComponent<RectTransform>();
+            return this;
         }
 
-        public void Redraw()
-        {
-            
-        }
-
-        public void Subscribe()
-        {
-            
-        }
+        public void Redraw() { }
+        public void Subscribe() { }
     }
 }

@@ -61,22 +61,22 @@ namespace Inventory.ObjectInventory
             }
         }
 
-        public bool CanAdd(ItemConfig config) => inventories.Any(i => i.CanAdd(config));
+        public bool CanAdd(ItemConfig itemConfig) => inventories.Any(i => i.CanAdd(itemConfig));
 
-        public void Add(ItemConfig itemConfig, Matrix4x4 position)
+        public void Add(ItemConfig config, Matrix4x4 position)
         {
-            if (CanAdd(itemConfig))
+            if (CanAdd(config))
             {
-                var inventory = inventories.First(i => i.GetConfig() == itemConfig);
-                inventory.Add(itemConfig, position);
+                var inventory = inventories.First(i => i.GetConfig() == config);
+                inventory.Add(config, position);
                 itemHasBeenAddedToInventoryPublisher.Publish(new ItemHasBeenAddedToInventory());
             }
         }
 
         public bool CanGet(ItemConfig itemConfig)
         {
-            var inventory = inventories.FirstOrDefault(i => i.GetConfig() == itemConfig);
-            return inventory is not null && inventory.CanGet();
+            var inventory = inventories.FirstOrDefault(i => i.GetConfig().Id.Equals(itemConfig.Id));
+            return inventory is not null && inventory.HaveItem;
         }
 
         public ItemHolder Get(ItemConfig itemConfig)
@@ -94,11 +94,6 @@ namespace Inventory.ObjectInventory
         }
 
         public ReactiveCollection<ItemHolder> Items { get; } = new();
-
-        public bool CanGet()
-        {
-            throw new System.NotImplementedException();
-        }
 
         public ItemConfig GetConfig()
         {

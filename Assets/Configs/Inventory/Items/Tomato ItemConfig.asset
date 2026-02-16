@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c032c8f0ba2545b1a39b17252b87f56b, type: 3}
   m_Name: Tomato ItemConfig
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: Tomato ItemConfig ID
-  <HandPrefab>k__BackingField: {fileID: 2299143465062301022, guid: b4d4fce3d6fb65648af23ab700f546d8, type: 3}
+  <Id>k__BackingField: Tomato ItemConfig ID
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1ce19165c4779154dbe5324bd1020fd6, type: 3}
   <Name>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
@@ -23,6 +23,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  <HandPrefab>k__BackingField: {fileID: 2299143465062301022, guid: b4d4fce3d6fb65648af23ab700f546d8, type: 3}
   <height>k__BackingField: 0.25
   <Price>k__BackingField: 2
   references:

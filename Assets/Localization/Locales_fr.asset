@@ -42,30 +42,6 @@ MonoBehaviour:
     m_Localized: Caisse
     m_Metadata:
       m_Items: []
-  - m_Id: 73317720768512
-    m_Localized: Plate-bande de betteraves
-    m_Metadata:
-      m_Items: []
-  - m_Id: 73457714053120
-    m_Localized: Plate-bande de carottes
-    m_Metadata:
-      m_Items: []
-  - m_Id: 74995803078656
-    m_Localized: Plate-bande de tomates
-    m_Metadata:
-      m_Items: []
-  - m_Id: 77040161374208
-    m_Localized: "\xC9tag\xE8re \xE0 tomates"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 77133480443904
-    m_Localized: "\xC9tag\xE8re \xE0 carottes"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 77211259617280
-    m_Localized: "\xC9tag\xE8re \xE0 betteraves"
-    m_Metadata:
-      m_Items: []
   - m_Id: 97510130696192
     m_Localized: Prix
     m_Metadata:
@@ -216,6 +192,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 7239011612737536
     m_Localized: "Tourner \xE0 gauche"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22876619634098176
+    m_Localized: Vide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22879518934155264
+    m_Localized: Modifier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22879765529870336
+    m_Localized: "S\xE9lectionn\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22879942110068736
+    m_Localized: "S\xE9lectionner"
     m_Metadata:
       m_Items: []
   references:

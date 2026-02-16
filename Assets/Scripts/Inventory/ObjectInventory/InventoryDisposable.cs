@@ -16,7 +16,7 @@ namespace Inventory.ObjectInventory
         
         public void Dispose()
         {
-            while (inventory.CanGet())
+            while (inventory.HaveItem)
             {
                 var item = inventory.Get();
                 if (item)

@@ -17,9 +17,10 @@ namespace BuildingsAndGrid.Environment
     {
         private readonly GridEnvironmentConfig gridEnvConfig;
         private readonly GridSettings gridSettings;
+        private readonly StorageBootstrapper storageBootstrapper;
         private readonly TilesController tilesController;
         private readonly BuildingPlacer buildingPlacer;
-        private readonly Storage.Storage storage;
+        private readonly Storage.BuildingsStorage buildingsStorage;
         private readonly IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher;
 
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
@@ -32,9 +33,10 @@ namespace BuildingsAndGrid.Environment
             (
                 GridEnvironmentConfig gridEnvConfig,
                 GridSettings gridSettings,
+                StorageBootstrapper storageBootstrapper,
+                BuildingsStorage buildingsStorage,
                 TilesController tilesController,
                 BuildingPlacer buildingPlacer,
-                Storage.Storage storage,
                 IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher,
                 ISubscriber<GridExtendMessage> gridExtendSubscriber,
                 ISubscriber<CreatedNewObjectOnGridMessage> createdNewObjectOnGridSubscriber,
@@ -44,9 +46,10 @@ namespace BuildingsAndGrid.Environment
             Debug.Log($"DefaultBuildingsCreator Constructor");
             this.gridEnvConfig = gridEnvConfig;
             this.gridSettings = gridSettings;
+            this.storageBootstrapper = storageBootstrapper;
             this.tilesController = tilesController;
             this.buildingPlacer = buildingPlacer;
-            this.storage = storage;
+            this.buildingsStorage = buildingsStorage;
             this.createdNewBuildingOnGridPublisher = createdNewBuildingOnGridPublisher;
             deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
 
@@ -57,8 +60,8 @@ namespace BuildingsAndGrid.Environment
         
         public async void Start()
         { 
-            await StorageAwaiter.WaitReadyAsync();
-            
+            await storageBootstrapper.Ready;
+
             environmentParent = new GameObject("Wall Environment Parent");
             
             Debug.Log($"========================================");
@@ -82,7 +85,7 @@ namespace BuildingsAndGrid.Environment
             var snapshot = YG2.saves.BuildingSaves.ToArray();
             foreach (var buildingSave in snapshot)
             {
-                var buildingConfig = storage.GetBuildingConfigById(buildingSave.Id);
+                var buildingConfig = buildingsStorage.GetBuildingConfigById(buildingSave.Id);
                 var rotation = Quaternion.Euler(buildingSave.RotX, buildingSave.RotY, buildingSave.RotZ);
                 var lc = buildingConfig.HighlightBuilding.Content.localPosition;
                 var localPosition = rotation.Equals(Quaternion.Euler(.0f, .0f, .0f)) ||
@@ -115,18 +118,18 @@ namespace BuildingsAndGrid.Environment
         
         private void OnNewObjectCreatedOnGrid(CreatedNewObjectOnGridMessage msg)
         {
-            var saveBuildingInLastPlace = YG2.saves.BuildingSaves
-                                             .FirstOrDefault(buildingSave =>
-                                                                 buildingSave.Id.Equals(msg.Building.BuildingConfig
-                                                                         .Id)
-                                                              && buildingSave.Cell.Equals(msg.LastCell));
-            if (saveBuildingInLastPlace != null)
-            {
-                YG2.saves.BuildingSaves.Remove(saveBuildingInLastPlace);
-            }
-
             if (msg.NeedSave)
             {
+                var saveBuildingInLastPlace = YG2.saves.BuildingSaves
+                                                 .FirstOrDefault(buildingSave =>
+                                                                     buildingSave.Id.Equals(msg.Building.BuildingConfig
+                                                                        .Id)
+                                                                  && buildingSave.Cell.Equals(msg.LastCell));
+                if (saveBuildingInLastPlace != null)
+                {
+                    YG2.saves.BuildingSaves.Remove(saveBuildingInLastPlace);
+                }
+                
                 YG2.saves.BuildingSaves.Add(new BuildingSave(msg.Building.BuildingConfig.Id, msg.Cell, msg.Rotation));
                 YG2.SaveProgress();
             }
@@ -187,7 +190,7 @@ namespace BuildingsAndGrid.Environment
                                                      },
                                                      gridEnvConfig.Checkout,
                                                      Quaternion.identity);
-            //Shelf For Carrot
+            //Shelf
             buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
                                                       new List<TileAroundInfo>
                                                       {
@@ -195,7 +198,7 @@ namespace BuildingsAndGrid.Environment
                                                       }),
                                                      new List<TileAroundInfoWithPosition>
                                                      {
-                                                         new(new Vector2Int(gridEnvConfig.CarrotShelf.Size.x + 2,
+                                                         new(new Vector2Int(gridEnvConfig.Shelf.Size.x + 2,
                                                                                  - 3),
                                                              new List<TileAroundInfo>
                                                              {
@@ -203,7 +206,7 @@ namespace BuildingsAndGrid.Environment
                                                                  new(Area.None, 1),
                                                              })
                                                      },
-                                                     gridEnvConfig.CarrotShelf,
+                                                     gridEnvConfig.Shelf,
                                                      Quaternion.identity);
             //Landing For Carrot
             buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
@@ -213,14 +216,14 @@ namespace BuildingsAndGrid.Environment
                                                       }),
                                                      new List<TileAroundInfoWithPosition>
                                                      {
-                                                         new(new Vector2Int(-7, gridEnvConfig.CarrotLanding.Size.y + 2),
+                                                         new(new Vector2Int(-7, gridEnvConfig.Landing.Size.y + 2),
                                                              new List<TileAroundInfo>
                                                              {
                                                                  new(Area.Wall, 3),
                                                                  new(Area.Garden, 1),
                                                              })
                                                      },
-                                                     gridEnvConfig.CarrotLanding,
+                                                     gridEnvConfig.Landing,
                                                      Quaternion.identity);
             //Deleter
             buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,

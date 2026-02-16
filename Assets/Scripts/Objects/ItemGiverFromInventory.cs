@@ -29,9 +29,11 @@ namespace Objects
         private void Interact(LifetimeScope scope)
         {
             var otherInventory = scope.Container.Resolve<IInventory>();
-            if (!inventory.CanGet())
+            if (!inventory.HaveItem)
                 return;
             var itemConfig = inventory.GetConfig();
+            if (!inventory.CanGet(itemConfig))
+                return;
             if (otherInventory.CanAdd(itemConfig))
             {
                 var item = inventory.Get();

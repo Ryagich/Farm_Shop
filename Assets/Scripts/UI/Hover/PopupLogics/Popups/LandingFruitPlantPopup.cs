@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using Inventory.ObjectInventory;
@@ -21,6 +22,8 @@ namespace UI.Hover.PopupLogics.Popups
     public class LandingFruitPlantPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly LocalizationConfig localizationConfig;
         private readonly PopupHolders popupHolders;
@@ -37,8 +40,10 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
         
         private CompositeDisposable disposables = new();
-        private RectTransform popupRect;
      
+        private LandingFruitPlantInfoAboutFruits fruitsInfo;
+        private float baseHeight;
+        
         public LandingFruitPlantPopup
             (
                 LocalizationConfig localizationConfig,
@@ -66,12 +71,12 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.LandingFruitPlantHolder, canvas.transform);
-            popupRect = popup.GetComponent<RectTransform>();
+            Root = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
-            baseHeight = popupRect.sizeDelta.y;
+            baseHeight = Root.sizeDelta.y;
             
             popup.ButtonMove.onClick.AddListener(Move);
             popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
@@ -79,17 +84,14 @@ namespace UI.Hover.PopupLogics.Popups
             Redraw();
             Subscribe();
             
-            return popup.GetComponent<RectTransform>();
+            return this;
         }
-        
-        private LandingFruitPlantInfoAboutFruits fruitsInfo;
-        private float baseHeight;
-        
+
         public void Redraw()
         {
-            if (!popupRect)
+            if (!Root)
                 return;
-            var popup = popupRect.GetComponent<LandingFruitPlantHolder>();
+            var popup = Root.GetComponent<LandingFruitPlantHolder>();
             
             popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedStringCached()}";
             if (fruitsInfo)
@@ -117,7 +119,7 @@ namespace UI.Hover.PopupLogics.Popups
                 fruitsInfo.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedStringCached()} {inventory.GetCount()}";
                 holderRect.anchoredPosition = new Vector2(.0f, lastRect.anchoredPosition.y - lastRect.sizeDelta.y);
                 // popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + holderRect.sizeDelta.y);
-                popupRect.sizeDelta = popupRect.sizeDelta.WithY(baseHeight + holderRect.sizeDelta.y);
+                Root.sizeDelta = Root.sizeDelta.WithY(baseHeight + holderRect.sizeDelta.y);
                 moveButtonRect.anchoredPosition = moveButtonRect.anchoredPosition.WithY(holderRect.anchoredPosition.y - holderRect.sizeDelta.y);
                 inventoryButtonRect.anchoredPosition = inventoryButtonRect.anchoredPosition.WithY(moveButtonRect.anchoredPosition.y - moveButtonRect.sizeDelta.y);
             }
@@ -173,8 +175,8 @@ namespace UI.Hover.PopupLogics.Popups
         public void Dispose()
         {
             disposables.Dispose();
-            if (popupRect)
-                Object.Destroy(popupRect.gameObject);
+            if (Root)
+                Object.Destroy(Root.gameObject);
         }
     }
 }

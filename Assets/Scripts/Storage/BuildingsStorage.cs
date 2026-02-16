@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using MessagePipe;
@@ -13,15 +14,18 @@ using YG;
 namespace Storage
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class Storage : IStartable
+    public class BuildingsStorage : IStartable
     {
-        // основной контейнер
+        private readonly TaskCompletionSource<bool> readyTcs = new();
+
+        public Task Ready => readyTcs.Task;
+
         public List<BuildingInStorage> Buildings { get; } = new();
 
         // быстрый доступ по Id
         private readonly Dictionary<string, BuildingInStorage> buildingsById = new();
 
-        public Storage(ISubscriber<AddBuildingToStorageRequest> addBuildingToStorageRequest)
+        public BuildingsStorage(ISubscriber<AddBuildingToStorageRequest> addBuildingToStorageRequest)
         {
             addBuildingToStorageRequest.Subscribe(Add);
         }
@@ -30,7 +34,7 @@ namespace Storage
         {
             return buildingsById[id].BuildingConfig;
         }
-        
+
         public BuildingInStorage Get(BuildingConfig buildingConfig)
         {
             if (buildingConfig == null)
@@ -61,8 +65,8 @@ namespace Storage
             }
 
             buildingInStorage.Count++;
-            
-            if (msg.NeedRemoveFromSave)
+
+            if (msg.NeedSave)
             {
                 var buildingInStorageSave = YG2.saves.BuildingInStorageSave
                                                .First(s => s.Id.Equals(buildingInStorage.BuildingConfig.Id));
@@ -81,47 +85,50 @@ namespace Storage
         public void Start()
         {
             LoadBuildings(configs =>
-            {
-                Buildings.Clear();
-                buildingsById.Clear();
+                          {
+                              Buildings.Clear();
+                              buildingsById.Clear();
 
-                YG2.saves.BuildingInStorageSave ??= new List<BuildingInStorageSave>();
-                
-                foreach (var config in configs)
-                {
-                    if (string.IsNullOrEmpty(config.Id))
-                    {
-                        Debug.LogError($"BuildingConfig '{config.name}' has empty Id");
-                        continue;
-                    }
+                              YG2.saves.BuildingInStorageSave ??= new List<BuildingInStorageSave>();
 
-                    if (buildingsById.ContainsKey(config.Id))
-                    {
-                        Debug.LogError($"Duplicate BuildingConfig Id: {config.Id}");
-                        continue;
-                    }
+                              foreach (var config in configs)
+                              {
+                                  if (string.IsNullOrEmpty(config.Id))
+                                  {
+                                      Debug.LogError($"BuildingConfig '{config.name}' has empty Id");
+                                      continue;
+                                  }
 
-                    var entry = new BuildingInStorage(config);
-                    Buildings.Add(entry);
-                    buildingsById.Add(config.Id, entry);
+                                  if (buildingsById.ContainsKey(config.Id))
+                                  {
+                                      Debug.LogError($"Duplicate BuildingConfig Id: {config.Id}");
+                                      continue;
+                                  }
 
-                    var buildingInStorageSave = YG2.saves.BuildingInStorageSave
-                                                   .FirstOrDefault(s => s.Id.Equals(entry.BuildingConfig.Id));
-                    if (buildingInStorageSave != null)
-                    {
-                        entry.Count = buildingInStorageSave.Count;
-                    }
-                    else
-                    {
-                        YG2.saves.BuildingInStorageSave.Add(new BuildingInStorageSave(entry.BuildingConfig.Id, entry.Count));
-                    }
-                }
-                
-                Buildings.Sort((a, b) =>
-                    a.BuildingConfig.Price.CompareTo(b.BuildingConfig.Price));
-                
-                StorageAwaiter.SignalReady();
-            });
+                                  var entry = new BuildingInStorage(config);
+                                  Buildings.Add(entry);
+                                  buildingsById.Add(config.Id, entry);
+
+                                  var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                                                                 .FirstOrDefault(s => s.Id.Equals(entry.BuildingConfig
+                                                                                   .Id));
+                                  if (buildingInStorageSave != null)
+                                  {
+                                      entry.Count = buildingInStorageSave.Count;
+                                  }
+                                  else
+                                  {
+                                      YG2.saves.BuildingInStorageSave
+                                         .Add(new BuildingInStorageSave(entry.BuildingConfig.Id, entry.Count));
+                                  }
+                              }
+
+                              Buildings.Sort((a, b) =>
+                                                 a.BuildingConfig.Price.CompareTo(b.BuildingConfig.Price));
+
+                              // StorageAwaiter.SignalReady();
+                              readyTcs.SetResult(true);
+                          });
         }
 
         private async void LoadBuildings(Action<List<BuildingConfig>> onComplete)

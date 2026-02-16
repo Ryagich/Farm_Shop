@@ -5,6 +5,7 @@ using Buyer;
 using Checkout;
 using Inventory;
 using Inventory.Item;
+using Inventory.ObjectInventory;
 using Landings;
 using Landings.Plants;
 using Shelf;
@@ -128,12 +129,24 @@ namespace Messages
     public readonly struct AddBuildingToStorageRequest
     {
         public readonly BuildingConfig BuildingConfig;
-        public readonly bool NeedRemoveFromSave;
+        public readonly bool NeedSave;
 
-        public AddBuildingToStorageRequest(BuildingConfig buildingConfig, bool needRemoveFromSave)
+        public AddBuildingToStorageRequest(BuildingConfig buildingConfig, bool needSave)
         {
             BuildingConfig = buildingConfig;
-            NeedRemoveFromSave = needRemoveFromSave;
+            NeedSave = needSave;
+        }
+    }
+    
+    public readonly struct AddItemToStorageRequest
+    {
+        public readonly ItemConfig ItemConfig;
+        public readonly bool NeedSave;
+
+        public AddItemToStorageRequest(ItemConfig itemConfig, bool needSave)
+        {
+            ItemConfig = itemConfig;
+            NeedSave = needSave;
         }
     }
     
@@ -231,38 +244,32 @@ namespace Messages
     public readonly struct NewShelfCreatedMessage
     {
         public readonly ShelfInfoRecorder ShelfInfoRecorder;
-        public readonly ItemConfig ItemConfig;
+        public readonly ShelfInventory ShelfInventory;
         public readonly BuildingInteractableFlag BuildingInteractableFlag;
-        public readonly IInventory Inventory;
 
         public NewShelfCreatedMessage
             (
                 ShelfInfoRecorder shelfInfoRecorder,
-                ItemConfig itemConfig,
-                BuildingInteractableFlag buildingInteractableFlag,
-                IInventory inventory
+                ShelfInventory shelfInventory,
+                BuildingInteractableFlag buildingInteractableFlag
             )
         {
             ShelfInfoRecorder = shelfInfoRecorder;
-            ItemConfig = itemConfig;
+            ShelfInventory = shelfInventory;
             BuildingInteractableFlag = buildingInteractableFlag;
-            Inventory = inventory;
         }
     }
 
     public readonly struct ShelfDeletedMessage
     {
-        public readonly ItemConfig ItemConfig;
-        public readonly IInventory Inventory;
+        public readonly ShelfInventory ShelfInventory;
 
         public ShelfDeletedMessage
             (
-                ItemConfig itemConfig,
-                IInventory inventory
+                ShelfInventory shelfInventory
             )
         {
-            ItemConfig = itemConfig;
-            Inventory = inventory;
+            ShelfInventory = shelfInventory;
         }
     }
     

@@ -29,6 +29,7 @@ namespace Localization
             
             Debug.Log($"Configuring language: '{YG2.lang}'");
             YGInsides.LoadProgress();
+            
             await LocalizationHelper.InvalidateAsync(YG2.lang);
             LocalizationAwaiter.SignalReady();
             YG2.GameReadyAPI();

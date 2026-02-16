@@ -10,8 +10,8 @@ namespace BuildingsAndGrid.Environment
         [field: SerializeField] public BuildingConfig ShopDoorConfig { get; private set; }
         [field: SerializeField] public BuildingConfig BackDoor { get; private set; }
         [field: SerializeField] public BuildingConfig Checkout { get; private set; }
-        [field: SerializeField] public BuildingConfig CarrotLanding { get; private set; }
-        [field: SerializeField] public BuildingConfig CarrotShelf { get; private set; }
+        [field: SerializeField] public BuildingConfig Landing { get; private set; }
+        [field: SerializeField] public BuildingConfig Shelf { get; private set; }
         [field: SerializeField] public BuildingConfig Deleter { get; private set; }
     }
 }

@@ -21,6 +21,8 @@ MonoBehaviour:
   <RedactorView>k__BackingField: {fileID: 2621870946653476274, guid: 583ccf52b5e25ac4687ad1f4a4edab38, type: 3}
   <PurchaseCardPrefab>k__BackingField: {fileID: 4779417916929354018, guid: 16f9684ef18da454da08cb0bb47a22ca, type: 3}
   <ProductCardPrefab>k__BackingField: {fileID: 649545104201763441, guid: 74932c01d0e09e143942a4355ca5b744, type: 3}
+  <ProductCard>k__BackingField: {fileID: 5966640229876114868, guid: c208a4d6e6932604699260ea17d30f5b, type: 3}
+  <WindowToChangeProduct>k__BackingField: {fileID: 5361381582505018654, guid: 9e2d4d1644bdc8e48adbe8bc5a831b6c, type: 3}
   <SpaceBetweenPurchaseCards>k__BackingField: {x: 265, y: 40}
   <CardsRowCount>k__BackingField: 6
   <SectionButtons>k__BackingField: {fileID: -5696365727468345204, guid: 34e67f545536437408cf3261f56f23af, type: 3}

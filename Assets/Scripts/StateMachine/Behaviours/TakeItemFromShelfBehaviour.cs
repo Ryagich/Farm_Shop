@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using StateMachine.Graph.Model;
+﻿using StateMachine.Graph.Model;
 using UnityEngine;
 
 namespace StateMachine.Behaviours
@@ -17,19 +16,19 @@ namespace StateMachine.Behaviours
             var shelfInventory = context.UsedInfoAboutPositionAtShelfForBuyer.ShelfInventory;
 
             if (context.TimeBetweenIterations > context.T
-             || !shelfInventory.CanGet())
+             || !shelfInventory.CanGet(context.TargetBuyPosition.Config))
             {
                 context.T += context.DeltaTime;
                 return;
             }
-
-            var config = shelfInventory.GetConfig();
-            var buyPos = context.BuyPositions.First(p => p.Config.ID.Equals(config.ID));
-
+            var config = context.TargetBuyPosition.Config;
+            var buyPos = context.TargetBuyPosition;
+            // var config = shelfInventory.GetConfig();
+            // var buyPos = context.BuyPositions.First(p => p.Config.Id.Equals(config.Id));
             if (context.Inventory.CanAdd(config)    
              && buyPos.Count.Value < buyPos.Need)
             {
-                var itemHolder = shelfInventory.Get();
+                var itemHolder = shelfInventory.Get(config);
                 context.Inventory.Add(config, itemHolder.transform.localToWorldMatrix);
                 Destroy(itemHolder.gameObject);
                 SetDefaultParameters(context);

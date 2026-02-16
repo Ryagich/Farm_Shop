@@ -8,6 +8,5 @@ namespace Inventory.Item
     {
         [field: SerializeField] public float MoveSpeed { get; private set; } = 7f;
         [field: SerializeField] public float Gamma { get; private set; } = 1f;
-        [field: SerializeField] public List<ItemConfig> Items { get; private set; } = new();
     }
 }

@@ -9,7 +9,7 @@ namespace StateMachine.Behaviours
     {
         public override void Enter(StateMachineContext context)
         {
-            while (context.Inventory.CanGet())
+            while (context.Inventory.HaveItem)
             {
                 var item = context.Inventory.Get();
                 Destroy(item.gameObject);

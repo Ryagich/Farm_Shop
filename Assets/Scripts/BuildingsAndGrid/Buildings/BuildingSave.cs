@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BuildingsAndGrid.Buildings
@@ -24,6 +25,21 @@ namespace BuildingsAndGrid.Buildings
             RotZ = euler.z;
         }
     }
+
+    [Serializable]
+    public class ShelfSave
+    {
+        public string Id;
+        public Vector2Int Cell;
+        public List<(string, int)> inventoriesInfo = new();
+
+        public ShelfSave(string id, Vector2Int cell)
+        {
+            Id = id;
+            Cell = cell;
+        }
+    }
+
     [Serializable]
     public class BuildingInStorageSave
     {

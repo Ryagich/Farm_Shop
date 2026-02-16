@@ -29,7 +29,7 @@ namespace Interactable
         private void Take(LifetimeScope scope)
         {
             var otherInventory = scope.Container.Resolve<IInventory>();
-            if (otherInventory.CanGet() && buildingInteractableFlag.IsInteractable)
+            if (otherInventory.HaveItem && buildingInteractableFlag.IsInteractable)
             {
                 if(!inventory.CanAdd(otherInventory.GetConfig()))
                     return;

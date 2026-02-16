@@ -18,7 +18,7 @@ namespace BuildingsAndGrid.Buildings
         private readonly GridRaycaster gridRaycaster;
         private readonly TilesController tilesController;
         private readonly GridSettings gridSettings;
-        private readonly Storage.Storage storage;
+        private readonly Storage.BuildingsStorage buildingsStorage;
         private readonly IObjectResolver resolver;
         private readonly IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridRequest;
         private readonly IPublisher<ChangeGameModeRequest> changeGameModePublisher;
@@ -37,7 +37,7 @@ namespace BuildingsAndGrid.Buildings
                 GridRaycaster gridRaycaster,
                 TilesController tilesController,
                 GridSettings gridSettings,
-                Storage.Storage storage,
+                Storage.BuildingsStorage buildingsStorage,
                 IObjectResolver resolver,
                 IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridRequest,
                 IPublisher<ChangeGameModeRequest> changeGameModePublisher,
@@ -52,7 +52,7 @@ namespace BuildingsAndGrid.Buildings
             this.gridRaycaster = gridRaycaster;
             this.tilesController = tilesController;
             this.gridSettings = gridSettings;
-            this.storage = storage;
+            this.buildingsStorage = buildingsStorage;
             this.resolver = resolver;
             this.createdNewBuildingOnGridRequest = createdNewBuildingOnGridRequest;
             this.changeGameModePublisher = changeGameModePublisher;
@@ -164,7 +164,7 @@ namespace BuildingsAndGrid.Buildings
         private void OnChooseBuilding(ChoseBuildingMessage msg)
         {
             HideHighlight();
-            buildingInStorage = storage.Get(msg.BuildingConfig);
+            buildingInStorage = buildingsStorage.Get(msg.BuildingConfig);
             buildingConfig = msg.BuildingConfig;
             currentSize = msg.BuildingConfig.Size;
             highlightBuilding = resolver.Instantiate(buildingConfig.HighlightBuilding);

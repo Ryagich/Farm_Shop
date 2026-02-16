@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BuildingsAndGrid.Extension;
 using UI.Hover.PopupLogics.Holders;
 using UniRx;
@@ -11,12 +12,13 @@ namespace UI.Hover.PopupLogics.Popups
     public class ExtensionPointerPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly PopupHolders popupHolders;
         private readonly ExtensionPointer extensionPointer;
 
         private CompositeDisposable disposables = new();
-        private RectTransform popupRect;
         
         public ExtensionPointerPopup
             (
@@ -28,16 +30,16 @@ namespace UI.Hover.PopupLogics.Popups
             this.extensionPointer = extensionPointer;
         }
             
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.ExtensionPointerPopupHolder, canvas.transform);
-            popupRect = popup.GetComponent<RectTransform>();
+            Root = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
 
             popup.Size.text = $"{extensionPointer.Tiles.Count} Tiles";
             popup.Price.text = $"{extensionPointer.Price}$";
             
-            return popupRect;
+            return this;
         }
 
         public void Redraw() { }
@@ -46,8 +48,8 @@ namespace UI.Hover.PopupLogics.Popups
         public void Dispose()
         {
             disposables.Dispose();
-            if (popupRect)
-                Object.Destroy(popupRect.gameObject);
+            if (Root)
+                Object.Destroy(Root.gameObject);
         }
     }
 }

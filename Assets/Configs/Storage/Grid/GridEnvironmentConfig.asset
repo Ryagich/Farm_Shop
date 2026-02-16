@@ -15,6 +15,6 @@ MonoBehaviour:
   <ShopDoorConfig>k__BackingField: {fileID: 11400000, guid: 37d4cdd7844fd9c4288ba57231cefb42, type: 2}
   <BackDoor>k__BackingField: {fileID: 11400000, guid: 322be64f4ffe1744c8a0cda9ca1a24b7, type: 2}
   <Checkout>k__BackingField: {fileID: 11400000, guid: 3045ff5de011d27419fcb1b3c368eb0b, type: 2}
-  <CarrotLanding>k__BackingField: {fileID: 11400000, guid: 3d19d1e4acd38884e85a4fef6c21b5cf, type: 2}
-  <CarrotShelf>k__BackingField: {fileID: 11400000, guid: 9d35308ec785a984584f339059892024, type: 2}
+  <Landing>k__BackingField: {fileID: 11400000, guid: 3d19d1e4acd38884e85a4fef6c21b5cf, type: 2}
+  <Shelf>k__BackingField: {fileID: 11400000, guid: fdc1a6b485dff974d8a636c556314df9, type: 2}
   <Deleter>k__BackingField: {fileID: 11400000, guid: fd08f0e031b5a214ea1b39999abf557b, type: 2}

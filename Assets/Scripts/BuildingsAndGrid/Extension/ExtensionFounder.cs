@@ -56,10 +56,8 @@ namespace BuildingsAndGrid.Extension
         
         private void ExtentGrid(ClickMessage msg)
         {
-            Debug.Log($"Extend Grid T");
             if (currentPointer != null && financeManager.TryChangeValue(-currentPointer.Price))
             {
-                Debug.Log($"Extend Grid | Price {currentPointer.Price}");
                 tilesController.ExtendGrid(currentPointer.Direction, currentPointer.Tiles);
                 gridExtensionSpawner.ForceRefresh();
             }

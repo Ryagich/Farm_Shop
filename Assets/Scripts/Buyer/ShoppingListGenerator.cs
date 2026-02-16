@@ -1,27 +1,30 @@
 ﻿using System.Collections.Generic;
-using Inventory.Item;
 using Random = UnityEngine.Random;
 using System.Linq;
-using UnityEngine;
+using Storage;
 
 namespace Buyer
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ShoppingListGenerator
     {
-        private readonly ItemsConfig itemsConfig;
         private readonly BuyerSettings buyerSettings;
-        
-        public ShoppingListGenerator(ItemsConfig itemsConfig, BuyerSettings buyerSettings)
+        private readonly ItemsStorage itemsStorage;
+
+        public ShoppingListGenerator
+            (
+                BuyerSettings buyerSettings,
+                ItemsStorage itemsStorage
+            )
         {
-            this.itemsConfig = itemsConfig;
             this.buyerSettings = buyerSettings;
+            this.itemsStorage = itemsStorage;
         }
         
         public IEnumerable<BuyPosition> GetPositions()
         {
             var chance = 1.0f;
-            var items = itemsConfig.Items.ToList(); 
+            var items = itemsStorage.Items.ToList(); 
             while (chance > 0 && items.Count > 0)
             {
                 if (chance >= Random.Range(.0f, 1.0f))
@@ -29,7 +32,7 @@ namespace Buyer
                     var i = Random.Range(0, items.Count - 1);
                     var item = items[i];
                     items.Remove(item);
-                    yield return new BuyPosition(item, Random.Range(buyerSettings.PurchaseRange.x, 
+                    yield return new BuyPosition(item.ItemConfig, Random.Range(buyerSettings.PurchaseRange.x, 
                                                                     buyerSettings.PurchaseRange.y));
                 }
                 chance -= buyerSettings.ChanceDecrease;

@@ -3,6 +3,7 @@ using Input;
 using Input.Cursor;
 using MessagePipe;
 using Messages;
+using UI.Hover.PopupLogics.Popups;
 using UnityEngine;
 using Utils;
 using VContainer.Unity;
@@ -20,7 +21,7 @@ namespace UI.Hover.PopupLogics
         private readonly GameModesController gameModesController;
 
         private HoverTrigger currentHover;
-        private RectTransform currentPopup;
+        private IObjectPopup currentPopup;
 
         public bool HavePopup => currentPopup != null;
         public bool IsFixed;
@@ -56,14 +57,29 @@ namespace UI.Hover.PopupLogics
 
         private void OnClick(ClickMessage msg)
         {
-            if (!currentPopup)
+            if (!HavePopup)
                 return;
             var pos = inputConfig.PointerPosition.action.ReadValue<Vector2>();
-            var isPopup = RectTransformUtility.RectangleContainsScreenPoint(currentPopup, pos, null);
+            var isPopup = IsClickInsidePopup(currentPopup, pos);
+            // RectTransformUtility.RectangleContainsScreenPoint(currentPopup.Root, pos, null);
             if (isPopup)
                 return;
             if (IsFixed)
                 IsFixed = false;
+        }
+        
+        private bool IsClickInsidePopup(IObjectPopup popup, Vector2 screenPos)
+        {
+            if (popup.Root &&
+                RectTransformUtility.RectangleContainsScreenPoint(popup.Root, screenPos, null))
+                return true;
+            foreach (var child in popup.Children)
+            {
+                if (RectTransformUtility.RectangleContainsScreenPoint(child, screenPos, null))
+                    return true;
+            }
+
+            return false;
         }
 
         private void OnRightClick(RightClickMessage msg)
@@ -77,7 +93,7 @@ namespace UI.Hover.PopupLogics
         {
             if (IsFixed)
             {
-                if (currentPopup)
+                if (currentPopup.Root)
                     UpdatePosition();
                 return;
             }
@@ -100,7 +116,7 @@ namespace UI.Hover.PopupLogics
                 SetHover(null);
                 ClosePopup();
             }
-            else if (currentHover.gameObject == hoverTrigger.gameObject && currentPopup)
+            else if (currentHover.gameObject == hoverTrigger.gameObject && currentPopup != null)
             {
                 UpdatePosition();
             }
@@ -137,7 +153,7 @@ namespace UI.Hover.PopupLogics
 
         private void UpdatePosition()
         {
-            var popupSize = currentPopup.rect.size;
+            var popupSize = currentPopup.Root.rect.size;
             var screenPos = position;
             if (screenPos.x + popupSize.x > Screen.width)
             {
@@ -153,14 +169,14 @@ namespace UI.Hover.PopupLogics
                                                                     null,
                                                                     out var localPoint
                                                                    );
-            currentPopup.anchoredPosition = localPoint;
+            currentPopup.Root.anchoredPosition = localPoint;
         }
         
         private void DrawPopup()
         {
-            if (currentPopup)
+            if (currentPopup != null)
             {
-                Object.Destroy(currentPopup.gameObject);
+                Object.Destroy(currentPopup.Root.gameObject);
             }
             currentHover.ObjectPopup.CloseButton += OnClosePopup;
             if (!cursorHandler.IsVisible)
@@ -174,9 +190,9 @@ namespace UI.Hover.PopupLogics
         
         private void ClosePopup()
         {
-            if (currentPopup)
+            if (currentPopup != null && currentPopup.Root)
             {
-                Object.Destroy(currentPopup.gameObject);
+                Object.Destroy(currentPopup.Root.gameObject);
             }
             currentPopup = null;
         }

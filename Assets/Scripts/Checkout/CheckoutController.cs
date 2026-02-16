@@ -66,7 +66,7 @@ namespace Checkout
 
         public bool CanGet()
         {
-           return completeInventory.CanGet();
+           return completeInventory.HaveItem;
         }
         
         public void Add(ItemConfig itemConfig, Matrix4x4 matrix)
@@ -82,7 +82,7 @@ namespace Checkout
         private void MoveItems(LifetimeScope scope)
         {
             CanPay = true;
-            if (rawInventory.CanGet())
+            if (rawInventory.HaveItem)
             {
                 var itemHolder = rawInventory.Get();
                 completeInventory.Add(itemHolder.Config, itemHolder.transform.localToWorldMatrix);

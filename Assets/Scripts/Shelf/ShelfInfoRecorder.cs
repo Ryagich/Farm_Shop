@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BuildingsAndGrid.Buildings;
-using Inventory;
-using Inventory.Item;
+using Inventory.ObjectInventory;
 using Messages;
 using UniRx;
 using UnityEngine;
@@ -19,42 +18,46 @@ namespace Shelf
     //отправляют собщения до появления ShelvesController
     public class ShelfInfoRecorder : IStartable, IDisposable
     {
-        private readonly ItemConfig itemConfig;
         private readonly ShelvesController shelvesController;
-        private readonly IInventory inventory;
+        private readonly ShelfInventory shelfInventory;
         private readonly BuildingInteractableFlag buildingInteractableFlag;
 
         public readonly ReactiveCollection<InfoAboutPositionAtShelfForBuyer> info;
         
         public ShelfInfoRecorder
             (
-                ItemConfig itemConfig,
                 [Key("placesForBuyer")] List<Transform> places,
                 ShelvesController shelvesController,
-                BuildingInteractableFlag buildingInteractableFlag,
-                IInventory inventory
+                ShelfInventory shelfInventory,
+                BuildingInteractableFlag buildingInteractableFlag
             )
         {
-            this.itemConfig = itemConfig;
             this.shelvesController = shelvesController;
             this.buildingInteractableFlag = buildingInteractableFlag;
-            this.inventory = inventory;
+            this.shelfInventory = shelfInventory;
             
-            info = new ReactiveCollection<InfoAboutPositionAtShelfForBuyer>(
-                                                                            places.Select(place =>
-                                                                                    new InfoAboutPositionAtShelfForBuyer(place, inventory, buildingInteractableFlag)
-                                                                                )
-                                                                           );
+            info = new ReactiveCollection<InfoAboutPositionAtShelfForBuyer>(places.Select(place => 
+                                                                            new InfoAboutPositionAtShelfForBuyer(place, shelfInventory, buildingInteractableFlag)));
         }
         
         public void Start()
         {
-            shelvesController.RegisterShelf(new NewShelfCreatedMessage(this, itemConfig, buildingInteractableFlag, inventory));
+            Register();
         }
         
         public void Dispose()
         {
-            shelvesController.UnregisterShelf(new ShelfDeletedMessage(itemConfig, inventory));
+            UnRegister();
+        }
+
+        public void Register()
+        {
+            shelvesController.RegisterShelf(new NewShelfCreatedMessage(this, shelfInventory, buildingInteractableFlag));
+        }
+        
+        public void UnRegister()
+        {
+            shelvesController.UnregisterShelf(new ShelfDeletedMessage(shelfInventory));
         }
     }
 }

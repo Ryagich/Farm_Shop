@@ -29,6 +29,7 @@ namespace StateMachine
         public DoorsController DoorsController;
 
         public InfoAboutPositionAtShelfForBuyer UsedInfoAboutPositionAtShelfForBuyer;
+        public BuyPosition TargetBuyPosition;
         public CheckoutController CheckoutController;
 
         public TargetPoint TargetPoint;

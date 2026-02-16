@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Inventory;
-using Inventory.Item;
 using Messages;
 
 namespace Shelf
@@ -8,25 +7,23 @@ namespace Shelf
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ShelvesController
     {
-        public Dictionary<string, Dictionary<IInventory, List<InfoAboutPositionAtShelfForBuyer>>> PositionsAtShelvesByTypes = new();
+        public readonly Dictionary<IInventory, List<InfoAboutPositionAtShelfForBuyer>> Shelves = new();
 
         public void RegisterShelf(NewShelfCreatedMessage msg)
         {
-            if (!PositionsAtShelvesByTypes.ContainsKey(msg.ItemConfig.ID))
+            if (!Shelves.ContainsKey(msg.ShelfInventory))
             {
-                PositionsAtShelvesByTypes.Add(msg.ItemConfig.ID, new());
+                Shelves.Add(msg.ShelfInventory, new());
             }
-
-            PositionsAtShelvesByTypes[msg.ItemConfig.ID].Add(msg.Inventory, new());
             foreach (var pos in msg.ShelfInfoRecorder.info)
             {
-                PositionsAtShelvesByTypes[msg.ItemConfig.ID][msg.Inventory].Add(pos);
+                Shelves[msg.ShelfInventory].Add(pos);
             }
         }
         
         public void UnregisterShelf(ShelfDeletedMessage msg)
         {
-            PositionsAtShelvesByTypes[msg.ItemConfig.ID].Remove(msg.Inventory);
+            Shelves.Remove(msg.ShelfInventory);
         }
     }
 }

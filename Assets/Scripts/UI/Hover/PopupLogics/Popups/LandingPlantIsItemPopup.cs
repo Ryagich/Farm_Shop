@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BuildingsAndGrid.Buildings;
 using GameModes;
@@ -20,6 +21,8 @@ namespace UI.Hover.PopupLogics.Popups
     public class LandingPlantIsItemPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly LocalizationConfig localizationConfig;
         private readonly PopupHolders popupHolders;
@@ -34,7 +37,6 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
                 
         private CompositeDisposable disposables = new();
-        private RectTransform popupRect;
         
         public LandingPlantIsItemPopup
             (
@@ -59,10 +61,10 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher = GlobalMessagePipe.GetPublisher<ChangeGameModeRequest>();
         }
 
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.LandingPlantIsItemHolder, canvas.transform);
-            popupRect = popup.GetComponent<RectTransform>();
+            Root = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
 
             popup.ButtonMove.onClick.AddListener(Move);
@@ -71,16 +73,16 @@ namespace UI.Hover.PopupLogics.Popups
             Redraw();
             Subscribe();
             
-            return popupRect;
+            return this;
         }
-
+        
         public void Redraw()        
         {
-            if (!popupRect || plantConfig == null)
+            if (!Root || plantConfig == null)
                 return;
             if (plantConfig.Stages == null || plantConfig.Stages.Count == 0)
                 return;
-            var popup = popupRect.GetComponent<LandingPlantIsItemHolder>();
+            var popup = Root.GetComponent<LandingPlantIsItemHolder>();
             var lastStage = plantConfig.Stages.LastOrDefault();
             if (lastStage == null)
             {
@@ -150,8 +152,8 @@ namespace UI.Hover.PopupLogics.Popups
         public void Dispose()
         {
             disposables.Dispose();
-            if (popupRect)
-                Object.Destroy(popupRect.gameObject);
+            if (Root)
+                Object.Destroy(Root.gameObject);
         }
     }
 }

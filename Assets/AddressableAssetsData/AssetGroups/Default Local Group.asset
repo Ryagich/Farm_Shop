@@ -23,11 +23,17 @@ MonoBehaviour:
     m_SerializedLabels:
     - Buildings
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2b8c9c7c297174447a30d55e43bda405
-    m_Address: Assets/Configs/Storage/Buildings/Shelf Beetroot BuildingConfig.asset
+  - m_GUID: 0c67c9e7662b9514f96cc5571e27a2bf
+    m_Address: Assets/Configs/Inventory/Items/Beetroot ItemConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Buildings
+    - Items
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1df385f9137f1e743ba1d50a9d46719f
+    m_Address: Assets/Configs/Inventory/Items/Broccoli ItemConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Items
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3045ff5de011d27419fcb1b3c368eb0b
     m_Address: Assets/Configs/Storage/Buildings/Checkout BuildingConfig.asset
@@ -53,24 +59,17 @@ MonoBehaviour:
     m_SerializedLabels:
     - Buildings
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 56dec6df74c220d42ba368bc1e5b370c
-    m_Address: Assets/Configs/Storage/Buildings/Shelfs/Broccoli Shelf BuildingConfig
-      1.asset
+  - m_GUID: 5ec665709712faa49a7d92bd609873ab
+    m_Address: Assets/Configs/Inventory/Items/Tomato ItemConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Buildings
+    - Items
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 915a32feaac45ac4f9284eb31bd6def6
-    m_Address: Assets/Configs/Storage/Buildings/Shelfs/Shelf Tomaro BuildingConfig.asset
+  - m_GUID: 9369fa5abea4fdf40b9772357b6d27e1
+    m_Address: Assets/Configs/Inventory/Items/Carrot ItemConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Buildings
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9d35308ec785a984584f339059892024
-    m_Address: Assets/Configs/Storage/Buildings/Carot Lamding  BuildingConfig 1.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Buildings
+    - Items
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f29d49c261d3ada40b9f5f9baf6c2fdb
     m_Address: Assets/Configs/Storage/Buildings/Beetroot Landing  BuildingConfig.asset
@@ -86,6 +85,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd08f0e031b5a214ea1b39999abf557b
     m_Address: Assets/Configs/Storage/Buildings/Deleter BuildingConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Buildings
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fdc1a6b485dff974d8a636c556314df9
+    m_Address: Assets/Configs/Storage/Buildings/Shelfs/Shelf BuildingConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Buildings

@@ -18,7 +18,7 @@ namespace StateMachine.Behaviours
                 context.T += context.DeltaTime;
                 return;
             }
-            if (context.Inventory.CanGet())
+            if (context.Inventory.HaveItem)
             {
                 var itemHolder = context.Inventory.Get();
                 context.CheckoutController.Add(itemHolder.Config, itemHolder.transform.localToWorldMatrix);

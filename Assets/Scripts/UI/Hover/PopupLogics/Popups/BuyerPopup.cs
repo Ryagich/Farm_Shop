@@ -15,12 +15,13 @@ namespace UI.Hover.PopupLogics.Popups
     public class BuyerPopup : IObjectPopup, IDisposable
     {
         public event Action CloseButton;
+        public RectTransform Root { get; private set; }
+        public List<RectTransform> Children { get; private set; } = new();
 
         private readonly PopupHolders popupHolders;
         private readonly BuyerController buyerController;
 
         private CompositeDisposable disposables = new();
-        private RectTransform popupRect;
         private List<RectTransform> buyPositions = new();
         private float baseHeight;
         
@@ -34,19 +35,19 @@ namespace UI.Hover.PopupLogics.Popups
             this.buyerController = buyerController;
         }
         
-        public RectTransform DrawPopup(Canvas canvas)
+        public IObjectPopup DrawPopup(Canvas canvas)
         {
             var popup = Object.Instantiate(popupHolders.BuyerPopupHolder, canvas.transform);
-            popupRect = popup.GetComponent<RectTransform>();
+            Root = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
-            baseHeight = popupRect.sizeDelta.y;
+            baseHeight = Root.sizeDelta.y;
 
             Redraw();
             Subscribe();
-                
-            return popup.GetComponent<RectTransform>();
+
+            return this;// popup.GetComponent<RectTransform>();
         }
-        
+
         public void Redraw()
         {
             if (buyerController is null)
@@ -54,9 +55,9 @@ namespace UI.Hover.PopupLogics.Popups
                 Dispose();
                 return;
             }
-            if (!popupRect)
+            if (!Root)
                 return;
-            var popup = popupRect.GetComponent<BuyerPopupHolder>();
+            var popup = Root.GetComponent<BuyerPopupHolder>();
             var h = popup.ProductsListTitle.rectTransform.anchoredPosition.y - popup.ProductsListTitle.rectTransform.sizeDelta.y;
            
             foreach (var buyPosition in buyPositions)
@@ -77,17 +78,11 @@ namespace UI.Hover.PopupLogics.Popups
                 positionHolder.ProductCounts.text = $"{buyPosition.Count.Value} / {buyPosition.Need}";
                 positionHolder.Fill.fillAmount = (float)buyPosition.Count.Value / buyPosition.Need;
 
-                var positionsAtShelves = buyerController.context.ShelvesController.PositionsAtShelvesByTypes
-                               .Where(p => p.Key.Equals(buyPosition.Config.ID)).ToArray();
+                var positionsAtShelves = buyerController.context.ShelvesController.Shelves
+                                                        .Where(shelf => shelf.Key.CanGet(buyPosition.Config)).ToArray();
                 if (positionsAtShelves.Length is 0)
                 {
                     positionHolder.FillBack.color = buyerController.context.BuyerSettings.NotForSaleColor;
-                }
-                else if (!positionsAtShelves.Any(p
-                                             => p.Value
-                                                 .Any(si => si.Key.CanGet())))
-                {
-                    positionHolder.FillBack.color = buyerController.context.BuyerSettings.OutOfStockColor;
                 }
                 buyPositions.Add(holderRect);
             }
@@ -95,9 +90,9 @@ namespace UI.Hover.PopupLogics.Popups
             var itemHeight = popupHolders.BuyerProductInfo
                                            .GetComponent<RectTransform>()
                                            .sizeDelta.y;
-            popupRect.sizeDelta = popupRect.sizeDelta.WithY(
-                                                            baseHeight + buyerController.context.BuyPositions.Count * itemHeight + 5f
-                                                           );
+            Root.sizeDelta = Root.sizeDelta.WithY(
+                                                  baseHeight + buyerController.context.BuyPositions.Count * itemHeight + 5f
+                                                 );
         }
 
         public void Subscribe()
@@ -111,8 +106,8 @@ namespace UI.Hover.PopupLogics.Popups
         {
             disposables.Dispose();
             buyPositions.Clear();
-            if (popupRect)
-                Object.Destroy(popupRect.gameObject);
+            if (Root)
+                Object.Destroy(Root.gameObject);
         }
     }
 }

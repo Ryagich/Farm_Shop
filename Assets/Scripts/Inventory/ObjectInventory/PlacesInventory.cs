@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Inventory.Item;
 using UniRx;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace Inventory.ObjectInventory
 {
@@ -13,41 +10,60 @@ namespace Inventory.ObjectInventory
     {
         public ReactiveCollection<ItemHolder> Items { get; private set; } = new();
         
-        private readonly ItemConfig itemConfig;
-        private readonly int placesCount;
-        private readonly IObjectResolver resolver;
+        private ItemConfig itemConfig;
+        public readonly int MaxItems;
         
         public PlacesInventory
             (
                 ItemConfig itemConfig,
-                IObjectResolver resolver, 
-                
-                [Key("placesCount")] int placesCount
+                int maxItems
             )
         {
             this.itemConfig = itemConfig;
-            this.resolver = resolver;
-            this.placesCount = placesCount;
+            this.MaxItems = maxItems;
         }
 
-        public bool CanAdd(ItemConfig config) => Items.Count < placesCount
-                                              && itemConfig.ID.Equals(config.ID);  
+        // ReSharper disable once ParameterHidesMember
+        public void ChangeItemConfig(ItemConfig itemConfig)
+        {
+            this.itemConfig = itemConfig;
+        }
+
+        public bool CanAdd(ItemConfig config)
+        {
+            if (itemConfig is null)
+                return false;
+            return Items.Count < MaxItems
+                && itemConfig.Id.Equals(config.Id);
+        }
+
+        public bool CanGet(ItemConfig config) => Items.Count is not 0 
+                                              && itemConfig.Id.Equals(config.Id);
+
         public ItemConfig GetConfig() => itemConfig;
 
-        public void Add(ItemConfig newItemConfig, Matrix4x4 position)
+        public void Add(ItemConfig config, Matrix4x4 position)
         {
-            var handItem = resolver.Instantiate(newItemConfig.HandPrefab);
+            var handItem = Object.Instantiate(config.HandPrefab);
             handItem.transform.SetPositionAndRotation(position.GetPosition(), position.rotation);
             Items.Add(handItem);
         }
 
-        public bool CanGet() => Items.Count is not 0;
-
+        public void Add(ItemHolder itemHolder)
+        {
+            Items.Add(itemHolder);
+        }
+        
         public ItemHolder Get()
         {
             var itemHolder = Items.Last();
             Items.Remove(itemHolder);
             return itemHolder;
+        }
+
+        public ItemHolder Get(ItemConfig config)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Remove(ItemHolder itemHolder)

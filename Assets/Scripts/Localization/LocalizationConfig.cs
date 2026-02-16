@@ -26,5 +26,11 @@ namespace Localization
         [field: SerializeField] public LocalizedString CancelBuilding { get; private set; }
         [field: SerializeField] public LocalizedString RotateRight { get; private set; }
         [field: SerializeField] public LocalizedString RotateLeft { get; private set; }
+        
+        [field: Header("Shelf Popup")]
+        [field: SerializeField] public LocalizedString Empty { get; private set; }
+        [field: SerializeField] public LocalizedString Edit { get; private set; }
+        [field: SerializeField] public LocalizedString Selected { get; private set; } //Выбрано
+        [field: SerializeField] public LocalizedString Select { get; private set; } //Выбрать
     }
 }

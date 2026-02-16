@@ -21,7 +21,7 @@ namespace UI.Pages
 
         private readonly UIConfig uiConfig;
         private readonly LocalizationConfig localizationConfig;
-        private readonly Storage.Storage storage;
+        private readonly Storage.BuildingsStorage buildingsStorage;
         private readonly HelpInfoDrawer helpInfoDrawer;
         private readonly ObjectInfoPopupsController objectInfoPopupsController;
         private readonly RectTransform canvasRect;
@@ -47,7 +47,7 @@ namespace UI.Pages
                 UIUtils uiUtils,
                 SpritesConfig spritesConfig,
                 Canvas canvas,
-                Storage.Storage storage,
+                Storage.BuildingsStorage buildingsStorage,
                 HelpInfoDrawer helpInfoDrawer,
                 ObjectInfoPopupsController objectInfoPopupsController,
                 IObjectResolver resolver,
@@ -61,7 +61,7 @@ namespace UI.Pages
             this.localizationConfig = localizationConfig;
             this.uiUtils = uiUtils;
             this.spritesConfig = spritesConfig;
-            this.storage = storage;
+            this.buildingsStorage = buildingsStorage;
             this.helpInfoDrawer = helpInfoDrawer;
             this.objectInfoPopupsController = objectInfoPopupsController;
             this.resolver = resolver;
@@ -121,7 +121,7 @@ namespace UI.Pages
             sectionButtonsRect.pivot = new Vector2(.0f, .5f);
             sectionButtonsRect.anchoredPosition = new Vector2(25.0f, .0f);
 
-            var buildings = storage.GetBuildings(CurrentArea).Where(b => b.Count > 0).ToList();
+            var buildings = buildingsStorage.GetBuildings(CurrentArea).Where(b => b.Count > 0).ToList();
             var cardSize = uiConfig.ProductCardPrefab.GetComponent<RectTransform>().sizeDelta;
 
             content.sizeDelta =

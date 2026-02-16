@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
-  m_Name: Carot Shelf BuildingConfig
+  m_Name: Shelf BuildingConfig
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: Carot Shelf
+  <Id>k__BackingField: Shelf
   <Type>k__BackingField: 2
-  <Icon>k__BackingField: {fileID: 21300000, guid: 6eb2ba3fba2e9d24fa7903e873a4ec5b, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 2fa4178bbf0917543be5b3901a5e65d2, type: 3}
   <Name>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
     m_TableEntryReference:
-      m_KeyId: 77133480443904
+      m_KeyId: 109246325964800
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  <Building>k__BackingField: {fileID: 6371271840119661707, guid: f8f14e98c97f3c141b953428e5074704, type: 3}
+  <Building>k__BackingField: {fileID: 6371271840119661707, guid: acdfe0477afb8554a887396fe5ecbc57, type: 3}
   <HighlightBuilding>k__BackingField: {fileID: 5924636531613310000, guid: 9a4f0d3a32aef1c49b73d817c87cc1f5, type: 3}
   <Size>k__BackingField: {x: 5, y: 5}
   <Price>k__BackingField: 60

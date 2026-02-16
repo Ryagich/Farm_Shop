@@ -11,7 +11,7 @@ namespace StateMachine.Conditions
         {
             if (context.CheckDistanceToTarget())
             {
-                while (context.Inventory.CanGet())
+                while (context.Inventory.HaveItem)
                 {
                     var item = context.Inventory.Get();
                     Destroy(item.gameObject);
