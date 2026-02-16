@@ -33,6 +33,12 @@ namespace Localization
             await LocalizationHelper.InvalidateAsync(YG2.lang);
             LocalizationAwaiter.SignalReady();
             YG2.GameReadyAPI();
+            
+            if (!YG2.saves.GameReadyMetricSend)
+            {
+                YG2.MetricaSend("GameReady");
+                YG2.saves.GameReadyMetricSend = true;
+            }
         }
     }
 }

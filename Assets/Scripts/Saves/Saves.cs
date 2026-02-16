@@ -2,6 +2,7 @@
 using BuildingsAndGrid.Buildings;
 using Inventory.Item;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace YG
 {
@@ -14,5 +15,8 @@ namespace YG
         public List<ShelfSave> ShelvesSave = new();
         public List<BuildingInStorageSave> BuildingInStorageSave = new();
         public List<ItemInStorageSave> ItemInStorageSave = new();
+        
+        public bool StorageReadyMetricSend;
+        public bool GameReadyMetricSend;
     }
 }

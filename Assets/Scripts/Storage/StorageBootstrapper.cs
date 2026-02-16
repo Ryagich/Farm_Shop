@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 using VContainer.Unity;
+using YG;
 
 namespace Storage
 {
@@ -32,6 +33,11 @@ namespace Storage
             readyTcs.SetResult(true);
             
             Debug.Log("All storages ready");
+            if (!YG2.saves.StorageReadyMetricSend)
+            {
+                YG2.MetricaSend("StoragesReady");
+                YG2.saves.StorageReadyMetricSend = true;
+            }
         }
     }
 }
