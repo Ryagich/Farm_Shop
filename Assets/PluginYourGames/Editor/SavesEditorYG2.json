@@ -7,8 +7,8 @@
     false,
     false
   ],
-  "idSave": 115,
-  "money": 4418,
+  "idSave": 126,
+  "money": 4424,
   "Tiles": [
     [
       "Wall",
@@ -1262,10 +1262,10 @@
     {
       "Id": "Carot Landing  ",
       "Cell": {
-        "x": 17,
+        "x": 21,
         "y": 6,
-        "magnitude": 18.0277557,
-        "sqrMagnitude": 325
+        "magnitude": 21.84033,
+        "sqrMagnitude": 477
       },
       "RotX": 0.0,
       "RotY": 0.0,
@@ -1330,7 +1330,7 @@
       "inventoriesInfo": [
         {
           "Item1": "Carrot ItemConfig ID",
-          "Item2": 0
+          "Item2": 10
         },
         {
           "Item1": "Carrot ItemConfig ID",
@@ -1398,6 +1398,54 @@
     }
   ],
   "ItemInStorageSave": [
+    {
+      "Id": "Beetroot ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Broccoli ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Tomato ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Carrot ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Beetroot ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Broccoli ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Tomato ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Carrot ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Beetroot ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Broccoli ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Tomato ItemConfig ID",
+      "Count": 0
+    },
+    {
+      "Id": "Carrot ItemConfig ID",
+      "Count": 0
+    },
     {
       "Id": "Beetroot ItemConfig ID",
       "Count": 0

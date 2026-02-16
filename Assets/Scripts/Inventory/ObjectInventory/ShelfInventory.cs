@@ -50,23 +50,31 @@ namespace Inventory.ObjectInventory
             {
                 for (var i = 0; i < save.inventoriesInfo.Count; i++)
                 {
-                    Inventories[i].ChangeItemConfig(save.inventoriesInfo[i].Item1 is null
-                                                        ? null
-                                                        : itemsStorage
-                                                           .GetItemConfigById(save.inventoriesInfo[i].Item1));
+                    var id = save.inventoriesInfo[i].Item1;
+                    if (id is null)
+                    {
+                        Inventories[i].ChangeItemConfig(null);
+                    }
+                    else
+                    {
+                        var config = itemsStorage.GetItemConfigById(save.inventoriesInfo[i].Item1);
+                        Inventories[i].ChangeItemConfig(config);
+                        for (var j = 0; j < save.inventoriesInfo[i].Item2; j++)
+                        {
+                            AddFromSave(config, building.Content.localToWorldMatrix);
+                        }
+                    }
                 }
             }
             else
             {
-                Debug.Log($"YG2.saves.ShelvesSave {YG2.saves.ShelvesSave == null}");
-                Debug.Log($"building.BuildingConfig.Id {building.BuildingConfig.Id}");
-
                 var shelfSave = new ShelfSave(building.BuildingConfig.Id, building.Cell);
                 foreach (var placesInventory in Inventories)
                 {
                     shelfSave.inventoriesInfo.Add((placesInventory.GetConfig() is null 
                                                        ? null 
-                                                       : placesInventory.GetConfig().Id, 0));
+                                                       : placesInventory.GetConfig().Id, 
+                                                   placesInventory.Items.Count));
                 }
                 YG2.saves.ShelvesSave.Add(shelfSave);
             }
@@ -76,7 +84,19 @@ namespace Inventory.ObjectInventory
         {
             return Inventories.Any(i => i.CanAdd(config)); 
         }
-
+        
+        private void AddFromSave(ItemConfig config, Matrix4x4 position)
+        {
+            var inventory = Inventories.FirstOrDefault(i => i.CanAdd(config));
+            if (inventory != null)
+            {
+                var handItem = Object.Instantiate(config.HandPrefab);
+                handItem.transform.SetPositionAndRotation(position.GetPosition(), position.rotation);
+                Items.Add(handItem);
+                inventory.Add(handItem);
+            }
+        }
+        
         public void Add(ItemConfig config, Matrix4x4 position)
         {
             var inventory = Inventories.FirstOrDefault(i => i.CanAdd(config));
@@ -86,6 +106,8 @@ namespace Inventory.ObjectInventory
                 handItem.transform.SetPositionAndRotation(position.GetPosition(), position.rotation);
                 Items.Add(handItem);
                 inventory.Add(handItem);
+                
+                SaveItemsCount(inventory, config);
             }
         }
 
@@ -105,6 +127,9 @@ namespace Inventory.ObjectInventory
             var inventory = Inventories.First(i => i.Items.Contains(itemHolder));
             Items.Remove(itemHolder);
             inventory.Remove(itemHolder);
+           
+            SaveItemsCount(inventory, itemHolder.Config);
+            
             return itemHolder;
         }
 
@@ -114,6 +139,9 @@ namespace Inventory.ObjectInventory
             var inventory = Inventories.First(i => i.Items.Contains(itemHolder));
             Items.Remove(itemHolder);
             inventory.Remove(itemHolder);
+
+            SaveItemsCount(inventory, config);
+            
             return itemHolder;
         }
 
@@ -121,15 +149,26 @@ namespace Inventory.ObjectInventory
         {
             placesInventory.ChangeItemConfig(itemConfig);
             var index = Inventories.IndexOf(placesInventory);
-            var save = YG2.saves.ShelvesSave.FirstOrDefault(s => s.Cell.Equals(building.Cell) 
+            var shelfSave = YG2.saves.ShelvesSave.FirstOrDefault(s => s.Cell.Equals(building.Cell) 
                                                               && s.Id.Equals(building.BuildingConfig.Id));
-            if (save != null)
+            if (shelfSave != null)
             {
-                save.inventoriesInfo[index] = (itemConfig.Id, 0);
+                shelfSave.inventoriesInfo[index] = (itemConfig.Id, 0);
             }
             else
             {
                 Debug.LogError($"Полка работает, но не записана в сейвы | форшмак");
+            }
+        }
+
+        private void SaveItemsCount(PlacesInventory inventory, ItemConfig config)
+        {
+            var shelfSave = YG2.saves.ShelvesSave.FirstOrDefault(s => s.Cell.Equals(building.Cell) 
+                                                          && s.Id.Equals(building.BuildingConfig.Id));
+            if (shelfSave != null)
+            {
+                var index = Inventories.IndexOf(inventory);
+                shelfSave.inventoriesInfo[index] = (config.Id, inventory.Items.Count);
             }
         }
         
