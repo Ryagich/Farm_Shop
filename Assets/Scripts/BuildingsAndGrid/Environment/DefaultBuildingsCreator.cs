@@ -2,11 +2,15 @@
 using System.Linq;
 using BuildingsAndGrid.Buildings;
 using GameModes;
+using Inventory.ObjectInventory;
+using Landings.Landings;
 using MessagePipe;
 using Messages;
 using Objects;
+using Shelf;
 using Storage;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
 using YG;
 
@@ -20,7 +24,7 @@ namespace BuildingsAndGrid.Environment
         private readonly StorageBootstrapper storageBootstrapper;
         private readonly TilesController tilesController;
         private readonly BuildingPlacer buildingPlacer;
-        private readonly Storage.BuildingsStorage buildingsStorage;
+        private readonly BuildingsStorage buildingsStorage;
         private readonly IPublisher<CreatedNewBuildingOnGridRequest> createdNewBuildingOnGridPublisher;
 
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
@@ -43,7 +47,6 @@ namespace BuildingsAndGrid.Environment
                 ISubscriber<DeleteBuildingOnGridMessage> deleteBuildingOnGridMessageSubscriber
             )
         {
-            Debug.Log($"DefaultBuildingsCreator Constructor");
             this.gridEnvConfig = gridEnvConfig;
             this.gridSettings = gridSettings;
             this.storageBootstrapper = storageBootstrapper;
@@ -65,9 +68,11 @@ namespace BuildingsAndGrid.Environment
             environmentParent = new GameObject("Wall Environment Parent");
             
             Debug.Log($"========================================");
-            if (YG2.saves.BuildingSaves is null || YG2.saves.BuildingSaves.Count is 0)
+            if (YG2.saves.BuildingSaves is null || YG2.saves.BuildingSaves.Count is 0 
+                                                || YG2.saves.BuildingSaves.Any(save => !buildingsStorage.CheckId(save.Id)))
             {
                 Debug.Log($"DefaultBuildingsCreator CreateDefaultBuildings");
+                YG2.saves.BuildingSaves = new();
                 CreateDefaultBuildings();
                 CreateEnvironment();
             }
@@ -109,10 +114,10 @@ namespace BuildingsAndGrid.Environment
                                                                tiles,
                                                                new Vector2Int(buildingSave.Cell.x, buildingSave.Cell.y),
                                                                buildingSave.Cell,
+                                                               false,
                                                                false
                                                               ));
             }
-            
             YG2.SaveProgress();
         }
         
@@ -191,7 +196,7 @@ namespace BuildingsAndGrid.Environment
                                                      gridEnvConfig.Checkout,
                                                      Quaternion.identity);
             //Shelf
-            buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
+            var shelf = buildingPlacer.PlaceBuilding(new TileAroundInfoWithPosition(Vector2Int.zero,
                                                       new List<TileAroundInfo>
                                                       {
                                                           new(Area.Shop, 4),
@@ -208,23 +213,30 @@ namespace BuildingsAndGrid.Environment
                                                      },
                                                      gridEnvConfig.Shelf,
                                                      Quaternion.identity);
+            // var shelfScope = shelf.GetComponent<ShelfOfGoodsLifetimeScope>();
+            // var shelfInventory = shelfScope.Container.Resolve<ShelfInventory>();
+            // shelfInventory.ChangeConfig(shelfInventory.Inventories.First(), gridEnvConfig.DefaultItemConfig);
+            
             //Landing For Carrot
-            buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
-                                                      new List<TileAroundInfo>
-                                                      {
-                                                          new(Area.Garden, 4),
-                                                      }),
-                                                     new List<TileAroundInfoWithPosition>
-                                                     {
-                                                         new(new Vector2Int(-7, gridEnvConfig.Landing.Size.y + 2),
-                                                             new List<TileAroundInfo>
-                                                             {
-                                                                 new(Area.Wall, 3),
-                                                                 new(Area.Garden, 1),
-                                                             })
-                                                     },
-                                                     gridEnvConfig.Landing,
-                                                     Quaternion.identity);
+            var landing = buildingPlacer.PlaceBuilding(new TileAroundInfoWithPosition(Vector2Int.zero,
+                                                                        new List<TileAroundInfo>
+                                                                        {
+                                                                            new(Area.Garden, 4),
+                                                                        }),
+                                         new List<TileAroundInfoWithPosition>
+                                         {
+                                             new(new Vector2Int(-7, gridEnvConfig.Landing.Size.y + 2),
+                                                 new List<TileAroundInfo>
+                                                 {
+                                                     new(Area.Wall, 3),
+                                                     new(Area.Garden, 1),
+                                                 })
+                                         },
+                                         gridEnvConfig.Landing,
+                                         Quaternion.identity);
+            var landingScope = landing.GetComponent<LandingPlantIsItemLifetimeScope>();
+            var landingC = landingScope.Container.Resolve<LandingPlantIsItemController>();
+            landingC.ChangeConfig(gridEnvConfig.DefaultPlantConfig);
             //Deleter
             buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
                                                       new List<TileAroundInfo>

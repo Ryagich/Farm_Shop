@@ -2,6 +2,8 @@
 using GameModes;
 using Inventory.Finance;
 using Localization;
+using MessagePipe;
+using Messages;
 using Storage;
 using TMPro;
 using UI.Configs;
@@ -23,10 +25,12 @@ namespace UI.Pages
         private readonly UIConfig uiConfig;
         private readonly LocalizationConfig localizationConfig;
         private readonly BuildingsStorage buildingsStorage;
-        private readonly ItemsStorage itemsStorage;
+        private readonly PlantsStorage plantsStorage;
         private readonly FinanceManager financeManager;
         private readonly RectTransform canvasRect;
         private readonly IObjectResolver resolver;
+        private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStorageRequestPublisher;
+        private readonly IPublisher<AddPlantToStorageRequest> addPlantToStorageRequestPublisher;
         private readonly UIUtils uiUtils;
         private RectTransform contentRect = null!;
 
@@ -36,19 +40,23 @@ namespace UI.Pages
                 LocalizationConfig localizationConfig,
                 FinanceManager financeManager,
                 BuildingsStorage buildingsStorage,
-                ItemsStorage itemsStorage,
+                PlantsStorage plantsStorage,
                 UIUtils uiUtils,
                 Canvas canvas,
-                IObjectResolver resolver
+                IObjectResolver resolver,
+                IPublisher<AddBuildingToStorageRequest> addBuildingToStorageRequestPublisher,
+                IPublisher<AddPlantToStorageRequest> addPlantToStorageRequestPublisher
             )
         {
             this.uiConfig = uiConfig;
             this.localizationConfig = localizationConfig;
             this.financeManager = financeManager;
             this.buildingsStorage = buildingsStorage;
-            this.itemsStorage = itemsStorage;
+            this.plantsStorage = plantsStorage;
             this.uiUtils = uiUtils;
             this.resolver = resolver;
+            this.addBuildingToStorageRequestPublisher = addBuildingToStorageRequestPublisher;
+            this.addPlantToStorageRequestPublisher = addPlantToStorageRequestPublisher;
             canvasRect = canvas.GetComponent<RectTransform>();
         }
 
@@ -77,8 +85,8 @@ namespace UI.Pages
             //var cardSize = uiConfig.PurchaseCardPrefab.GetComponent<RectTransform>().sizeDelta;
 
             layout.cellSize = cardSize;
-            layout.padding.right = (int)(spaceBetweenCardsX / 2);
-            layout.padding.left = (int)(spaceBetweenCardsX / 2);
+            layout.padding.right = spaceBetweenCardsX / 2;
+            layout.padding.left = spaceBetweenCardsX / 2;
             layout.padding.top = (int)(uiConfig.SpaceBetweenPurchaseCards.y / 2);
             layout.padding.bottom = (int)(uiConfig.SpaceBetweenPurchaseCards.y / 2);
 
@@ -103,19 +111,19 @@ namespace UI.Pages
             }
             if (CurrentArea == Area.Garden)
             {
-                for (var i = 0; i < itemsStorage.Items.Count; i++)
+                for (var i = 0; i < plantsStorage.Plants.Count; i++)
                 {
-                    var itemConfig = itemsStorage.Items[i].ItemConfig;
+                    var plantConfig = plantsStorage.Plants[i].PlantConfig;
                     var card = resolver.Instantiate(uiConfig.PurchaseCardPrefab, content);
-                    card.Icon.sprite = itemConfig.Icon;
+                    card.Icon.sprite = plantConfig.Icon;
                     card.SizeText.text = $"";
-                    card.Name.text = $"{itemConfig.Name.GetLocalizedStringCached()}";
+                    card.Name.text = $"{plantConfig.Name.GetLocalizedStringCached()}";
                     card.InInventory.text =
-                        $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {itemsStorage.Items[i].Count}";
-                    card.Button.GetComponentInChildren<TMP_Text>().text = $"{buildings[i].BuildingConfig.Price}$";
+                        $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {plantsStorage.Plants[i].Count}";
+                    card.Button.GetComponentInChildren<TMP_Text>().text = $"{plantConfig.Price}$";
                     
                     var i1 = i;
-                    card.Button.onClick.AddListener(() => BuyItem(itemsStorage.Items[i1]));
+                    card.Button.onClick.AddListener(() => BuyPlant(plantsStorage.Plants[i1]));
                 }
             }
             uiUtils.DrawFinanceDrawer(contentRect);
@@ -123,14 +131,11 @@ namespace UI.Pages
             uiUtils.InitSectionButtons(sectionButtons, uiConfig.SectionButtonsPositionForShopPage, CurrentArea, this);
         }
         
-        private void BuyItem(ItemInStorage itemInStorage)
+        private void BuyPlant(PlantInStorage plantInStorage)
         {
-            if (financeManager.TryChangeValue(-itemInStorage.ItemConfig.Price))
+            if (financeManager.TryChangeValue(-plantInStorage.PlantConfig.Price, false))
             {
-                itemInStorage.Count++;
-                var buildingInStorageSave = YG2.saves.ItemInStorageSave
-                                               .First(b => b.Id.Equals(itemInStorage.ItemConfig.Id));
-                buildingInStorageSave.Count = itemInStorage.Count;
+                addPlantToStorageRequestPublisher.Publish(new AddPlantToStorageRequest(plantInStorage.PlantConfig, false));
                 YG2.SaveProgress();
                 ReDraw();
             }
@@ -138,12 +143,9 @@ namespace UI.Pages
         
         private void BuyBuilding(BuildingInStorage buildingInStorage)
         {
-            if (financeManager.TryChangeValue(-buildingInStorage.BuildingConfig.Price))
+            if (financeManager.TryChangeValue(-buildingInStorage.BuildingConfig.Price, false))
             {
-                buildingInStorage.Count++;
-                var buildingInStorageSave = YG2.saves.BuildingInStorageSave
-                                               .First(b => b.Id.Equals(buildingInStorage.BuildingConfig.Id));
-                buildingInStorageSave.Count = buildingInStorage.Count;
+                addBuildingToStorageRequestPublisher.Publish(new AddBuildingToStorageRequest(buildingInStorage.BuildingConfig,true));
                 YG2.SaveProgress();
                 ReDraw();
             }

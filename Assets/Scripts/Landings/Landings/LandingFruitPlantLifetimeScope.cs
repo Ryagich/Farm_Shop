@@ -31,11 +31,8 @@ namespace Landings.Landings
             builder.RegisterInstance(Center);
             building.SetContent(Center);
             
-            // builder.RegisterInstance(transform);
             builder.RegisterInstance(gameObject);
-            builder.RegisterInstance(PlantConfig)
-                   .AsSelf()
-                   .As<PlantConfig>();
+            builder.RegisterInstance(PlantConfig);
             builder.RegisterInstance(PlantConfig.ItemGivenSound).Keyed("ItemGivenSound");
 
             // === Local MessagePipe ===
@@ -65,6 +62,8 @@ namespace Landings.Landings
                                        ep.Add<LandingFruitPlantController>().AsSelf();
                                        ep.Add<ItemGiverFromInventorySoundPlayer>().AsSelf();
                                    });
+            
+            builder.RegisterEntryPoint<InventoryDisposable>().AsSelf();
             builder.RegisterBuildCallback(container =>
                                           {
                                               container.Inject(hoverTrigger);

@@ -1,4 +1,5 @@
-﻿using BuildingsAndGrid;
+﻿using System.Collections.Generic;
+using BuildingsAndGrid;
 using BuildingsAndGrid.Buildings;
 using Container.Game;
 using MessagePipe;
@@ -43,7 +44,6 @@ namespace Objects
 
         private void CreateObject(CreatedNewObjectRequest msg)
         {
-            // var objScope = resolver.Instantiate(msg.Scope);
             var objScope = gameLifetimeScope.CreateChildFromPrefab(msg.Scope);
             var objTransform = objScope.gameObject.transform;
             createdNewObjectPublisher.Publish(new CreatedNewObjectMessage(objTransform, msg.Position, msg.Rotation));
@@ -51,7 +51,6 @@ namespace Objects
 
         private void CreateObjectOnGrid(CreatedNewBuildingOnGridRequest msg)
         {
-            // var buildingScope = resolver.Instantiate(msg.BuildingConfig.Building);
             var buildingScope = gameLifetimeScope.CreateChildFromPrefab(msg.BuildingConfig.Building);
             var building = buildingScope.GetComponent<Building>();
             var buildingTransform = building.gameObject.transform;
@@ -59,6 +58,9 @@ namespace Objects
             building.Cell = msg.Cell;
             building.SetContentRotation(msg.Rotation);
             building.BuildingConfig = msg.BuildingConfig;
+            building.LastCell = msg.LastCell;
+            building.HaveLastPosition = msg.HaveLastPosition;
+            
             if (msg.LocalPosition != default)
             {
                 building.Content.localPosition = msg.LocalPosition;
@@ -76,7 +78,44 @@ namespace Objects
                                                                                       msg.NeedSave
                                                                                       ));
         }
+        
+        public Building CreateObjectOnGrid
+            (
+                BuildingConfig buildingConfig, 
+                List<Tile> tiles,
+                Vector2Int cell,
+                Quaternion rotation,
+                Vector3 localPosition,
+                Vector3 position
+            )
+        {
+            var buildingScope = gameLifetimeScope.CreateChildFromPrefab(buildingConfig.Building);
+            var building = buildingScope.GetComponent<Building>();
+            var buildingTransform = building.gameObject.transform;
+            building.SetTiles(tiles);
+            building.Cell = cell;
+            building.SetContentRotation(rotation);
+            building.BuildingConfig = buildingConfig;
+            if (localPosition != default)
+            {
+                building.Content.localPosition = localPosition;
+            }
+            foreach (var tile in tiles)
+            {
+                tile.SetBuilding(building);
+            }
 
+            createdNewObjectOnGridPublisher.Publish(new CreatedNewObjectOnGridMessage(building, 
+                                                         buildingTransform, 
+                                                         position, 
+                                                         rotation,
+                                                         cell,
+                                                         cell,
+                                                         true
+                                                        ));
+            return building;
+        }
+        
         private void DeleteBuilding(DeleteBuildingOnGridRequest msg)
         {
             foreach (var tile in msg.Building.Tiles)

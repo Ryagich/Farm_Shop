@@ -19,6 +19,7 @@ using Object = UnityEngine.Object;
 using UniRx;
 using UnityEngine.UI;
 using Utils;
+using YG;
 
 namespace UI.Hover.PopupLogics.Popups
 {
@@ -43,11 +44,12 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<AddBuildingToStorageRequest> addBuildingToStoragePublisher;
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
         
-        private CompositeDisposable disposables = new();
-        
-        private WindowToChangeProduct windowToChangeProduct;
         private readonly List<ProductCard> productCards = new();
-        
+        private readonly Dictionary<PlacesInventory, ProductCard> cardsByInventory = new();
+
+        private CompositeDisposable disposables = new();
+        private WindowToChangeProduct windowToChangeProduct;
+
         public ShelfPopup
             (
                 UIConfig uiConfig,
@@ -108,6 +110,7 @@ namespace UI.Hover.PopupLogics.Popups
                 }
             }
             productCards.Clear();
+            cardsByInventory.Clear();
             foreach (var inventory in shelfInventory.Inventories)
             {
                 var productCard = Object.Instantiate(uiConfig.ProductCard, popup.CardParent);
@@ -129,7 +132,6 @@ namespace UI.Hover.PopupLogics.Popups
                 }
                 else
                 {
-
                     productCard.Name.text = localizationConfig.Empty.GetLocalizedString();
                     productCard.InInventory.text = $"";
                     productCard.Button.onClick.AddListener(() => OpenProductChangedWindow(
@@ -139,6 +141,7 @@ namespace UI.Hover.PopupLogics.Popups
                 buttonText.text = localizationConfig.Edit.GetLocalizedString();
                 
                 productCards.Add(productCard);
+                cardsByInventory[inventory] = productCard;
             }
             var cardWidth = uiConfig.ProductCard.GetComponent<RectTransform>().rect.width;
             var lg = popup.CardParent.GetComponent<HorizontalLayoutGroup>();
@@ -169,7 +172,7 @@ namespace UI.Hover.PopupLogics.Popups
                 if (Children.Contains(wr))
                 {
                     Children.Remove(wr);
-                }
+                }   
                 Object.Destroy(windowToChangeProduct.gameObject);
             }
             
@@ -181,14 +184,14 @@ namespace UI.Hover.PopupLogics.Popups
             windowRect.SetParent(Root);
             Children.Add(windowRect);
 
-            foreach (var itemInStorage in itemsStorage.Items)
+            foreach (var item in itemsStorage.Items)
             {
                 var productCard = Object.Instantiate(uiConfig.ProductCard, windowToChangeProduct.Content);
                 var buttonText = productCard.Button.GetComponentInChildren<TMP_Text>();
-                productCard.Icon.sprite = itemInStorage.ItemConfig.Icon;
-                productCard.Name.text = itemInStorage.ItemConfig.Name.GetLocalizedStringCached();
+                productCard.Icon.sprite = item.Icon;
+                productCard.Name.text = item.Name.GetLocalizedStringCached();
 
-                if (itemConfig != null && itemConfig.Id.Equals(itemInStorage.ItemConfig.Id))
+                if (itemConfig != null && itemConfig.Id.Equals(item.Id))
                 {
                     productCard.InInventory.text = $"";
                     buttonText.text = localizationConfig.Selected.GetLocalizedString(); //Выбрано
@@ -198,7 +201,7 @@ namespace UI.Hover.PopupLogics.Popups
                 {
                     productCard.InInventory.text = $"";
                     buttonText.text = localizationConfig.Select.GetLocalizedString(); //Выбрать
-                    productCard.Button.onClick.AddListener(() => ReRegister(placesInventory, itemInStorage.ItemConfig));
+                    productCard.Button.onClick.AddListener(() => ReRegister(placesInventory, item));
                 }
             }
             var cardWidth = uiConfig.ProductCard.GetComponent<RectTransform>().rect.width;
@@ -214,10 +217,6 @@ namespace UI.Hover.PopupLogics.Popups
 
         private void CloseProductChangedWindow()
         {
-            foreach (var child in Children)
-            {
-                Children.Remove(child);
-            }
             Children.Clear();
             if (Root && windowToChangeProduct)
             {
@@ -226,10 +225,10 @@ namespace UI.Hover.PopupLogics.Popups
             windowToChangeProduct = null;
             Redraw();
         }
-        
+
         private void ReRegister(PlacesInventory placesInventory, ItemConfig itemConfig)
         {
-            shelfInventory.ChangeItemConfig(placesInventory, itemConfig);
+            shelfInventory.ChangeConfig(placesInventory, itemConfig);
             Redraw();
             if (Root && windowToChangeProduct)
             {
@@ -240,6 +239,16 @@ namespace UI.Hover.PopupLogics.Popups
                 }
                 Object.Destroy(windowToChangeProduct.gameObject);
             }
+            Observable.NextFrame()
+                      .Subscribe(_ =>
+                                 {
+                                     if (cardsByInventory.TryGetValue(placesInventory, out var newCard))
+                                     {
+                                         var newRect = newCard.Button.GetComponent<RectTransform>();
+                                         OpenProductChangedWindow(newRect, placesInventory, itemConfig);
+                                     }
+                                 })
+                      .AddTo(disposables);
         }
         
         public void Subscribe()
@@ -279,6 +288,12 @@ namespace UI.Hover.PopupLogics.Popups
 
         private void MoveInInventory()
         {
+            var save = YG2.saves.ShelvesSave.FirstOrDefault(s => s.Cell.Equals(building.Cell) 
+                                                              && s.Id.Equals(building.BuildingConfig.Id));
+            if (save != null)
+            {
+                YG2.saves.ShelvesSave.Remove(save);
+            }
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true, building.Cell));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, true));
             CloseButton?.Invoke();

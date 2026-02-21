@@ -50,12 +50,12 @@ namespace Shelf
             UnRegister();
         }
 
-        public void Register()
+        private void Register()
         {
             shelvesController.RegisterShelf(new NewShelfCreatedMessage(this, shelfInventory, buildingInteractableFlag));
         }
         
-        public void UnRegister()
+        private void UnRegister()
         {
             shelvesController.UnregisterShelf(new ShelfDeletedMessage(shelfInventory));
         }

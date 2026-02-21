@@ -9,19 +9,17 @@ namespace Sounds
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ItemGiverFromInventorySoundPlayer : IStartable
     {
-        private readonly SoundConfig itemGivenSound;
+        public SoundConfig itemGivenSound;
         private readonly GameObject gameObject;
 
         private readonly IPublisher<PlaySoundMessage> globalPlaySoundPublisher;
 
         public ItemGiverFromInventorySoundPlayer
             (
-                [Key("ItemGivenSound")] SoundConfig itemGivenSound,
                 GameObject gameObject,
                 ISubscriber<ItemGivenFromInventory> itemGivenFromInventorySubscriber
             )
         {
-            this.itemGivenSound = itemGivenSound;
             this.gameObject = gameObject;
             
             globalPlaySoundPublisher = GlobalMessagePipe.GetPublisher<PlaySoundMessage>();
@@ -31,6 +29,8 @@ namespace Sounds
 
         private void PlaySound(ItemGivenFromInventory msg)
         {
+            if (!itemGivenSound)
+                return;
             var newSettings = itemGivenSound.SoundSettings;
             globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings, gameObject.transform.position, null));
         }

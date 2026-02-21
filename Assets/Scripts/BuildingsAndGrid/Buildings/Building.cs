@@ -9,6 +9,9 @@ namespace BuildingsAndGrid.Buildings
         public BuildingConfig BuildingConfig;
         public Transform Content { get; private set; }
         public Vector2Int Cell;
+        public Vector2Int LastCell;
+        public bool HaveLastPosition;
+
         public List<Tile> Tiles { get; private set; } = new();
         
         // ReSharper disable once ParameterHidesMember

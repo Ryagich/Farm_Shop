@@ -2,7 +2,6 @@
 using Inventory;
 using Inventory.ObjectInventory;
 using Landings.Plants;
-using Landings.Plants.PlantConfigs;
 using MessagePipe;
 using Messages;
 using Objects;
@@ -17,7 +16,7 @@ namespace Landings.Landings
 {
     public class LandingPlantIsItemLifetimeScope : LifetimeScope
     {
-        [field: SerializeField] public PlantConfig PlantConfig { get; private set; } = null!;
+        // [field: SerializeField] public PlantConfig PlantConfig { get; private set; } = null!;
         [field: SerializeField] public Transform Center { get; private set; } = null!;
 
         protected override void Configure(IContainerBuilder builder)
@@ -33,8 +32,8 @@ namespace Landings.Landings
             building.SetContent(Center);
             
             builder.RegisterInstance(gameObject);
-            builder.RegisterInstance(PlantConfig);
-            builder.RegisterInstance(PlantConfig.ItemGivenSound).Keyed("ItemGivenSound");
+            // builder.RegisterInstance(PlantConfig);
+            // builder.RegisterInstance(PlantConfig.ItemGivenSound).Keyed("ItemGivenSound");
 
             // === Local MessagePipe ===
             var options = builder.RegisterMessagePipe();
@@ -49,20 +48,18 @@ namespace Landings.Landings
             builder.Register<LandingPlantIsItemPopup>(Lifetime.Scoped)
                    .As<IObjectPopup>();
             
-            builder.UseEntryPoints(ep =>
-                                   {
-                                        ep.Add<PlantGrowerByUpper>()
-                                          .As<IGrower>()
-                                          .AsSelf()
-                                          .Keyed(nameof(PlantGrowerByUpper));   
-                                        ep.Add<PlantGrowerByStages>()
-                                          .As<IGrower>()
-                                          .AsSelf()
-                                          .Keyed(nameof(PlantGrowerByStages));
-                                        ep.Add<ItemGiverFromInventory>().AsSelf();
-                                        ep.Add<LandingPlantIsItemController>().AsSelf();
-                                        ep.Add<ItemGiverFromInventorySoundPlayer>().AsSelf();
-                                   });
+            builder.RegisterEntryPoint<PlantGrowerByUpper>()
+                   .As<IGrower>()
+                   .AsSelf()
+                   .Keyed(nameof(PlantGrowerByUpper));
+            builder.RegisterEntryPoint<PlantGrowerByStages>()
+                   .As<IGrower>()
+                   .AsSelf()
+                   .Keyed(nameof(PlantGrowerByStages));
+            builder.RegisterEntryPoint<LandingPlantIsItemController>().AsSelf();
+            
+            builder.RegisterEntryPoint<ItemGiverFromInventory>().AsSelf();
+            builder.RegisterEntryPoint<ItemGiverFromInventorySoundPlayer>().AsSelf();
             builder.RegisterEntryPoint<InventoryDisposable>().AsSelf();
             
             builder.RegisterBuildCallback(container =>

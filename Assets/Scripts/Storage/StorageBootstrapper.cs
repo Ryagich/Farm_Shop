@@ -10,6 +10,7 @@ namespace Storage
     {
         private readonly BuildingsStorage buildingsStorage;
         private readonly ItemsStorage itemsStorage;
+        private readonly PlantsStorage plantsStorage;
 
         private readonly TaskCompletionSource<bool> readyTcs = new();
 
@@ -18,17 +19,20 @@ namespace Storage
         public StorageBootstrapper
             (
                 BuildingsStorage buildingsStorage,
-                ItemsStorage itemsStorage
+                ItemsStorage itemsStorage,
+                PlantsStorage plantsStorage
             )
         {
             this.buildingsStorage = buildingsStorage;
             this.itemsStorage = itemsStorage;
+            this.plantsStorage = plantsStorage;
         }
 
         public async void Start()
         {
             await buildingsStorage.Ready;
             await itemsStorage.Ready;
+            await plantsStorage.Ready;
 
             readyTcs.SetResult(true);
             

@@ -14,7 +14,6 @@ namespace Landings.Plants
     public class PlantGrowerByUpper : ITickable, IGrower
     {
         private readonly Transform parent;
-        private readonly PlantConfig plantConfig;
         private readonly IObjectResolver resolver;
         private readonly IPublisher<PlantHasGrownMessage> plantHasGrownPublisher;
 
@@ -26,17 +25,16 @@ namespace Landings.Plants
         public float Distance { get; private set; }
         public ReactiveProperty<float> LostDistance { get; private set; } = new();
 
+        private PlantConfig plantConfig;
         private float speed;
         
         public PlantGrowerByUpper
             (
-                PlantConfig plantConfig,
                 Transform parent,
                 IObjectResolver resolver,
                 IPublisher<PlantHasGrownMessage> plantHasGrownPublisher
             )
         {
-            this.plantConfig = plantConfig;
             this.parent = parent;
             this.resolver = resolver;
             this.plantHasGrownPublisher = plantHasGrownPublisher;
@@ -44,8 +42,9 @@ namespace Landings.Plants
             globalPlaySoundPublisher = GlobalMessagePipe.GetPublisher<PlaySoundMessage>();
         }
 
-        public void StartGrow()
+        public void StartGrow(PlantConfig config)
         {
+            plantConfig = config;
             UpdateLocalValues();
             plant = resolver.Instantiate(plantConfig.Stages.First());
             var t = plant.transform;

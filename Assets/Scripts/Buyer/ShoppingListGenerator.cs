@@ -32,7 +32,7 @@ namespace Buyer
                     var i = Random.Range(0, items.Count - 1);
                     var item = items[i];
                     items.Remove(item);
-                    yield return new BuyPosition(item.ItemConfig, Random.Range(buyerSettings.PurchaseRange.x, 
+                    yield return new BuyPosition(item, Random.Range(buyerSettings.PurchaseRange.x, 
                                                                     buyerSettings.PurchaseRange.y));
                 }
                 chance -= buyerSettings.ChanceDecrease;

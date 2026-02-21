@@ -46,7 +46,7 @@ namespace Inventory.ObjectInventory
         {
             var save = YG2.saves.ShelvesSave.FirstOrDefault(s => s.Cell.Equals(building.Cell) 
                                                               && s.Id.Equals(building.BuildingConfig.Id));
-            if (save != null)
+            if (save is not null)
             {
                 for (var i = 0; i < save.inventoriesInfo.Count; i++)
                 {
@@ -64,6 +64,41 @@ namespace Inventory.ObjectInventory
                             AddFromSave(config, building.Content.localToWorldMatrix);
                         }
                     }
+                }
+            }
+            else if (building.HaveLastPosition)
+            {
+                save = YG2.saves.ShelvesSave.FirstOrDefault(s => s.Cell.Equals(building.LastCell));
+                if (save is not null)
+                {
+                    YG2.saves.ShelvesSave.Remove(save);
+                    for (var i = 0; i < save.inventoriesInfo.Count; i++)
+                    {
+                        var id = save.inventoriesInfo[i].Item1;
+                        if (id is null)
+                        {
+                            Inventories[i].ChangeItemConfig(null);
+                        }
+                        else
+                        {
+                            var config = itemsStorage.GetItemConfigById(save.inventoriesInfo[i].Item1);
+                            Inventories[i].ChangeItemConfig(config);
+                            for (var j = 0; j < save.inventoriesInfo[i].Item2; j++)
+                            {
+                                AddFromSave(config, building.Content.localToWorldMatrix);
+                            }
+                        }
+                    }
+                    var shelfSave = new ShelfSave(building.BuildingConfig.Id, building.Cell);
+                    foreach (var placesInventory in Inventories)
+                    {
+                        shelfSave.inventoriesInfo.Add((placesInventory.GetConfig() is null 
+                                                           ? null 
+                                                           : placesInventory.GetConfig().Id, 
+                                                       placesInventory.Items.Count));
+                    }
+                    YG2.saves.ShelvesSave.Add(shelfSave);
+                    YG2.SaveProgress();
                 }
             }
             else
@@ -128,7 +163,7 @@ namespace Inventory.ObjectInventory
             Items.Remove(itemHolder);
             inventory.Remove(itemHolder);
            
-            SaveItemsCount(inventory, itemHolder.Config);
+            // SaveItemsCount(inventory, itemHolder.Config);
             
             return itemHolder;
         }
@@ -140,12 +175,12 @@ namespace Inventory.ObjectInventory
             Items.Remove(itemHolder);
             inventory.Remove(itemHolder);
 
-            SaveItemsCount(inventory, config);
+            // SaveItemsCount(inventory, config);
             
             return itemHolder;
         }
-
-        public void ChangeItemConfig(PlacesInventory placesInventory, ItemConfig itemConfig)
+        
+        public void ChangeConfig(PlacesInventory placesInventory, ItemConfig itemConfig)
         {
             placesInventory.ChangeItemConfig(itemConfig);
             var index = Inventories.IndexOf(placesInventory);
@@ -154,6 +189,7 @@ namespace Inventory.ObjectInventory
             if (shelfSave != null)
             {
                 shelfSave.inventoriesInfo[index] = (itemConfig.Id, 0);
+                YG2.SaveProgress();
             }
             else
             {
@@ -169,6 +205,10 @@ namespace Inventory.ObjectInventory
             {
                 var index = Inventories.IndexOf(inventory);
                 shelfSave.inventoriesInfo[index] = (config.Id, inventory.Items.Count);
+                Debug.Log($"Shelf {shelfSave.inventoriesInfo[index].Item2}");
+                Debug.Log($"Shelf 2 {YG2.saves.ShelvesSave.First(s => s.Cell.Equals(building.Cell)&& s.Id.Equals(building.BuildingConfig.Id)).inventoriesInfo[index].Item2}");
+
+                YG2.SaveProgress();
             }
         }
         

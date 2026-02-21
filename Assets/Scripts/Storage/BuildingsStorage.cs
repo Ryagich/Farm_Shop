@@ -22,7 +22,6 @@ namespace Storage
 
         public List<BuildingInStorage> Buildings { get; } = new();
 
-        // быстрый доступ по Id
         private readonly Dictionary<string, BuildingInStorage> buildingsById = new();
 
         public BuildingsStorage(ISubscriber<AddBuildingToStorageRequest> addBuildingToStorageRequest)
@@ -35,11 +34,16 @@ namespace Storage
             return buildingsById[id].BuildingConfig;
         }
 
+        public bool CheckId(string id)
+        {
+            return buildingsById.ContainsKey(id);
+        }
+        
         public BuildingInStorage Get(BuildingConfig buildingConfig)
         {
             if (buildingConfig == null)
             {
-                Debug.LogError("Storage.Get: buildingConfig is null");
+                Debug.LogError("Storage.Get: BuildingConfig is null");
                 return null;
             }
 
@@ -68,7 +72,7 @@ namespace Storage
 
             if (msg.NeedSave)
             {
-                var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                var buildingInStorageSave = YG2.saves.BuildingsInStorageSave
                                                .First(s => s.Id.Equals(buildingInStorage.BuildingConfig.Id));
                 buildingInStorageSave.Count = buildingInStorage.Count;
                 YG2.SaveProgress();
@@ -89,7 +93,7 @@ namespace Storage
                               Buildings.Clear();
                               buildingsById.Clear();
 
-                              YG2.saves.BuildingInStorageSave ??= new List<BuildingInStorageSave>();
+                              YG2.saves.BuildingsInStorageSave ??= new List<BuildingInStorageSave>();
 
                               foreach (var config in configs)
                               {
@@ -109,7 +113,7 @@ namespace Storage
                                   Buildings.Add(entry);
                                   buildingsById.Add(config.Id, entry);
 
-                                  var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                                  var buildingInStorageSave = YG2.saves.BuildingsInStorageSave
                                                                  .FirstOrDefault(s => s.Id.Equals(entry.BuildingConfig
                                                                                    .Id));
                                   if (buildingInStorageSave != null)
@@ -118,7 +122,7 @@ namespace Storage
                                   }
                                   else
                                   {
-                                      YG2.saves.BuildingInStorageSave
+                                      YG2.saves.BuildingsInStorageSave
                                          .Add(new BuildingInStorageSave(entry.BuildingConfig.Id, entry.Count));
                                   }
                               }

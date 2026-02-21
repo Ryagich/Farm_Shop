@@ -49,7 +49,7 @@ namespace Shelf
             
             builder.RegisterEntryPoint<ShelfInventory>(Lifetime.Scoped).As<IInventory>().AsSelf();
             builder.RegisterEntryPoint<InventoryDisposable>().AsSelf();
-            builder.RegisterEntryPoint<ShelfDisposable>().AsSelf();
+            // builder.RegisterEntryPoint<ShelfDisposable>().AsSelf();
             builder.RegisterEntryPoint<ShelfInfoRecorder>().AsSelf();
             builder.RegisterEntryPoint<ItemTaker>().AsSelf();
             

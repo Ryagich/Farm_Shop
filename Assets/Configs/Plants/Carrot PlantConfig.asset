@@ -12,6 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ace7f3161740358009ca4af8f21d29, type: 3}
   m_Name: Carrot PlantConfig
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: Carrot PlantConfig
+  <Price>k__BackingField: 25
+  <Icon>k__BackingField: {fileID: 21300000, guid: dd45f046bef79dc4b93f7753dae5d79f, type: 3}
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 47694780547072
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Stages>k__BackingField:
   - {fileID: 1712200964176758, guid: a74d9e41a3e780f47b3278a49fe842da, type: 3}
   - {fileID: 1290591311347902, guid: d87f295218b7b4245906cd9610c542da, type: 3}
@@ -23,3 +35,7 @@ MonoBehaviour:
   <TargetPosition>k__BackingField: {x: 0, y: 0, z: 0}
   <PlantSoundsSettings>k__BackingField: {fileID: 11400000, guid: 5d4dc65609c6e9947b97b5c48afd7dcf, type: 2}
   <ItemGivenSound>k__BackingField: {fileID: 11400000, guid: 6daddde243e7fb141a82538068729e6d, type: 2}
+  <Type>k__BackingField: 0
+  references:
+    version: 2
+    RefIds: []

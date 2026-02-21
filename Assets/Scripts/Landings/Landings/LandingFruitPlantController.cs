@@ -2,6 +2,7 @@
 using System.Linq;
 using Inventory.ObjectInventory;
 using Landings.Plants;
+using Landings.Plants.PlantConfigs;
 using MessagePipe;
 using Messages;
 using UniRx;
@@ -14,6 +15,8 @@ namespace Landings.Landings
     // ReSharper disable once ClassNeverInstantiated.Global
     public class LandingFruitPlantController : IStartable
     {
+        public PlantConfig PlantConfig { get; private set; }
+
         private readonly IGrower growerByUpper;
         private readonly IGrower growerByStages;
         private readonly FruitGrower fruitGrower;
@@ -45,7 +48,8 @@ namespace Landings.Landings
             plantHasFinishedGrownSubscriber.Subscribe(OnPlantFinishedGrow).AddTo(disposables);
             FruitHasGrownSubscriber.Subscribe(OnFruitGrown).AddTo(disposables);
             ItemGivenFromInventorySubscriber.Subscribe(OnItemGiven).AddTo(disposables);
-            growerByUpper.StartGrow();
+            if (PlantConfig)
+                growerByUpper.StartGrow(PlantConfig);
         }
 
         private void OnFruitGrown(FruitHasGrown msg)
@@ -56,9 +60,20 @@ namespace Landings.Landings
         private void StartGrowByStages(PlantHasGrownMessage msg)
         {
             growerByUpper.DeletePlant();
-            growerByStages.StartGrow();
+            growerByStages.StartGrow(PlantConfig);
         }
-
+        
+        public void ChangeConfig(PlantConfig plantConfig)
+        {
+            if (PlantConfig)
+            {
+                growerByUpper.DeletePlant();
+                growerByStages.DeletePlant();
+            }
+            PlantConfig = plantConfig;
+            growerByUpper.StartGrow(plantConfig);
+        }
+        
         private void OnPlantFinishedGrow(PlantHasFinishedGrownMessage msg)
         {
             plant = growerByStages.GivePlant();
@@ -94,7 +109,7 @@ namespace Landings.Landings
         {
             Object.Destroy(plant);
             fruitGivensCount = 0;
-            growerByUpper.StartGrow();
+            growerByUpper.StartGrow(PlantConfig);
         }
         
         public void Start() { }

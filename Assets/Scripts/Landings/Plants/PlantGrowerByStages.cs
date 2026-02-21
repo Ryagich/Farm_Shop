@@ -12,7 +12,6 @@ namespace Landings.Plants
     // ReSharper disable once ClassNeverInstantiated.Global
     public class PlantGrowerByStages : ITickable, IGrower
     {
-        private readonly PlantConfig plantConfig;
         private readonly IObjectResolver resolver;
         private readonly Transform parent;
         private readonly IPublisher<PlantHasFinishedGrownMessage> plantHasFinishedGrowPublisher;
@@ -23,16 +22,15 @@ namespace Landings.Plants
         public int currentStage { get; private set; }
         public ReactiveProperty<float> timer { get; private set; } = new();
         public float stageTime { get; private set; }
-
+        private PlantConfig plantConfig;
+        
         public PlantGrowerByStages
             (
-                PlantConfig plantConfig,
                 Transform parent,
                 IObjectResolver resolver,
                 IPublisher<PlantHasFinishedGrownMessage> plantHasFinishedGrowPublisher
             )
         {
-            this.plantConfig = plantConfig;
             this.resolver = resolver;
             this.parent = parent;
             this.resolver = resolver;
@@ -41,8 +39,9 @@ namespace Landings.Plants
             globalPlaySoundPublisher = GlobalMessagePipe.GetPublisher<PlaySoundMessage>();
         }
 
-        public void StartGrow()
+        public void StartGrow(PlantConfig config)
         {
+            plantConfig = config;
             NextStage(false);
             IsPlanted.Value = false;
         }

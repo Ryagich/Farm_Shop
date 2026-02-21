@@ -35,6 +35,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Items
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 236ce095bf8cf0b499ae093a0ac90d41
+    m_Address: Assets/Configs/Plants/Carrot PlantConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Plants
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3045ff5de011d27419fcb1b3c368eb0b
     m_Address: Assets/Configs/Storage/Buildings/Checkout BuildingConfig.asset
     m_ReadOnly: 0
@@ -53,11 +59,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Buildings
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3d19d1e4acd38884e85a4fef6c21b5cf
-    m_Address: Assets/Configs/Storage/Buildings/Carot Lamding  BuildingConfig.asset
+  - m_GUID: 59ec07330eeca0f4081b52e988ae02e1
+    m_Address: Assets/Configs/Plants/Broccoli PlantConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Buildings
+    - Plants
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ec665709712faa49a7d92bd609873ab
     m_Address: Assets/Configs/Inventory/Items/Tomato ItemConfig.asset
@@ -71,14 +77,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - Items
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f29d49c261d3ada40b9f5f9baf6c2fdb
-    m_Address: Assets/Configs/Storage/Buildings/Beetroot Landing  BuildingConfig.asset
+  - m_GUID: c1e3393360909554fac4f26790579c42
+    m_Address: Assets/Configs/Plants/Beetroot PlantConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Buildings
+    - Plants
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f4d5d09113fb3424b980b35015b8a441
-    m_Address: Assets/Configs/Storage/Buildings/Landings/Broccoli Landing  BuildingConfig.asset
+  - m_GUID: ee969ba1ab757ce4381cd5bdbeae6bdf
+    m_Address: Assets/Configs/Storage/Buildings/Landings/Vegetable Landing  BuildingConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Buildings

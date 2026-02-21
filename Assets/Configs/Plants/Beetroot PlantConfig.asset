@@ -12,6 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ace7f3161740358009ca4af8f21d29, type: 3}
   m_Name: Beetroot PlantConfig
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: Beetroot PlantConfig
+  <Price>k__BackingField: 75
+  <Icon>k__BackingField: {fileID: 21300000, guid: 9f587116add10b34bbed5bc4934717b3, type: 3}
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 47560856420352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   <Stages>k__BackingField:
   - {fileID: 1659519851599370, guid: 4dffc0019107a3f4db3aeb85961d9be7, type: 3}
   - {fileID: 495903982902444767, guid: 25aaed1bc7fcaf54f928a001b7bfe37a, type: 3}
@@ -21,3 +33,7 @@ MonoBehaviour:
   <TargetPosition>k__BackingField: {x: 0, y: 0.1, z: 0}
   <PlantSoundsSettings>k__BackingField: {fileID: 11400000, guid: 5d4dc65609c6e9947b97b5c48afd7dcf, type: 2}
   <ItemGivenSound>k__BackingField: {fileID: 11400000, guid: 6daddde243e7fb141a82538068729e6d, type: 2}
+  <Type>k__BackingField: 0
+  references:
+    version: 2
+    RefIds: []

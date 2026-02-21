@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Landings.Plants.PlantConfigs;
+using UnityEngine;
 
-namespace Landings
+namespace Landings.Plants
 {
     public interface IGrower
     {
-        public void StartGrow();
+        public void StartGrow(PlantConfig config);
         public GameObject GivePlant();
         public void DeletePlant();
     }

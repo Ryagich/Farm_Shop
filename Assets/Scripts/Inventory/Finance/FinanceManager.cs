@@ -9,13 +9,14 @@ namespace Inventory.Finance
         // public ReactiveProperty<int> Value { get; private set; } = new(10000);
         public ReactiveProperty<int> Value { get; private set; } = new(YG2.saves.money);
 
-        public bool TryChangeValue(int amount)
+        public bool TryChangeValue(int amount, bool needSave = true)
         {
             if (Value.Value + amount < 0)
                 return false;
             Value.Value += amount;
             YG2.saves.money = Value.Value;
-            YG2.SaveProgress();
+            if (needSave)
+                YG2.SaveProgress();
             return true;
         }
 

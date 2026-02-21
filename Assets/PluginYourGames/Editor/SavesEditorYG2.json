@@ -7,8 +7,192 @@
     false,
     false
   ],
-  "idSave": 126,
-  "money": 4424,
+  "idSave": 40,
+  "money": 4501,
+  "Offset": {
+    "x": 1,
+    "y": 1,
+    "magnitude": 1.41421354,
+    "sqrMagnitude": 2
+  },
+  "BuildingSaves": [
+    {
+      "Id": "Checkout ",
+      "Cell": {
+        "x": 14,
+        "y": 12,
+        "magnitude": 18.4390888,
+        "sqrMagnitude": 340
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Vegetable Landing  ",
+      "Cell": {
+        "x": 19,
+        "y": 4,
+        "magnitude": 19.4164886,
+        "sqrMagnitude": 377
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Deleter ",
+      "Cell": {
+        "x": 9,
+        "y": 17,
+        "magnitude": 19.235384,
+        "sqrMagnitude": 370
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Back Door ",
+      "Cell": {
+        "x": 6,
+        "y": 10,
+        "magnitude": 11.6619034,
+        "sqrMagnitude": 136
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Back Door ",
+      "Cell": {
+        "x": 13,
+        "y": 10,
+        "magnitude": 16.40122,
+        "sqrMagnitude": 269
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Back Door ",
+      "Cell": {
+        "x": 12,
+        "y": 11,
+        "magnitude": 16.27882,
+        "sqrMagnitude": 265
+      },
+      "RotX": 0.0,
+      "RotY": 90.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Main Door ",
+      "Cell": {
+        "x": 13,
+        "y": 27,
+        "magnitude": 29.9666481,
+        "sqrMagnitude": 898
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Shelf",
+      "Cell": {
+        "x": 27,
+        "y": 11,
+        "magnitude": 29.15476,
+        "sqrMagnitude": 850
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    }
+  ],
+  "ShelvesSave": [
+    {
+      "Id": "Shelf",
+      "Cell": {
+        "x": 27,
+        "y": 11,
+        "magnitude": 29.15476,
+        "sqrMagnitude": 850
+      },
+      "inventoriesInfo": [
+        {
+          "Item1": "Carrot ItemConfig ID",
+          "Item2": 1
+        },
+        {
+          "Item1": null,
+          "Item2": 0
+        },
+        {
+          "Item1": null,
+          "Item2": 0
+        }
+      ]
+    }
+  ],
+  "BuildingsInStorageSave": [
+    {
+      "Id": "Tomato Landing",
+      "Count": 0
+    },
+    {
+      "Id": "Checkout ",
+      "Count": 0
+    },
+    {
+      "Id": "Back Door ",
+      "Count": 0
+    },
+    {
+      "Id": "Main Door ",
+      "Count": 0
+    },
+    {
+      "Id": "Vegetable Landing  ",
+      "Count": 0
+    },
+    {
+      "Id": "Deleter ",
+      "Count": 0
+    },
+    {
+      "Id": "Shelf",
+      "Count": 0
+    }
+  ],
+  "PlantsInStorageSave": [
+    {
+      "Id": "Carrot PlantConfig",
+      "Count": 0
+    },
+    {
+      "Id": "Broccoli PlantConfig",
+      "Count": 0
+    },
+    {
+      "Id": "Beetroot PlantConfig",
+      "Count": 0
+    }
+  ],
+  "PlantsSave": [
+    {
+      "Id": "Carrot PlantConfig",
+      "Cell": {
+        "x": 19,
+        "y": 4,
+        "magnitude": 19.4164886,
+        "sqrMagnitude": 377
+      }
+    }
+  ],
   "Tiles": [
     [
       "Wall",
@@ -1096,435 +1280,6 @@
       "Wall"
     ]
   ],
-  "Offset": {
-    "x": 1,
-    "y": 1,
-    "magnitude": 1.41421354,
-    "sqrMagnitude": 2
-  },
-  "BuildingSaves": [
-    {
-      "Id": "Checkout ",
-      "Cell": {
-        "x": 14,
-        "y": 12,
-        "magnitude": 18.4390888,
-        "sqrMagnitude": 340
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Deleter ",
-      "Cell": {
-        "x": 9,
-        "y": 17,
-        "magnitude": 19.235384,
-        "sqrMagnitude": 370
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Back Door ",
-      "Cell": {
-        "x": 6,
-        "y": 10,
-        "magnitude": 11.6619034,
-        "sqrMagnitude": 136
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Back Door ",
-      "Cell": {
-        "x": 13,
-        "y": 10,
-        "magnitude": 16.40122,
-        "sqrMagnitude": 269
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Back Door ",
-      "Cell": {
-        "x": 12,
-        "y": 11,
-        "magnitude": 16.27882,
-        "sqrMagnitude": 265
-      },
-      "RotX": 0.0,
-      "RotY": 90.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Main Door ",
-      "Cell": {
-        "x": 13,
-        "y": 27,
-        "magnitude": 29.9666481,
-        "sqrMagnitude": 898
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Shelf",
-      "Cell": {
-        "x": 27,
-        "y": 11,
-        "magnitude": 29.15476,
-        "sqrMagnitude": 850
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Cell": {
-        "x": 9,
-        "y": 6,
-        "magnitude": 10.8166542,
-        "sqrMagnitude": 117
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Cell": {
-        "x": 5,
-        "y": 6,
-        "magnitude": 7.81025,
-        "sqrMagnitude": 61
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Cell": {
-        "x": 9,
-        "y": 2,
-        "magnitude": 9.219544,
-        "sqrMagnitude": 85
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Cell": {
-        "x": 5,
-        "y": 2,
-        "magnitude": 5.38516474,
-        "sqrMagnitude": 29
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Cell": {
-        "x": 13,
-        "y": 6,
-        "magnitude": 14.3178215,
-        "sqrMagnitude": 205
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Cell": {
-        "x": 13,
-        "y": 2,
-        "magnitude": 13.1529465,
-        "sqrMagnitude": 173
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Cell": {
-        "x": 21,
-        "y": 6,
-        "magnitude": 21.84033,
-        "sqrMagnitude": 477
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    }
-  ],
-  "ShelvesSave": [
-    {
-      "Id": "Shelf",
-      "Cell": {
-        "x": 26,
-        "y": 13,
-        "magnitude": 29.0688839,
-        "sqrMagnitude": 845
-      },
-      "inventoriesInfo": [
-        {
-          "Item1": null,
-          "Item2": 0
-        },
-        {
-          "Item1": null,
-          "Item2": 0
-        },
-        {
-          "Item1": null,
-          "Item2": 0
-        }
-      ]
-    },
-    {
-      "Id": "Shelf",
-      "Cell": {
-        "x": 28,
-        "y": 11,
-        "magnitude": 30.0832176,
-        "sqrMagnitude": 905
-      },
-      "inventoriesInfo": [
-        {
-          "Item1": "Carrot ItemConfig ID",
-          "Item2": 0
-        },
-        {
-          "Item1": null,
-          "Item2": 0
-        },
-        {
-          "Item1": null,
-          "Item2": 0
-        }
-      ]
-    },
-    {
-      "Id": "Shelf",
-      "Cell": {
-        "x": 27,
-        "y": 11,
-        "magnitude": 29.15476,
-        "sqrMagnitude": 850
-      },
-      "inventoriesInfo": [
-        {
-          "Item1": "Carrot ItemConfig ID",
-          "Item2": 10
-        },
-        {
-          "Item1": "Carrot ItemConfig ID",
-          "Item2": 0
-        },
-        {
-          "Item1": null,
-          "Item2": 0
-        }
-      ]
-    }
-  ],
-  "BuildingInStorageSave": [
-    {
-      "Id": "Tomato Landing",
-      "Count": 0
-    },
-    {
-      "Id": "Shelf Beetroot ",
-      "Count": 0
-    },
-    {
-      "Id": "Checkout ",
-      "Count": 0
-    },
-    {
-      "Id": "Back Door ",
-      "Count": 0
-    },
-    {
-      "Id": "Main Door ",
-      "Count": 0
-    },
-    {
-      "Id": "Carot Landing  ",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli Shelf ",
-      "Count": 0
-    },
-    {
-      "Id": "Shelf Tomaro ",
-      "Count": 0
-    },
-    {
-      "Id": "Carot Shelf",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot Landing  ",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli Landing ",
-      "Count": 0
-    },
-    {
-      "Id": "Deleter ",
-      "Count": 0
-    },
-    {
-      "Id": "Shelf",
-      "Count": 0
-    }
-  ],
-  "ItemInStorageSave": [
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Beetroot ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Broccoli ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Tomato ItemConfig ID",
-      "Count": 0
-    },
-    {
-      "Id": "Carrot ItemConfig ID",
-      "Count": 0
-    }
-  ]
+  "StorageReadyMetricSend": true,
+  "GameReadyMetricSend": true
 }

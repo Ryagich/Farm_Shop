@@ -58,7 +58,7 @@ namespace Container.Game
                 builder.RegisterMessageBroker<InteractableEndMessage>(options);
                 builder.RegisterMessageBroker<ChoseBuildingMessage>(options);
                 builder.RegisterMessageBroker<AddBuildingToStorageRequest>(options);
-                builder.RegisterMessageBroker<AddItemToStorageRequest>(options);
+                builder.RegisterMessageBroker<AddPlantToStorageRequest>(options);
                 builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
                 builder.RegisterMessageBroker<GridExtendMessage>(options);
                 builder.RegisterMessageBroker<BuyerIsOverMessage>(options);
@@ -87,6 +87,7 @@ namespace Container.Game
                 //Storage
                 builder.RegisterEntryPoint<BuildingsStorage>().AsSelf();
                 builder.RegisterEntryPoint<ItemsStorage>().AsSelf();
+                builder.RegisterEntryPoint<PlantsStorage>().AsSelf();
                 builder.RegisterEntryPoint<StorageBootstrapper>().AsSelf();
             }
         }

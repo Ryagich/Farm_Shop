@@ -113,12 +113,13 @@ namespace BuildingsAndGrid.Buildings
                                                              tiles,
                                                              cell,
                                                              highlightBuilding.LastCell,
-                                                             true
+                                                             true,
+                                                             highlightBuilding.HaveLastPosition
                                                             ));
                 highlightBuilding.HaveLastPosition = false;
                 buildingInStorage.Count--;
                 
-                var buildingInStorageSave = YG2.saves.BuildingInStorageSave
+                var buildingInStorageSave = YG2.saves.BuildingsInStorageSave
                                                .First(b => b.Id.Equals(buildingInStorage.BuildingConfig.Id));
                 buildingInStorageSave.Count = buildingInStorage.Count;
                 YG2.SaveProgress();
@@ -154,7 +155,8 @@ namespace BuildingsAndGrid.Buildings
                                                              highlightBuilding.LastTiles,
                                                              highlightBuilding.LastCell,
                                                              highlightBuilding.LastCell,
-                                                             false
+                                                             false,
+                                                             true
                                                             ));
                 buildingInStorage.Count--;
             }

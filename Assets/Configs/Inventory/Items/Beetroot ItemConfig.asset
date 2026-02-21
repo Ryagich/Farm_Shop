@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Beetroot ItemConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: Beetroot ItemConfig ID
-  <Icon>k__BackingField: {fileID: 21300000, guid: 60ac4e89f89dee54ba6a547ae4d7519d, type: 3}
+  <Price>k__BackingField: 3
+  <Icon>k__BackingField: {fileID: 21300000, guid: a0457deddec38c144996615c3ff746a0, type: 3}
   <Name>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
@@ -25,7 +26,6 @@ MonoBehaviour:
     m_LocalVariables: []
   <HandPrefab>k__BackingField: {fileID: 7841479982067445408, guid: 25aaed1bc7fcaf54f928a001b7bfe37a, type: 3}
   <height>k__BackingField: 0.5
-  <Price>k__BackingField: 3
   references:
     version: 2
     RefIds: []

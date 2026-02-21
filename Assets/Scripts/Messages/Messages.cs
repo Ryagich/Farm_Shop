@@ -3,11 +3,10 @@ using BuildingsAndGrid;
 using BuildingsAndGrid.Buildings;
 using Buyer;
 using Checkout;
-using Inventory;
 using Inventory.Item;
 using Inventory.ObjectInventory;
-using Landings;
 using Landings.Plants;
+using Landings.Plants.PlantConfigs;
 using Shelf;
 using Sounds;
 using UnityEngine;
@@ -45,6 +44,7 @@ namespace Messages
         public readonly Vector2Int Cell;
         public readonly Vector2Int LastCell;
         public readonly bool NeedSave;
+        public readonly bool HaveLastPosition;
 
         public CreatedNewBuildingOnGridRequest
             (
@@ -55,7 +55,8 @@ namespace Messages
                 List<Tile> tiles,
                 Vector2Int cell,
                 Vector2Int lastCell,
-                bool needSave
+                bool needSave,
+                bool haveLastPosition
             )
         {
             BuildingConfig = buildingConfig;
@@ -66,6 +67,7 @@ namespace Messages
             Cell = cell;
             LastCell = lastCell;
             NeedSave = needSave;
+            HaveLastPosition = haveLastPosition;
         }
     }
 
@@ -138,14 +140,14 @@ namespace Messages
         }
     }
     
-    public readonly struct AddItemToStorageRequest
+    public readonly struct AddPlantToStorageRequest
     {
-        public readonly ItemConfig ItemConfig;
+        public readonly PlantConfig PlantConfig;
         public readonly bool NeedSave;
 
-        public AddItemToStorageRequest(ItemConfig itemConfig, bool needSave)
+        public AddPlantToStorageRequest(PlantConfig plantConfig, bool needSave)
         {
-            ItemConfig = itemConfig;
+            PlantConfig = plantConfig;
             NeedSave = needSave;
         }
     }
