@@ -207,6 +207,10 @@ MonoBehaviour:
     m_Key: Word_Select
     m_Metadata:
       m_Items: []
+  - m_Id: 24993644988841984
+    m_Key: Building_Name_Fruit_Bed
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

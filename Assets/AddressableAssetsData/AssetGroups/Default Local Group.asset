@@ -41,6 +41,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Plants
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cd26af5df5e9274095982ca7c20465e
+    m_Address: Assets/Configs/Plants/Tomato FruitPlantConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Plants
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3045ff5de011d27419fcb1b3c368eb0b
     m_Address: Assets/Configs/Storage/Buildings/Checkout BuildingConfig.asset
     m_ReadOnly: 0

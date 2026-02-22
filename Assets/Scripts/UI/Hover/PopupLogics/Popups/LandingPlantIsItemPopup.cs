@@ -20,6 +20,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 using VContainer;
+using YG;
 using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
@@ -29,7 +30,7 @@ namespace UI.Hover.PopupLogics.Popups
     {
         public event Action CloseButton;
         public RectTransform Root { get; private set; }
-        public List<RectTransform> Children { get; private set; } = new();
+        public List<RectTransform> Children { get; } = new();
 
         private readonly UIConfig uiConfig;
         private readonly LocalizationConfig localizationConfig;
@@ -39,7 +40,6 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly LandingPlantIsItemController landingPlantIsItemController;
         private readonly PlantGrowerByUpper plantGrowerByUpper;
         private readonly PlantGrowerByStages plantGrowerByStages;
-        private readonly IPublisher<AddPlantToStorageRequest> addPlantToStorageRequestPublisher;
 
         private readonly IPublisher<ChoseBuildingMessage> choseBuildingMessagePublisher;
         private readonly IPublisher<DeleteBuildingOnGridRequest> deleteBuildingOnGridPublisher;
@@ -58,8 +58,7 @@ namespace UI.Hover.PopupLogics.Popups
                 Building building,
                 LandingPlantIsItemController landingPlantIsItemController,
                 [Key(nameof(PlantGrowerByUpper))] PlantGrowerByUpper plantGrowerByUpper,
-                [Key(nameof(PlantGrowerByStages))] PlantGrowerByStages plantGrowerByStages,
-                IPublisher<AddPlantToStorageRequest> addPlantToStorageRequestPublisher
+                [Key(nameof(PlantGrowerByStages))] PlantGrowerByStages plantGrowerByStages
             )
         {
             this.uiConfig = uiConfig;
@@ -70,7 +69,6 @@ namespace UI.Hover.PopupLogics.Popups
             this.landingPlantIsItemController = landingPlantIsItemController;
             this.plantGrowerByUpper = plantGrowerByUpper;
             this.plantGrowerByStages = plantGrowerByStages;
-            this.addPlantToStorageRequestPublisher = addPlantToStorageRequestPublisher;
 
             choseBuildingMessagePublisher = GlobalMessagePipe.GetPublisher<ChoseBuildingMessage>();
             deleteBuildingOnGridPublisher = GlobalMessagePipe.GetPublisher<DeleteBuildingOnGridRequest>();
@@ -232,6 +230,12 @@ namespace UI.Hover.PopupLogics.Popups
             if (oldPlantConfig)
             {
                 plantsStorage.Add(new AddPlantToStorageRequest(oldPlantConfig, true));
+            }
+            var lastSave = YG2.saves.PlantsSave.FirstOrDefault(save => save.Cell.Equals(building.Cell)
+                                                                    && save.Id.Equals(oldPlantConfig.Id));
+            if (lastSave != null)
+            {
+                YG2.saves.PlantsSave.Remove(lastSave);
             }
             
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true, building.Cell));

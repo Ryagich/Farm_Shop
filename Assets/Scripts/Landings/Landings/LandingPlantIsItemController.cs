@@ -40,7 +40,7 @@ namespace Landings.Landings
                 ItemGiverFromInventorySoundPlayer itemGiverFromInventorySoundPlayer,
                 ISubscriber<PlantHasGrownMessage> plantHasGrownSubscriber,
                 ISubscriber<PlantHasFinishedGrownMessage> plantHasFinishedGrownSubscriber,
-                ISubscriber<ItemGivenFromInventory> itemGivenFromInventoryMessage
+                ISubscriber<ItemGivenFromInventory> itemGivenFromInventorySubscriber
             )
         {
             this.plantsStorage = plantsStorage;
@@ -52,7 +52,7 @@ namespace Landings.Landings
 
             plantHasGrownSubscriber.Subscribe(StartGrowByStages).AddTo(disposables);
             plantHasFinishedGrownSubscriber.Subscribe(OnGrown).AddTo(disposables);  
-            itemGivenFromInventoryMessage.Subscribe(StartGrowByUp).AddTo(disposables);
+            itemGivenFromInventorySubscriber.Subscribe(StartGrowByUp).AddTo(disposables);
         }
 
         public void Start()
@@ -96,7 +96,7 @@ namespace Landings.Landings
 
         public void ChangeConfig(PlantConfig plantConfig)
         {
-            var lastSave = YG2.saves.PlantsSave.FirstOrDefault(save => save.Cell.Equals(building.Cell) 
+            var lastSave = YG2.saves.PlantsSave.FirstOrDefault(save => save.Cell.Equals(building.Cell)
                                                                     && save.Id.Equals(plantConfig.Id));
             if (lastSave != null)
             {
@@ -113,9 +113,12 @@ namespace Landings.Landings
             {
                 Object.Destroy(inventory.Get().gameObject);
             }
-            itemGiverFromInventorySoundPlayer.itemGivenSound = plantConfig.ItemGivenSound;
             PlantConfig = plantConfig;
-            growerByUpper.StartGrow(plantConfig);
+            if (PlantConfig)
+            {
+                itemGiverFromInventorySoundPlayer.itemGivenSound = plantConfig.ItemGivenSound;
+                growerByUpper.StartGrow(plantConfig);
+            }
         }
     }
 }

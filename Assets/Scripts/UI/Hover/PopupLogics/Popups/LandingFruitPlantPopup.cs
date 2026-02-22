@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BuildingsAndGrid.Buildings;
 using GameModes;
 using Inventory.ObjectInventory;
@@ -9,11 +10,17 @@ using Landings.Plants.PlantConfigs;
 using Localization;
 using MessagePipe;
 using Messages;
+using Storage;
+using TMPro;
+using UI.Cards;
+using UI.Configs;
 using UI.Hover.PopupLogics.Holders;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 using VContainer;
+using YG;
 using Object = UnityEngine.Object;
 
 namespace UI.Hover.PopupLogics.Popups
@@ -25,9 +32,10 @@ namespace UI.Hover.PopupLogics.Popups
         public RectTransform Root { get; private set; }
         public List<RectTransform> Children { get; private set; } = new();
 
+        private readonly UIConfig uiConfig;
         private readonly LocalizationConfig localizationConfig;
         private readonly PopupHolders popupHolders;
-        private readonly FruitPlantConfig fruitPlantConfig;
+        private readonly PlantsStorage plantsStorage;
         private readonly PlantGrowerByUpper plantGrowerByUpper;
         private readonly PlantGrowerByStages plantGrowerByStages;
         private readonly LandingFruitPlantController landingFruitPlantController;
@@ -40,15 +48,17 @@ namespace UI.Hover.PopupLogics.Popups
         private readonly IPublisher<ChangeGameModeRequest> changeGameModeRequestPublisher;
         
         private CompositeDisposable disposables = new();
-     
+        private WindowToChangeProduct windowToChangeProduct;
+
         private LandingFruitPlantInfoAboutFruits fruitsInfo;
         private float baseHeight;
         
         public LandingFruitPlantPopup
             (
+                UIConfig uiConfig,
                 LocalizationConfig localizationConfig,
                 PopupHolders popupHolders,
-                FruitPlantConfig fruitPlantConfig,
+                PlantsStorage plantsStorage,
                 LandingFruitPlantController landingFruitPlantController,
                 FruitPlantInventory inventory,
                 Building building,
@@ -56,9 +66,10 @@ namespace UI.Hover.PopupLogics.Popups
                 [Key(nameof(PlantGrowerByStages))] PlantGrowerByStages plantGrowerByStages
             )
         {
+            this.uiConfig = uiConfig;
             this.localizationConfig = localizationConfig;
             this.popupHolders = popupHolders;
-            this.fruitPlantConfig = fruitPlantConfig;
+            this.plantsStorage = plantsStorage;
             this.plantGrowerByUpper = plantGrowerByUpper;
             this.plantGrowerByStages = plantGrowerByStages;
             this.landingFruitPlantController = landingFruitPlantController;
@@ -77,29 +88,43 @@ namespace UI.Hover.PopupLogics.Popups
             Root = popup.GetComponent<RectTransform>();
             disposables = new CompositeDisposable();
             baseHeight = Root.sizeDelta.y;
-            
+            fruitsInfoHeight = popupHolders.LandingFruitPlantInfoAboutFruits.GetComponent<RectTransform>().sizeDelta.y;
+            Debug.Log($"fruitsInfoHeight {fruitsInfoHeight}");
             popup.ButtonMove.onClick.AddListener(Move);
             popup.ButtonMoveToInventory.onClick.AddListener(MoveInInventory);
-            
+            popup.ChangePlantButton.onClick.AddListener(() => OpenProductChangedWindow(popup.ChangePlantButton.GetComponent<RectTransform>()));
+
             Redraw();
             Subscribe();
             
             return this;
         }
-
+        private float fruitsInfoHeight;
         public void Redraw()
         {
             if (!Root)
                 return;
             var popup = Root.GetComponent<LandingFruitPlantHolder>();
-            
-            popup.PlantName.text = $"{fruitPlantConfig.HandFruit.Name.GetLocalizedStringCached()}";
+            Root.sizeDelta = Root.sizeDelta.WithY(baseHeight);
+
+            popup.PlantName.text = string.Empty;
+
             if (fruitsInfo)
             {
                 Object.Destroy(fruitsInfo.gameObject);
             }
             
-            if (plantGrowerByUpper.IsPlanting)
+            if (landingFruitPlantController.FruitPlantConfig)
+            {
+                popup.PlantName.text = landingFruitPlantController.FruitPlantConfig.Name.GetLocalizedStringCached();
+                popup.Icon.sprite = landingFruitPlantController.FruitPlantConfig.Icon;
+            }
+            if (!landingFruitPlantController.FruitPlantConfig)
+            {
+                popup.GrowStage.text = string.Empty;
+                popup.GrowFill.fillAmount = 0;
+            }
+            else if (plantGrowerByUpper.IsPlanting)
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: 1";
                 popup.GrowFill.fillAmount = plantGrowerByUpper.LostDistance.Value / plantGrowerByUpper.Distance;
@@ -108,26 +133,110 @@ namespace UI.Hover.PopupLogics.Popups
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {localizationConfig.GrownWord.GetLocalizedStringCached()}";
                 popup.GrowFill.fillAmount = 1;
-
+                
                 fruitsInfo = Object.Instantiate(popupHolders.LandingFruitPlantInfoAboutFruits, popup.transform);
                 var holderRect = fruitsInfo.GetComponent<RectTransform>();
                 var lastRect = popup.GrowStage.GetComponent<RectTransform>();
-                var moveButtonRect = popup.ButtonMove.GetComponent<RectTransform>();
-                var inventoryButtonRect = popup.ButtonMoveToInventory.GetComponent<RectTransform>();
 
                 fruitsInfo.FruitsCount.text = $"{localizationConfig.FruitsWord.GetLocalizedStringCached()}: {landingFruitPlantController.fruitCount}";
                 fruitsInfo.FruitsReady.text = $"{localizationConfig.ReadyWord.GetLocalizedStringCached()} {inventory.GetCount()}";
                 holderRect.anchoredPosition = new Vector2(.0f, lastRect.anchoredPosition.y - lastRect.sizeDelta.y);
-                // popupRect.sizeDelta = popupRect.sizeDelta.WithY(popupRect.sizeDelta.y + holderRect.sizeDelta.y);
-                Root.sizeDelta = Root.sizeDelta.WithY(baseHeight + holderRect.sizeDelta.y);
-                moveButtonRect.anchoredPosition = moveButtonRect.anchoredPosition.WithY(holderRect.anchoredPosition.y - holderRect.sizeDelta.y);
-                inventoryButtonRect.anchoredPosition = inventoryButtonRect.anchoredPosition.WithY(moveButtonRect.anchoredPosition.y - moveButtonRect.sizeDelta.y);
+                Root.sizeDelta = Root.sizeDelta.WithY(baseHeight + fruitsInfoHeight);
             }
             else
             {
                 popup.GrowStage.text = $"{localizationConfig.GrowStage.GetLocalizedStringCached()}: {plantGrowerByStages.currentStage + 1}";
                 popup.GrowFill.fillAmount = plantGrowerByStages.timer.Value / plantGrowerByStages.stageTime;
             }
+        }
+
+        private void OpenProductChangedWindow(RectTransform rectTransform)
+        {
+            if (Root && windowToChangeProduct)
+            {
+                var wr = windowToChangeProduct.GetComponent<RectTransform>();
+                if (Children.Contains(wr))
+                {
+                    Children.Remove(wr);
+                }   
+                Object.Destroy(windowToChangeProduct.gameObject);
+            }
+            windowToChangeProduct = Object.Instantiate(uiConfig.WindowToChangeProduct, rectTransform);
+            windowToChangeProduct.ButtonToClose.onClick.AddListener(CloseProductChangedWindow);
+
+            var windowRect = windowToChangeProduct.GetComponent<RectTransform>();
+            windowRect.anchoredPosition = windowRect.anchoredPosition.WithY(windowRect.anchoredPosition.y - rectTransform.rect.size.y/2);
+            windowRect.SetParent(Root);
+            Children.Add(windowRect);
+
+            foreach (var plantInStorage in plantsStorage.GetPlants(PlantType.Fruit))
+            {
+                var productCard = Object.Instantiate(uiConfig.ProductCard, windowToChangeProduct.Content);
+                var buttonText = productCard.Button.GetComponentInChildren<TMP_Text>();
+                var fruitPlant = (plantInStorage.PlantConfig as FruitPlantConfig);
+               
+                // ReSharper disable once PossibleNullReferenceException
+                productCard.Icon.sprite = fruitPlant.HandFruit.Icon;
+                productCard.Name.text = fruitPlant.HandFruit.Name.GetLocalizedStringCached();
+                
+                if (landingFruitPlantController.FruitPlantConfig != null 
+                 && landingFruitPlantController.FruitPlantConfig.Id.Equals(plantInStorage.PlantConfig.Id))
+                {
+                    productCard.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {plantInStorage.Count}";
+                    buttonText.text = localizationConfig.Selected.GetLocalizedString(); //Выбрано
+                    productCard.Button.interactable = false;
+                }
+                else
+                {
+                    productCard.InInventory.text = $"{localizationConfig.InInventory.GetLocalizedStringCached()}: {plantInStorage.Count}";
+                    buttonText.text = localizationConfig.Select.GetLocalizedString(); //Выбрать
+                    productCard.Button.interactable = plantInStorage.Count > 0;
+                    productCard.Button.onClick.AddListener(() => ReRegister(plantInStorage));
+                }
+            }
+            var cardWidth = uiConfig.ProductCard.GetComponent<RectTransform>().rect.width;
+            var lg = windowToChangeProduct.Content.GetComponent<HorizontalLayoutGroup>();
+            var cardsCount = plantsStorage.Plants.Count; 
+            var contentSize = lg.padding.left + lg.padding.right + (lg.spacing * (cardsCount - 1)) + (cardWidth * cardsCount);
+            windowToChangeProduct.Content.anchorMin = Vector2.up;
+            windowToChangeProduct.Content.anchorMax = Vector2.up;
+            windowToChangeProduct.Content.pivot = Vector2.up;
+
+            windowToChangeProduct.Content.sizeDelta = windowToChangeProduct.Content.sizeDelta.WithX(contentSize);
+        }
+        
+        private void ReRegister(PlantInStorage plantInStorage)
+        {
+            var oldPlantConfig = landingFruitPlantController.FruitPlantConfig;
+            plantsStorage.Get(plantInStorage.PlantConfig);
+            if (oldPlantConfig)
+            {
+                plantsStorage.Add(new AddPlantToStorageRequest(oldPlantConfig, true));
+            }
+            landingFruitPlantController.ChangeConfig(plantInStorage.PlantConfig as FruitPlantConfig);
+            Redraw();
+            if (Root && windowToChangeProduct)
+            {
+                var wr = windowToChangeProduct.GetComponent<RectTransform>();
+                if (Children.Contains(wr))
+                {
+                    Children.Remove(wr);
+                }
+                Object.Destroy(windowToChangeProduct.gameObject);
+            }
+            var popup = Root.GetComponent<LandingFruitPlantHolder>();
+            OpenProductChangedWindow(popup.ChangePlantButton.GetComponent<RectTransform>());
+        }
+        
+        private void CloseProductChangedWindow()
+        {
+            Children.Clear();
+            if (Root && windowToChangeProduct)
+            {
+                Object.Destroy(windowToChangeProduct.gameObject);
+            }
+            windowToChangeProduct = null;
+            Redraw();
         }
         
         public void Subscribe()
@@ -148,6 +257,18 @@ namespace UI.Hover.PopupLogics.Popups
         
         private void MoveInInventory()
         {
+            var oldPlantConfig = landingFruitPlantController.FruitPlantConfig;
+            if (oldPlantConfig)
+            {
+                plantsStorage.Add(new AddPlantToStorageRequest(oldPlantConfig, true));
+            }
+            var lastSave = YG2.saves.PlantsSave.FirstOrDefault(save => save.Cell.Equals(building.Cell)
+                                                                    && save.Id.Equals(oldPlantConfig.Id));
+            if (lastSave != null)
+            {
+                YG2.saves.PlantsSave.Remove(lastSave);
+            }
+            
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, true, building.Cell));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, true));
             CloseButton?.Invoke();
@@ -156,6 +277,15 @@ namespace UI.Hover.PopupLogics.Popups
         
         private void Move()
         {
+            var oldPlantConfig = landingFruitPlantController.FruitPlantConfig;
+            if (oldPlantConfig)
+            {
+                plantsStorage.Add(new AddPlantToStorageRequest(oldPlantConfig, false));
+            }
+            
+            CloseButton?.Invoke();
+            Dispose();
+            
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false, building.Cell));
             addBuildingToStoragePublisher.Publish(new AddBuildingToStorageRequest(building.BuildingConfig, false));
             choseBuildingMessagePublisher.Publish(new ChoseBuildingMessage(
@@ -168,8 +298,6 @@ namespace UI.Hover.PopupLogics.Popups
                                                                            true
                                                                           ));
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
-            CloseButton?.Invoke();
-            Dispose();
         }
         
         public void Dispose()

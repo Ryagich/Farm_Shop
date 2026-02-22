@@ -210,6 +210,10 @@ MonoBehaviour:
     m_Localized: "Se\xE7"
     m_Metadata:
       m_Items: []
+  - m_Id: 24993644988841984
+    m_Localized: "Meyve yata\u011F\u0131"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

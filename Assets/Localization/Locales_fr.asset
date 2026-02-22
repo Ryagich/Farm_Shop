@@ -210,6 +210,10 @@ MonoBehaviour:
     m_Localized: "S\xE9lectionner"
     m_Metadata:
       m_Items: []
+  - m_Id: 24993644988841984
+    m_Localized: "Plate-bande fruiti\xE8re"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

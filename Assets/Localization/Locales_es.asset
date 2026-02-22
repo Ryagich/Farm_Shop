@@ -210,6 +210,10 @@ MonoBehaviour:
     m_Localized: Seleccionar
     m_Metadata:
       m_Items: []
+  - m_Id: 24993644988841984
+    m_Localized: Huerto de frutas
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

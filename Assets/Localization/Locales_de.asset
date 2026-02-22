@@ -210,6 +210,10 @@ MonoBehaviour:
     m_Localized: "Ausw\xE4hlen"
     m_Metadata:
       m_Items: []
+  - m_Id: 24993644988841984
+    m_Localized: Obstbeet
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

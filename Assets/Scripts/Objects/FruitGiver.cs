@@ -12,34 +12,33 @@ namespace Objects
     // ReSharper disable once ClassNeverInstantiated.Global
     public class FruitGiver : IStartable
     {
+        public FruitPlantConfig FruitPlantConfig;
+        
         private readonly IPublisher<ItemGivenFromInventory> itemGivenFromInventoryMessage;
         private readonly FruitPlantInventory inventory;
-        private readonly FruitPlantConfig fruitPlantConfig;
 
         public FruitGiver
             (
                 Interactable.Interactable interactable,
                 IPublisher<ItemGivenFromInventory> itemGivenFromInventoryMessage,
-                FruitPlantInventory inventory,
-                FruitPlantConfig fruitPlantConfig
+                FruitPlantInventory inventory
             )
         {
             this.itemGivenFromInventoryMessage = itemGivenFromInventoryMessage;
             this.inventory = inventory;
-            this.fruitPlantConfig = fruitPlantConfig;
 
             interactable.Interacted += Interact;
         }
         
         private void Interact(LifetimeScope scope)
         {
-            var otherInventory = scope.Container.Resolve<IInventory>();
-            if (!inventory.CanGet())
+            if (!FruitPlantConfig || !inventory.CanGet())
                 return;
-            if (otherInventory.CanAdd(fruitPlantConfig.HandFruit))
+            var otherInventory = scope.Container.Resolve<IInventory>();
+            if (otherInventory.CanAdd(FruitPlantConfig.HandFruit))
             {
                 var item = inventory.Get();
-                otherInventory.Add(fruitPlantConfig.HandFruit, item.FruitObj.transform.localToWorldMatrix);
+                otherInventory.Add(FruitPlantConfig.HandFruit, item.FruitObj.transform.localToWorldMatrix);
                 Object.Destroy(item.FruitObj);
                 itemGivenFromInventoryMessage.Publish(new ItemGivenFromInventory());
             }

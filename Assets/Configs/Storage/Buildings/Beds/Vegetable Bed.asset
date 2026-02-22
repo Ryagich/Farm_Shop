@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
-  m_Name: Vegetable Landing  BuildingConfig
+  m_Name: Vegetable Bed
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: 'Vegetable Landing  '
+  <Id>k__BackingField: Vegetable Bed
   <Type>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 21300000, guid: 14c6e2ece74844c4280cf63e2a9929c4, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 94ffb13dca26bb5428e01477345d83f9, type: 3}
   <Name>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3

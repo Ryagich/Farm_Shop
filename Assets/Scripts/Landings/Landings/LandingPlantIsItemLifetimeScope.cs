@@ -16,7 +16,6 @@ namespace Landings.Landings
 {
     public class LandingPlantIsItemLifetimeScope : LifetimeScope
     {
-        // [field: SerializeField] public PlantConfig PlantConfig { get; private set; } = null!;
         [field: SerializeField] public Transform Center { get; private set; } = null!;
 
         protected override void Configure(IContainerBuilder builder)
@@ -28,12 +27,9 @@ namespace Landings.Landings
             builder.RegisterInstance(interactable);
             builder.RegisterInstance(hoverTrigger);           
             builder.RegisterInstance(building);
+            builder.RegisterInstance(gameObject);
             builder.RegisterInstance(Center);
             building.SetContent(Center);
-            
-            builder.RegisterInstance(gameObject);
-            // builder.RegisterInstance(PlantConfig);
-            // builder.RegisterInstance(PlantConfig.ItemGivenSound).Keyed("ItemGivenSound");
 
             // === Local MessagePipe ===
             var options = builder.RegisterMessagePipe();

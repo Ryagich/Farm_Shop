@@ -210,6 +210,10 @@ MonoBehaviour:
     m_Localized: Selecionar
     m_Metadata:
       m_Items: []
+  - m_Id: 24993644988841984
+    m_Localized: Canteiro de frutas
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

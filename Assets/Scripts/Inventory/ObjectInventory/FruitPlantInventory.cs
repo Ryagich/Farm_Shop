@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using System.Linq;
 using Landings.Plants;
 using UniRx;
-using VContainer;
 
 namespace Inventory.ObjectInventory
 {
@@ -12,14 +9,6 @@ namespace Inventory.ObjectInventory
     {
         public readonly ReactiveCollection<Fruit> Fruits = new();
 
-        private readonly IObjectResolver resolver;
-      
-        [SuppressMessage("ReSharper", "ParameterHidesMember")]
-        public FruitPlantInventory(IObjectResolver resolver)
-        {
-            this.resolver = resolver;
-        }
-        
         public void Add(Fruit fruit)
         {
             Fruits.Add(fruit);

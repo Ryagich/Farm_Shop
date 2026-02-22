@@ -12,7 +12,7 @@ namespace Landings.Plants
     // ReSharper disable once ClassNeverInstantiated.Global
     public class FruitGrower : ITickable
     {
-        private readonly FruitPlantConfig plantConfig;
+        public FruitPlantConfig FruitPlantConfig;
         private readonly Transform parent;
         private readonly List<Fruit> fruits = new();
         private readonly IObjectResolver resolver;
@@ -21,13 +21,11 @@ namespace Landings.Plants
 
         public FruitGrower
             (
-                FruitPlantConfig plantConfig,
                 Transform parent,
                 IObjectResolver resolver,
                 IPublisher<FruitHasGrown> fruitHasGrownPublisher
             )
         {
-            this.plantConfig = plantConfig;
             this.parent = parent;
             this.resolver = resolver;
             this.fruitHasGrownPublisher = fruitHasGrownPublisher;
@@ -49,7 +47,7 @@ namespace Landings.Plants
             var count = 0;
             foreach (var fruit in fruits)
             {
-                if (plantConfig.FruitGrowChance >= Random.Range(.0f, 1.0f))
+                if (FruitPlantConfig.FruitGrowChance >= Random.Range(.0f, 1.0f))
                 {
                     SpawnFruit(fruit);
                     fruit.IsPlanted = false;
@@ -79,7 +77,7 @@ namespace Landings.Plants
         private void NextStage(Fruit fruit)
         {
             SpawnFruit(fruit);
-            if (fruit.CurrentStage >= plantConfig.FruitStages.Count)
+            if (fruit.CurrentStage >= FruitPlantConfig.FruitStages.Count)
             {
                 fruit.IsPlanted = true;
                 fruit.CurrentStage = 0;    
@@ -91,14 +89,14 @@ namespace Landings.Plants
         {
             if (fruit.FruitObj)
                 Object.Destroy(fruit.FruitObj);
-            fruit.StageTime = Random.Range(plantConfig.FruitGrowTime.x, plantConfig.FruitGrowTime.y);
-            fruit.FruitObj = resolver.Instantiate(plantConfig.FruitStages[fruit.CurrentStage], fruit.Parent);
+            fruit.StageTime = Random.Range(FruitPlantConfig.FruitGrowTime.x, FruitPlantConfig.FruitGrowTime.y);
+            fruit.FruitObj = resolver.Instantiate(FruitPlantConfig.FruitStages[fruit.CurrentStage], fruit.Parent);
             var t = fruit.FruitObj.transform;
             var targetScale = t.localScale;
             t.localScale = targetScale * .5f;
             t.DOScale(targetScale, .5f).SetEase(Ease.OutElastic, .2f);
             fruit.CurrentStage++;
-            var newSettings = plantConfig.FruitSoundConfig.SoundSettings;
+            var newSettings = FruitPlantConfig.FruitSoundConfig.SoundSettings;
             globalPlaySoundPublisher.Publish(new PlaySoundMessage(newSettings, fruit.FruitObj.transform.position, null));
         }
     }
