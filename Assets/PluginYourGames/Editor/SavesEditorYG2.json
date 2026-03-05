@@ -29,18 +29,6 @@
       "RotZ": 0.0
     },
     {
-      "Id": "Shelf",
-      "Cell": {
-        "x": 26,
-        "y": 13,
-        "magnitude": 29.0688839,
-        "sqrMagnitude": 845
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
-    },
-    {
       "Id": "Vegetable Bed",
       "Cell": {
         "x": 19,
@@ -123,6 +111,18 @@
       "RotX": 0.0,
       "RotY": 0.0,
       "RotZ": 0.0
+    },
+    {
+      "Id": "Shelf",
+      "Cell": {
+        "x": 26,
+        "y": 19,
+        "magnitude": 32.2024841,
+        "sqrMagnitude": 1037
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
     }
   ],
   "ShelvesSave": [
@@ -130,14 +130,14 @@
       "Id": "Shelf",
       "Cell": {
         "x": 26,
-        "y": 13,
-        "magnitude": 29.0688839,
-        "sqrMagnitude": 845
+        "y": 19,
+        "magnitude": 32.2024841,
+        "sqrMagnitude": 1037
       },
       "inventoriesInfo": [
         {
           "Item1": "Carrot ItemConfig ID",
-          "Item2": 1
+          "Item2": 0
         },
         {
           "Item1": null,
