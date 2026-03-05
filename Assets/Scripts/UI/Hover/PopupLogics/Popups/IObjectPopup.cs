@@ -12,5 +12,6 @@ namespace UI.Hover.PopupLogics.Popups
         public IObjectPopup DrawPopup(Canvas canvas);
         public void Redraw();
         public void Subscribe();
+        public void ClickOnObject();
     }
 }

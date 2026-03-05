@@ -38,12 +38,9 @@ namespace Container.ObjectContainers
             builder.Register<BuildingInteractableFlag>(Lifetime.Scoped).AsSelf();
             builder.Register<InteractableSimpleBuildingPopup>(Lifetime.Scoped).As<IObjectPopup>().AsSelf();
 
-            builder.UseEntryPoints(ep =>
-                                   {
-                                       ep.Add<UnlimitedInventory>().AsSelf();
-                                       ep.Add<ItemTakerWithBuildingInteractableFlag>().AsSelf();
-                                       ep.Add<DeleterItemMover>().AsSelf();
-                                   });
+            builder.RegisterEntryPoint<UnlimitedInventory>().AsSelf();
+            builder.RegisterEntryPoint<ItemTakerWithBuildingInteractableFlag>().AsSelf();
+            builder.RegisterEntryPoint<DeleterItemMover>().AsSelf();
             builder.RegisterEntryPoint<InventoryDisposable>().AsSelf();
             
             builder.RegisterBuildCallback(c => { c.Inject(hoverTrigger); });

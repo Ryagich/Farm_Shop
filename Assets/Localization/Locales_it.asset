@@ -214,6 +214,58 @@ MonoBehaviour:
     m_Localized: Aiuola di frutta
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Localized: Chiudi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Localized: Note di aggiornamento
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Localized: "Note di aggiornamento\n1. Sistemi di gioco\n1.1. Il sistema di
+      coltivazione delle piante \xE8 stato rielaborato\n1.2. Aggiornata la logica
+      di posizionamento e utilizzo degli scaffali\n1.3. I prodotti non richiedono
+      pi\xF9 scaffali separati. Dopo aver posizionato uno scaffale, \xE8 possibile
+      scegliere quali prodotti collocarvi\n1.4. I prodotti selezionati sugli scaffali
+      ora vengono salvati\n1.5. Il sistema delle aiuole \xE8 stato rielaborato: aiuole
+      e semi vengono acquistati separatamente, dopodich\xE9 \xE8 possibile scegliere
+      quale pianta coltivare\n1.6. Le piante sono ora suddivise in tipi. Ogni tipo
+      pu\xF2 essere coltivato solo sull\u2019aiuola corrispondente\n1.7. Le impostazioni
+      degli oggetti vengono mantenute quando vengono spostati\n1.8. Aggiunto un nuovo
+      tipo di oggetto interattivo \u2014 l\u2019interazione richiede la pressione
+      di un pulsante\n1.9. Aggiunta una bacheca\n\n2. Bilanciamento ed economia\n2.1.
+      Aggiornati i prezzi dei prodotti\n\n3. Modifiche visive\n\n3.1. Aggiornate
+      le icone di piante, prodotti e aiuole\n3.2. Aggiornato l\u2019aspetto delle
+      aiuole\n\n4. Audio\n4.1. Bilanciati i suoni dei passi\n4.2. Ridotto il volume
+      dello scanner della cassa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Localized: Modifiche future
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Localized: "1. Radio\nNel gioco apparir\xE0 una radio che potr\xE0 essere accesa
+      per ascoltare programmi musicali e informativi.\n2. Sistema di irrigazione
+      delle piante\nLe piante dovranno essere annaffiate periodicamente. Senza irrigazione
+      la loro crescita rallenter\xE0 o si fermer\xE0 completamente.\n3. Fossa di
+      compostaggio\nVerr\xE0 aggiunto un sistema per trasformare prodotti e rifiuti
+      organici in compost.\n4. Sistema di fertilizzazione delle aiuole\nLe aiuole
+      potranno essere fertilizzate con compost. Senza fertilizzazione le piante smetteranno
+      di crescere con il tempo.\n5. Miglioramenti tecnici dell\u2019interfaccia\nVerranno
+      effettuati miglioramenti interni al sistema UI. Non cambieranno il gameplay
+      ma accelereranno lo sviluppo e miglioreranno la stabilit\xE0 dell\u2019interfaccia.\n6.
+      Zona di produzione\nVerr\xE0 aggiunta una zona di lavorazione dei prodotti.
+      Ad esempio verdure e frutta potranno essere trasformate in nuovi prodotti (ad
+      esempio carota \u2192 succo di carota).\n7. Modifica delle dimensioni delle
+      zone di gioco\nApparir\xE0 un sistema per modificare la dimensione delle zone
+      utilizzando i territori vicini.\n8. Nuove zone di gioco\n\xC8 prevista l'aggiunta
+      di nuove zone funzionali:\n8.1. ristorante\n8.2. cucina\n8.3. magazzino\n\nPuoi
+      proporre idee per futuri aggiornamenti o segnalare bug nei commenti del gioco
+      o nel canale Telegram: t.me/MoodyDustGames"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

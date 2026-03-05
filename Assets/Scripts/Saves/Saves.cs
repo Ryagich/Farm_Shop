@@ -7,7 +7,7 @@ namespace YG
 {
     public partial class SavesYG
     {
-        public int money = 4500;
+        public int money = 100;
         public Vector2Int Offset;
         public List<BuildingSave> BuildingSaves = new();
         public List<ShelfSave> ShelvesSave = new();

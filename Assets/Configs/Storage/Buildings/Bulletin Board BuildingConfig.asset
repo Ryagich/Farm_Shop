@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e710d922e62e4d8faba010cd7efc3096, type: 3}
+  m_Name: Bulletin Board BuildingConfig
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: bulletin board
+  <Type>k__BackingField: 2
+  <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:a7b7152a19155234c974decdd1edacb3
+    m_TableEntryReference:
+      m_KeyId: 73058051407872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Building>k__BackingField: {fileID: 7266538590096026583, guid: 73030da7ef63dc040b19e49fa5ba7894, type: 3}
+  <HighlightBuilding>k__BackingField: {fileID: 5028928033982519457, guid: 2793eb3e2447a2d42ba6ee5f7ed2ba95, type: 3}
+  <Size>k__BackingField: {x: 3, y: 3}
+  <Price>k__BackingField: 0
+  <ShowInShop>k__BackingField: 0
+  references:
+    version: 2
+    RefIds: []

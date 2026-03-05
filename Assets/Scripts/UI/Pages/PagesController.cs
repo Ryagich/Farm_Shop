@@ -17,6 +17,7 @@ namespace UI.Pages
         private readonly ShopPage shopPage;
         private readonly InventoryPage inventoryPage;
         private readonly RedactorPage redactorPage;
+        private readonly DialoguePage dialoguePage;
 
         private BasePage currentPage;
         
@@ -29,6 +30,7 @@ namespace UI.Pages
                 ShopPage shopPage,
                 InventoryPage inventoryPage, 
                 RedactorPage redactorPage,
+                DialoguePage dialoguePage,
                 ISubscriber<ChangeCursorStateMessage> changeCursorStateSubscriber,
                 ISubscriber<GameModeChangedMessage> gameModeChangeSubscriber
             )
@@ -40,6 +42,7 @@ namespace UI.Pages
             this.shopPage = shopPage;
             this.inventoryPage = inventoryPage;
             this.redactorPage = redactorPage;
+            this.dialoguePage = dialoguePage;
 
             gameModeChangeSubscriber.Subscribe(OnGameModeChanged);
             changeCursorStateSubscriber.Subscribe(OnCursorStateChanged);
@@ -80,6 +83,9 @@ namespace UI.Pages
                 case GameMode.Redactor:
                     currentPage = redactorPage;
                     break;
+                case GameMode.Dialogue:
+                    currentPage = dialoguePage;
+                    break;
                 default:
                     if (cursorController.IsVisibleInPlayMode)
                         currentPage = mainPageWithUI;
@@ -106,6 +112,8 @@ namespace UI.Pages
         GameWithUI,
         Shop,
         Inventory,
-        Redactor
+        Redactor,
+        Dialogue,
+        
     }
 }

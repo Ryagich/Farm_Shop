@@ -7,8 +7,8 @@
     false,
     false
   ],
-  "idSave": 87,
-  "money": 3575,
+  "idSave": 17,
+  "money": 100,
   "Offset": {
     "x": 1,
     "y": 1,
@@ -35,6 +35,30 @@
         "y": 13,
         "magnitude": 29.0688839,
         "sqrMagnitude": 845
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "Vegetable Bed",
+      "Cell": {
+        "x": 19,
+        "y": 4,
+        "magnitude": 19.4164886,
+        "sqrMagnitude": 377
+      },
+      "RotX": 0.0,
+      "RotY": 0.0,
+      "RotZ": 0.0
+    },
+    {
+      "Id": "bulletin board",
+      "Cell": {
+        "x": 25,
+        "y": 24,
+        "magnitude": 34.6554451,
+        "sqrMagnitude": 1201
       },
       "RotX": 0.0,
       "RotY": 0.0,
@@ -99,18 +123,6 @@
       "RotX": 0.0,
       "RotY": 0.0,
       "RotZ": 0.0
-    },
-    {
-      "Id": "Vegetable Bed",
-      "Cell": {
-        "x": 19,
-        "y": 6,
-        "magnitude": 19.9248581,
-        "sqrMagnitude": 397
-      },
-      "RotX": 0.0,
-      "RotY": 0.0,
-      "RotZ": 0.0
     }
   ],
   "ShelvesSave": [
@@ -124,8 +136,8 @@
       },
       "inventoriesInfo": [
         {
-          "Item1": null,
-          "Item2": 0
+          "Item1": "Carrot ItemConfig ID",
+          "Item2": 1
         },
         {
           "Item1": null,
@@ -141,7 +153,7 @@
   "BuildingsInStorageSave": [
     {
       "Id": "Fruit Bed",
-      "Count": 3
+      "Count": 0
     },
     {
       "Id": "Checkout ",
@@ -156,7 +168,11 @@
       "Count": 0
     },
     {
-      "Id": "Vegetable Landing  ",
+      "Id": "bulletin board",
+      "Count": 0
+    },
+    {
+      "Id": "Vegetable Bed",
       "Count": 0
     },
     {
@@ -166,20 +182,16 @@
     {
       "Id": "Shelf",
       "Count": 0
-    },
-    {
-      "Id": "Vegetable Bed",
-      "Count": 0
     }
   ],
   "PlantsInStorageSave": [
     {
       "Id": "Carrot PlantConfig",
-      "Count": 4
+      "Count": 0
     },
     {
       "Id": "Tomato FruitPlantConfig",
-      "Count": 2
+      "Count": 0
     },
     {
       "Id": "Broccoli PlantConfig",
@@ -194,28 +206,10 @@
     {
       "Id": "Carrot PlantConfig",
       "Cell": {
-        "x": 21,
-        "y": 2,
-        "magnitude": 21.0950222,
-        "sqrMagnitude": 445
-      }
-    },
-    {
-      "Id": "Tomato FruitPlantConfig",
-      "Cell": {
-        "x": 9,
-        "y": 6,
-        "magnitude": 10.8166542,
-        "sqrMagnitude": 117
-      }
-    },
-    {
-      "Id": "Carrot PlantConfig",
-      "Cell": {
         "x": 19,
-        "y": 6,
-        "magnitude": 19.9248581,
-        "sqrMagnitude": 397
+        "y": 4,
+        "magnitude": 19.4164886,
+        "sqrMagnitude": 377
       }
     }
   ],

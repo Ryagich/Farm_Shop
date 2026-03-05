@@ -214,6 +214,58 @@ MonoBehaviour:
     m_Localized: Huerto de frutas
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Localized: Cerrar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Localized: Notas del parche
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Localized: "Notas del parche\n1. Sistemas de juego\n1.1. Se ha redise\xF1ado
+      el sistema de cultivo de plantas\n1.2. Actualizada la l\xF3gica de colocaci\xF3n
+      y uso de estanter\xEDas\n1.3. Los productos ya no requieren estanter\xEDas
+      individuales. Despu\xE9s de colocar una estanter\xEDa, puedes elegir qu\xE9
+      productos se colocar\xE1n en ella\n1.4. Los productos seleccionados en las
+      estanter\xEDas ahora se guardan\n1.5. El sistema de bancales ha sido redise\xF1ado:
+      los bancales y las semillas se compran por separado, luego se puede elegir
+      qu\xE9 planta cultivar\n1.6. Las plantas ahora est\xE1n divididas por tipos.
+      Cada tipo solo puede cultivarse en el bancal correspondiente\n1.7. La configuraci\xF3n
+      de los objetos se mantiene al moverlos\n1.8. Se ha a\xF1adido un nuevo tipo
+      de objeto interactivo \u2014 la interacci\xF3n requiere presionar un bot\xF3n\n1.9.
+      Se ha a\xF1adido un tabl\xF3n de anuncios\n\n2. Balance y econom\xEDa\n2.1.
+      Se han actualizado los precios de los productos\n\n3. Cambios visuales\n\n3.1.
+      Actualizados los iconos de plantas, productos y bancales\n3.2. Actualizado
+      el aspecto de los bancales\n\n4. Sonido\n4.1. Ajustados los sonidos de pasos\n4.2.
+      Reducido el volumen del esc\xE1ner de caja"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Localized: "Pr\xF3ximos cambios"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Localized: "1. Radio\nEn el juego aparecer\xE1 una radio que se podr\xE1 encender
+      para escuchar programas musicales e informativos.\n2. Sistema de riego de plantas\nLas
+      plantas deber\xE1n regarse peri\xF3dicamente. Sin riego su crecimiento se ralentizar\xE1
+      o se detendr\xE1 completamente.\n3. Fosa de compostaje\nSe a\xF1adir\xE1 un
+      sistema para procesar productos y residuos org\xE1nicos en compost.\n4. Sistema
+      de fertilizaci\xF3n de bancales\nLos bancales podr\xE1n fertilizarse con compost.
+      Sin fertilizaci\xF3n las plantas dejar\xE1n de crecer con el tiempo.\n5. Mejoras
+      t\xE9cnicas de la interfaz\nSe realizar\xE1n mejoras internas en el sistema
+      de UI. No cambiar\xE1n el gameplay, pero acelerar\xE1n el desarrollo futuro
+      y mejorar\xE1n la estabilidad de la interfaz.\n6. Zona de producci\xF3n\nSe
+      a\xF1adir\xE1 una zona de procesamiento de productos. Por ejemplo verduras
+      y frutas podr\xE1n procesarse en nuevos productos (por ejemplo zanahoria \u2192
+      jugo de zanahoria).\n7. Cambio del tama\xF1o de las zonas de juego\nAparecer\xE1
+      un sistema para cambiar el tama\xF1o de las zonas usando territorios vecinos.\n8.
+      Nuevas zonas de juego\nSe planea a\xF1adir nuevas zonas funcionales:\n8.1.
+      restaurante\n8.2. cocina\n8.3. almac\xE9n\n\nPuedes sugerir ideas para futuras
+      actualizaciones o informar sobre errores en los comentarios del juego o en
+      el canal de Telegram: t.me/MoodyDustGames"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

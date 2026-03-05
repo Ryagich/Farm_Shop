@@ -1,4 +1,5 @@
 ﻿using Storage;
+using TMPro;
 using UI.Cards;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,5 +27,8 @@ namespace UI.Configs
         [field: SerializeField] public Vector3 SectionButtonsPositionForRedactorPage { get; private set; }
         [field: SerializeField] public Vector2 OffsetForProductionCards { get; private set; } = new (10.0f, -10.0f);
         [field: SerializeField] public float SpaceBetweenProductionCards { get; private set; } = 25.0f;
+        [field: SerializeField] public TMP_Text InteractableText { get; private set; }
+        [field: SerializeField] public Button ButtonArrowLeft { get; private set; }
+        [field: SerializeField] public Button ButtonArrowRight { get; private set; }
     }
 }

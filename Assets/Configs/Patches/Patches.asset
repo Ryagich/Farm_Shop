@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05f807eb28849f0b722ee3f37f1e95e, type: 3}
+  m_Name: Patches
+  m_EditorClassIdentifier: 
+  <PatchInfos>k__BackingField:
+  - {fileID: 11400000, guid: 56651315c796a0b41a2f027bf566e3d1, type: 2}
+  - {fileID: 11400000, guid: d86222568c323374aa21cd3b594d97e3, type: 2}

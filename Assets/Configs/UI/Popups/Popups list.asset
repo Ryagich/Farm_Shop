@@ -25,3 +25,4 @@ MonoBehaviour:
   <ProductionZoneHolder>k__BackingField: {fileID: 9057745268707947563, guid: bc2d891963b33054383cfec3c4dabf7a, type: 3}
   <MaterialProductText>k__BackingField: {fileID: 1160537559324519533, guid: 8540e87873013274081cdc1733dc15f9, type: 3}
   <InteractableSimpleBuildingHolder>k__BackingField: {fileID: 8626172904159969183, guid: 12d77930936383a4db79e647d99aaed3, type: 3}
+  <OnlyTitleHolder>k__BackingField: {fileID: 5551370526299691578, guid: ae61f5ce496a0cc43b5228f795b5a6dc, type: 3}

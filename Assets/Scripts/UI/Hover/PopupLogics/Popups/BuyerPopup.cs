@@ -45,7 +45,7 @@ namespace UI.Hover.PopupLogics.Popups
             Redraw();
             Subscribe();
 
-            return this;// popup.GetComponent<RectTransform>();
+            return this;
         }
 
         public void Redraw()
@@ -94,6 +94,8 @@ namespace UI.Hover.PopupLogics.Popups
                                                   baseHeight + buyerController.context.BuyPositions.Count * itemHeight + 5f
                                                  );
         }
+        
+        public void ClickOnObject() { }
 
         public void Subscribe()
         {

@@ -214,6 +214,61 @@ MonoBehaviour:
     m_Localized: "Plate-bande fruiti\xE8re"
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Localized: Fermer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Localized: "Notes de mise \xE0 jour"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Localized: "Notes de mise \xE0 jour\n1. Syst\xE8mes de jeu\n1.1. Refonte du
+      syst\xE8me de culture des plantes\n1.2. Mise \xE0 jour de la logique d\u2019installation
+      et d\u2019utilisation des \xE9tag\xE8res\n1.3. Les produits ne n\xE9cessitent
+      plus d\u2019\xE9tag\xE8re individuelle. Apr\xE8s l\u2019installation d\u2019une
+      \xE9tag\xE8re, vous pouvez choisir quels produits y seront plac\xE9s\n1.4.
+      Sauvegarde des produits s\xE9lectionn\xE9s sur les \xE9tag\xE8res\n1.5. Refonte
+      du syst\xE8me de plates-bandes : les plates-bandes et les graines sont achet\xE9es
+      s\xE9par\xE9ment, puis vous pouvez choisir la plante \xE0 cultiver\n1.6. Les
+      plantes sont d\xE9sormais divis\xE9es en types. Chaque type peut \xEAtre cultiv\xE9
+      uniquement sur la plate-bande correspondante\n1.7. Les param\xE8tres des objets
+      sont conserv\xE9s lors du d\xE9placement\n1.8. Ajout d\u2019un nouveau type
+      d\u2019objet interactif n\xE9cessitant l\u2019appui sur un bouton\n1.9. Ajout
+      d\u2019un tableau d\u2019affichage\n\n2. \xC9quilibrage et \xE9conomie\n2.1.
+      Mise \xE0 jour des prix des produits\n\n3. Modifications visuelles\n\n3.1.
+      Mise \xE0 jour des ic\xF4nes des plantes, produits et plates-bandes\n3.2. Mise
+      \xE0 jour de l\u2019apparence des plates-bandes\n\n4. Son\n4.1. Ajustement
+      des sons de pas\n4.2. R\xE9duction du volume du scanner de caisse"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Localized: "Modifications \xE0 venir"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Localized: "1. Radio\nUne radio appara\xEEtra dans le jeu. Elle pourra \xEAtre
+      activ\xE9e pour \xE9couter des \xE9missions musicales et informatives.\n2.
+      Syst\xE8me d'arrosage des plantes\nLes plantes devront \xEAtre arros\xE9es
+      p\xE9riodiquement. Sans arrosage leur croissance ralentira ou s'arr\xEAtera
+      compl\xE8tement.\n3. Bac \xE0 compost\nUn syst\xE8me de transformation des
+      produits et des d\xE9chets organiques en compost sera ajout\xE9.\n4. Syst\xE8me
+      de fertilisation des plates-bandes\nLes plates-bandes pourront \xEAtre fertilis\xE9es
+      avec du compost. Sans fertilisation les plantes finiront par cesser de pousser.\n5.
+      Am\xE9liorations techniques de l\u2019interface\nDes am\xE9liorations internes
+      du syst\xE8me UI seront effectu\xE9es. Elles ne changeront pas le gameplay
+      mais acc\xE9l\xE9reront le d\xE9veloppement et am\xE9lioreront la stabilit\xE9
+      de l\u2019interface.\n6. Zone de production\nUne zone de transformation des
+      produits sera ajout\xE9e. Par exemple les l\xE9gumes et les fruits pourront
+      \xEAtre transform\xE9s en nouveaux produits (par exemple carotte \u2192 jus
+      de carotte).\n7. Modification de la taille des zones de jeu\nUn syst\xE8me
+      permettant de modifier la taille des zones \xE0 l\u2019aide des territoires
+      voisins appara\xEEtra.\n8. Nouvelles zones de jeu\nL'ajout de nouvelles zones
+      fonctionnelles est pr\xE9vu :\n8.1. restaurant\n8.2. cuisine\n8.3. entrep\xF4t\n\nVous
+      pouvez proposer des id\xE9es pour les futures mises \xE0 jour ou signaler des
+      bugs dans les commentaires du jeu ou dans le canal Telegram : t.me/MoodyDustGames"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -14,6 +14,7 @@ namespace BuildingsAndGrid.Environment
         [field: SerializeField] public BuildingConfig Checkout { get; private set; }
         [field: SerializeField] public BuildingConfig Landing { get; private set; }
         [field: SerializeField] public BuildingConfig Shelf { get; private set; }
+        [field: SerializeField] public BuildingConfig BulletinBoard { get; private set; }
         [field: SerializeField] public ItemConfig DefaultItemConfig { get; private set; }
         [field: SerializeField] public PlantConfig DefaultPlantConfig { get; private set; }
         [field: SerializeField] public BuildingConfig Deleter { get; private set; }

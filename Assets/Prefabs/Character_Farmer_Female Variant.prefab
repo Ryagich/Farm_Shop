@@ -4964,6 +4964,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   stepSoundConfig: {fileID: 11400000, guid: f7170d64748344c428b3853388cec29d, type: 2}
+  canvasLifetimeScope: {fileID: 8935204691009830185, guid: 9b3cd432b8cfe3d4c89ebfc0fb114c4c, type: 3}
 --- !u!143 &9196917524993579517
 CharacterController:
   m_ObjectHideFlags: 0

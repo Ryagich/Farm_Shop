@@ -214,6 +214,57 @@ MonoBehaviour:
     m_Localized: Obstbeet
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Localized: "Schlie\xDFen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Localized: Patchnotizen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Localized: "Patchnotizen\n1. Spielsysteme\n1.1. Das Pflanzenanbausystem wurde
+      \xFCberarbeitet\n1.2. Die Logik f\xFCr Platzierung und Nutzung von Regalen
+      wurde aktualisiert\n1.3. Produkte ben\xF6tigen keine eigenen Regale mehr. Nach
+      dem Platzieren eines Regals kann ausgew\xE4hlt werden, welche Produkte darauf
+      gelagert werden\n1.4. Ausgew\xE4hlte Produkte auf Regalen werden nun gespeichert\n1.5.
+      Das Beet-System wurde \xFCberarbeitet: Beete und Samen werden separat gekauft,
+      danach kann die anzupflanzende Pflanze gew\xE4hlt werden\n1.6. Pflanzen sind
+      nun in Typen unterteilt. Jeder Typ kann nur auf dem entsprechenden Beet angebaut
+      werden\n1.7. Objekteinstellungen bleiben beim Verschieben erhalten\n1.8. Neuer
+      interaktiver Objekttyp hinzugef\xFCgt \u2014 Interaktion per Tastendruck\n1.9.
+      Ein Schwarzes Brett wurde hinzugef\xFCgt\n\n2. Balance & Wirtschaft\n2.1. Produktpreise
+      wurden aktualisiert\n\n3. Visuelle \xC4nderungen\n\n3.1. Icons f\xFCr Pflanzen,
+      Produkte und Beete aktualisiert\n3.2. Darstellung der Beete aktualisiert\n\n4.
+      Audio\n4.1. Schrittger\xE4usche wurden angepasst\n4.2. Lautst\xE4rke des Kassenscanners
+      reduziert"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Localized: "Kommende \xC4nderungen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Localized: "1. Radio\nIm Spiel wird ein Radio erscheinen, das eingeschaltet
+      werden kann, um Musik und Informationssendungen zu h\xF6ren.\n2. Pflanzenbew\xE4sserungssystem\nPflanzen
+      m\xFCssen regelm\xE4\xDFig bew\xE4ssert werden. Ohne Bew\xE4sserung verlangsamt
+      sich ihr Wachstum oder stoppt vollst\xE4ndig.\n3. Kompostgrube\nEin System
+      zur Verarbeitung von Produkten und organischen Abf\xE4llen zu Kompost wird
+      hinzugef\xFCgt.\n4. D\xFCngesystem f\xFCr Beete\nBeete k\xF6nnen mit Kompost
+      ged\xFCngt werden. Ohne D\xFCnger h\xF6ren Pflanzen mit der Zeit auf zu wachsen.\n5.
+      Technische Verbesserungen der Benutzeroberfl\xE4che\nInterne Verbesserungen
+      am UI-System werden durchgef\xFChrt. Sie ver\xE4ndern das Gameplay nicht, beschleunigen
+      jedoch die weitere Entwicklung und verbessern die Stabilit\xE4t der Benutzeroberfl\xE4che.\n6.
+      Produktionszone\nEine Zone zur Verarbeitung von Produkten wird hinzugef\xFCgt.
+      Zum Beispiel k\xF6nnen Gem\xFCse und Fr\xFCchte in neue Produkte verarbeitet
+      werden (zum Beispiel Karotte \u2192 Karottensaft).\n7. \xC4nderung der Gr\xF6\xDFe
+      von Spielzonen\nEin System zur \xC4nderung der Zonengr\xF6\xDFe durch benachbarte
+      Gebiete wird erscheinen.\n8. Neue Spielzonen\nDie Hinzuf\xFCgung neuer funktionaler
+      Zonen ist geplant:\n8.1. Restaurant\n8.2. K\xFCche\n8.3. Lager\n\nSie k\xF6nnen
+      Ideen f\xFCr zuk\xFCnftige Updates vorschlagen oder Fehler in den Spielkommentaren
+      oder im Telegram-Kanal melden: t.me/MoodyDustGames"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

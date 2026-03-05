@@ -214,6 +214,54 @@ MonoBehaviour:
     m_Localized: Fruit bed
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Localized: Patch Notes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Localized: "Patch Notes\n1. Gameplay Systems\n1.1. The plant growing system
+      has been reworked\n1.2. Shelf placement and usage logic has been updated\n1.3.
+      Products no longer require individual shelves. After placing a shelf, you can
+      choose which products will be stored on it\n1.4. Selected products on shelves
+      are now saved\n1.5. The garden bed system has been reworked: beds and seeds
+      are purchased separately, after which you can choose which plant to grow\n1.6.
+      Plants are now divided into types. Each type can only be grown on the corresponding
+      bed\n1.7. Object settings are now preserved when moving the object\n1.8. A
+      new type of interactive object has been added \u2014 interaction now requires
+      a button press\n1.9. A notice board has been added\n\n2. Balance & Economy\n2.1.
+      Product prices have been updated\n\n3. Visual Changes\n\n3.1. Updated icons
+      for plants, products, and beds\n3.2. Updated bed visuals\n\n4. Audio\n4.1.
+      Footstep sounds have been balanced\n4.2. Checkout scanner sound volume has
+      been reduced"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Localized: Upcoming Changes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Localized: "1. Radio\nRadio will appear in the game. It can be turned on to
+      listen to music and informational broadcasts.\n2. Plant watering system\nPlants
+      will need to be watered periodically. Without watering their growth will slow
+      down or stop completely.\n3. Compost pit\nA system for processing products
+      and organic waste into compost will be added.\n4. Bed fertilizing system\nBeds
+      can be fertilized with compost. Without fertilization plants will eventually
+      stop growing.\n5. Technical interface improvements\nInternal improvements to
+      the UI system will be implemented. They will not change gameplay but will speed
+      up further development and improve interface stability.\n6. Production zone\nA
+      production processing zone will be added. For example vegetables and fruits
+      can be processed into new products (for example carrot \u2192 carrot juice).\n7.
+      Changing the size of game zones\nA system for changing the size of zones using
+      neighboring territories will appear.\n8. New game zones\nNew functional zones
+      are planned:\n8.1. restaurant\n8.2. kitchen\n8.3. warehouse\n\nYou can suggest
+      ideas for future updates or report bugs in the game comments or in the Telegram
+      channel: t.me/MoodyDustGames"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

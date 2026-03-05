@@ -1,51 +1,44 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using UnityEngine;
-using VContainer.Unity;
+﻿using UnityEngine;
 
 namespace CameraScripts
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class CameraMovement : ITickable
+    public class CameraMovement
     {
         private readonly CameraConfig config;
-        private readonly Transform transform;
-      
+        private readonly Transform cameraTransform;
+        
         private Transform target;
 
         public CameraMovement
             (
-                Camera cam,
-                Transform target,
-                CameraConfig config
+                CameraConfig config,
+                Transform cameraTransform,
+                Transform target
             )
         {
             this.config = config;
+            this.cameraTransform = cameraTransform;
             this.target = target;
-            transform = cam.transform;
         }
 
-        public void Tick()
+        public void Tick(float t)
         {
-            if (!target)
-                return;
-            var targetCamPos = target.position + config.CameraPosition + config.CameraOffset;
-            var targetRotation = Quaternion.Euler(config.CameraRotation);
-            transform.position = Vector3.Lerp(
-                                              transform.position,
-                                              targetCamPos,
-                                              config.Smoothing * Time.deltaTime
-                                             );
-            transform.rotation = Quaternion.Lerp(
-                                                 transform.rotation,
-                                                 targetRotation,
-                                                 config.Smoothing * Time.deltaTime
-                                                );
+            cameraTransform.position = Vector3.Lerp(
+                                                    cameraTransform.position,
+                                                    target.position + config.CameraPosition,
+                                                    config.Smoothing * t
+                                                   );
+            cameraTransform.rotation = Quaternion.Lerp(
+                                                       cameraTransform.rotation,
+                                                       Quaternion.Euler(config.CameraRotation),
+                                                       config.Smoothing * t
+                                                      );
         }
 
-        [SuppressMessage("ReSharper", "ParameterHidesMember")]
-        public void ChangeTarget(Transform target)
+        public void ChangeTarget(Transform t)
         {
-            this.target = target;
+            target = t;
         }
     }
 }

@@ -213,9 +213,9 @@ namespace BuildingsAndGrid.Environment
                                                      },
                                                      gridEnvConfig.Shelf,
                                                      Quaternion.identity);
-            // var shelfScope = shelf.GetComponent<ShelfOfGoodsLifetimeScope>();
-            // var shelfInventory = shelfScope.Container.Resolve<ShelfInventory>();
-            // shelfInventory.ChangeConfig(shelfInventory.Inventories.First(), gridEnvConfig.DefaultItemConfig);
+            var shelfScope = shelf.GetComponent<ShelfOfGoodsLifetimeScope>();
+            var shelfInventory = shelfScope.Container.Resolve<ShelfInventory>();
+            shelfInventory.ChangeConfig(shelfInventory.Inventories.First(), gridEnvConfig.DefaultItemConfig);
             
             //Landing For Carrot
             var landing = buildingPlacer.PlaceBuilding(new TileAroundInfoWithPosition(Vector2Int.zero,
@@ -237,6 +237,23 @@ namespace BuildingsAndGrid.Environment
             var landingScope = landing.GetComponent<LandingPlantIsItemLifetimeScope>();
             var landingC = landingScope.Container.Resolve<LandingPlantIsItemController>();
             landingC.ChangeConfig(gridEnvConfig.DefaultPlantConfig);
+            
+            buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
+                                                      new List<TileAroundInfo>
+                                                      {
+                                                          new(Area.Shop, 4),
+                                                      }),
+                                                     new List<TileAroundInfoWithPosition>
+                                                     {
+                                                         new(new Vector2Int(-13, gridEnvConfig.Landing.Size.y - 1),
+                                                             new List<TileAroundInfo>
+                                                             {
+                                                                 new(Area.Wall, 3),
+                                                                 new(Area.None, 1),
+                                                             })
+                                                     },
+                                                     gridEnvConfig.BulletinBoard,
+                                                     Quaternion.identity);
             //Deleter
             buildingPlacer.TryPlaceBuildingByPattern(new TileAroundInfoWithPosition(Vector2Int.zero,
                                                       new List<TileAroundInfo>
@@ -254,7 +271,6 @@ namespace BuildingsAndGrid.Environment
                                                      },
                                                      gridEnvConfig.Deleter,
                                                      Quaternion.identity);
-            
         }
         
         private void CreateEnvironment()

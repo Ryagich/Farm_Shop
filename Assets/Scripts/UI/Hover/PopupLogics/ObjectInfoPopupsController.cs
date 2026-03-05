@@ -57,26 +57,39 @@ namespace UI.Hover.PopupLogics
 
         private void OnClick(ClickMessage msg)
         {
-            if (!HavePopup)
-                return;
             var pos = inputConfig.PointerPosition.action.ReadValue<Vector2>();
-            var isPopup = IsClickInsidePopup(currentPopup, pos);
-            // RectTransformUtility.RectangleContainsScreenPoint(currentPopup.Root, pos, null);
-            if (isPopup)
+            var hover = hoverRaycaster.GetHoveredObject(pos);
+            if (hover)
+            {
+                hover.ObjectPopup.ClickOnObject();
+            }
+            if (!HavePopup)
+            {
                 return;
+            }
+            if (IsClickInsidePopup(currentPopup, pos))
+            {
+                return;
+            }
             if (IsFixed)
+            {
                 IsFixed = false;
+            }
         }
         
         private bool IsClickInsidePopup(IObjectPopup popup, Vector2 screenPos)
         {
             if (popup.Root &&
                 RectTransformUtility.RectangleContainsScreenPoint(popup.Root, screenPos, null))
+            {
                 return true;
+            }
             foreach (var child in popup.Children)
             {
                 if (RectTransformUtility.RectangleContainsScreenPoint(child, screenPos, null))
+                {
                     return true;
+                }
             }
 
             return false;
@@ -86,15 +99,22 @@ namespace UI.Hover.PopupLogics
         {
             if (currentHover && (gameModesController.GameMode is GameMode.Game
                               || gameModesController.GameMode is GameMode.Inventory))
+            {
                 IsFixed = !IsFixed;
+            }
         }
 
         public void Tick()
         {
             if (IsFixed)
             {
-                if (currentPopup.Root)
-                    UpdatePosition();
+                if (currentPopup == null || !currentPopup.Root)
+                {
+                    IsFixed = false;
+                    currentPopup = null;
+                    return;
+                }
+                UpdatePosition();
                 return;
             }
 
@@ -102,7 +122,8 @@ namespace UI.Hover.PopupLogics
             var hoverTrigger = hoverRaycaster.GetHoveredObject(position);
 
             if (!currentHover && !hoverTrigger || (gameModesController.GameMode != GameMode.Game
-                                                && gameModesController.GameMode != GameMode.Inventory))
+                                                && gameModesController.GameMode != GameMode.Inventory
+                                                && gameModesController.GameMode != GameMode.Dialogue))
             {
                 ClosePopup();
             }
@@ -135,7 +156,9 @@ namespace UI.Hover.PopupLogics
             }
             currentHover = hoverTrigger;
             if (currentHover)
+            {
                 currentHover.Disposabled += Subscribe;
+            }
         }
 
         private void Subscribe()

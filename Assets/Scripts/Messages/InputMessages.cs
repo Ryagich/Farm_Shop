@@ -18,6 +18,7 @@ namespace Messages
     public readonly struct RightClickMessage { }
     public readonly struct LeftRotateMessage { }
     public readonly struct RightRotateMessage { }
+    public readonly struct InteractableInputMessage { }
 
     public readonly struct ChangeGameModeRequest
     {
@@ -26,6 +27,16 @@ namespace Messages
         public ChangeGameModeRequest(GameMode mode)
         {
             Mode = mode;
+        }
+    }
+    
+    public readonly struct ChangeGameModeToDialogueRequest
+    {
+        public readonly Transform CameraPoint;
+
+        public ChangeGameModeToDialogueRequest(Transform cameraPoint)
+        {
+            CameraPoint = cameraPoint;
         }
     }
     

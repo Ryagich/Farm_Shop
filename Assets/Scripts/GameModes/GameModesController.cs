@@ -1,9 +1,6 @@
-﻿using Localization;
-using MessagePipe;
+﻿using MessagePipe;
 using Messages;
-using Utils;
 using VContainer.Unity;
-using YG;
 
 namespace GameModes
 {
@@ -19,15 +16,17 @@ namespace GameModes
             (
                 IPublisher<GameModeChangedMessage> gameModeChangedPublisher,
                 IPublisher<ChangeCursorStateMessage> changeCursorStatePublisher,
-                ISubscriber<OpenShopWithAreaRequest> OpenShopWithAreaRequestSubscriber,
-                ISubscriber<ChangeGameModeRequest> OpenPageRequestSubscriber
+                ISubscriber<OpenShopWithAreaRequest> openShopWithAreaRequestSubscriber,
+                ISubscriber<ChangeGameModeRequest> openPageRequestSubscriber,
+                ISubscriber<ChangeGameModeToDialogueRequest> changeGameModeToDialogueSubscriber
             )
         {
             this.gameModeChangedPublisher = gameModeChangedPublisher;
             this.changeCursorStatePublisher = changeCursorStatePublisher;
 
-            OpenShopWithAreaRequestSubscriber.Subscribe(OpenShopWithArea);
-            OpenPageRequestSubscriber.Subscribe(OpenPage);
+            openPageRequestSubscriber.Subscribe(OpenPage);
+            openShopWithAreaRequestSubscriber.Subscribe(OpenShopWithArea);
+            changeGameModeToDialogueSubscriber.Subscribe(OpenDialoguePage);
         }
 
         public void Start()
@@ -75,6 +74,21 @@ namespace GameModes
             GameMode = GameMode.Shop;
             gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode, msg.Area));
         }
+        
+        private void OpenDialoguePage(ChangeGameModeToDialogueRequest msg)
+        {
+            if (GameMode is GameMode.Dialogue)
+            {
+                EnterMainGameMode();
+                return;
+            }
+            if (GameMode is not GameMode.Game)
+            {
+                return;
+            }
+            GameMode = GameMode.Dialogue;
+            gameModeChangedPublisher.Publish(new GameModeChangedMessage(GameMode));
+        }
     }
 
     public enum GameMode
@@ -82,7 +96,8 @@ namespace GameModes
         Game,
         Shop,
         Inventory,
-        Redactor
+        Redactor,
+        Dialogue,
     }
     
     public enum Area
@@ -91,6 +106,6 @@ namespace GameModes
         Garden,
         Shop,
         Production,
-        Wall
+        Wall,
     }
 }

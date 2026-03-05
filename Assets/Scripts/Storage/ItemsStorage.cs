@@ -45,7 +45,7 @@ namespace Storage
                               Items.Add(config);
 
                           }
-                
+                          Items.Sort((a, b) => a.Price.CompareTo(b.Price));
                           readyTcs.SetResult(true);
                       });
         }

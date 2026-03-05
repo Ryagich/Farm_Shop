@@ -214,6 +214,58 @@ MonoBehaviour:
     m_Localized: "Meyve yata\u011F\u0131"
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Localized: Kapat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Localized: "Yama Notlar\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Localized: "Yama Notlar\u0131\n1. Oyun Sistemleri\n1.1. Bitki yeti\u015Ftirme
+      sistemi yeniden d\xFCzenlendi\n1.2. Raf yerle\u015Ftirme ve kullan\u0131m mant\u0131\u011F\u0131
+      g\xFCncellendi\n1.3. \xDCr\xFCnler art\u0131k ayr\u0131 raf gerektirmiyor.
+      Raf yerle\u015Ftirildikten sonra hangi \xFCr\xFCnlerin yerle\u015Ftirilece\u011Fi
+      se\xE7ilebilir\n1.4. Raflarda se\xE7ilen \xFCr\xFCnler art\u0131k kaydediliyor\n1.5.
+      Yatak sistemi yeniden d\xFCzenlendi: yataklar ve tohumlar ayr\u0131 sat\u0131n
+      al\u0131n\u0131r, ard\u0131ndan hangi bitkinin ekilece\u011Fi se\xE7ilir\n1.6.
+      Bitkiler art\u0131k t\xFCrlere ayr\u0131ld\u0131. Her t\xFCr yaln\u0131zca
+      uygun yata\u011Fa ekilebilir\n1.7. Nesne ta\u015F\u0131nd\u0131\u011F\u0131nda
+      ayarlar\u0131 korunur\n1.8. Yeni bir etkile\u015Fimli nesne t\xFCr\xFC eklendi
+      \u2014 etkile\u015Fim i\xE7in d\xFC\u011Fmeye basmak gerekir\n1.9. Duyuru panosu
+      eklendi\n\n2. Denge ve ekonomi\n2.1. \xDCr\xFCn fiyatlar\u0131 g\xFCncellendi\n\n3.
+      G\xF6rsel de\u011Fi\u015Fiklikler\n\n3.1. Bitki, \xFCr\xFCn ve yatak simgeleri
+      g\xFCncellendi\n3.2. Yataklar\u0131n g\xF6rselleri g\xFCncellendi\n\n4. Ses\n4.1.
+      Ad\u0131m sesleri dengelendi\n4.2. Kasa taray\u0131c\u0131 sesi azalt\u0131ld\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Localized: "Yakla\u015Fan de\u011Fi\u015Fiklikler"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Localized: "1. Radyo\nOyuna m\xFCzik ve bilgilendirici yay\u0131nlar\u0131
+      dinleyebilece\u011Finiz bir radyo eklenecek.\n2. Bitki sulama sistemi\nBitkilerin
+      d\xFCzenli olarak sulanmas\u0131 gerekecek. Sulama yap\u0131lmazsa b\xFCy\xFCmeleri
+      yava\u015Flayacak veya tamamen duracakt\u0131r.\n3. Kompost \xE7ukuru\n\xDCr\xFCnleri
+      ve organik at\u0131klar\u0131 komposta d\xF6n\xFC\u015Ft\xFCren bir sistem
+      eklenecek.\n4. Yatak g\xFCbreleme sistemi\nYataklar kompost ile g\xFCbrelenebilecek.
+      G\xFCbreleme yap\u0131lmazsa bitkiler zamanla b\xFCy\xFCmeyi durduracakt\u0131r.\n5.
+      Aray\xFCz i\xE7in teknik iyile\u015Ftirmeler\nUI sisteminde dahili iyile\u015Ftirmeler
+      yap\u0131lacak. Bunlar oynan\u0131\u015F\u0131 de\u011Fi\u015Ftirmeyecek ancak
+      geli\u015Ftirmeyi h\u0131zland\u0131racak ve aray\xFCz kararl\u0131l\u0131\u011F\u0131n\u0131
+      art\u0131racakt\u0131r.\n6. \xDCretim b\xF6lgesi\n\xDCr\xFCnlerin i\u015Flendi\u011Fi
+      bir \xFCretim b\xF6lgesi eklenecek. \xD6rne\u011Fin sebze ve meyveler yeni
+      \xFCr\xFCnlere d\xF6n\xFC\u015Ft\xFCr\xFClebilecek (\xF6rne\u011Fin havu\xE7
+      \u2192 havu\xE7 suyu).\n7. Oyun b\xF6lgelerinin boyutunu de\u011Fi\u015Ftirme\nKom\u015Fu
+      b\xF6lgeler kullan\u0131larak b\xF6lgelerin boyutunun de\u011Fi\u015Ftirilebildi\u011Fi
+      bir sistem eklenecek.\n8. Yeni oyun b\xF6lgeleri\nYeni i\u015Flevsel b\xF6lgelerin
+      eklenmesi planlanmaktad\u0131r:\n8.1. restoran\n8.2. mutfak\n8.3. depo\n\nGelecekteki
+      g\xFCncellemeler i\xE7in fikirler \xF6nerebilir veya hatalar\u0131 oyun yorumlar\u0131nda
+      ya da Telegram kanal\u0131nda bildirebilirsiniz: t.me/MoodyDustGames"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

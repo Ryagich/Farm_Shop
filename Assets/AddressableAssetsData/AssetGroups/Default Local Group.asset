@@ -89,6 +89,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Plants
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c53204e20c5836e42b3c5d45c08dfc33
+    m_Address: Assets/Configs/Storage/Buildings/Bulletin Board BuildingConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Buildings
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee969ba1ab757ce4381cd5bdbeae6bdf
     m_Address: Assets/Configs/Storage/Buildings/Landings/Vegetable Landing  BuildingConfig.asset
     m_ReadOnly: 0

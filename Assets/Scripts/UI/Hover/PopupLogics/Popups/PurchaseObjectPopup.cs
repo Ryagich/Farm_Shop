@@ -46,7 +46,8 @@ namespace UI.Hover.PopupLogics.Popups
             
             return this;
         }
-
+        
+        public void ClickOnObject() { }
         public void Redraw() { }
         public void Subscribe() { }
     } 

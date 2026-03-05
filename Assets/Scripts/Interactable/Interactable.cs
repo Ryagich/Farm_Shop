@@ -8,7 +8,11 @@ namespace Interactable
     {
         public event Action<LifetimeScope> Interacted;
         public event Action<LifetimeScope> EndInteracted;
+        public event Action<LifetimeScope> EndManualInteracted;
+        public event Action<Interactable> Destroyed;
 
+        public InteractionMode InteractionMode = InteractionMode.Automatic; 
+        
         public void Interact(LifetimeScope scope)
         {
             Interacted?.Invoke(scope);
@@ -18,5 +22,21 @@ namespace Interactable
         {
             EndInteracted?.Invoke(scope);
         }
+        
+        public void EndManualInteract(LifetimeScope scope)
+        {
+            EndManualInteracted?.Invoke(scope);
+        }
+        
+        private void OnDestroy()
+        {
+            Destroyed?.Invoke(this);
+        }
+    }
+    
+    public enum InteractionMode
+    {
+        Automatic, // по входу в коллайдер, тиковое
+        Manual     // по нажатию клавиши
     }
 }

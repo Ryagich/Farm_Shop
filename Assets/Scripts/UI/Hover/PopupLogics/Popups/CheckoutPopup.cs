@@ -141,6 +141,8 @@ namespace UI.Hover.PopupLogics.Popups
             Dispose();
         }
 
+        public void ClickOnObject() { }
+        
         private void ChangeInteractableState()
         {
             buildingInteractableFlag.IsInteractable = !buildingInteractableFlag.IsInteractable;

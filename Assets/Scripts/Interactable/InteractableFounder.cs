@@ -38,11 +38,20 @@ namespace Interactable
 
         private void OnTriggerExit(Collider other)
         {
+            Debug.Log($"OnTriggerExit");
             if (((1 << other.gameObject.layer) & config.InteractiveLayers) != 0)
             {
+                Debug.Log($"in layer");
                 var interactable = other.GetComponentInParent<Interactable>();
                 if (interactable)
+                {
                     interactableEndPublisher.Publish(new InteractableEndMessage(interactable));
+                    Debug.Log($"have interactable");
+                }
+                else
+                {
+                    Debug.Log($"not interactable");
+                }
             }
         }
     }

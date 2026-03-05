@@ -1,11 +1,12 @@
 ﻿using CameraScripts;
+using Dialogue;
 using Interactable;
 using Inventory;
 using Inventory.Movers;
-using Inventory.ObjectInventory;
 using Inventory.ObjectInventory.Sounds;
 using Movement;
 using Sounds;
+using UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -15,7 +16,8 @@ namespace Container
     public class PlayerLifetimeScope : LifetimeScope
     {
         [SerializeField] private StepSoundConfig stepSoundConfig;
-        
+        [SerializeField] private CanvasLifetimeScope canvasLifetimeScope;
+
         protected override void Configure(IContainerBuilder builder)
         {
             var hand = transform.Find("Hand");
@@ -41,7 +43,13 @@ namespace Container
             builder.Register<PlayerParticleController>(Lifetime.Scoped);
             builder.Register<PlayerAnimationController>(Lifetime.Scoped);
 
-            builder.RegisterEntryPoint<CameraMovement>().AsSelf();
+            builder.RegisterBuildCallback(_ =>
+                                          {
+                                              CreateChildFromPrefab(canvasLifetimeScope);
+                                          });
+            
+            builder.RegisterEntryPoint<DialogueController>().AsSelf();
+            builder.RegisterEntryPoint<CameraMotor>().AsSelf();
             builder.RegisterEntryPoint<InventoryPlayer>().AsSelf();
             builder.RegisterEntryPoint<InventoryPlayerItemMover>().AsSelf();
             builder.RegisterEntryPoint<PlayerInteractableLogic>().AsSelf();

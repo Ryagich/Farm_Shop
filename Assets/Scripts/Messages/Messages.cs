@@ -318,4 +318,6 @@ namespace Messages
             Parent = parent;
         }
     }
+    
+    public readonly struct OpenPatchNote { }
 }

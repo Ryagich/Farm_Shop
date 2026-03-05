@@ -16,5 +16,6 @@ namespace Input
         [field: SerializeField] public InputActionReference OpenShopMode { get; private set; }
         [field: SerializeField] public InputActionReference LeftRotate { get; private set; }
         [field: SerializeField] public InputActionReference RightRotate { get; private set; }
+        [field: SerializeField] public InputActionReference Interactable { get; private set; }
     }
 }

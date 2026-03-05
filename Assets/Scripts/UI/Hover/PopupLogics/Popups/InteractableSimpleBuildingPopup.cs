@@ -78,6 +78,7 @@ namespace UI.Hover.PopupLogics.Popups
         }
 
         public void Subscribe() { }
+        public void ClickOnObject() { }
 
         private void Move()
         {

@@ -324,6 +324,8 @@ namespace UI.Hover.PopupLogics.Popups
             Redraw();
         }
         
+        public void ClickOnObject() { }
+
         public void Dispose()
         {
             disposables.Dispose();

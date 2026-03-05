@@ -14,9 +14,7 @@ namespace UI
             builder.RegisterInstance(Canvas).As<Canvas>();
             
             builder.Register<MainPage>(Lifetime.Singleton);
-            // builder.Register<MainPageWithUI>(Lifetime.Scoped);
             builder.Register<ShopPage>(Lifetime.Singleton);
-            // builder.Register<InventoryPage>(Lifetime.Scoped);
             builder.Register<RedactorPage>(Lifetime.Singleton);
             builder.Register<UIUtils>(Lifetime.Singleton);
             builder.Register<HelpInfoDrawer>(Lifetime.Singleton);
@@ -24,7 +22,9 @@ namespace UI
             builder.RegisterEntryPoint<PagesController>();
             builder.RegisterEntryPoint<InventoryPage>().AsSelf();
             builder.RegisterEntryPoint<MainPageWithUI>().AsSelf();
+            builder.RegisterEntryPoint<DialoguePage>().AsSelf();
             builder.RegisterEntryPoint<ObjectInfoPopupsController>().AsSelf();
+            builder.RegisterEntryPoint<InteractableInterface>().AsSelf();
         }
     }
 }

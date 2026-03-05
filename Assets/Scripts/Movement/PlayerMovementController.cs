@@ -20,7 +20,7 @@ namespace Movement
         private readonly VirtualPlayerMovement virtualPlayerMovement;
         private readonly PlayerParticleController playerParticleController;
         private readonly PlayerAnimationController playerAnimationController;
-        private readonly CameraMovement cameraMovement;
+        private readonly CameraMotor cameraMotor;
         private readonly ISubscriber<GameModeChangedMessage> gameModeChangedSubscriber;
 
         private Vector2 direction;
@@ -37,7 +37,7 @@ namespace Movement
                 VirtualPlayerMovement virtualPlayerMovement,
                 PlayerParticleController playerParticleController,
                 PlayerAnimationController playerAnimationController,
-                CameraMovement cameraMovement,
+                CameraMotor cameraMotor,
                 ISubscriber<GameModeChangedMessage> gameModeChangedSubscriber,
                 ISubscriber<PlayerMoveMessage> playerMoveSubscriber
             )
@@ -50,7 +50,7 @@ namespace Movement
             this.virtualPlayerMovement = virtualPlayerMovement;
             this.playerParticleController = playerParticleController;
             this.playerAnimationController = playerAnimationController;
-            this.cameraMovement = cameraMovement;
+            this.cameraMotor = cameraMotor;
             this.gameModeChangedSubscriber = gameModeChangedSubscriber;
 
             playerMoveSubscriber.Subscribe(OnMove);
@@ -73,7 +73,7 @@ namespace Movement
                 virtualPlayerMovement.ChangeState(false, transform.position);
                 playerParticleController.ChangeState(true, direction);
                 playerAnimationController.ChangeState(true, direction);
-                cameraMovement.ChangeTarget(transform);
+                cameraMotor.ChangeGameplayTarget(transform);
             }
             else if (msg.GameMode is GameMode.Inventory or GameMode.Redactor)
             {
@@ -81,7 +81,7 @@ namespace Movement
                 virtualPlayerMovement.ChangeState(true, transform.position);
                 playerParticleController.ChangeState(false, direction);
                 playerAnimationController.ChangeState(false, direction);
-                cameraMovement.ChangeTarget(vpTransform);
+                cameraMotor.ChangeGameplayTarget(vpTransform);
             }
             else
             {
@@ -89,7 +89,7 @@ namespace Movement
                 virtualPlayerMovement.ChangeState(false, transform.position);
                 playerParticleController.ChangeState(false, direction);
                 playerAnimationController.ChangeState(false, direction);
-                cameraMovement.ChangeTarget(transform);
+                cameraMotor.ChangeGameplayTarget(transform);
             }
         }
         

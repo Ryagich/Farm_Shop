@@ -1,6 +1,5 @@
 ﻿using BuildingsAndGrid;
 using Container.Project;
-using UI;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -10,7 +9,6 @@ namespace Container.Game
     {
         [SerializeField] private GameLifetimeScope gameScopePrefab;
         [SerializeField] private GridLifetimeScope gridLifetimeScope;
-        [SerializeField] private CanvasLifetimeScope canvasLifetimeScope;
 
         private async void Awake()
         {
@@ -20,7 +18,6 @@ namespace Container.Game
             var projectScope = LifetimeScope.Find<ProjectLifetimeScope>();
             var gameLifetimeScope = projectScope.CreateChildFromPrefab(gameScopePrefab);
             gameLifetimeScope.CreateChildFromPrefab(gridLifetimeScope);
-            gameLifetimeScope.CreateChildFromPrefab(canvasLifetimeScope);
         }
     }
 } 

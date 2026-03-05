@@ -14,11 +14,11 @@ namespace UI.Pages
         private readonly UIConfig uiConfig;
         private readonly ObjectInfoPopupsController objectInfoPopupsController;
         private readonly HelpInfoDrawer helpInfoDrawer;
-        private readonly RectTransform canvasRect;
         private readonly IObjectResolver resolver;
         private readonly UIUtils uiUtils;
 
-        private RectTransform contentRect = null!;
+        private readonly RectTransform canvasRect;
+        private RectTransform contentRect;
         private bool isActive;
         private RectTransform helpRect;
 
@@ -67,7 +67,9 @@ namespace UI.Pages
         public override void Hide()
         {
             if (contentRect)
+            {
                 Object.Destroy(contentRect.gameObject);
+            }
             isActive = false;
         }
     }

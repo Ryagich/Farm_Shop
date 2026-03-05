@@ -17,6 +17,7 @@ namespace Input
         private readonly IPublisher<RightClickMessage> rightClickPublisher;
         private readonly IPublisher<LeftRotateMessage> leftRotatePublisher;
         private readonly IPublisher<RightRotateMessage> rightRotatePublisher;
+        private readonly IPublisher<InteractableInputMessage> interactableInputPublisher;
 
         [SuppressMessage("ReSharper", "ParameterHidesMember")]
         private InputHandler
@@ -27,7 +28,8 @@ namespace Input
                 IPublisher<ClickMessage> clickPublisher,
                 IPublisher<RightClickMessage> rightClickPublisher,
                 IPublisher<LeftRotateMessage> leftRotatePublisher,
-                IPublisher<RightRotateMessage> rightRotatePublisher
+                IPublisher<RightRotateMessage> rightRotatePublisher,
+                IPublisher<InteractableInputMessage> interactableInputPublisher
             )
         {
             this.inputConfig = inputConfig;
@@ -37,6 +39,7 @@ namespace Input
             this.rightClickPublisher = rightClickPublisher;
             this.leftRotatePublisher = leftRotatePublisher;
             this.rightRotatePublisher = rightRotatePublisher;
+            this.interactableInputPublisher = interactableInputPublisher;
         }
 
         public void Start()
@@ -50,6 +53,7 @@ namespace Input
             inputConfig.OpenShopMode.action.started += OpenShopMode;
             inputConfig.RightRotate.action.started += RightRotate;
             inputConfig.LeftRotate.action.started += LeftRotate;
+            inputConfig.Interactable.action.started += Interactable;
         }
         
         private void RightRotate(InputAction.CallbackContext context)
@@ -85,6 +89,11 @@ namespace Input
         private void OpenShopMode(InputAction.CallbackContext context)
         {
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameModes.GameMode.Shop));
+        }
+        
+        private void Interactable(InputAction.CallbackContext context)
+        {
+            interactableInputPublisher.Publish(new InteractableInputMessage());
         }
         
         private void OnMove(InputAction.CallbackContext context)

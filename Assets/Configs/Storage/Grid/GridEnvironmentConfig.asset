@@ -17,6 +17,7 @@ MonoBehaviour:
   <Checkout>k__BackingField: {fileID: 11400000, guid: 3045ff5de011d27419fcb1b3c368eb0b, type: 2}
   <Landing>k__BackingField: {fileID: 11400000, guid: ee969ba1ab757ce4381cd5bdbeae6bdf, type: 2}
   <Shelf>k__BackingField: {fileID: 11400000, guid: fdc1a6b485dff974d8a636c556314df9, type: 2}
+  <BulletinBoard>k__BackingField: {fileID: 11400000, guid: c53204e20c5836e42b3c5d45c08dfc33, type: 2}
   <DefaultItemConfig>k__BackingField: {fileID: 11400000, guid: 9369fa5abea4fdf40b9772357b6d27e1, type: 2}
   <DefaultPlantConfig>k__BackingField: {fileID: 11400000, guid: 236ce095bf8cf0b499ae093a0ac90d41, type: 2}
   <Deleter>k__BackingField: {fileID: 11400000, guid: fd08f0e031b5a214ea1b39999abf557b, type: 2}

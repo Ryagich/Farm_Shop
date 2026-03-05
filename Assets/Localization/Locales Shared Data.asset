@@ -211,6 +211,26 @@ MonoBehaviour:
     m_Key: Building_Name_Fruit_Bed
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Key: Word_Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Key: Patch_Notes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Key: Patch_Description_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Key: Upcoming Changes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Key: In Future
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

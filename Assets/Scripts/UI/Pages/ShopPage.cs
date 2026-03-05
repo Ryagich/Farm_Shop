@@ -165,7 +165,10 @@ namespace UI.Pages
 
         public override void Hide()
         {
-            if (contentRect) Object.Destroy(contentRect.gameObject);
+            if (contentRect)
+            {
+                Object.Destroy(contentRect.gameObject);
+            }
         }
     }
 }

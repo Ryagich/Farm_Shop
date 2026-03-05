@@ -56,7 +56,8 @@ namespace UI.Hover.PopupLogics.Popups
 
         public void Redraw() { }
         public void Subscribe() { }
-
+        public void ClickOnObject() { }
+        
         private void Move()
         {
             deleteBuildingOnGridPublisher.Publish(new DeleteBuildingOnGridRequest(building, false, building.Cell));

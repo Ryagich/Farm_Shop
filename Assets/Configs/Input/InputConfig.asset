@@ -21,3 +21,4 @@ MonoBehaviour:
   <OpenShopMode>k__BackingField: {fileID: 410616583666334882, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
   <LeftRotate>k__BackingField: {fileID: 4926979620118285200, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
   <RightRotate>k__BackingField: {fileID: -4060825139932532229, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}
+  <Interactable>k__BackingField: {fileID: -5256035956118110655, guid: dc57aa01b6f5c224ba9ba6d860fc1bb3, type: 3}

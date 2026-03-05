@@ -182,6 +182,7 @@ namespace Inventory.ObjectInventory
         
         public void ChangeConfig(PlacesInventory placesInventory, ItemConfig itemConfig)
         {
+            Debug.Log($"ChangeConfig");
             placesInventory.ChangeItemConfig(itemConfig);
             var index = Inventories.IndexOf(placesInventory);
             var shelfSave = YG2.saves.ShelvesSave.FirstOrDefault(s => s.Cell.Equals(building.Cell) 
@@ -190,10 +191,6 @@ namespace Inventory.ObjectInventory
             {
                 shelfSave.inventoriesInfo[index] = (itemConfig.Id, 0);
                 YG2.SaveProgress();
-            }
-            else
-            {
-                Debug.LogError($"Полка работает, но не записана в сейвы | форшмак");
             }
         }
 
@@ -205,9 +202,6 @@ namespace Inventory.ObjectInventory
             {
                 var index = Inventories.IndexOf(inventory);
                 shelfSave.inventoriesInfo[index] = (config.Id, inventory.Items.Count);
-                Debug.Log($"Shelf {shelfSave.inventoriesInfo[index].Item2}");
-                Debug.Log($"Shelf 2 {YG2.saves.ShelvesSave.First(s => s.Cell.Equals(building.Cell)&& s.Id.Equals(building.BuildingConfig.Id)).inventoriesInfo[index].Item2}");
-
                 YG2.SaveProgress();
             }
         }

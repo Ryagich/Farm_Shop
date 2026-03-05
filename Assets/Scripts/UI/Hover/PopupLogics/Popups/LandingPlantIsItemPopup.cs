@@ -269,6 +269,8 @@ namespace UI.Hover.PopupLogics.Popups
             changeGameModeRequestPublisher.Publish(new ChangeGameModeRequest(GameMode.Redactor));
         }
         
+        public void ClickOnObject() { }
+
         public void Dispose()
         {
             disposables.Dispose();

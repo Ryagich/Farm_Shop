@@ -30,3 +30,6 @@ MonoBehaviour:
   <SectionButtonsPositionForRedactorPage>k__BackingField: {x: 5, y: 0, z: 0}
   <OffsetForProductionCards>k__BackingField: {x: 10, y: -10}
   <SpaceBetweenProductionCards>k__BackingField: 25
+  <InteractableText>k__BackingField: {fileID: 3833357384897796184, guid: 81e69219b87a25a429396377d4e42d28, type: 3}
+  <ButtonArrowLeft>k__BackingField: {fileID: 5555140077156513882, guid: 4a95478e5f1a2c04a8cc67ad41381276, type: 3}
+  <ButtonArrowRight>k__BackingField: {fileID: 5547900360053230561, guid: 753e50b2c24c5c94cb4ae1c57b314b2a, type: 3}

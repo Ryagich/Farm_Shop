@@ -60,8 +60,10 @@ namespace Container.Game
                 builder.RegisterMessageBroker<AddBuildingToStorageRequest>(options);
                 builder.RegisterMessageBroker<AddPlantToStorageRequest>(options);
                 builder.RegisterMessageBroker<ChangeGameModeRequest>(options);
+                builder.RegisterMessageBroker<ChangeGameModeToDialogueRequest>(options);
                 builder.RegisterMessageBroker<GridExtendMessage>(options);
                 builder.RegisterMessageBroker<BuyerIsOverMessage>(options);
+                builder.RegisterMessageBroker<OpenPatchNote>(options);
                 
                 // === InputHandler ===
                 builder.Register<InputHandler>(Lifetime.Singleton).AsSelf().As<IStartable>();
@@ -73,7 +75,6 @@ namespace Container.Game
                                                   playerScope = CreateChildFromPrefab(PlayerPrefab, _ => { });
                                                   container.Resolve<SoundsManager>().PlayerTransform = playerScope.transform;
                                               });
-                // builder.RegisterEntryPoint<TilesController>(Lifetime.Scoped).AsSelf();
                 //Buyers
                 builder.Register<ShoppingListGenerator>(Lifetime.Singleton).AsSelf();
                 builder.RegisterEntryPoint<SoundsManager>().AsSelf();

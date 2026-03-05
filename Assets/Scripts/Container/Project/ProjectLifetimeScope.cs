@@ -11,6 +11,7 @@ using Inventory.Finance;
 using Inventory.Item;
 using Localization;
 using Movement;
+using Patch;
 using Sounds;
 using UI;
 using UI.Configs;
@@ -24,26 +25,27 @@ namespace Container.Project
 {
     public class ProjectLifetimeScope : LifetimeScope
     {
-        [field: SerializeField] public InputConfig InputConfig { get; private set; } = null!;
-        [field: SerializeField] public CameraConfig CameraConfig { get; private set; } = null!;
-        [field: SerializeField] public PlayerMovementConfig PlayerMovementConfig { get; private set; } = null!;
-        [field: SerializeField] public GravityConfig GravityConfig { get; private set; } = null!;
-        [field: SerializeField] public InteractableConfig InteractableConfig { get; private set; } = null!;
-        [field: SerializeField] public InventoryConfig InventoryConfig { get; private set; } = null!;
-        [field: SerializeField] public ItemsConfig ItemsConfig { get; private set; } = null!;
-        [field: SerializeField] public FinanceConfig FinanceConfig { get; private set; } = null!;
-        [field: SerializeField] public UIConfig UIConfig { get; private set; } = null!;
-        [field: SerializeField] public GridSettings GridSettings { get; private set; } = null!;
-        [field: SerializeField] public HighlightConfig HighlightConfig { get; private set; } = null!;
-        [field: SerializeField] public BuyerSettings BuyerSettings { get; private set; } = null!;
-        [field: SerializeField] public HoverSettings HoverSettings { get; private set; } = null!;
-        [field: SerializeField] public SoundsConfig SoundsConfig { get; private set; } = null!;
-        [field: SerializeField] public GridEnvironmentConfig GridEnvironmentConfig { get; private set; } = null!;
-        [field: SerializeField] public LocalizationConfig LocalizationConfig { get; private set; } = null!;
-        [field: SerializeField] public HelpInfoConfig HelpInfoConfig { get; private set; } = null!;
+        [field: SerializeField] public InputConfig InputConfig { get; private set; }
+        [field: SerializeField] public CameraConfig CameraConfig { get; private set; }
+        [field: SerializeField] public PlayerMovementConfig PlayerMovementConfig { get; private set; }
+        [field: SerializeField] public GravityConfig GravityConfig { get; private set; }
+        [field: SerializeField] public InteractableConfig InteractableConfig { get; private set; }
+        [field: SerializeField] public InventoryConfig InventoryConfig { get; private set; }
+        [field: SerializeField] public ItemsConfig ItemsConfig { get; private set; }
+        [field: SerializeField] public FinanceConfig FinanceConfig { get; private set; }
+        [field: SerializeField] public UIConfig UIConfig { get; private set; }
+        [field: SerializeField] public GridSettings GridSettings { get; private set; }
+        [field: SerializeField] public HighlightConfig HighlightConfig { get; private set; }
+        [field: SerializeField] public BuyerSettings BuyerSettings { get; private set; }
+        [field: SerializeField] public HoverSettings HoverSettings { get; private set; }
+        [field: SerializeField] public SoundsConfig SoundsConfig { get; private set; }
+        [field: SerializeField] public GridEnvironmentConfig GridEnvironmentConfig { get; private set; } 
+        [field: SerializeField] public LocalizationConfig LocalizationConfig { get; private set; }
+        [field: SerializeField] public HelpInfoConfig HelpInfoConfig { get; private set; }
         [field: SerializeField] public SpritesConfig SpritesConfig { get; private set; }
-        [field: SerializeField] public PopupHolders PopupHolders { get; private set; } = null!;
-
+        [field: SerializeField] public PopupHolders PopupHolders { get; private set; }
+        [field: SerializeField] public Patches Patches { get; private set; }
+        
         protected override void Configure(IContainerBuilder builder)
         {
             // === Общие зависимости ===
@@ -66,6 +68,7 @@ namespace Container.Project
             builder.RegisterInstance(HelpInfoConfig).AsSelf();
             builder.RegisterInstance(SpritesConfig).AsSelf();
             builder.RegisterInstance(PopupHolders).AsSelf();
+            builder.RegisterInstance(Patches).AsSelf();
             
             builder.RegisterEntryPoint<Bootloader>().AsSelf();
         }

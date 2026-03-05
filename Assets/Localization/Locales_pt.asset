@@ -214,6 +214,58 @@ MonoBehaviour:
     m_Localized: Canteiro de frutas
     m_Metadata:
       m_Items: []
+  - m_Id: 27130050930524160
+    m_Localized: Fechar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27156260410605568
+    m_Localized: "Notas de atualiza\xE7\xE3o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28354470692401152
+    m_Localized: "Notas de atualiza\xE7\xE3o\n1. Sistemas de jogo\n1.1. O sistema
+      de cultivo de plantas foi reformulado\n1.2. Atualizada a l\xF3gica de posicionamento
+      e uso das prateleiras\n1.3. Os produtos n\xE3o exigem mais prateleiras individuais.
+      Ap\xF3s posicionar uma prateleira, \xE9 poss\xEDvel escolher quais produtos
+      ser\xE3o colocados nela\n1.4. Os produtos selecionados nas prateleiras agora
+      s\xE3o salvos\n1.5. O sistema de canteiros foi reformulado: canteiros e sementes
+      s\xE3o adquiridos separadamente, ap\xF3s isso \xE9 poss\xEDvel escolher qual
+      planta cultivar\n1.6. As plantas agora s\xE3o divididas por tipos. Cada tipo
+      pode ser cultivado apenas no canteiro correspondente\n1.7. As configura\xE7\xF5es
+      do objeto s\xE3o mantidas ao mov\xEA-lo\n1.8. Adicionado um novo tipo de objeto
+      interativo \u2014 a intera\xE7\xE3o requer o pressionar de um bot\xE3o\n1.9.
+      Adicionado um quadro de avisos\n\n2. Balanceamento e economia\n2.1. Pre\xE7os
+      dos produtos atualizados\n\n3. Altera\xE7\xF5es visuais\n\n3.1. Atualizados
+      os \xEDcones de plantas, produtos e canteiros\n3.2. Atualizado o visual dos
+      canteiros\n\n4. \xC1udio\n4.1. Sons de passos ajustados\n4.2. Volume do scanner
+      do caixa reduzido"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28379935339589632
+    m_Localized: "Pr\xF3ximas altera\xE7\xF5es"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28556219701297152
+    m_Localized: "1. R\xE1dio\nUm r\xE1dio aparecer\xE1 no jogo. Ele poder\xE1 ser
+      ligado para ouvir programas musicais e informativos.\n2. Sistema de irriga\xE7\xE3o
+      das plantas\nAs plantas precisar\xE3o ser regadas periodicamente. Sem irriga\xE7\xE3o
+      seu crescimento diminuir\xE1 ou parar\xE1 completamente.\n3. Po\xE7o de compostagem\nUm
+      sistema de processamento de produtos e res\xEDduos org\xE2nicos em composto
+      ser\xE1 adicionado.\n4. Sistema de fertiliza\xE7\xE3o dos canteiros\nOs canteiros
+      poder\xE3o ser fertilizados com composto. Sem fertiliza\xE7\xE3o as plantas
+      eventualmente deixar\xE3o de crescer.\n5. Melhorias t\xE9cnicas da interface\nMelhorias
+      internas no sistema de UI ser\xE3o realizadas. Elas n\xE3o mudar\xE3o o gameplay,
+      mas acelerar\xE3o o desenvolvimento futuro e melhorar\xE3o a estabilidade da
+      interface.\n6. Zona de produ\xE7\xE3o\nUma zona de processamento de produtos
+      ser\xE1 adicionada. Por exemplo vegetais e frutas poder\xE3o ser processados
+      em novos produtos (por exemplo cenoura \u2192 suco de cenoura).\n7. Altera\xE7\xE3o
+      do tamanho das zonas do jogo\nUm sistema para alterar o tamanho das zonas usando
+      territ\xF3rios vizinhos aparecer\xE1.\n8. Novas zonas de jogo\nEst\xE1 planejada
+      a adi\xE7\xE3o de novas zonas funcionais:\n8.1. restaurante\n8.2. cozinha\n8.3.
+      armaz\xE9m\n\nVoc\xEA pode sugerir ideias para futuras atualiza\xE7\xF5es ou
+      relatar bugs nos coment\xE1rios do jogo ou no canal do Telegram: t.me/MoodyDustGames"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

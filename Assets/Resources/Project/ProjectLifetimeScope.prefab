@@ -67,3 +67,4 @@ MonoBehaviour:
   <HelpInfoConfig>k__BackingField: {fileID: 11400000, guid: e3a052dc757e9d14fa7c109c14489f2f, type: 2}
   <SpritesConfig>k__BackingField: {fileID: 11400000, guid: 9fa373c319175174587c5febb6c92548, type: 2}
   <PopupHolders>k__BackingField: {fileID: 11400000, guid: 92111fa584d33814fabb78f724c18f8f, type: 2}
+  <Patches>k__BackingField: {fileID: 11400000, guid: 1e939e5a80b1eaa459cb0efec13ba085, type: 2}

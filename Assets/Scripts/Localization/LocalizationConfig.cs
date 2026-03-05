@@ -32,5 +32,7 @@ namespace Localization
         [field: SerializeField] public LocalizedString Edit { get; private set; }
         [field: SerializeField] public LocalizedString Selected { get; private set; } //Выбрано
         [field: SerializeField] public LocalizedString Select { get; private set; } //Выбрать
+        [field: SerializeField] public LocalizedString Close { get; private set; }
+        [field: SerializeField] public LocalizedString PatchInfo { get; private set; }
     }
 }
