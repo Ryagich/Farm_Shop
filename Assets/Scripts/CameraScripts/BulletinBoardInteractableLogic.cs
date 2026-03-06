@@ -13,6 +13,7 @@ namespace CameraScripts
     // ReSharper disable once ClassNeverInstantiated.Global
     public class BulletinBoardInteractableLogic : IStartable
     {
+        private readonly Interactable.Interactable interactable;
         private readonly Transform cameraPosition;
         private readonly GameObject interactableZoneGO;
         private readonly GameObject exitUIZone;
@@ -36,6 +37,7 @@ namespace CameraScripts
                 IPublisher<OpenPatchNote> openPatchNotePublisher
             )
         {
+            this.interactable = interactable;
             this.cameraPosition = cameraPosition;
             this.interactableZoneGO = interactableZoneGO;
             this.exitUIZone = exitUIZone;
@@ -53,7 +55,7 @@ namespace CameraScripts
             interactable.EndInteracted += EndInteract;
             interactable.EndManualInteracted += EndManualInteract;
 
-            exitPopup.Clicked += Close;
+            exitPopup.Clicked += OnExitButton;
             patchInfoPopup.Clicked += OpenPatchNote;
         }
 
@@ -74,6 +76,8 @@ namespace CameraScripts
 
         private void Close()
         {
+            if (interactableZoneGO.activeSelf)
+                return;
             interactableZoneGO.SetActive(true);
             exitUIZone.SetActive(false);
             patchInfoUIZone.SetActive(false);
@@ -86,6 +90,13 @@ namespace CameraScripts
             openPatchNotePublisher.Publish(new OpenPatchNote());
         }
 
+        private void OnExitButton()
+        {
+            // ReSharper disable once Unity.NoNullPropagation
+            interactable?.ObjectEndManualInteracted?.Invoke(interactable);
+            Close();
+        }
+        
         private void EndManualInteract(LifetimeScope scope)
         {
             Close();

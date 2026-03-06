@@ -21,6 +21,7 @@ namespace Interactable
 
         // ReSharper disable once IdentifierTypo
         public readonly ReactiveCollection<Interactable> Interactables = new();
+        private List<Interactable> activeInteractables = new();
 
         public PlayerInteractableLogic
             (
@@ -55,6 +56,12 @@ namespace Interactable
                 interactable.Destroyed -= OnDestroyed;
             }
         }
+
+        private void InteractableEndedInteract(Interactable interactable)
+        {
+            activeInteractables.Remove(interactable);
+            interactable.ObjectEndManualInteracted -= InteractableEndedInteract;
+        }
         
         private void Remove(InteractableEndMessage msg)
         {
@@ -68,7 +75,6 @@ namespace Interactable
             }
         }
 
-        private List<Interactable> activeInteractables = new();
         private void Interact(InteractableInputMessage msg)
         {
             var newActives = new List<Interactable>();
@@ -78,6 +84,7 @@ namespace Interactable
                                                                    && !activeInteractables.Contains(i)))
                 {
                     interactable.Interact(scope);
+                    interactable.ObjectEndManualInteracted += InteractableEndedInteract;
                     newActives.Add(interactable);
                 }
                 manualT = .0f;

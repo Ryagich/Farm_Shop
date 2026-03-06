@@ -7,7 +7,7 @@
     false,
     false
   ],
-  "idSave": 17,
+  "idSave": 28,
   "money": 100,
   "Offset": {
     "x": 1,
@@ -115,10 +115,10 @@
     {
       "Id": "Shelf",
       "Cell": {
-        "x": 26,
-        "y": 19,
-        "magnitude": 32.2024841,
-        "sqrMagnitude": 1037
+        "x": 28,
+        "y": 11,
+        "magnitude": 30.0832176,
+        "sqrMagnitude": 905
       },
       "RotX": 0.0,
       "RotY": 0.0,
@@ -129,10 +129,10 @@
     {
       "Id": "Shelf",
       "Cell": {
-        "x": 26,
-        "y": 19,
-        "magnitude": 32.2024841,
-        "sqrMagnitude": 1037
+        "x": 28,
+        "y": 11,
+        "magnitude": 30.0832176,
+        "sqrMagnitude": 905
       },
       "inventoriesInfo": [
         {
